@@ -22,6 +22,7 @@ import com.mindful.android.helpers.usages.AppsUsageHelper.getAppsUsageForInterva
 import com.mindful.android.models.AppRestriction
 import com.mindful.android.models.BedtimeSchedule
 import com.mindful.android.models.FocusSession
+import com.mindful.android.models.FocusUnlockRule
 import com.mindful.android.models.Notification
 import com.mindful.android.models.NotificationSettings
 import com.mindful.android.models.RestrictionGroup
@@ -169,6 +170,12 @@ class FgMethodCallHandler(
                     call.arguments() ?: ""
                 )
                 updateTrackerServiceRestrictions(null, restrictionGroups)
+                result.success(true)
+            }
+
+            "updateFocusUnlockRules" -> {
+                val rules = JsonUtils.parseFocusUnlockRules(call.arguments() ?: "")
+                updateTrackerServiceFocusUnlockRules(rules)
                 result.success(true)
             }
 
@@ -436,15 +443,23 @@ class FgMethodCallHandler(
 
 
     /**
-     * Updates app and group restrictions in the tracker service.
+     * Updates the earn-unlock sessions in the tracker service.
      * If the service is connected, sends updates directly; otherwise,
      * sets a callback to update once the connection is established and starts the service.
      *
-     * @param appRestrictions   a map of app package names to their respective restrictions,
-     * or null if only group restrictions are being updated.
-     * @param restrictionGroups a map of restriction group IDs to their respective restrictions,
-     * or null if only app-specific restrictions are being updated.
+     * @param rules the saved earn-unlock sessions.
      */
+    private fun updateTrackerServiceFocusUnlockRules(rules: List<FocusUnlockRule>) {
+        if (trackerServiceConn.isActive) {
+            trackerServiceConn.service?.getRestrictionManager?.updateFocusUnlockRules(rules)
+        } else if (rules.any { it.isValid }) {
+            trackerServiceConn.setOnConnectedCallback { service ->
+                service.getRestrictionManager.updateFocusUnlockRules(rules)
+            }
+            trackerServiceConn.startAndBind()
+        }
+    }
+
     private fun updateTrackerServiceRestrictions(
         appRestrictions: HashMap<String, AppRestriction>?,
         restrictionGroups: HashMap<Int, RestrictionGroup>?,

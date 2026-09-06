@@ -873,8 +873,158 @@ abstract class AppLocalizations {
   /// No description provided for @focus_now_fab_button.
   ///
   /// In en, this message translates to:
-  /// **'Focus now'**
+  /// **'Focus'**
   String get focus_now_fab_button;
+
+  /// No description provided for @focus_now_option_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Focus now'**
+  String get focus_now_option_label;
+
+  /// No description provided for @focus_unlock_option_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Earn unlock'**
+  String get focus_unlock_option_label;
+
+  /// No description provided for @focus_unlock_screen_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Earn unlock'**
+  String get focus_unlock_screen_title;
+
+  /// No description provided for @focus_unlock_info.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick the apps you must use first. After you spend the selected time in those apps, the other apps you choose are unblocked. The session only applies on the selected days and during the start–end schedule.'**
+  String get focus_unlock_info;
+
+  /// No description provided for @focus_unlock_name_tile_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Session name'**
+  String get focus_unlock_name_tile_title;
+
+  /// No description provided for @focus_unlock_name_dialog_info.
+  ///
+  /// In en, this message translates to:
+  /// **'Give this session a name so you can recognise it on the dashboard.'**
+  String get focus_unlock_name_dialog_info;
+
+  /// No description provided for @focus_unlock_required_time_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Required time'**
+  String get focus_unlock_required_time_title;
+
+  /// No description provided for @focus_unlock_required_time_info.
+  ///
+  /// In en, this message translates to:
+  /// **'How long you must spend in the selected focus apps before the other apps unlock.'**
+  String get focus_unlock_required_time_info;
+
+  /// No description provided for @focus_unlock_apps_heading.
+  ///
+  /// In en, this message translates to:
+  /// **'Apps'**
+  String get focus_unlock_apps_heading;
+
+  /// No description provided for @focus_unlock_schedule_heading.
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule'**
+  String get focus_unlock_schedule_heading;
+
+  /// No description provided for @focus_unlock_schedule_all_day.
+  ///
+  /// In en, this message translates to:
+  /// **'All day'**
+  String get focus_unlock_schedule_all_day;
+
+  /// No description provided for @focus_unlock_source_apps_heading.
+  ///
+  /// In en, this message translates to:
+  /// **'Apps you must use'**
+  String get focus_unlock_source_apps_heading;
+
+  /// No description provided for @focus_unlock_source_apps_info.
+  ///
+  /// In en, this message translates to:
+  /// **'Time spent in these apps counts toward the unlock.'**
+  String get focus_unlock_source_apps_info;
+
+  /// No description provided for @focus_unlock_reward_apps_heading.
+  ///
+  /// In en, this message translates to:
+  /// **'Apps to unlock after'**
+  String get focus_unlock_reward_apps_heading;
+
+  /// No description provided for @focus_unlock_reward_apps_info.
+  ///
+  /// In en, this message translates to:
+  /// **'These apps stay blocked until the required time is reached.'**
+  String get focus_unlock_reward_apps_info;
+
+  /// No description provided for @focus_unlock_no_apps_selected.
+  ///
+  /// In en, this message translates to:
+  /// **'No apps selected'**
+  String get focus_unlock_no_apps_selected;
+
+  /// No description provided for @focus_unlock_apps_selected.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} apps selected'**
+  String focus_unlock_apps_selected(int count);
+
+  /// No description provided for @focus_unlock_sessions_heading.
+  ///
+  /// In en, this message translates to:
+  /// **'Earn unlock sessions'**
+  String get focus_unlock_sessions_heading;
+
+  /// No description provided for @focus_unlock_save_session_button.
+  ///
+  /// In en, this message translates to:
+  /// **'Save session'**
+  String get focus_unlock_save_session_button;
+
+  /// No description provided for @focus_unlock_save_selection_button.
+  ///
+  /// In en, this message translates to:
+  /// **'Save selection'**
+  String get focus_unlock_save_selection_button;
+
+  /// No description provided for @focus_unlock_no_apps_snack.
+  ///
+  /// In en, this message translates to:
+  /// **'Select the apps you must use and the apps to unlock after.'**
+  String get focus_unlock_no_apps_snack;
+
+  /// No description provided for @focus_unlock_no_timer_snack.
+  ///
+  /// In en, this message translates to:
+  /// **'Set the time you have to earn first.'**
+  String get focus_unlock_no_timer_snack;
+
+  /// No description provided for @focus_unlock_no_days_snack.
+  ///
+  /// In en, this message translates to:
+  /// **'Select at least one day for this session.'**
+  String get focus_unlock_no_days_snack;
+
+  /// No description provided for @focus_unlock_remove_dialog_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove session'**
+  String get focus_unlock_remove_dialog_title;
+
+  /// No description provided for @focus_unlock_remove_dialog_info.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to remove this earn unlock session? The apps it blocks will be available again.'**
+  String get focus_unlock_remove_dialog_info;
 
   /// No description provided for @welcome_greetings.
   ///
@@ -1119,7 +1269,7 @@ abstract class AppLocalizations {
   /// No description provided for @batch_recap_option_summery_only.
   ///
   /// In en, this message translates to:
-  /// **'Summery only'**
+  /// **'Summary only'**
   String get batch_recap_option_summery_only;
 
   /// No description provided for @batch_recap_option_all_notifications.

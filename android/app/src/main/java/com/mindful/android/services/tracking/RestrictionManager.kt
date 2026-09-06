@@ -7,6 +7,7 @@ import android.util.Log
 import com.mindful.android.enums.RestrictionType
 import com.mindful.android.helpers.usages.ScreenUsageHelper
 import com.mindful.android.models.AppRestriction
+import com.mindful.android.models.FocusUnlockRule
 import com.mindful.android.models.RestrictionGroup
 import com.mindful.android.models.RestrictionState
 import com.mindful.android.utils.DateTimeUtils
@@ -23,6 +24,7 @@ class RestrictionManager(
                 && bedtimeApps.isEmpty()
                 && appsRestrictions.isEmpty()
                 && restrictionGroups.isEmpty()
+                && focusUnlockRules.isEmpty()
 
     // Restrictions
     private var appsRestrictions = HashMap<String, AppRestriction>()
@@ -31,6 +33,7 @@ class RestrictionManager(
     // Focus
     private var focusedApps = setOf<String>()
     private var bedtimeApps = setOf<String>()
+    private var focusUnlockRules = listOf<FocusUnlockRule>()
 
     //  Cache
     private val appsLaunchCount = HashMap<String, Int>(0)
@@ -75,6 +78,15 @@ class RestrictionManager(
         Log.d(TAG, "updateBedtimeApps: Bedtime apps updated: $bedtimeApps")
     }
 
+    fun updateFocusUnlockRules(rules: List<FocusUnlockRule>) {
+        focusUnlockRules = rules.filter { it.isValid }
+        Log.d(
+            TAG,
+            "updateFocusUnlockRules: ${focusUnlockRules.size} earn-unlock session(s) updated"
+        )
+        stopIfNoUsage.invoke()
+    }
+
 
     // returns nearest time stamp for rechecking
     fun isAppRestricted(packageName: String): RestrictionState? {
@@ -83,6 +95,8 @@ class RestrictionManager(
         if (alreadyRestrictedState != null) {
             return alreadyRestrictedState
         }
+
+        evaluateFocusUnlock(packageName)?.let { return it }
 
         // If no restrictions
         val restriction = appsRestrictions[packageName] ?: return null
@@ -126,6 +140,56 @@ class RestrictionManager(
             alreadyRestrictedApps.containsKey(packageName) -> alreadyRestrictedApps[packageName]
             else -> null
         }
+    }
+
+    /**
+     * Blocks [packageName] if any earn-unlock session which is scheduled for right now still
+     * awaits its required time. Sessions where the time is already earned do not block.
+     */
+    private fun evaluateFocusUnlock(packageName: String): RestrictionState? {
+        val activeRules = focusUnlockRules.filter {
+            it.unlockApps.contains(packageName)
+                    && !it.sourceApps.contains(packageName)
+                    && isFocusUnlockScheduledNow(it)
+        }
+
+        if (activeRules.isEmpty()) return null
+
+        val screenUsage = ScreenUsageHelper.fetchAppUsageTodayTillNow(usageStatsManager)
+
+        /// Keep the app blocked as long as a single session is unsatisfied, and report the
+        /// one which is furthest away from being earned.
+        return activeRules
+            .map { rule ->
+                rule to rule.sourceApps.sumOf { screenUsage[it] ?: 0L }
+            }
+            .filter { (rule, spentSec) -> spentSec < rule.requiredTimeSec }
+            .maxByOrNull { (rule, spentSec) -> rule.requiredTimeSec - spentSec }
+            ?.let { (rule, spentSec) ->
+                Log.d(
+                    TAG,
+                    "evaluateFocusUnlock: $packageName is locked by '${rule.name}', earned ${spentSec}s of ${rule.requiredTimeSec}s"
+                )
+
+                /// timeLeftMillis must stay at its default so the tracker service shows the
+                /// overlay right away instead of scheduling a reminder for later.
+                RestrictionState(
+                    type = RestrictionType.FOCUS_UNLOCK,
+                    groupName = rule.name,
+                    screenTimeUsed = spentSec,
+                    screenTimeLimit = rule.requiredTimeSec.toLong(),
+                )
+            }
+    }
+
+    private fun isFocusUnlockScheduledNow(rule: FocusUnlockRule): Boolean {
+        val dayIndex = DateTimeUtils.zeroIndexedDayOfWeek()
+        if (!rule.scheduleDays.getOrElse(dayIndex) { false }) return false
+
+        /// Equal start and end means the session is active all day
+        if (rule.scheduleStartTime == rule.scheduleEndTime) return true
+
+        return !DateTimeUtils.isTimeOutsideTODs(rule.scheduleStartTime, rule.scheduleEndTime)
     }
 
 

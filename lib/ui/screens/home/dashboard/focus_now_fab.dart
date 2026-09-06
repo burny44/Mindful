@@ -20,14 +20,39 @@ class FocusNowFab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultFabButton(
-      heroTag: HeroTags.focusModeFABTag,
-      icon: FluentIcons.target_arrow_20_filled,
-      label: context.locale.focus_now_fab_button,
-      onPressed: () => Navigator.of(context).pushNamed(
-        AppRoutes.focusModePath,
-        arguments: 0,
-      ),
+    return MenuAnchor(
+      alignmentOffset: const Offset(0, -8),
+      builder: (context, controller, _) {
+        return DefaultFabButton(
+          heroTag: HeroTags.focusModeFABTag,
+          icon: FluentIcons.target_arrow_20_filled,
+          label: context.locale.focus_now_fab_button,
+          onPressed: () {
+            if (controller.isOpen) {
+              controller.close();
+            } else {
+              controller.open();
+            }
+          },
+        );
+      },
+      menuChildren: [
+        MenuItemButton(
+          leadingIcon: const Icon(FluentIcons.target_arrow_20_regular),
+          onPressed: () => Navigator.of(context).pushNamed(
+            AppRoutes.focusModePath,
+            arguments: {"tab": 0},
+          ),
+          child: Text(context.locale.focus_now_option_label),
+        ),
+        MenuItemButton(
+          leadingIcon: const Icon(FluentIcons.lock_open_20_regular),
+          onPressed: () => Navigator.of(context).pushNamed(
+            AppRoutes.focusUnlockRulePath,
+          ),
+          child: Text(context.locale.focus_unlock_option_label),
+        ),
+      ],
     );
   }
 }

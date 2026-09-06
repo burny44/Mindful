@@ -98,6 +98,34 @@ Future<String?> showGroupNameInputDialog({
   );
 }
 
+/// Animates the hero widget to a alert dialog with input field to enter the
+/// name of an earn-unlock session
+///
+/// Returns the entered text
+Future<String?> showFocusUnlockNameInputDialog({
+  required BuildContext context,
+  required Object heroTag,
+  required String initialText,
+}) async {
+  return await Navigator.of(context).push<String>(
+    HeroPageRoute(
+      builder: (context) => _InputFieldDialog(
+        heroTag: heroTag,
+        initialText: initialText,
+        keyboardType: TextInputType.text,
+        dialogIcon: FluentIcons.lock_open_20_filled,
+        fieldIcon: FluentIcons.lock_open_20_regular,
+        title: context.locale.focus_unlock_name_tile_title,
+        fieldLabel: context.locale.focus_unlock_name_tile_title,
+        hintText: "Read before scrolling, Study first, etc",
+        helperText: context.locale.focus_unlock_name_dialog_info,
+        negativeBtnLabel: context.locale.dialog_button_cancel,
+        positiveBtnLabel: context.locale.dialog_button_set,
+      ),
+    ),
+  );
+}
+
 /// Animates the hero widget to a alert dialog with input field to notification schedule name
 ///
 /// Returns the entered text

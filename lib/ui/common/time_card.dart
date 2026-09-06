@@ -30,11 +30,13 @@ class TimeCard extends StatelessWidget {
     this.isModifiable,
     this.iconSize = 32,
     this.enabled = true,
+    this.use24HourFormat = false,
   });
 
   final String label;
   final Object heroTag;
   final bool enabled;
+  final bool use24HourFormat;
   final TimeOfDayAdapter initialTime;
   final Function(TimeOfDayAdapter time) onChange;
   final bool Function()? isModifiable;
@@ -45,7 +47,9 @@ class TimeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final timeString = initialTime.format(context);
+    final timeString = use24HourFormat
+        ? "${initialTime.hour.toString().padLeft(2, '0')}:${initialTime.minute.toString().padLeft(2, '0')}"
+        : initialTime.format(context);
     final timeParts = timeString.split(' ');
 
     return DefaultHero(
@@ -62,6 +66,7 @@ class TimeCard extends StatelessWidget {
                   initialTime: initialTime,
                   heroTag: heroTag,
                   info: label,
+                  use24HourFormat: use24HourFormat,
                 );
 
                 await Future.delayed(50.ms);

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mindful/core/services/drift_db_service.dart';
+import 'package:mindful/core/services/focus_unlock_rule_store.dart';
 import 'package:mindful/core/services/method_channel_service.dart';
 
 /// Initializer to initialize necessary things.
@@ -53,6 +54,12 @@ class Initializer {
     final notificationSettings = await uniqueDao.loadNotificationSettings();
     await MethodChannelService.instance
         .updateNotificationSettings(notificationSettings);
+
+    /// Fetch and update earn-unlock sessions
+    final focusUnlockRules = await FocusUnlockRuleStore.load();
+    await MethodChannelService.instance.updateFocusUnlockRules(
+      focusUnlockRules.where((e) => e.isValid).toList(),
+    );
 
     debugPrint(
       "All necessary services and schedules are initialized and it took ${DateTime.now().difference(startTimeStamp).inMilliseconds}ms.",

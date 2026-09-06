@@ -130,6 +130,7 @@ object OverlayBuilder {
                 RestrictionType.APP_ACTIVE_PERIOD -> R.string.app_paused_restriction_app_active_period
                 RestrictionType.GROUP_TIMER -> R.string.app_paused_restriction_group_timer
                 RestrictionType.GROUP_ACTIVE_PERIOD -> R.string.app_paused_restriction_group_active_period
+                RestrictionType.FOCUS_UNLOCK -> R.string.app_paused_restriction_focus_unlock
             }
         )
 
@@ -164,7 +165,8 @@ object OverlayBuilder {
             limitLeftTxt.text = DateTimeUtils.minutesToTimeStr(leftLimitMins)
 
             // Wish to use more? options layout
-            if (leftLimitMins > 0) {
+            // Earn-unlock cannot be snoozed, the time has to be earned first.
+            if (leftLimitMins > 0 && state.type != RestrictionType.FOCUS_UNLOCK) {
                 val useMoreOptions =
                     sheetView.findViewById<LinearLayout>(R.id.overlay_sheet_limit_options_use_more)
                 useMoreOptions.visibility = View.VISIBLE
@@ -258,6 +260,12 @@ object OverlayBuilder {
                 context.getString(
                     R.string.app_paused_reason_group_active_period_over,
                     state.groupName
+                )
+
+            RestrictionType.FOCUS_UNLOCK ->
+                context.getString(
+                    R.string.app_paused_reason_focus_unlock,
+                    state.groupName,
                 )
         }
     }

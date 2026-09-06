@@ -41,6 +41,11 @@ app.*.symbols
 # Obfuscation related
 app.*.map.json
 
+# Local Android Studio / Gradle (repo root is a Flutter project)
+/local.properties
+.gradle/
+.flutter-sdk/
+
 # Android Studio will place build artifacts here
 /android/app/debug
 /android/app/profile

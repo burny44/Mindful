@@ -15,6 +15,7 @@ import 'package:drift/drift.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:mindful/core/database/app_database.dart';
+import 'package:mindful/models/focus_unlock_rule.dart';
 import 'package:mindful/models/usage_model.dart';
 import 'package:mindful/models/app_info.dart';
 import 'package:mindful/models/device_info_model.dart';
@@ -188,6 +189,16 @@ class MethodChannelService {
       _methodChannel.invokeMethod(
         'updateRestrictionsGroups',
         jsonEncode(restrictionGroups),
+      );
+
+  /// Safe method to update the earn-unlock sessions in the TRACKER service.
+  ///
+  /// This method push the updated list to the service if it is already running
+  /// otherwise only start service if list is not empty
+  Future<void> updateFocusUnlockRules(List<FocusUnlockRule> rules) async =>
+      _methodChannel.invokeMethod(
+        'updateFocusUnlockRules',
+        jsonEncode(rules.map((e) => e.toJson()).toList()),
       );
 
   /// Safe method to update internet blocked apps in the VPN service.

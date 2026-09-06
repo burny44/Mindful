@@ -89,6 +89,25 @@ Future<int?> showFocusTimerPicker({
 /// Animates the hero widget to a alert dialog containing duration picker with the provided configurations
 ///
 /// Returns time in seconds and take initial time in seconds
+Future<int?> showFocusUnlockTimerPicker({
+  required BuildContext context,
+  required Object heroTag,
+  int initialTime = 0,
+}) async {
+  return await Navigator.of(context).push<int?>(
+    HeroPageRoute(
+      builder: (context) => _DurationPickerDialog(
+        title: context.locale.focus_unlock_required_time_title,
+        icon: const Icon(FluentIcons.timer_20_regular),
+        heroTag: heroTag,
+        initialTimeInSec: initialTime,
+        info: context.locale.focus_unlock_required_time_info,
+        positiveButtonLabel: context.locale.dialog_button_set,
+      ),
+    ),
+  );
+}
+
 Future<int?> showRestrictionGroupTimerPicker({
   required BuildContext context,
   required Object heroTag,

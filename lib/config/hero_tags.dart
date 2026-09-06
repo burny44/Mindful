@@ -68,6 +68,18 @@ class HeroTags {
   /// Tag used to identify in focus mode.
   static const focusModeFABTag = "focus.focusModeFab";
 
+  /// Tags used to identify the tiles of an earn-unlock session based on its ID.
+  static String focusUnlockNameTag(int ruleId) => "focus.unlock.name.$ruleId";
+  static String focusUnlockRequiredTimeTag(int ruleId) =>
+      "focus.unlock.requiredTime.$ruleId";
+  static String focusUnlockStartTimeTag(int ruleId) =>
+      "focus.unlock.startTime.$ruleId";
+  static String focusUnlockEndTimeTag(int ruleId) =>
+      "focus.unlock.endTime.$ruleId";
+  static String focusUnlockSaveTag(int ruleId) => "focus.unlock.save.$ruleId";
+  static String focusUnlockRemoveTag(int ruleId) =>
+      "focus.unlock.remove.$ruleId";
+
   /// Tag used to identify the tile for timer picker in focus mode.
   static const focusModeTimerTileTag = "focus.focusSessionTimerTile";
 

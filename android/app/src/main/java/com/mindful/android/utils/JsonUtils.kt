@@ -2,6 +2,7 @@ package com.mindful.android.utils
 
 import android.util.Log
 import com.mindful.android.models.AppRestriction
+import com.mindful.android.models.FocusUnlockRule
 import com.mindful.android.models.RestrictionGroup
 import org.json.JSONArray
 import org.json.JSONException
@@ -113,6 +114,27 @@ object JsonUtils {
         } catch (e: JSONException) {
             Log.e(TAG, "jsonStrToAppRestrictionsHashMap: Failed to parse AppRestrictions", e)
             map
+        }
+    }
+
+    /**
+     * Deserializes a JSON string into a list of [FocusUnlockRule] objects.
+     *
+     * @param jsonString The JSON string representing a list of FocusUnlockRules.
+     * @return A list of [FocusUnlockRule] or an empty list if parsing fails.
+     */
+    fun parseFocusUnlockRules(jsonString: String?): List<FocusUnlockRule> {
+        if (jsonString.isNullOrBlank()) return emptyList()
+
+        return try {
+            JSONArray(jsonString).let { jsonArray ->
+                List(jsonArray.length()) { i ->
+                    FocusUnlockRule.fromJson(jsonArray.getString(i))
+                }
+            }
+        } catch (e: JSONException) {
+            Log.e(TAG, "parseFocusUnlockRules: Failed to parse FocusUnlockRules", e)
+            emptyList()
         }
     }
 

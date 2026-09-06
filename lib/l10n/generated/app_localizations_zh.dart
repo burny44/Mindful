@@ -450,6 +450,92 @@ class AppLocalizationsZh extends AppLocalizations {
   String get focus_now_fab_button => '立即专注';
 
   @override
+  String get focus_now_option_label => 'Focus now';
+
+  @override
+  String get focus_unlock_option_label => 'Earn unlock';
+
+  @override
+  String get focus_unlock_screen_title => 'Earn unlock';
+
+  @override
+  String get focus_unlock_info =>
+      'Pick the apps you must use first. After you spend the selected time in those apps, the other apps you choose are unblocked. The session only applies on the selected days and during the start–end schedule.';
+
+  @override
+  String get focus_unlock_name_tile_title => 'Session name';
+
+  @override
+  String get focus_unlock_name_dialog_info =>
+      'Give this session a name so you can recognise it on the dashboard.';
+
+  @override
+  String get focus_unlock_required_time_title => 'Required time';
+
+  @override
+  String get focus_unlock_required_time_info =>
+      'How long you must spend in the selected focus apps before the other apps unlock.';
+
+  @override
+  String get focus_unlock_apps_heading => 'Apps';
+
+  @override
+  String get focus_unlock_schedule_heading => 'Schedule';
+
+  @override
+  String get focus_unlock_schedule_all_day => 'All day';
+
+  @override
+  String get focus_unlock_source_apps_heading => 'Apps you must use';
+
+  @override
+  String get focus_unlock_source_apps_info =>
+      'Time spent in these apps counts toward the unlock.';
+
+  @override
+  String get focus_unlock_reward_apps_heading => 'Apps to unlock after';
+
+  @override
+  String get focus_unlock_reward_apps_info =>
+      'These apps stay blocked until the required time is reached.';
+
+  @override
+  String get focus_unlock_no_apps_selected => 'No apps selected';
+
+  @override
+  String focus_unlock_apps_selected(int count) {
+    return '$count apps selected';
+  }
+
+  @override
+  String get focus_unlock_sessions_heading => 'Earn unlock sessions';
+
+  @override
+  String get focus_unlock_save_session_button => 'Save session';
+
+  @override
+  String get focus_unlock_save_selection_button => 'Save selection';
+
+  @override
+  String get focus_unlock_no_apps_snack =>
+      'Select the apps you must use and the apps to unlock after.';
+
+  @override
+  String get focus_unlock_no_timer_snack =>
+      'Set the time you have to earn first.';
+
+  @override
+  String get focus_unlock_no_days_snack =>
+      'Select at least one day for this session.';
+
+  @override
+  String get focus_unlock_remove_dialog_title => 'Remove session';
+
+  @override
+  String get focus_unlock_remove_dialog_info =>
+      'Are you sure you want to remove this earn unlock session? The apps it blocks will be available again.';
+
+  @override
   String get welcome_greetings => '欢迎回来，';
 
   @override

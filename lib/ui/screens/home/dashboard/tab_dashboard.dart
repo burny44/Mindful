@@ -29,6 +29,7 @@ import 'package:mindful/ui/controllers/tab_controller_provider.dart';
 import 'package:mindful/ui/screens/home/dashboard/glance_cards/focus_daily_glance.dart';
 import 'package:mindful/ui/screens/home/dashboard/glance_cards/screen_time_glance.dart';
 import 'package:mindful/ui/screens/home/dashboard/glance_cards_grid.dart';
+import 'package:mindful/ui/screens/home/dashboard/sliver_focus_unlock_rules.dart';
 import 'package:mindful/ui/screens/home/dashboard/sliver_tips_and_tricks.dart';
 import 'package:mindful/ui/transitions/default_effects.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -51,6 +52,9 @@ class TabDashboard extends ConsumerWidget {
         slivers: [
           /// Active session
           const SliverActiveSessionAlert(),
+
+          /// Saved earn-unlock sessions
+          const SliverFocusUnlockRules(),
 
           MultiSliver(
             children: [

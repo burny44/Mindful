@@ -1,0 +1,69 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+}
+
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader("UTF-8") { reader ->
+        localProperties.load(reader)
+    }
+}
+
+android {
+    namespace "com.mindful.android"
+    compileSdk 36
+    ndkVersion "27.0.12077973"
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+
+    defaultConfig {
+        applicationId "com.mindful.android"
+        minSdkVersion defaultMinSdkVersion
+        targetSdkVersion 36
+        versionCode 1
+        versionName "1.0"
+        // Flutter normally injects this via its Gradle plugin.
+        manifestPlaceholders += [applicationName: "android.app.Application"]
+    }
+
+    buildTypes {
+        release {
+            resValue "string", "app_name", "Mindful"
+            signingConfig signingConfigs.debug
+        }
+        debug {
+            applicationIdSuffix ".debug"
+            resValue "string", "app_name", "Mindful Debug"
+        }
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+
+    sourceSets {
+        main.java.srcDirs += "src/main/java"
+    }
+}
+
+dependencies {
+    implementation "androidx.work:work-runtime:2.10.1"
+    implementation "androidx.appcompat:appcompat:1.7.1"
+    implementation "androidx.activity:activity-ktx:1.9.3"
+
+    // Flutter Java APIs + native engine (libflutter.so). Engine hash matches .metadata.
+    def flutterEngine = "1.0.0-1ac611c64eadbd93c5f5aba5494b8fc3b35ee952"
+    implementation "io.flutter:flutter_embedding_debug:$flutterEngine"
+    implementation "io.flutter:arm64_v8a_debug:$flutterEngine"
+    implementation "io.flutter:armeabi_v7a_debug:$flutterEngine"
+    implementation "io.flutter:x86_64_debug:$flutterEngine"
+}

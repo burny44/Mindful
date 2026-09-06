@@ -32,12 +32,16 @@ class SliverDistractingAppsList extends ConsumerStatefulWidget {
     required this.onSelectionChanged,
     this.hiddenApps = const [],
     this.isInsideModalSheet = true,
+    this.selectedHeading,
+    this.emptyHeading,
   });
 
   final List<String> distractingApps;
   final List<String> hiddenApps;
   final Function(String package, bool isSelected) onSelectionChanged;
   final bool isInsideModalSheet;
+  final String? selectedHeading;
+  final String? emptyHeading;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -110,8 +114,10 @@ class _SliverDistractingAppsListState
         /// Header
         ContentSectionHeader(
           title: widget.distractingApps.isEmpty
-              ? context.locale.select_distracting_apps_heading
-              : context.locale.your_distracting_apps_heading,
+              ? widget.emptyHeading ??
+                  context.locale.select_distracting_apps_heading
+              : widget.selectedHeading ??
+                  context.locale.your_distracting_apps_heading,
         ),
 
         /// Apps list

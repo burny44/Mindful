@@ -50,6 +50,8 @@
     <string name="app_paused_restriction_app_active_period">App active period</string>
     <string name="app_paused_restriction_group_timer">Group timer</string>
     <string name="app_paused_restriction_group_active_period">Group active period</string>
+    <string name="app_paused_restriction_focus_unlock">Earn unlock</string>
+    <string name="app_paused_reason_focus_unlock">This app stays paused until you spend the required time in the apps you picked for the \'%1$s\' session.</string>
 
     <string name="app_paused_overlay_button_emergency">Emergency</string>
     <string name="app_paused_overlay_label_spent_today">Spent today</string>

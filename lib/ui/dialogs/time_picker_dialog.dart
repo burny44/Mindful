@@ -24,6 +24,7 @@ Future<TimeOfDayAdapter?> showCustomTimePickerDialog({
   required Object heroTag,
   required TimeOfDayAdapter initialTime,
   required String info,
+  bool use24HourFormat = false,
 }) async {
   final tod = await Navigator.of(context).push<TimeOfDay>(
     HeroPageRoute(
@@ -31,6 +32,7 @@ Future<TimeOfDayAdapter?> showCustomTimePickerDialog({
         initialTime: initialTime,
         heroTag: heroTag,
         info: info,
+        use24HourFormat: use24HourFormat,
       ),
     ),
   );
@@ -46,11 +48,13 @@ class _CustomTimePickerDialog extends StatefulWidget {
     required this.initialTime,
     required this.heroTag,
     required this.info,
+    this.use24HourFormat = false,
   });
 
   final Object heroTag;
   final TimeOfDayAdapter initialTime;
   final String info;
+  final bool use24HourFormat;
 
   @override
   State<_CustomTimePickerDialog> createState() =>
@@ -58,7 +62,7 @@ class _CustomTimePickerDialog extends StatefulWidget {
 }
 
 class _CustomTimePickerDialogState extends State<_CustomTimePickerDialog> {
-  bool _use24HourFormat = false;
+  late bool _use24HourFormat = widget.use24HourFormat;
 
   void _toggleHourFormat() =>
       setState(() => _use24HourFormat = !_use24HourFormat);
