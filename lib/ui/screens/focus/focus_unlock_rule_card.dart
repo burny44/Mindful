@@ -48,10 +48,13 @@ class FocusUnlockRuleCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final unlockAppsInfo = ref
-        .watch(appsInfoProvider.select((v) => v.value?.values
-            .where((e) => rule.unlockApps.contains(e.packageName))))
-        ?.toList();
+    /// Watched directly rather than through `select`: a selector returning a
+    /// freshly built collection is never `==` to the previous one, so it would
+    /// rebuild this card on every notification instead of only on real changes.
+    final appsInfo = ref.watch(appsInfoProvider).value;
+    final unlockAppsInfo = appsInfo == null
+        ? null
+        : rule.unlockApps.map((e) => appsInfo[e]).nonNulls.toList();
 
     final timeSpent = ref.watch(
           todaysAppsUsageProvider.select(

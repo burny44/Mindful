@@ -18,6 +18,31 @@ subprojects {
     project.evaluationDependsOn(":app")
 }
 
+// Align Java/Kotlin JVM targets across Flutter plugins (same as android/build.gradle).
+subprojects { subproject ->
+    def alignJvm = {
+        if (subproject.plugins.hasPlugin("com.android.library") ||
+                subproject.plugins.hasPlugin("com.android.application")) {
+            subproject.android {
+                compileOptions {
+                    sourceCompatibility JavaVersion.VERSION_17
+                    targetCompatibility JavaVersion.VERSION_17
+                }
+            }
+        }
+        subproject.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+            compilerOptions {
+                jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+            }
+        }
+    }
+    if (subproject.state.executed) {
+        alignJvm()
+    } else {
+        subproject.afterEvaluate { alignJvm() }
+    }
+}
+
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }

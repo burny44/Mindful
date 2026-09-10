@@ -40,6 +40,21 @@ class AppLocalizationsUk extends AppLocalizations {
       'Mindful є на 100 % безпечним і працює в автономному режимі. Ми не збираємо або зберігаємо жодні персональні дані.';
 
   @override
+  String get missing_permissions_dialog_title => 'Permissions needed';
+
+  @override
+  String missing_permissions_dialog_info(String permissions) {
+    return 'Mindful needs these permissions to track screen time and block apps:\n\n$permissions';
+  }
+
+  @override
+  String get missing_permissions_card_title => 'Permissions needed';
+
+  @override
+  String get missing_permissions_card_info =>
+      'Some required permissions are missing. Grant them so Mindful can track and block apps.';
+
+  @override
   String permission_grant_step_one(String button_label) {
     return '1. Натисніть кнопку $button_label.';
   }
@@ -501,6 +516,118 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get focus_unlock_option_label => 'Earn unlock';
+
+  @override
+  String get new_session_option_label => 'New session';
+
+  @override
+  String get new_session_screen_title => 'New session';
+
+  @override
+  String get new_session_info =>
+      'Pick the apps to block during this session. They stay blocked only while the schedule is active and not during a break. Enable Strict to lock the session so it cannot be edited or removed later.';
+
+  @override
+  String get new_session_name_tile_title => 'Session name';
+
+  @override
+  String get new_session_name_dialog_info =>
+      'Give this session a name so you can recognise it on the dashboard.';
+
+  @override
+  String get new_session_apps_heading => 'Apps to block';
+
+  @override
+  String get new_session_apps_info =>
+      'These apps stay blocked while the session is active and not on a break.';
+
+  @override
+  String get new_session_schedule_heading => 'Schedule';
+
+  @override
+  String get new_session_schedule_all_day => 'All day';
+
+  @override
+  String get new_session_breaks_heading => 'Breaks';
+
+  @override
+  String get new_session_breaks_tile_title => 'Breaks';
+
+  @override
+  String get new_session_breaks_tile_subtitle =>
+      'Allow short breaks when the session is active.';
+
+  @override
+  String get new_session_breaks_count_title => 'Number of breaks';
+
+  @override
+  String get new_session_break_duration_title => 'Time of break';
+
+  @override
+  String get new_session_break_duration_info =>
+      'How long each break lasts. Apps are not blocked during a break.';
+
+  @override
+  String get new_session_pause_between_title => 'Pause between breaks';
+
+  @override
+  String get new_session_pause_between_info =>
+      'How long apps stay blocked before the next break starts.';
+
+  @override
+  String get new_session_strict_tile_title => 'Strict';
+
+  @override
+  String get new_session_strict_tile_subtitle =>
+      'Once saved, this session cannot be edited or removed.';
+
+  @override
+  String get new_session_strict_locked_snack =>
+      'This session is strict and cannot be changed.';
+
+  @override
+  String get new_session_no_apps_selected => 'No apps selected';
+
+  @override
+  String new_session_apps_selected(int count) {
+    return '$count apps selected';
+  }
+
+  @override
+  String get new_session_sessions_heading => 'Focus sessions';
+
+  @override
+  String get new_session_save_button => 'Save session';
+
+  @override
+  String get new_session_no_apps_snack => 'Select at least one app to block.';
+
+  @override
+  String get new_session_no_days_snack =>
+      'Select at least one day for this session.';
+
+  @override
+  String get new_session_breaks_invalid_snack =>
+      'Set the number of breaks, break time, and pause between breaks.';
+
+  @override
+  String get new_session_remove_dialog_title => 'Remove session';
+
+  @override
+  String get new_session_remove_dialog_info =>
+      'Are you sure you want to remove this focus session? The apps it blocks will be available again.';
+
+  @override
+  String get new_session_status_active => 'Active now';
+
+  @override
+  String get new_session_status_break => 'On break';
+
+  @override
+  String get new_session_status_idle => 'Outside schedule';
+
+  @override
+  String get new_session_strict_badge => 'Strict';
 
   @override
   String get focus_unlock_screen_title => 'Earn unlock';

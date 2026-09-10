@@ -108,6 +108,28 @@ Future<int?> showFocusUnlockTimerPicker({
   );
 }
 
+Future<int?> showScheduledFocusDurationPicker({
+  required BuildContext context,
+  required Object heroTag,
+  required String title,
+  required String info,
+  int initialTime = 0,
+}) async {
+  return await Navigator.of(context).push<int?>(
+    HeroPageRoute(
+      builder: (context) => _DurationPickerDialog(
+        title: title,
+        icon: const Icon(FluentIcons.timer_20_regular),
+        heroTag: heroTag,
+        initialTimeInSec: initialTime,
+        info: info,
+        positiveButtonLabel: context.locale.dialog_button_set,
+        showActionButton: false,
+      ),
+    ),
+  );
+}
+
 Future<int?> showRestrictionGroupTimerPicker({
   required BuildContext context,
   required Object heroTag,

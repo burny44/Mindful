@@ -4,6 +4,7 @@ import android.util.Log
 import com.mindful.android.models.AppRestriction
 import com.mindful.android.models.FocusUnlockRule
 import com.mindful.android.models.RestrictionGroup
+import com.mindful.android.models.ScheduledFocusSession
 import org.json.JSONArray
 import org.json.JSONException
 
@@ -134,6 +135,24 @@ object JsonUtils {
             }
         } catch (e: JSONException) {
             Log.e(TAG, "parseFocusUnlockRules: Failed to parse FocusUnlockRules", e)
+            emptyList()
+        }
+    }
+
+    /**
+     * Deserializes a JSON string into a list of [ScheduledFocusSession] objects.
+     */
+    fun parseScheduledFocusSessions(jsonString: String?): List<ScheduledFocusSession> {
+        if (jsonString.isNullOrBlank()) return emptyList()
+
+        return try {
+            JSONArray(jsonString).let { jsonArray ->
+                List(jsonArray.length()) { i ->
+                    ScheduledFocusSession.fromJson(jsonArray.getString(i))
+                }
+            }
+        } catch (e: JSONException) {
+            Log.e(TAG, "parseScheduledFocusSessions: Failed to parse ScheduledFocusSessions", e)
             emptyList()
         }
     }

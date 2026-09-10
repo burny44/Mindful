@@ -14,7 +14,7 @@ if (localPropertiesFile.exists()) {
 android {
     namespace "com.mindful.android"
     compileSdk 36
-    ndkVersion "27.0.12077973"
+    ndkVersion "28.2.13676358"
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
@@ -42,12 +42,13 @@ android {
         }
         debug {
             applicationIdSuffix ".debug"
-            resValue "string", "app_name", "Mindful Debug"
+            resValue "string", "app_name", "Mindful"
         }
     }
 
     buildFeatures {
         viewBinding true
+        resValues true
     }
 
     sourceSets {

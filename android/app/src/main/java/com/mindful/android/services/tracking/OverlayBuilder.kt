@@ -71,6 +71,7 @@ object OverlayBuilder {
         state: RestrictionState,
         dismissOverlay: () -> Unit,
         addReminderDelay: ((futureMinutes: Int) -> Unit)? = null,
+        onTakeBreak: ((sessionId: Long) -> Unit)? = null,
     ): View {
         // Inflate the custom layout for the dialog
         val inflater = LayoutInflater.from(context)
@@ -131,6 +132,7 @@ object OverlayBuilder {
                 RestrictionType.GROUP_TIMER -> R.string.app_paused_restriction_group_timer
                 RestrictionType.GROUP_ACTIVE_PERIOD -> R.string.app_paused_restriction_group_active_period
                 RestrictionType.FOCUS_UNLOCK -> R.string.app_paused_restriction_focus_unlock
+                RestrictionType.SCHEDULED_FOCUS -> R.string.app_paused_restriction_scheduled_focus
             }
         )
 
@@ -166,7 +168,10 @@ object OverlayBuilder {
 
             // Wish to use more? options layout
             // Earn-unlock cannot be snoozed, the time has to be earned first.
-            if (leftLimitMins > 0 && state.type != RestrictionType.FOCUS_UNLOCK) {
+            if (leftLimitMins > 0 &&
+                state.type != RestrictionType.FOCUS_UNLOCK &&
+                state.type != RestrictionType.SCHEDULED_FOCUS
+            ) {
                 val useMoreOptions =
                     sheetView.findViewById<LinearLayout>(R.id.overlay_sheet_limit_options_use_more)
                 useMoreOptions.visibility = View.VISIBLE
@@ -189,6 +194,46 @@ object OverlayBuilder {
                                 dismissOverlay.invoke()
                             }
                         }
+                    }
+                }
+            }
+        }
+
+        // Take a Break — only for scheduled focus sessions with remaining breaks
+        if (state.canTakeBreak && onTakeBreak != null) {
+            val takeBreakBtn = sheetView.findViewById<Button>(R.id.overlay_sheet_btn_take_break)
+            takeBreakBtn.visibility = View.VISIBLE
+
+            val durationLabel = DateTimeUtils.minutesToTimeStr(
+                (state.breakDurationSec + 59) / 60
+            )
+            takeBreakBtn.text = if (state.breaksLeft == 1) {
+                context.getString(
+                    R.string.app_paused_overlay_button_take_break_last,
+                    durationLabel,
+                )
+            } else {
+                context.getString(
+                    R.string.app_paused_overlay_button_take_break,
+                    durationLabel,
+                    state.breaksLeft,
+                    state.breaksTotal,
+                )
+            }
+
+            takeBreakBtn.setOnClickListener {
+                ThreadUtils.runOnMainThread {
+                    onTakeBreak.invoke(state.sessionId)
+                    /// Lift the overlay, then bring the blocked app back to the front.
+                    dismissOverlay.invoke()
+
+                    context.packageManager.getLaunchIntentForPackage(packageName)?.let { intent ->
+                        intent.addFlags(
+                            Intent.FLAG_ACTIVITY_NEW_TASK or
+                                    Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED or
+                                    Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
+                        )
+                        context.applicationContext.startActivity(intent)
                     }
                 }
             }
@@ -265,6 +310,12 @@ object OverlayBuilder {
             RestrictionType.FOCUS_UNLOCK ->
                 context.getString(
                     R.string.app_paused_reason_focus_unlock,
+                    state.groupName,
+                )
+
+            RestrictionType.SCHEDULED_FOCUS ->
+                context.getString(
+                    R.string.app_paused_reason_scheduled_focus,
                     state.groupName,
                 )
         }

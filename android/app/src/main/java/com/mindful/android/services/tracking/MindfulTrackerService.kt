@@ -92,6 +92,18 @@ class MindfulTrackerService : Service() {
                     overlayManager.showSheetOverlay(
                         packageName = packageName,
                         restrictionState = it,
+                        onTakeBreak = { sessionId ->
+                            val breakMs =
+                                restrictionManager.takeScheduledFocusBreak(sessionId)
+                            if (breakMs != null) {
+                                /// Re-check when the break ends so the overlay
+                                /// returns if they are still in the blocked app.
+                                reminderManager.scheduleReminders(
+                                    packageName = packageName,
+                                    state = it.copy(timeLeftMillis = breakMs),
+                                )
+                            }
+                        },
                     )
                 }
                 /// Under limit but will be exhausted in some time

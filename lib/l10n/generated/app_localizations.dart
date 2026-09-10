@@ -210,6 +210,30 @@ abstract class AppLocalizations {
   /// **'Mindful is 100% secure and works offline. We do not collect or store any personal data.'**
   String get permission_sheet_privacy_info;
 
+  /// No description provided for @missing_permissions_dialog_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Permissions needed'**
+  String get missing_permissions_dialog_title;
+
+  /// No description provided for @missing_permissions_dialog_info.
+  ///
+  /// In en, this message translates to:
+  /// **'Mindful needs these permissions to track screen time and block apps:\n\n{permissions}'**
+  String missing_permissions_dialog_info(String permissions);
+
+  /// No description provided for @missing_permissions_card_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Permissions needed'**
+  String get missing_permissions_card_title;
+
+  /// No description provided for @missing_permissions_card_info.
+  ///
+  /// In en, this message translates to:
+  /// **'Some required permissions are missing. Grant them so Mindful can track and block apps.'**
+  String get missing_permissions_card_info;
+
   /// No description provided for @permission_grant_step_one.
   ///
   /// In en, this message translates to:
@@ -887,6 +911,204 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Earn unlock'**
   String get focus_unlock_option_label;
+
+  /// No description provided for @new_session_option_label.
+  ///
+  /// In en, this message translates to:
+  /// **'New session'**
+  String get new_session_option_label;
+
+  /// No description provided for @new_session_screen_title.
+  ///
+  /// In en, this message translates to:
+  /// **'New session'**
+  String get new_session_screen_title;
+
+  /// No description provided for @new_session_info.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick the apps to block during this session. They stay blocked only while the schedule is active and not during a break. Enable Strict to lock the session so it cannot be edited or removed later.'**
+  String get new_session_info;
+
+  /// No description provided for @new_session_name_tile_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Session name'**
+  String get new_session_name_tile_title;
+
+  /// No description provided for @new_session_name_dialog_info.
+  ///
+  /// In en, this message translates to:
+  /// **'Give this session a name so you can recognise it on the dashboard.'**
+  String get new_session_name_dialog_info;
+
+  /// No description provided for @new_session_apps_heading.
+  ///
+  /// In en, this message translates to:
+  /// **'Apps to block'**
+  String get new_session_apps_heading;
+
+  /// No description provided for @new_session_apps_info.
+  ///
+  /// In en, this message translates to:
+  /// **'These apps stay blocked while the session is active and not on a break.'**
+  String get new_session_apps_info;
+
+  /// No description provided for @new_session_schedule_heading.
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule'**
+  String get new_session_schedule_heading;
+
+  /// No description provided for @new_session_schedule_all_day.
+  ///
+  /// In en, this message translates to:
+  /// **'All day'**
+  String get new_session_schedule_all_day;
+
+  /// No description provided for @new_session_breaks_heading.
+  ///
+  /// In en, this message translates to:
+  /// **'Breaks'**
+  String get new_session_breaks_heading;
+
+  /// No description provided for @new_session_breaks_tile_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Breaks'**
+  String get new_session_breaks_tile_title;
+
+  /// No description provided for @new_session_breaks_tile_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow short breaks when the session is active.'**
+  String get new_session_breaks_tile_subtitle;
+
+  /// No description provided for @new_session_breaks_count_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Number of breaks'**
+  String get new_session_breaks_count_title;
+
+  /// No description provided for @new_session_break_duration_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Time of break'**
+  String get new_session_break_duration_title;
+
+  /// No description provided for @new_session_break_duration_info.
+  ///
+  /// In en, this message translates to:
+  /// **'How long each break lasts. Apps are not blocked during a break.'**
+  String get new_session_break_duration_info;
+
+  /// No description provided for @new_session_pause_between_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause between breaks'**
+  String get new_session_pause_between_title;
+
+  /// No description provided for @new_session_pause_between_info.
+  ///
+  /// In en, this message translates to:
+  /// **'How long apps stay blocked before the next break starts.'**
+  String get new_session_pause_between_info;
+
+  /// No description provided for @new_session_strict_tile_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Strict'**
+  String get new_session_strict_tile_title;
+
+  /// No description provided for @new_session_strict_tile_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Once saved, this session cannot be edited or removed.'**
+  String get new_session_strict_tile_subtitle;
+
+  /// No description provided for @new_session_strict_locked_snack.
+  ///
+  /// In en, this message translates to:
+  /// **'This session is strict and cannot be changed.'**
+  String get new_session_strict_locked_snack;
+
+  /// No description provided for @new_session_no_apps_selected.
+  ///
+  /// In en, this message translates to:
+  /// **'No apps selected'**
+  String get new_session_no_apps_selected;
+
+  /// No description provided for @new_session_apps_selected.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} apps selected'**
+  String new_session_apps_selected(int count);
+
+  /// No description provided for @new_session_sessions_heading.
+  ///
+  /// In en, this message translates to:
+  /// **'Focus sessions'**
+  String get new_session_sessions_heading;
+
+  /// No description provided for @new_session_save_button.
+  ///
+  /// In en, this message translates to:
+  /// **'Save session'**
+  String get new_session_save_button;
+
+  /// No description provided for @new_session_no_apps_snack.
+  ///
+  /// In en, this message translates to:
+  /// **'Select at least one app to block.'**
+  String get new_session_no_apps_snack;
+
+  /// No description provided for @new_session_no_days_snack.
+  ///
+  /// In en, this message translates to:
+  /// **'Select at least one day for this session.'**
+  String get new_session_no_days_snack;
+
+  /// No description provided for @new_session_breaks_invalid_snack.
+  ///
+  /// In en, this message translates to:
+  /// **'Set the number of breaks, break time, and pause between breaks.'**
+  String get new_session_breaks_invalid_snack;
+
+  /// No description provided for @new_session_remove_dialog_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove session'**
+  String get new_session_remove_dialog_title;
+
+  /// No description provided for @new_session_remove_dialog_info.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to remove this focus session? The apps it blocks will be available again.'**
+  String get new_session_remove_dialog_info;
+
+  /// No description provided for @new_session_status_active.
+  ///
+  /// In en, this message translates to:
+  /// **'Active now'**
+  String get new_session_status_active;
+
+  /// No description provided for @new_session_status_break.
+  ///
+  /// In en, this message translates to:
+  /// **'On break'**
+  String get new_session_status_break;
+
+  /// No description provided for @new_session_status_idle.
+  ///
+  /// In en, this message translates to:
+  /// **'Outside schedule'**
+  String get new_session_status_idle;
+
+  /// No description provided for @new_session_strict_badge.
+  ///
+  /// In en, this message translates to:
+  /// **'Strict'**
+  String get new_session_strict_badge;
 
   /// No description provided for @focus_unlock_screen_title.
   ///

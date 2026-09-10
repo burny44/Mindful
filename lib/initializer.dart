@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mindful/core/services/drift_db_service.dart';
 import 'package:mindful/core/services/focus_unlock_rule_store.dart';
 import 'package:mindful/core/services/method_channel_service.dart';
+import 'package:mindful/core/services/scheduled_focus_session_store.dart';
 
 /// Initializer to initialize necessary things.
 class Initializer {
@@ -59,6 +60,12 @@ class Initializer {
     final focusUnlockRules = await FocusUnlockRuleStore.load();
     await MethodChannelService.instance.updateFocusUnlockRules(
       focusUnlockRules.where((e) => e.isValid).toList(),
+    );
+
+    /// Fetch and update scheduled focus sessions
+    final scheduledFocusSessions = await ScheduledFocusSessionStore.load();
+    await MethodChannelService.instance.updateScheduledFocusSessions(
+      scheduledFocusSessions.where((e) => e.isValid).toList(),
     );
 
     debugPrint(

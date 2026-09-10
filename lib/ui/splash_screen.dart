@@ -60,10 +60,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     _isAccessProtected =
         (await ref.read(parentalControlsProvider.notifier).init())
             .protectedAccess;
-    _haveAllEssentialPermissions = perms.haveUsageAccessPermission &&
-        perms.haveDisplayOverlayPermission &&
-        perms.haveAlarmsPermission &&
-        perms.haveNotificationPermission;
+    _haveAllEssentialPermissions = perms.haveAllEssentialPermissions;
 
     if (mounted) setState(() {});
     _isAccessProtected ? _authenticate() : _goToNextScreen(true);

@@ -26,10 +26,12 @@ import 'package:mindful/ui/common/sliver_active_session_alert.dart';
 import 'package:mindful/ui/common/default_refresh_indicator.dart';
 import 'package:mindful/ui/common/sliver_tabs_bottom_padding.dart';
 import 'package:mindful/ui/controllers/tab_controller_provider.dart';
+import 'package:mindful/ui/permissions/missing_essential_permissions_alert.dart';
 import 'package:mindful/ui/screens/home/dashboard/glance_cards/focus_daily_glance.dart';
 import 'package:mindful/ui/screens/home/dashboard/glance_cards/screen_time_glance.dart';
 import 'package:mindful/ui/screens/home/dashboard/glance_cards_grid.dart';
 import 'package:mindful/ui/screens/home/dashboard/sliver_focus_unlock_rules.dart';
+import 'package:mindful/ui/screens/home/dashboard/sliver_scheduled_focus_sessions.dart';
 import 'package:mindful/ui/screens/home/dashboard/sliver_tips_and_tricks.dart';
 import 'package:mindful/ui/transitions/default_effects.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -52,6 +54,12 @@ class TabDashboard extends ConsumerWidget {
         slivers: [
           /// Active session
           const SliverActiveSessionAlert(),
+
+          /// Missing essential permissions
+          const MissingEssentialPermissionsAlert(),
+
+          /// Scheduled focus sessions
+          const SliverScheduledFocusSessions(),
 
           /// Saved earn-unlock sessions
           const SliverFocusUnlockRules(),

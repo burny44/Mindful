@@ -52,6 +52,8 @@
     <string name="app_paused_restriction_group_active_period">Group active period</string>
     <string name="app_paused_restriction_focus_unlock">Earn unlock</string>
     <string name="app_paused_reason_focus_unlock">This app stays paused until you spend the required time in the apps you picked for the \'%1$s\' session.</string>
+    <string name="app_paused_restriction_scheduled_focus">Focus session</string>
+    <string name="app_paused_reason_scheduled_focus">This app is paused because the \'%1$s\' focus session is active.</string>
 
     <string name="app_paused_overlay_button_emergency">Emergency</string>
     <string name="app_paused_overlay_label_spent_today">Spent today</string>
@@ -62,6 +64,8 @@
     <string name="app_paused_overlay_button_ten_minutes">10 minutes</string>
     <string name="app_paused_overlay_button_twenty_minutes">20 minutes</string>
     <string name="app_paused_overlay_button_close_app" comment="App name as placeholder. ex: 'Close Instagram'" formatted="true">Close %s</string>
+    <string name="app_paused_overlay_button_take_break">Take a Break · %1$s  (%2$d/%3$d left)</string>
+    <string name="app_paused_overlay_button_take_break_last">Take a Break · %1$s  (last break)</string>
 
     <string name="app_screen_time_usage_info" comment="Time as placeholder. ex: 'Used for 2h 15m'" formatted="true">Used for %s</string>
 

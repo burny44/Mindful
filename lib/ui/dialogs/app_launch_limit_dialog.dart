@@ -37,6 +37,113 @@ Future<int?> showAppLaunchLimitDialog({
   );
 }
 
+/// Simple +/- count picker used by scheduled focus sessions for break count.
+Future<int?> showCountPickerDialog({
+  required BuildContext context,
+  required Object heroTag,
+  required String title,
+  required int initialCount,
+  int minCount = 1,
+  int maxCount = 20,
+  int step = 1,
+}) async {
+  return await Navigator.of(context).push<int>(
+    HeroPageRoute(
+      builder: (context) => _CountPickerDialog(
+        heroTag: heroTag,
+        title: title,
+        initialCount: initialCount,
+        minCount: minCount,
+        maxCount: maxCount,
+        step: step,
+      ),
+    ),
+  );
+}
+
+class _CountPickerDialog extends StatefulWidget {
+  const _CountPickerDialog({
+    required this.heroTag,
+    required this.title,
+    required this.initialCount,
+    required this.minCount,
+    required this.maxCount,
+    required this.step,
+  });
+
+  final Object heroTag;
+  final String title;
+  final int initialCount;
+  final int minCount;
+  final int maxCount;
+  final int step;
+
+  @override
+  State<_CountPickerDialog> createState() => _CountPickerDialogState();
+}
+
+class _CountPickerDialogState extends State<_CountPickerDialog> {
+  late int _count;
+
+  @override
+  void initState() {
+    super.initState();
+    _count = widget.initialCount.clamp(widget.minCount, widget.maxCount);
+  }
+
+  void _change(int direction) {
+    setState(() {
+      _count = (_count + (direction * widget.step))
+          .clamp(widget.minCount, widget.maxCount);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Container(
+        margin: const EdgeInsets.all(48),
+        alignment: Alignment.center,
+        child: DefaultHero(
+          tag: widget.heroTag,
+          child: AlertDialog(
+            icon: const Icon(FluentIcons.number_symbol_20_filled),
+            title: StyledText(widget.title, fontSize: 16),
+            content: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton.filledTonal(
+                  icon: const Icon(FluentIcons.subtract_20_filled),
+                  onPressed: () => _change(-1),
+                ),
+                StyledText(
+                  "$_count",
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                ),
+                IconButton.filledTonal(
+                  icon: const Icon(FluentIcons.add_20_filled),
+                  onPressed: () => _change(1),
+                ),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.maybePop(context),
+                child: Text(context.locale.dialog_button_cancel),
+              ),
+              TextButton(
+                onPressed: () => Navigator.maybePop(context, _count),
+                child: Text(context.locale.dialog_button_set),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class _LaunchLimitDialog extends StatefulWidget {
   const _LaunchLimitDialog({
     required this.heroTag,

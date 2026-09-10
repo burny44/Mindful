@@ -52,6 +52,18 @@ class PermissionsModel {
     this.haveNotificationAccessPermission = true,
   });
 
+  /// Same essential set the splash screen and onboarding gate on.
+  bool get haveAllEssentialPermissions =>
+      haveUsageAccessPermission &&
+      haveDisplayOverlayPermission &&
+      haveAlarmsPermission &&
+      haveNotificationPermission;
+
+  /// Permissions the home screen should nag about, including accessibility
+  /// (needed for shorts/websites blocking but not gated at splash).
+  bool get haveAllHomeRequiredPermissions =>
+      haveAllEssentialPermissions && haveAccessibilityPermission;
+
   /// Creates a copy of the `PermissionsModel` with potentially modified permissions.
   PermissionsModel copyWith({
     bool? haveNotificationPermission,

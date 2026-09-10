@@ -10,6 +10,7 @@ import com.mindful.android.models.AppRestriction
 import com.mindful.android.models.FocusUnlockRule
 import com.mindful.android.models.RestrictionGroup
 import com.mindful.android.models.RestrictionState
+import com.mindful.android.models.ScheduledFocusSession
 import com.mindful.android.utils.DateTimeUtils
 
 class RestrictionManager(
@@ -25,6 +26,7 @@ class RestrictionManager(
                 && appsRestrictions.isEmpty()
                 && restrictionGroups.isEmpty()
                 && focusUnlockRules.isEmpty()
+                && scheduledFocusSessions.isEmpty()
 
     // Restrictions
     private var appsRestrictions = HashMap<String, AppRestriction>()
@@ -34,6 +36,11 @@ class RestrictionManager(
     private var focusedApps = setOf<String>()
     private var bedtimeApps = setOf<String>()
     private var focusUnlockRules = listOf<FocusUnlockRule>()
+    private var scheduledFocusSessions = listOf<ScheduledFocusSession>()
+
+    /// Manual "Take a Break" state for scheduled focus sessions (resets at midnight).
+    private val manualBreakUntilBySession = HashMap<Long, Long>()
+    private val breaksUsedTodayBySession = HashMap<Long, Int>()
 
     //  Cache
     private val appsLaunchCount = HashMap<String, Int>(0)
@@ -46,6 +53,8 @@ class RestrictionManager(
         alreadyRestrictedApps.clear()
         alreadyRestrictedGroups.clear()
         appsLaunchCount.clear()
+        manualBreakUntilBySession.clear()
+        breaksUsedTodayBySession.clear()
     }
 
     fun updateRestrictions(
@@ -87,6 +96,43 @@ class RestrictionManager(
         stopIfNoUsage.invoke()
     }
 
+    fun updateScheduledFocusSessions(sessions: List<ScheduledFocusSession>) {
+        scheduledFocusSessions = sessions.filter { it.isValid }
+        Log.d(
+            TAG,
+            "updateScheduledFocusSessions: ${scheduledFocusSessions.size} scheduled session(s) updated"
+        )
+        stopIfNoUsage.invoke()
+    }
+
+    /**
+     * Starts an on-demand break for [sessionId] if the session still has breaks left.
+     * Returns the break length in milliseconds when started, or null when it could not start.
+     */
+    fun takeScheduledFocusBreak(sessionId: Long): Long? {
+        val session = scheduledFocusSessions.firstOrNull { it.id == sessionId } ?: return null
+        if (!session.breaksEnabled || session.numberOfBreaks <= 0 || session.breakDurationSec <= 0) {
+            return null
+        }
+
+        val used = breaksUsedTodayBySession.getOrDefault(sessionId, 0)
+        if (used >= session.numberOfBreaks) return null
+
+        /// Already in a manual break
+        val existingUntil = manualBreakUntilBySession[sessionId] ?: 0L
+        if (existingUntil > System.currentTimeMillis()) return null
+
+        val breakMs = session.breakDurationSec * 1000L
+        breaksUsedTodayBySession[sessionId] = used + 1
+        manualBreakUntilBySession[sessionId] = System.currentTimeMillis() + breakMs
+
+        Log.d(
+            TAG,
+            "takeScheduledFocusBreak: '${session.name}' break ${used + 1}/${session.numberOfBreaks} for ${session.breakDurationSec}s"
+        )
+        return breakMs
+    }
+
 
     // returns nearest time stamp for rechecking
     fun isAppRestricted(packageName: String): RestrictionState? {
@@ -97,6 +143,7 @@ class RestrictionManager(
         }
 
         evaluateFocusUnlock(packageName)?.let { return it }
+        evaluateScheduledFocus(packageName)?.let { return it }
 
         // If no restrictions
         val restriction = appsRestrictions[packageName] ?: return null
@@ -190,6 +237,111 @@ class RestrictionManager(
         if (rule.scheduleStartTime == rule.scheduleEndTime) return true
 
         return !DateTimeUtils.isTimeOutsideTODs(rule.scheduleStartTime, rule.scheduleEndTime)
+    }
+
+    /**
+     * Blocks [packageName] while any scheduled focus session is in its work window.
+     * During a break the app is free, but a reminder is scheduled so the overlay
+     * appears as soon as the break ends.
+     */
+    private fun evaluateScheduledFocus(packageName: String): RestrictionState? {
+        val matching = scheduledFocusSessions.filter {
+            it.distractingApps.contains(packageName) && isScheduledFocusInWindow(it)
+        }
+        if (matching.isEmpty()) return null
+
+        /// Prefer an immediate block over a break reminder if any matching
+        /// session is currently in its work window.
+        for (session in matching) {
+            val breakLeftMs = msUntilBreakEnds(session)
+            if (breakLeftMs == null) {
+                val used = breaksUsedTodayBySession.getOrDefault(session.id, 0)
+                Log.d(
+                    TAG,
+                    "evaluateScheduledFocus: $packageName is locked by '${session.name}'"
+                )
+                return RestrictionState(
+                    type = RestrictionType.SCHEDULED_FOCUS,
+                    groupName = session.name,
+                    sessionId = session.id,
+                    breaksTotal = if (session.breaksEnabled) session.numberOfBreaks else 0,
+                    breaksUsed = used,
+                    breakDurationSec = session.breakDurationSec,
+                )
+            }
+        }
+
+        /// Every matching session is on a break — schedule a recheck when the
+        /// nearest break ends.
+        val nearest = matching
+            .mapNotNull { session ->
+                msUntilBreakEnds(session)?.let { session to it }
+            }
+            .minByOrNull { it.second }
+
+        return nearest?.let { (session, breakLeftMs) ->
+            RestrictionState(
+                type = RestrictionType.SCHEDULED_FOCUS,
+                groupName = session.name,
+                timeLeftMillis = breakLeftMs,
+                sessionId = session.id,
+            )
+        }
+    }
+
+    private fun isScheduledFocusInWindow(session: ScheduledFocusSession): Boolean {
+        val dayIndex = DateTimeUtils.zeroIndexedDayOfWeek()
+        if (!session.scheduleDays.getOrElse(dayIndex) { false }) return false
+        if (session.scheduleStartTime == session.scheduleEndTime) return true
+        return !DateTimeUtils.isTimeOutsideTODs(
+            session.scheduleStartTime,
+            session.scheduleEndTime,
+        )
+    }
+
+    /**
+     * Returns milliseconds until the current break ends, or null when the session
+     * is not currently in a break (including when breaks are disabled).
+     */
+    private fun msUntilBreakEnds(session: ScheduledFocusSession): Long? {
+        /// Manual on-demand break takes priority
+        val manualUntil = manualBreakUntilBySession[session.id] ?: 0L
+        val now = System.currentTimeMillis()
+        if (manualUntil > now) return manualUntil - now
+
+        if (!session.breaksEnabled) return null
+        if (session.numberOfBreaks <= 0) return null
+        if (session.breakDurationSec <= 0 || session.pauseBetweenBreaksSec < 0) return null
+
+        val elapsedSec = elapsedSecSinceScheduleStart(session.scheduleStartTime)
+        if (elapsedSec < 0) return null
+
+        val workSec = session.pauseBetweenBreaksSec.toLong()
+        val breakSec = session.breakDurationSec.toLong()
+        val cycleSec = workSec + breakSec
+        if (cycleSec <= 0L) return null
+
+        for (i in 0 until session.numberOfBreaks) {
+            val breakStart = (i * cycleSec) + workSec
+            val breakEnd = breakStart + breakSec
+            if (elapsedSec in breakStart until breakEnd) {
+                return (breakEnd - elapsedSec) * 1000L
+            }
+        }
+        return null
+    }
+
+    private fun elapsedSecSinceScheduleStart(startTodMinutes: Int): Long {
+        val startCal = DateTimeUtils.todToTodayCal(startTodMinutes)
+        val now = System.currentTimeMillis()
+        val nowTod = DateTimeUtils.todayCalToTod()
+
+        /// Overnight window that started yesterday
+        if (nowTod < startTodMinutes && startCal.timeInMillis > now) {
+            startCal.add(java.util.Calendar.DAY_OF_YEAR, -1)
+        }
+
+        return (now - startCal.timeInMillis) / 1000L
     }
 
 

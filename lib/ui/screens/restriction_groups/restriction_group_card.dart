@@ -36,10 +36,13 @@ class RestrictionGroupCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final groupedAppsInfo = ref
-        .watch(appsInfoProvider.select((v) => v.value?.values
-            .where((e) => group.distractingApps.contains(e.packageName))))
-        ?.toList();
+    /// Watched directly rather than through `select`: a selector returning a
+    /// freshly built collection is never `==` to the previous one, so it would
+    /// rebuild this card on every notification instead of only on real changes.
+    final appsInfo = ref.watch(appsInfoProvider).value;
+    final groupedAppsInfo = appsInfo == null
+        ? null
+        : group.distractingApps.map((e) => appsInfo[e]).nonNulls.toList();
     final installedDistractingApps = groupedAppsInfo?.map((e) => e.packageName);
 
     final timeSpent = ref.watch(

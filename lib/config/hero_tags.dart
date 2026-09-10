@@ -80,6 +80,24 @@ class HeroTags {
   static String focusUnlockRemoveTag(int ruleId) =>
       "focus.unlock.remove.$ruleId";
 
+  /// Tags used to identify the tiles of a scheduled focus session based on its ID.
+  static String scheduledFocusNameTag(int sessionId) =>
+      "focus.scheduled.name.$sessionId";
+  static String scheduledFocusStartTimeTag(int sessionId) =>
+      "focus.scheduled.startTime.$sessionId";
+  static String scheduledFocusEndTimeTag(int sessionId) =>
+      "focus.scheduled.endTime.$sessionId";
+  static String scheduledFocusBreakDurationTag(int sessionId) =>
+      "focus.scheduled.breakDuration.$sessionId";
+  static String scheduledFocusPauseTag(int sessionId) =>
+      "focus.scheduled.pause.$sessionId";
+  static String scheduledFocusBreakCountTag(int sessionId) =>
+      "focus.scheduled.breakCount.$sessionId";
+  static String scheduledFocusSaveTag(int sessionId) =>
+      "focus.scheduled.save.$sessionId";
+  static String scheduledFocusRemoveTag(int sessionId) =>
+      "focus.scheduled.remove.$sessionId";
+
   /// Tag used to identify the tile for timer picker in focus mode.
   static const focusModeTimerTileTag = "focus.focusSessionTimerTile";
 

@@ -84,11 +84,15 @@ class _CreateUpdateRestrictionGroupState
         0;
     final timeLeft = max(0, (_group.timerSec - timeSpent));
 
+    /// Watched directly rather than through `select`: a selector returning a
+    /// freshly built collection is never `==` to the previous one, so it would
+    /// rebuild this screen on every notification instead of only on real changes.
     final alreadyGroupedApps = ref
-        .watch(appsRestrictionsProvider.select((v) => v.values
-            .where((e) =>
-                e.associatedGroupId != null && e.associatedGroupId != _group.id)
-            .map((e) => e.appPackage)))
+        .watch(appsRestrictionsProvider)
+        .values
+        .where((e) =>
+            e.associatedGroupId != null && e.associatedGroupId != _group.id)
+        .map((e) => e.appPackage)
         .toList();
 
     return PopScope(

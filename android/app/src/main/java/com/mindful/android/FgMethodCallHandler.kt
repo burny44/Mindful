@@ -23,6 +23,7 @@ import com.mindful.android.models.AppRestriction
 import com.mindful.android.models.BedtimeSchedule
 import com.mindful.android.models.FocusSession
 import com.mindful.android.models.FocusUnlockRule
+import com.mindful.android.models.ScheduledFocusSession
 import com.mindful.android.models.Notification
 import com.mindful.android.models.NotificationSettings
 import com.mindful.android.models.RestrictionGroup
@@ -176,6 +177,12 @@ class FgMethodCallHandler(
             "updateFocusUnlockRules" -> {
                 val rules = JsonUtils.parseFocusUnlockRules(call.arguments() ?: "")
                 updateTrackerServiceFocusUnlockRules(rules)
+                result.success(true)
+            }
+
+            "updateScheduledFocusSessions" -> {
+                val sessions = JsonUtils.parseScheduledFocusSessions(call.arguments() ?: "")
+                updateTrackerServiceScheduledFocusSessions(sessions)
                 result.success(true)
             }
 
@@ -455,6 +462,17 @@ class FgMethodCallHandler(
         } else if (rules.any { it.isValid }) {
             trackerServiceConn.setOnConnectedCallback { service ->
                 service.getRestrictionManager.updateFocusUnlockRules(rules)
+            }
+            trackerServiceConn.startAndBind()
+        }
+    }
+
+    private fun updateTrackerServiceScheduledFocusSessions(sessions: List<ScheduledFocusSession>) {
+        if (trackerServiceConn.isActive) {
+            trackerServiceConn.service?.getRestrictionManager?.updateScheduledFocusSessions(sessions)
+        } else if (sessions.any { it.isValid }) {
+            trackerServiceConn.setOnConnectedCallback { service ->
+                service.getRestrictionManager.updateScheduledFocusSessions(sessions)
             }
             trackerServiceConn.startAndBind()
         }

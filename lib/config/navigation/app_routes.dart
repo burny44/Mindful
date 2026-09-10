@@ -17,6 +17,7 @@ import 'package:mindful/ui/screens/app_dashboard/app_dashboard_screen.dart';
 import 'package:mindful/ui/screens/change_logs/change_logs_screen.dart';
 import 'package:mindful/ui/screens/focus/focus_screen.dart';
 import 'package:mindful/ui/screens/focus/create_update_focus_unlock_screen.dart';
+import 'package:mindful/ui/screens/focus/create_update_scheduled_focus_screen.dart';
 import 'package:mindful/ui/screens/home/home_screen.dart';
 import 'package:mindful/ui/screens/parental_controls/parental_controls_screen.dart';
 import 'package:mindful/ui/screens/restriction_groups/restriction_groups_screen.dart';
@@ -36,6 +37,7 @@ class AppRoutes {
   static const String activeSessionPath = '/activeSession';
   static const String focusModePath = '/focus';
   static const String focusUnlockRulePath = '/focusUnlock';
+  static const String scheduledFocusPath = '/scheduledFocus';
 
   static const String parentalControlsPath = '/parentalControls';
   static const String restrictionGroupsPath = '/restrictionGroups';
@@ -87,6 +89,9 @@ class AppRoutes {
 
     /// New earn-unlock session screen
     focusUnlockRulePath: (context) => const CreateUpdateFocusUnlockScreen(),
+
+    /// New scheduled focus session screen
+    scheduledFocusPath: (context) => const CreateUpdateScheduledFocusScreen(),
 
     /// Focus mode screen
     focusModePath: (context) => FocusScreen(

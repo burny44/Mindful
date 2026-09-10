@@ -21,7 +21,7 @@ dependencies:
   flutter_confetti: ^0.5.1
   smooth_page_indicator: ^1.2.0+3
   flutter_slidable: ^4.0.0
-  dynamic_color: ^1.7.0
+  dynamic_color: 1.7.0
   flutter_svg: ^2.0.17
   slide_action: ^0.0.2
 
@@ -32,10 +32,13 @@ dependencies:
   # Database and Storage
   path: ^1.9.0
   path_provider: ^2.1.2
-  file_picker: ^10.2.0
+  # Stay on 10.x: 12.x still needs AGP newDsl/built-in Kotlin that Flutter can't use yet.
+  file_picker: ">=10.2.0 <11.0.0"
   sqlite3: ^2.4.5
+  # Ships the native SQLite build. Was pulled in transitively by drift_flutter,
+  # which this project never imported -- it opens NativeDatabase itself.
+  sqlite3_flutter_libs: ^0.5.34
   drift: ^2.18.0
-  drift_flutter: ^0.2.0
 
   # Util
   intl: any

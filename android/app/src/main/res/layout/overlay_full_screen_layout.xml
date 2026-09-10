@@ -359,12 +359,26 @@
                         </GridLayout>
                     </LinearLayout>
 
+                    <!-- Take a break (scheduled focus sessions) -->
+                    <Button
+                        android:id="@+id/overlay_sheet_btn_take_break"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:background="@drawable/shape_rounded_md"
+                        android:backgroundTint="@color/primaryContainer"
+                        android:textAllCaps="false"
+                        android:textColor="@color/textPrimary"
+                        android:visibility="gone"
+                        tools:text="Take a Break · 5 min  (2/3 left)"
+                        tools:visibility="visible" />
+
                     <!-- Close app button -->
                     <Button
                         android:id="@+id/overlay_sheet_btn_close_app"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
+                        android:layout_marginTop="8dp"
                         android:background="@drawable/shape_rounded_md"
                         android:backgroundTint="@color/accent"
                         android:text="@string/app_paused_overlay_button_close_app"

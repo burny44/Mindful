@@ -31,8 +31,10 @@ class RestrictionGroupsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final groups =
-        ref.watch(restrictionGroupsProvider.select((v) => v.values.toList()));
+    /// Watched directly rather than through `select`: a selector returning a
+    /// freshly built list is never `==` to the previous one, so it would rebuild
+    /// this screen on every notification instead of only on real changes.
+    final groups = ref.watch(restrictionGroupsProvider).values.toList();
 
     return ScaffoldShell(
       items: [

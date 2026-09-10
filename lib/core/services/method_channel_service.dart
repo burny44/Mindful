@@ -16,6 +16,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:mindful/core/database/app_database.dart';
 import 'package:mindful/models/focus_unlock_rule.dart';
+import 'package:mindful/models/scheduled_focus_session.dart';
 import 'package:mindful/models/usage_model.dart';
 import 'package:mindful/models/app_info.dart';
 import 'package:mindful/models/device_info_model.dart';
@@ -199,6 +200,15 @@ class MethodChannelService {
       _methodChannel.invokeMethod(
         'updateFocusUnlockRules',
         jsonEncode(rules.map((e) => e.toJson()).toList()),
+      );
+
+  /// Safe method to update scheduled focus sessions in the TRACKER service.
+  Future<void> updateScheduledFocusSessions(
+    List<ScheduledFocusSession> sessions,
+  ) async =>
+      _methodChannel.invokeMethod(
+        'updateScheduledFocusSessions',
+        jsonEncode(sessions.map((e) => e.toJson()).toList()),
       );
 
   /// Safe method to update internet blocked apps in the VPN service.
