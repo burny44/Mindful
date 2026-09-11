@@ -123,13 +123,13 @@ class _ExportClearCrashLogsState extends ConsumerState<ExportClearCrashLogs> {
       /// Create file and write logs
       final timeStamp = DateFormat('yyyy-MM-dThh-mm-ss').format(DateTime.now());
 
-      final resultPath = await FilePicker.platform.saveFile(
+      final resultUri = await FilePicker.saveFile(
         fileName: "Mindful_Logs_$timeStamp.json",
         bytes: Uint8List.fromList(utf8.encode(jsonString)),
       );
 
       /// user aborted
-      if (resultPath == null) {
+      if (resultUri == null) {
         throw Exception('User aborted the exporting operation');
       }
     } catch (e) {

@@ -1,6 +1,5 @@
 plugins {
     id "com.android.application"
-    id "kotlin-android"
 }
 
 def localProperties = new Properties()
@@ -21,17 +20,13 @@ android {
         targetCompatibility JavaVersion.VERSION_17
     }
 
-    kotlinOptions {
-        jvmTarget = "17"
-    }
-
     defaultConfig {
         applicationId "com.mindful.android"
         minSdkVersion defaultMinSdkVersion
         targetSdkVersion 36
         versionCode 1
         versionName "1.0"
-        // Flutter normally injects this via its Gradle plugin.
+        // Flutter normally injects this via the Flutter Gradle plugin.
         manifestPlaceholders += [applicationName: "android.app.Application"]
     }
 
@@ -53,6 +48,12 @@ android {
 
     sourceSets {
         main.java.srcDirs += "src/main/java"
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
     }
 }
 

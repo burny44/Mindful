@@ -175,13 +175,15 @@ class FgMethodCallHandler(
             }
 
             "updateFocusUnlockRules" -> {
-                val rules = JsonUtils.parseFocusUnlockRules(call.arguments() ?: "")
+                val json = call.arguments() ?: "[]"
+                val rules = SharedPrefsHelper.getSetFocusUnlockRules(context, json)
                 updateTrackerServiceFocusUnlockRules(rules)
                 result.success(true)
             }
 
             "updateScheduledFocusSessions" -> {
-                val sessions = JsonUtils.parseScheduledFocusSessions(call.arguments() ?: "")
+                val json = call.arguments() ?: "[]"
+                val sessions = SharedPrefsHelper.getSetScheduledFocusSessions(context, json)
                 updateTrackerServiceScheduledFocusSessions(sessions)
                 result.success(true)
             }

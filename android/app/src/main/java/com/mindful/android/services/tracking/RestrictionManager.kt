@@ -5,6 +5,7 @@ import android.app.usage.UsageStatsManager
 import android.content.Context
 import android.util.Log
 import com.mindful.android.enums.RestrictionType
+import com.mindful.android.helpers.storage.SharedPrefsHelper
 import com.mindful.android.helpers.usages.ScreenUsageHelper
 import com.mindful.android.models.AppRestriction
 import com.mindful.android.models.FocusUnlockRule
@@ -35,8 +36,10 @@ class RestrictionManager(
     // Focus
     private var focusedApps = setOf<String>()
     private var bedtimeApps = setOf<String>()
-    private var focusUnlockRules = listOf<FocusUnlockRule>()
-    private var scheduledFocusSessions = listOf<ScheduledFocusSession>()
+    private var focusUnlockRules =
+        SharedPrefsHelper.getSetFocusUnlockRules(context, null).filter { it.isValid }
+    private var scheduledFocusSessions =
+        SharedPrefsHelper.getSetScheduledFocusSessions(context, null).filter { it.isValid }
 
     /// Manual "Take a Break" state for scheduled focus sessions (resets at midnight).
     private val manualBreakUntilBySession = HashMap<Long, Long>()
@@ -48,6 +51,14 @@ class RestrictionManager(
 
     private val alreadyRestrictedApps = HashMap<String, RestrictionState>(0)
     private val alreadyRestrictedGroups = HashMap<Int, RestrictionState>(0)
+
+    init {
+        Log.d(
+            TAG,
+            "init: restored ${scheduledFocusSessions.size} scheduled focus / " +
+                "${focusUnlockRules.size} earn-unlock session(s) from prefs"
+        )
+    }
 
     fun resetCache() {
         alreadyRestrictedApps.clear()
@@ -302,6 +313,11 @@ class RestrictionManager(
     /**
      * Returns milliseconds until the current break ends, or null when the session
      * is not currently in a break (including when breaks are disabled).
+     *
+     * Automatic break cycles need a positive [ScheduledFocusSession.pauseBetweenBreaksSec]
+     * (work time before each break). When pause is 0, only manual "Take a Break"
+     * overlays apply — otherwise the whole start of the schedule would be treated
+     * as one long auto-break.
      */
     private fun msUntilBreakEnds(session: ScheduledFocusSession): Long? {
         /// Manual on-demand break takes priority
@@ -311,7 +327,7 @@ class RestrictionManager(
 
         if (!session.breaksEnabled) return null
         if (session.numberOfBreaks <= 0) return null
-        if (session.breakDurationSec <= 0 || session.pauseBetweenBreaksSec < 0) return null
+        if (session.breakDurationSec <= 0 || session.pauseBetweenBreaksSec <= 0) return null
 
         val elapsedSec = elapsedSecSinceScheduleStart(session.scheduleStartTime)
         if (elapsedSec < 0) return null

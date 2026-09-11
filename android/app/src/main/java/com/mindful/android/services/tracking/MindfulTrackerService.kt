@@ -41,8 +41,11 @@ class MindfulTrackerService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-
-        if (intent?.action == ServiceBinder.ACTION_START_MINDFUL_SERVICE) {
+        /// Sticky restarts often arrive with a null intent. Keep the service
+        /// alive whenever persisted restrictions (e.g. scheduled focus) exist.
+        if (intent?.action == ServiceBinder.ACTION_START_MINDFUL_SERVICE
+            || !restrictionManager.isIdle
+        ) {
             startFgService()
             return START_STICKY
         }

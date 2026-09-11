@@ -16,6 +16,8 @@ import android.content.SharedPreferences
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.util.Log
 import com.mindful.android.enums.DndWakeLock
+import com.mindful.android.models.FocusUnlockRule
+import com.mindful.android.models.ScheduledFocusSession
 import com.mindful.android.models.Wellbeing
 import com.mindful.android.utils.AppUtils
 import com.mindful.android.utils.JsonUtils
@@ -33,6 +35,8 @@ object SharedPrefsHelper {
     private const val PREF_KEY_SHORTS_SCREEN_TIME = "shortsScreenTime"
     private const val PREF_KEY_DND_WAKE_LOCK = "dndWakeLock"
     private const val PREF_KEY_EXCLUDED_APPS = "excludedApps"
+    private const val PREF_KEY_SCHEDULED_FOCUS_SESSIONS = "scheduledFocusSessions"
+    private const val PREF_KEY_FOCUS_UNLOCK_RULES = "focusUnlockRules"
 
     private var mListenablePrefs: SharedPreferences? = null
     private const val LISTENABLE_PREFS_BOX = "UniquePrefs"
@@ -167,6 +171,48 @@ object SharedPrefsHelper {
             mUniquePrefs!!.edit().putString(PREF_KEY_EXCLUDED_APPS, jsonExcludedApps).apply()
             return JsonUtils.parseStringSet(jsonExcludedApps)
         }
+    }
+
+    /**
+     * Fetches persisted scheduled focus sessions, or stores [jsonSessions] when non-null.
+     * Tracker keeps these only in memory otherwise, so a process death would stop blocking
+     * until Flutter opens again.
+     */
+    fun getSetScheduledFocusSessions(
+        context: Context,
+        jsonSessions: String?,
+    ): List<ScheduledFocusSession> {
+        checkAndInitializeUniquePrefs(context)
+        if (jsonSessions == null) {
+            return JsonUtils.parseScheduledFocusSessions(
+                mUniquePrefs!!.getString(PREF_KEY_SCHEDULED_FOCUS_SESSIONS, "[]")
+            )
+        }
+
+        mUniquePrefs!!.edit()
+            .putString(PREF_KEY_SCHEDULED_FOCUS_SESSIONS, jsonSessions)
+            .apply()
+        return JsonUtils.parseScheduledFocusSessions(jsonSessions)
+    }
+
+    /**
+     * Fetches persisted earn-unlock rules, or stores [jsonRules] when non-null.
+     */
+    fun getSetFocusUnlockRules(
+        context: Context,
+        jsonRules: String?,
+    ): List<FocusUnlockRule> {
+        checkAndInitializeUniquePrefs(context)
+        if (jsonRules == null) {
+            return JsonUtils.parseFocusUnlockRules(
+                mUniquePrefs!!.getString(PREF_KEY_FOCUS_UNLOCK_RULES, "[]")
+            )
+        }
+
+        mUniquePrefs!!.edit()
+            .putString(PREF_KEY_FOCUS_UNLOCK_RULES, jsonRules)
+            .apply()
+        return JsonUtils.parseFocusUnlockRules(jsonRules)
     }
 
     /**

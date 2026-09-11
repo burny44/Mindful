@@ -91,21 +91,19 @@ class _ImportExportDbState extends ConsumerState<ImportExportDb> {
 
       /// Original DB file
       final originalDbFile = File(await getSqliteDbPath());
-      final result = await FilePicker.platform.pickFiles(
+      final file = await FilePicker.pickFile(
         compressionQuality: 0,
         type: FileType.any,
       );
 
-      if (result == null ||
-          result.count < 1 ||
-          result.files.first.extension != 'sqlite') {
+      if (file == null || file.extension != 'sqlite') {
         throw Exception(
           'Either selected file is null or invalid extension',
         );
       }
 
       /// Backup DB file
-      final backupFile = File(result.files.first.xFile.path);
+      final backupFile = File(file.xFile.path);
 
       if (await backupFile.exists()) {
         /// dispose, clean, copy
@@ -158,14 +156,14 @@ class _ImportExportDbState extends ConsumerState<ImportExportDb> {
           .split("+")
           .lastOrNull;
 
-      final resultPath = await FilePicker.platform.saveFile(
+      final resultUri = await FilePicker.saveFile(
         fileName:
             "Mindful_v${mindfulVersionCode}_dbv${dbVersionCode}_$timeStamp.sqlite",
         bytes: Uint8List.fromList(dbFileBytes),
       );
 
       /// user aborted
-      if (resultPath == null) {
+      if (resultUri == null) {
         throw Exception('User aborted the exporting operation');
       }
     } catch (e) {
