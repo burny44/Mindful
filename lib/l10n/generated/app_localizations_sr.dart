@@ -314,10 +314,10 @@ class AppLocalizationsSr extends AppLocalizations {
   String get focus_now_fab_button => 'Добродошао/ла назад!';
 
   @override
-  String get focus_unlock_option_label => 'Earn unlock';
+  String get focus_unlock_option_label => 'Earn Unlock';
 
   @override
-  String get new_session_option_label => 'New session';
+  String get new_session_option_label => 'New Session';
 
   @override
   String get new_session_screen_title => 'New session';
@@ -396,7 +396,7 @@ class AppLocalizationsSr extends AppLocalizations {
   String get new_session_sessions_heading => 'Focus sessions';
 
   @override
-  String get app_groups_heading => 'App groups';
+  String get app_groups_heading => 'App Groups';
 
   @override
   String get app_groups_info =>
@@ -587,13 +587,6 @@ class AppLocalizationsSr extends AppLocalizations {
 
   @override
   String get restrictions_heading => 'Ограничења';
-
-  @override
-  String get apps_blocking_tile_title => 'Блокирање апликација';
-
-  @override
-  String get apps_blocking_tile_subtitle =>
-      'Ограничи апликације на више начина.';
 
   @override
   String get websites_blocking_tile_subtitle =>

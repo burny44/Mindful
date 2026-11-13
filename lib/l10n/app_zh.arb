@@ -121,8 +121,6 @@
     "username_dialog_info": "输入将在仪表盘上显示的用户名。",
     "username_dialog_button_apply": "应用",
     "restrictions_heading": "限制",
-    "apps_blocking_tile_title": "应用屏蔽",
-    "apps_blocking_tile_subtitle": "以多种方式限制应用。",
     "websites_blocking_tile_subtitle": "限制成人和自定义网站。",
     "screen_time_label": "屏幕时间",
     "@----------------------------- HOME SCREEN - STATISTICS TAB -----------------------------": {},

@@ -121,8 +121,6 @@
     "username_dialog_info": "Introduzca su nombre de usuario que se mostrará en el panel de control.",
     "username_dialog_button_apply": "Aplicar",
     "restrictions_heading": "Restricciones",
-    "apps_blocking_tile_title": "Bloqueo de apps",
-    "apps_blocking_tile_subtitle": "Limita las aplicaciones de muchas maneras.",
     "websites_blocking_tile_subtitle": "Limitar sitios para adultos y personalizados.",
     "screen_time_label": "Tiempo de pantalla",
     "@----------------------------- HOME SCREEN - STATISTICS TAB -----------------------------": {},

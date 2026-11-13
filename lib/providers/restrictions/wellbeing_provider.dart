@@ -75,8 +75,4 @@ class WellBeingNotifier extends StateNotifier<Wellbeing> {
   /// Sets the daily Instagram usage after which reels get blocked. 0 disables it.
   void setInstagramUsageLimit(int timeSec) =>
       state = state.copyWith(instagramUsageLimitSec: timeSec > 0 ? timeSec : 0);
-
-  /// Sets the allowed time limit for short content consumption.
-  void setAllowedShortContentTime(int timeSec) =>
-      state = state.copyWith(allowedShortsTimeSec: timeSec > 0 ? timeSec : -1);
 }

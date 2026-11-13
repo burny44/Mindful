@@ -120,8 +120,6 @@
     "username_dialog_info": "أدخل أسم المستخدم الخاص بك والذي سيتم عرضه على لوحة التحكم.",
     "username_dialog_button_apply": "تطبيق",
     "restrictions_heading": "القيود",
-    "apps_blocking_tile_title": "حظر التطبيقات",
-    "apps_blocking_tile_subtitle": "حدد قيودا على التطبيقات بطرق متعددة.",
     "websites_blocking_tile_subtitle": "حدد قيودا على المواقع الإباحية والمخصصة.",
     "screen_time_label": "وقت استخدام الشاشة",
     "@----------------------------- HOME SCREEN - STATISTICS TAB -----------------------------": {},

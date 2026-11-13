@@ -121,8 +121,6 @@
     "username_dialog_info": "Εισήγαγε το όνομα χρήστη σου το οποίο θα εμφανίζεται στην επισκόπηση.",
     "username_dialog_button_apply": "Εφαρμογή",
     "restrictions_heading": "Περιορισμοί",
-    "apps_blocking_tile_title": "Αποκλεισμός εφαρμογών",
-    "apps_blocking_tile_subtitle": "Περιόρισε τις εφαρμογές με πολλούς τρόπους.",
     "websites_blocking_tile_subtitle": "Περιορισμός ενηλίκων και προσαρμοσμένων ιστοσελίδων.",
     "screen_time_label": "Χρόνος οθόνης",
     "@----------------------------- HOME SCREEN - STATISTICS TAB -----------------------------": {},

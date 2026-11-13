@@ -22,7 +22,6 @@ class HeroTags {
   static const instagramUsageLimitTileTag = "shortsBlocking.instagramUsageLimit";
 
   /// Tag used to identify the short content timer picker.
-  static const shortContentTimerPickerTag = "shortsBlocking.shortsTimerPicker";
 
   /// Tag used to identify the block NSFW sites tile in wellbeing tab.
   static const blockNsfwTileTag = "websitesBlocking.blockNsfwTile";

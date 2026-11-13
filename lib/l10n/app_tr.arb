@@ -121,8 +121,6 @@
     "username_dialog_info": "Kontrol panelinde görüntülenecek olan kullanıcı adınızı girin.",
     "username_dialog_button_apply": "Uygula",
     "restrictions_heading": "Kısıtlamalar",
-    "apps_blocking_tile_title": "Uygulama engelleme",
-    "apps_blocking_tile_subtitle": "Uygulamaları çeşitli şekillerde sınırlandırın.",
     "websites_blocking_tile_subtitle": "Yetişkin ve özel web sitelerini sınırlayın.",
     "screen_time_label": "Ekran süresi",
     "@----------------------------- HOME SCREEN - STATISTICS TAB -----------------------------": {},

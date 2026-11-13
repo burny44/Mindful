@@ -42,27 +42,6 @@ Future<int?> showAppTimerPicker({
       ),
     );
 
-/// Animates the hero widget to a alert dialog containing duration picker with the provided configurations
-///
-/// Returns time in seconds and take initial time in seconds
-Future<int?> showShortsTimerPicker({
-  required BuildContext context,
-  required Object heroTag,
-  required int initialTime,
-}) async =>
-    await Navigator.of(context).push<int>(
-      HeroPageRoute(
-        builder: (context) => _DurationPickerDialog(
-          title: context.locale.short_content_heading,
-          info: context.locale.short_content_timer_picker_dialog_info,
-          icon: const Icon(FluentIcons.video_clip_multiple_20_filled),
-          heroTag: heroTag,
-          initialTimeInSec: initialTime,
-          positiveButtonLabel: context.locale.dialog_button_set,
-        ),
-      ),
-    );
-
 /// Animates the hero widget to a alert dialog containing duration picker for the
 /// daily Instagram usage after which reels get blocked.
 ///

@@ -86,11 +86,6 @@ class MethodChannelService {
   ///
   /// This method retrieves the total screen time spent on short-form video apps
   /// and converts it to seconds before returning the value.
-  Future<int> getShortsScreenTimeSec() async {
-    int time = await _methodChannel.invokeMethod('getShortsScreenTimeMs');
-    return time ~/ 1000;
-  }
-
   /// Gets all the stored native crash logs and clears them afterward.
   Future<List<CrashLogsTableCompanion>> getNativeCrashLogs() async {
     List<CrashLogsTableCompanion> crashLogs = [];
@@ -231,7 +226,9 @@ class MethodChannelService {
         'updateWellBeingSettings',
         jsonEncode(
           {
-            "allowedShortsTimeSec": wellBeingSettings.allowedShortsTimeSec,
+            // No shared short content allowance: blocked features are blocked
+            // right away (Instagram reels can still use their own daily limit).
+            "allowedShortsTimeSec": -1,
             "instagramUsageLimitSec": wellBeingSettings.instagramUsageLimitSec,
             "blockNsfwSites": wellBeingSettings.blockNsfwSites,
             "blockedFeatures":

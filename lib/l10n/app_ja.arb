@@ -121,8 +121,6 @@
     "username_dialog_info": "ダッシュボードに表示されるユーザー名を入力してください。",
     "username_dialog_button_apply": "保存",
     "restrictions_heading": "アプリの制限",
-    "apps_blocking_tile_title": "アプリのブロック",
-    "apps_blocking_tile_subtitle": "複数の方法でアプリを制限します。",
     "websites_blocking_tile_subtitle": "アダルトサイトやカスタムウェブサイトを制限します。",
     "screen_time_label": "使用時間",
     "@----------------------------- HOME SCREEN - STATISTICS TAB -----------------------------": {},

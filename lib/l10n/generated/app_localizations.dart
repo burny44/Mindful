@@ -615,13 +615,13 @@ abstract class AppLocalizations {
   /// No description provided for @focus_unlock_option_label.
   ///
   /// In en, this message translates to:
-  /// **'Earn unlock'**
+  /// **'Earn Unlock'**
   String get focus_unlock_option_label;
 
   /// No description provided for @new_session_option_label.
   ///
   /// In en, this message translates to:
-  /// **'New session'**
+  /// **'New Session'**
   String get new_session_option_label;
 
   /// No description provided for @new_session_screen_title.
@@ -759,7 +759,7 @@ abstract class AppLocalizations {
   /// No description provided for @app_groups_heading.
   ///
   /// In en, this message translates to:
-  /// **'App groups'**
+  /// **'App Groups'**
   String get app_groups_heading;
 
   /// No description provided for @app_groups_info.
@@ -1086,18 +1086,6 @@ abstract class AppLocalizations {
   /// **'Restrictions'**
   String get restrictions_heading;
 
-  /// No description provided for @apps_blocking_tile_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Apps blocking'**
-  String get apps_blocking_tile_title;
-
-  /// No description provided for @apps_blocking_tile_subtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Limit apps in multiple ways.'**
-  String get apps_blocking_tile_subtitle;
-
   /// No description provided for @websites_blocking_tile_subtitle.
   ///
   /// In en, this message translates to:
@@ -1245,13 +1233,13 @@ abstract class AppLocalizations {
   /// No description provided for @shorts_blocking_tab_title.
   ///
   /// In en, this message translates to:
-  /// **'In app blocking'**
+  /// **'In-App Blocking'**
   String get shorts_blocking_tab_title;
 
   /// No description provided for @shorts_blocking_tab_info.
   ///
   /// In en, this message translates to:
-  /// **'Control how much time you spend on short content across platforms like Instagram, YouTube, Snapchat, and Facebook, including their websites.'**
+  /// **'Block short content and distracting features on platforms like Instagram, YouTube, Snapchat, Facebook and Reddit, including their websites. Tap a platform to see its options.'**
   String get shorts_blocking_tab_info;
 
   /// No description provided for @short_content_heading.

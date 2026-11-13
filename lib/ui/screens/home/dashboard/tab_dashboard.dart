@@ -13,7 +13,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mindful/config/navigation/app_routes.dart';
-import 'package:mindful/core/enums/default_home_tab.dart';
 import 'package:mindful/core/enums/item_position.dart';
 import 'package:mindful/core/extensions/ext_build_context.dart';
 import 'package:mindful/core/extensions/ext_list.dart';
@@ -22,7 +21,6 @@ import 'package:mindful/ui/common/content_section_header.dart';
 import 'package:mindful/ui/common/default_list_tile.dart';
 import 'package:mindful/ui/common/default_refresh_indicator.dart';
 import 'package:mindful/ui/common/sliver_tabs_bottom_padding.dart';
-import 'package:mindful/ui/controllers/tab_controller_provider.dart';
 import 'package:mindful/ui/permissions/missing_essential_permissions_alert.dart';
 import 'package:mindful/ui/screens/home/dashboard/sliver_focus_unlock_rules.dart';
 import 'package:mindful/ui/screens/home/dashboard/sliver_in_app_blocking.dart';
@@ -79,20 +77,9 @@ class TabDashboard extends ConsumerWidget {
           title: context.locale.restrictions_heading,
         ),
 
-        /// Apps blocking
-        DefaultListTile(
-          position: ItemPosition.top,
-          leadingIcon: FluentIcons.app_title_20_regular,
-          titleText: context.locale.apps_blocking_tile_title,
-          subtitleText: context.locale.apps_blocking_tile_subtitle,
-          onPressed: () => TabControllerProvider.maybeOf(context)?.animateToTab(
-            DefaultHomeTab.statistics.index,
-          ),
-        ),
-
         /// Website restrictions
         DefaultListTile(
-          position: ItemPosition.bottom,
+          position: ItemPosition.none,
           leadingIcon: FluentIcons.earth_20_regular,
           titleText: context.locale.websites_blocking_tab_title,
           subtitleText: context.locale.websites_blocking_tile_subtitle,

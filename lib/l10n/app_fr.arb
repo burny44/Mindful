@@ -121,8 +121,6 @@
     "username_dialog_info": "Entrez le nom d'utilisateur qui s'affichera sur le tableau de bord.",
     "username_dialog_button_apply": "Confirmer",
     "restrictions_heading": "Restrictions",
-    "apps_blocking_tile_title": "Blocage des applications",
-    "apps_blocking_tile_subtitle": "Limitez vos applications de plusieurs façons.",
     "screen_time_label": "Temps d'écran",
     "@----------------------------- HOME SCREEN - STATISTICS TAB -----------------------------": {},
     "statistics_tab_title": "Statistiques",

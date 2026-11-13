@@ -121,8 +121,6 @@
     "username_dialog_info": "Унеси корисничко име које ће бити приказано на контролној табли.",
     "username_dialog_button_apply": "Примени",
     "restrictions_heading": "Ограничења",
-    "apps_blocking_tile_title": "Блокирање апликација",
-    "apps_blocking_tile_subtitle": "Ограничи апликације на више начина.",
     "websites_blocking_tile_subtitle": "Ограничи садржај за одрасле и одабране веб сајтове.",
     "screen_time_label": "Време испред екрана",
     "@----------------------------- HOME SCREEN - STATISTICS TAB -----------------------------": {},

@@ -121,8 +121,6 @@
     "username_dialog_info": "Введіть ваше ім'я користувача, яке буде показане на панелі управління.",
     "username_dialog_button_apply": "Прийняти",
     "restrictions_heading": "Обмеження",
-    "apps_blocking_tile_title": "Блокування додатків",
-    "apps_blocking_tile_subtitle": "Обмежити додатки різними способами.",
     "websites_blocking_tile_subtitle": "Обмежити сайти для дорослих та вибрані сайти.",
     "screen_time_label": "Час екрану",
     "@----------------------------- HOME SCREEN - STATISTICS TAB -----------------------------": {},

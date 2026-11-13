@@ -315,10 +315,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get focus_now_fab_button => 'Se concentrer';
 
   @override
-  String get focus_unlock_option_label => 'Earn unlock';
+  String get focus_unlock_option_label => 'Earn Unlock';
 
   @override
-  String get new_session_option_label => 'New session';
+  String get new_session_option_label => 'New Session';
 
   @override
   String get new_session_screen_title => 'New session';
@@ -397,7 +397,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get new_session_sessions_heading => 'Focus sessions';
 
   @override
-  String get app_groups_heading => 'App groups';
+  String get app_groups_heading => 'App Groups';
 
   @override
   String get app_groups_info =>
@@ -591,13 +591,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String get restrictions_heading => 'Restrictions';
 
   @override
-  String get apps_blocking_tile_title => 'Blocage des applications';
-
-  @override
-  String get apps_blocking_tile_subtitle =>
-      'Limitez vos applications de plusieurs façons.';
-
-  @override
   String get websites_blocking_tile_subtitle =>
       'Limit adult and custom websites.';
 
@@ -674,11 +667,11 @@ class AppLocalizationsFr extends AppLocalizations {
   String get new_schedule_dialog_field_label => 'Nom de l\'horaire';
 
   @override
-  String get shorts_blocking_tab_title => 'In app blocking';
+  String get shorts_blocking_tab_title => 'In-App Blocking';
 
   @override
   String get shorts_blocking_tab_info =>
-      'Control how much time you spend on short content across platforms like Instagram, YouTube, Snapchat, and Facebook, including their websites.';
+      'Block short content and distracting features on platforms like Instagram, YouTube, Snapchat, Facebook and Reddit, including their websites. Tap a platform to see its options.';
 
   @override
   String get short_content_heading => 'Contenu court';

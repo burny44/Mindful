@@ -8,22 +8,16 @@
  *
  */
 
-import 'dart:math';
-
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mindful/core/extensions/ext_build_context.dart';
 import 'package:mindful/core/extensions/ext_widget.dart';
-import 'package:mindful/providers/restrictions/wellbeing_provider.dart';
 import 'package:mindful/providers/system/permissions_provider.dart';
-import 'package:mindful/providers/usage/shorts_screen_time_provider.dart';
-import 'package:mindful/ui/common/content_section_header.dart';
 import 'package:mindful/ui/common/scaffold_shell.dart';
 import 'package:mindful/ui/common/sliver_tabs_bottom_padding.dart';
 import 'package:mindful/ui/common/styled_text.dart';
 import 'package:mindful/ui/permissions/accessibility_permission_card.dart';
-import 'package:mindful/ui/screens/shorts_blocking/shorts_timer_chart.dart';
 import 'package:mindful/ui/screens/shorts_blocking/sliver_shorts_quick_actions.dart';
 
 class ShortsBlockingScreen extends ConsumerWidget {
@@ -31,21 +25,9 @@ class ShortsBlockingScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final shortsScreenTimeSec = ref.watch(shortsScreenTimeProvider).value ?? 0;
-
-    final allowedShortContentTimeSec =
-        ref.watch(wellBeingProvider.select((v) => v.allowedShortsTimeSec));
-
     final haveAccessibilityPermission = ref.watch(
       permissionProvider.select((v) => v.haveAccessibilityPermission),
     );
-
-    final remainingTimeSec = allowedShortContentTimeSec.isNegative
-        ? 0
-        : max(
-            0,
-            (allowedShortContentTimeSec - shortsScreenTimeSec),
-          );
 
     return ScaffoldShell(
       items: [
@@ -59,20 +41,11 @@ class ShortsBlockingScreen extends ConsumerWidget {
               /// Information about shorts blocking
               StyledText(context.locale.shorts_blocking_tab_info).sliver,
 
-              /// Short content header
-              ContentSectionHeader(title: context.locale.short_content_heading)
-                  .sliver,
-
-              /// Short usage progress bar
-              ShortsTimerChart(
-                haveNecessaryPerms: haveAccessibilityPermission,
-                allowedTimeSec: max(allowedShortContentTimeSec, 0),
-                remainingTimeSec: remainingTimeSec,
-              ).sliver,
+              const SliverToBoxAdapter(child: SizedBox(height: 12)),
 
               const AccessibilityPermissionCard(),
 
-              /// Quick actions
+              /// One collapsible card per platform
               SliverShortsQuickActions(
                 haveNecessaryPerms: haveAccessibilityPermission,
               ),

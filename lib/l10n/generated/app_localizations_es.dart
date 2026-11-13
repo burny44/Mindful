@@ -315,10 +315,10 @@ class AppLocalizationsEs extends AppLocalizations {
   String get focus_now_fab_button => 'Centrarse ahora';
 
   @override
-  String get focus_unlock_option_label => 'Earn unlock';
+  String get focus_unlock_option_label => 'Earn Unlock';
 
   @override
-  String get new_session_option_label => 'New session';
+  String get new_session_option_label => 'New Session';
 
   @override
   String get new_session_screen_title => 'New session';
@@ -397,7 +397,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get new_session_sessions_heading => 'Focus sessions';
 
   @override
-  String get app_groups_heading => 'App groups';
+  String get app_groups_heading => 'App Groups';
 
   @override
   String get app_groups_info =>
@@ -589,13 +589,6 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get restrictions_heading => 'Restricciones';
-
-  @override
-  String get apps_blocking_tile_title => 'Bloqueo de apps';
-
-  @override
-  String get apps_blocking_tile_subtitle =>
-      'Limita las aplicaciones de muchas maneras.';
 
   @override
   String get websites_blocking_tile_subtitle =>
