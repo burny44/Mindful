@@ -17,8 +17,6 @@
     <string name="service_running_notification_title">Mindful em execução</string>
     <string name="shortcut_upcoming_notifications_label">Notificações em lote</string>
     <string name="shortcut_upcoming_notifications_description">Verificar as próximas notificações em lote.</string>
-    <string name="focus_quick_tile_status_active">Ativo</string>
-    <string name="usage_widget_description">Obtenha uma visão diária de sua tela e uso de dados</string>
     <string name="widget_screen_time_label">Tempo de tela</string>
     <string name="widget_mobile_data_label">Uso de dados móveis</string>
     <string name="widget_wifi_data_label">Wifi</string>
@@ -48,10 +46,6 @@
     <string name="emergency_pause_notification_info" comment="Time string as placeholder. ex: 'App blocker will resume after 3m 15s'" formatted="true">Bloqueador de aplicativo será retomado após %s</string>
     <string name="emergency_pause_ended_notification_info">Pausa de emergência acabou, e o bloqueador de apps está de volta. Distrações serão bloqueadas novamente, fique focado!</string>
     <string name="focus_session_notification_title">Sessão de foco</string>
-    <string name="focus_session_notification_info" comment="Time string as placeholder. ex: 'Focus session will end in 33m 15s'" formatted="true">Sessão de foco terminará em %s</string>
-    <string name="focus_session_infinite_notification_info" comment="Time string as placeholder. ex: 'You've been focused for 33m 15s'" formatted="true">Você esteve em foco por %s</string>
-    <string name="focus_session_success_notification_info">Parabéns! Você completou com sucesso sua sessão de foco. Ótimo trabalho em manter o foco! Continue com o excelente desempenho!</string>
-    <string name="focus_session_giveup_notification_info">Você desistiu! Não se preocupe, você pode fazer melhor da próxima vez. Cada esforço conta — apenas continue</string>
     <string name="notification_schedule_batch_title">Notificações não lidas</string>
     <string name="notification_schedule_batch_summery" comment="Number of notifications as placeholder" formatted="true">Você tem %d notificações não lidas enquanto estava fora. Elas serão marcadas como lidas depois de 24 horas.</string>
 </resources>

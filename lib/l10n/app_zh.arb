@@ -45,17 +45,6 @@
     "permission_notification_access_required": "Mindful需要通知访问权限来批量和安排通知。",
     "permission_notification_access_device_tile_label": "允许通知访问",
     "@----------------------------- DATE AND TIME -----------------------------": {},
-    "day_today": "今天",
-    "day_yesterday": "昨天",
-    "nDays": "{count, plural, =0{0 day} =1{1 day} other{{count} days}}",
-    "@nDays": {
-        "placeholders": {
-            "count": {
-                "type": "num",
-                "format": "compact"
-            }
-        }
-    },
     "nHours": "{count, plural, =0{0 hour} =1{1 hour} other{{count} hours}}",
     "@nHours": {
         "placeholders": {
@@ -88,7 +77,6 @@
         "description": "Separator used between time like, 10 hours 'and' 15 minutes"
     },
     "@----------------------------- SHARED STRINGS -----------------------------": {},
-    "timer_status_active": "活动中",
     "timer_status_paused": "暂停",
     "create_button": "创建",
     "update_button": "更新",
@@ -99,9 +87,6 @@
     "dialog_button_infinite": "无限",
     "schedule_start_label": "开始",
     "schedule_end_label": "结束",
-    "development_dialog_info": "Mindful 目前处于开发阶段，可能存在漏洞或不完整的功能。如果您遇到任何问题，请报告以帮助我们改进。\n\n感谢您的反馈！",
-    "development_dialog_button_report_issue": "报告问题",
-    "development_dialog_button_close": "关闭",
     "quick_actions_heading": "快速操作",
     "select_distracting_apps_heading": "选择分散注意力的应用",
     "your_distracting_apps_heading": "您的分散注意力应用",
@@ -140,10 +125,6 @@
     "apps_blocking_tile_subtitle": "以多种方式限制应用。",
     "websites_blocking_tile_subtitle": "限制成人和自定义网站。",
     "screen_time_label": "屏幕时间",
-    "longest_streak_label": "最长连续记录",
-    "current_streak_label": "当前连续记录",
-    "successful_sessions_label": "成功会话",
-    "failed_sessions_label": "失败会话",
     "@----------------------------- HOME SCREEN - STATISTICS TAB -----------------------------": {},
     "statistics_tab_title": "统计",
     "screen_segment_label": "屏幕",
@@ -216,16 +197,6 @@
     "add_website_dialog_button_block": "屏蔽",
     "add_website_already_exist_snack_alert": "该URL已添加到已屏蔽的网站列表中。",
     "add_website_invalid_url_snack_alert": "无效的URL！无法解析主机名。",
-    "remove_website_dialog_title": "移除网站",
-    "remove_website_dialog_info": "确定吗？你想从已屏蔽的网站中移除 '{websitehost}'。",
-    "@remove_website_dialog_info": {
-        "placeholders": {
-            "websitehost": {
-                "type": "String",
-                "example": "example.com"
-            }
-        }
-    },
     "@----------------------------- FOCUS SCREEN - FOCUS TAB -----------------------------": {},
     "focus_session_duration_tile_title": "会话时长",
     "focus_session_duration_dialog_info": "请选择此次专注会话的期望时长，以确定你希望保持专注和无干扰的时间长度。",
@@ -233,9 +204,6 @@
     "@----------------------------- FOCUS SCREEN - TIMELINE TAB -----------------------------": {},
     "timeline_tab_title": "时间轴",
     "calender_heading": "日历",
-    "focus_session_tile_timestamp_label": "时间线",
-    "focus_session_tile_duration_label": "时长",
-    "focus_session_tile_reflection_label": "反映",
     "@----------------------------- ACTIVE FOCUS SESSION SCREEN -----------------------------": {},
     "active_session_reflection_dialog_title": "会话反思",
     "active_session_reflection_dialog_info": "花一点时间反思一下你的进展。\n你这次会议的目标是什么？你在这次会议中取得了哪些成果？",

@@ -204,18 +204,6 @@ abstract class AppLocalizations {
   /// **'Mindful is 100% secure and works offline. We do not collect or store any personal data.'**
   String get permission_sheet_privacy_info;
 
-  /// No description provided for @missing_permissions_dialog_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Permissions needed'**
-  String get missing_permissions_dialog_title;
-
-  /// No description provided for @missing_permissions_dialog_info.
-  ///
-  /// In en, this message translates to:
-  /// **'Mindful needs these permissions to track screen time and block apps:\n\n{permissions}'**
-  String missing_permissions_dialog_info(String permissions);
-
   /// No description provided for @missing_permissions_card_title.
   ///
   /// In en, this message translates to:
@@ -390,24 +378,6 @@ abstract class AppLocalizations {
   /// **'Allow notification access'**
   String get permission_notification_access_device_tile_label;
 
-  /// No description provided for @day_today.
-  ///
-  /// In en, this message translates to:
-  /// **'Today'**
-  String get day_today;
-
-  /// No description provided for @day_yesterday.
-  ///
-  /// In en, this message translates to:
-  /// **'Yesterday'**
-  String get day_yesterday;
-
-  /// No description provided for @nDays.
-  ///
-  /// In en, this message translates to:
-  /// **'{count, plural, =0{0 day} =1{1 day} other{{count} days}}'**
-  String nDays(num count);
-
   /// No description provided for @nHours.
   ///
   /// In en, this message translates to:
@@ -431,12 +401,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'and'**
   String get time_separator_and;
-
-  /// No description provided for @timer_status_active.
-  ///
-  /// In en, this message translates to:
-  /// **'Active'**
-  String get timer_status_active;
 
   /// No description provided for @timer_status_paused.
   ///
@@ -497,24 +461,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'End'**
   String get schedule_end_label;
-
-  /// No description provided for @development_dialog_info.
-  ///
-  /// In en, this message translates to:
-  /// **'Mindful is currently under development and may have bugs or incomplete features. If you encounter any issues, please report them to help us improve.\n\nThank you for your feedback!'**
-  String get development_dialog_info;
-
-  /// No description provided for @development_dialog_button_report_issue.
-  ///
-  /// In en, this message translates to:
-  /// **'Report Issue'**
-  String get development_dialog_button_report_issue;
-
-  /// No description provided for @development_dialog_button_close.
-  ///
-  /// In en, this message translates to:
-  /// **'Close'**
-  String get development_dialog_button_close;
 
   /// No description provided for @quick_actions_heading.
   ///
@@ -810,6 +756,120 @@ abstract class AppLocalizations {
   /// **'Focus sessions'**
   String get new_session_sessions_heading;
 
+  /// No description provided for @app_groups_heading.
+  ///
+  /// In en, this message translates to:
+  /// **'App groups'**
+  String get app_groups_heading;
+
+  /// No description provided for @app_groups_info.
+  ///
+  /// In en, this message translates to:
+  /// **'Put apps into groups like Social or Games. A group can be picked in focus sessions and earn unlock sessions instead of picking every app again. Editing a group updates every session that uses it.'**
+  String get app_groups_info;
+
+  /// No description provided for @app_groups_empty.
+  ///
+  /// In en, this message translates to:
+  /// **'No groups yet.\nTap New group to create one.'**
+  String get app_groups_empty;
+
+  /// No description provided for @app_groups_your_groups_heading.
+  ///
+  /// In en, this message translates to:
+  /// **'Your groups'**
+  String get app_groups_your_groups_heading;
+
+  /// No description provided for @app_group_new_button.
+  ///
+  /// In en, this message translates to:
+  /// **'New group'**
+  String get app_group_new_button;
+
+  /// No description provided for @app_group_apps_count.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 item} other{{count} items}}'**
+  String app_group_apps_count(int count);
+
+  /// No description provided for @app_group_name_tile_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Group name'**
+  String get app_group_name_tile_title;
+
+  /// No description provided for @app_group_name_dialog_info.
+  ///
+  /// In en, this message translates to:
+  /// **'Give this group a name so you can recognise it when picking apps.'**
+  String get app_group_name_dialog_info;
+
+  /// No description provided for @app_group_apps_tile_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Apps in group'**
+  String get app_group_apps_tile_title;
+
+  /// No description provided for @app_group_apps_info.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick the apps and in-app content which belong to this group.'**
+  String get app_group_apps_info;
+
+  /// No description provided for @app_group_remove_dialog_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove group?'**
+  String get app_group_remove_dialog_title;
+
+  /// No description provided for @app_group_remove_dialog_info.
+  ///
+  /// In en, this message translates to:
+  /// **'The group will also be removed from every session that uses it.'**
+  String get app_group_remove_dialog_info;
+
+  /// No description provided for @app_group_locked_snack.
+  ///
+  /// In en, this message translates to:
+  /// **'This group is used by a strict session which is active right now. It can be changed once the session ends.'**
+  String get app_group_locked_snack;
+
+  /// No description provided for @app_group_no_name_snack.
+  ///
+  /// In en, this message translates to:
+  /// **'Please give the group a name.'**
+  String get app_group_no_name_snack;
+
+  /// No description provided for @virtual_apps_heading.
+  ///
+  /// In en, this message translates to:
+  /// **'In-app content'**
+  String get virtual_apps_heading;
+
+  /// No description provided for @virtual_apps_tile_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Blocks only this part of the app'**
+  String get virtual_apps_tile_subtitle;
+
+  /// No description provided for @virtual_app_instagram_reels.
+  ///
+  /// In en, this message translates to:
+  /// **'Instagram Reels'**
+  String get virtual_app_instagram_reels;
+
+  /// No description provided for @virtual_app_youtube_shorts.
+  ///
+  /// In en, this message translates to:
+  /// **'YouTube Shorts'**
+  String get virtual_app_youtube_shorts;
+
+  /// No description provided for @in_app_blocking_card_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Blocked inside the app'**
+  String get in_app_blocking_card_subtitle;
+
   /// No description provided for @new_session_save_button.
   ///
   /// In en, this message translates to:
@@ -845,24 +905,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Are you sure you want to remove this focus session? The apps it blocks will be available again.'**
   String get new_session_remove_dialog_info;
-
-  /// No description provided for @new_session_status_active.
-  ///
-  /// In en, this message translates to:
-  /// **'Active now'**
-  String get new_session_status_active;
-
-  /// No description provided for @new_session_status_break.
-  ///
-  /// In en, this message translates to:
-  /// **'On break'**
-  String get new_session_status_break;
-
-  /// No description provided for @new_session_status_idle.
-  ///
-  /// In en, this message translates to:
-  /// **'Outside schedule'**
-  String get new_session_status_idle;
 
   /// No description provided for @new_session_strict_badge.
   ///
@@ -1067,30 +1109,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Screen time'**
   String get screen_time_label;
-
-  /// No description provided for @longest_streak_label.
-  ///
-  /// In en, this message translates to:
-  /// **'Longest streak'**
-  String get longest_streak_label;
-
-  /// No description provided for @current_streak_label.
-  ///
-  /// In en, this message translates to:
-  /// **'Current streak'**
-  String get current_streak_label;
-
-  /// No description provided for @successful_sessions_label.
-  ///
-  /// In en, this message translates to:
-  /// **'Successful sessions'**
-  String get successful_sessions_label;
-
-  /// No description provided for @failed_sessions_label.
-  ///
-  /// In en, this message translates to:
-  /// **'Failed sessions'**
-  String get failed_sessions_label;
 
   /// No description provided for @statistics_tab_title.
   ///
@@ -1506,18 +1524,6 @@ abstract class AppLocalizations {
   /// **'Invalid URL! Unable to parse the host name.'**
   String get add_website_invalid_url_snack_alert;
 
-  /// No description provided for @remove_website_dialog_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Remove website'**
-  String get remove_website_dialog_title;
-
-  /// No description provided for @remove_website_dialog_info.
-  ///
-  /// In en, this message translates to:
-  /// **'Are you sure? you want to remove \'{websitehost}\' from blocked websites.'**
-  String remove_website_dialog_info(String websitehost);
-
   /// No description provided for @focus_session_duration_tile_title.
   ///
   /// In en, this message translates to:
@@ -1541,24 +1547,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Calender'**
   String get calender_heading;
-
-  /// No description provided for @focus_session_tile_timestamp_label.
-  ///
-  /// In en, this message translates to:
-  /// **'Timestamp'**
-  String get focus_session_tile_timestamp_label;
-
-  /// No description provided for @focus_session_tile_duration_label.
-  ///
-  /// In en, this message translates to:
-  /// **'Duration'**
-  String get focus_session_tile_duration_label;
-
-  /// No description provided for @focus_session_tile_reflection_label.
-  ///
-  /// In en, this message translates to:
-  /// **'Reflection'**
-  String get focus_session_tile_reflection_label;
 
   /// No description provided for @active_session_reflection_dialog_title.
   ///

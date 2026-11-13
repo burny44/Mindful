@@ -45,17 +45,6 @@
     "permission_notification_access_required": "Το Mindful απαιτεί πρόσβαση στις ειδοποιήσεις για να τις οργανώνει και να τις χρονοπρογραμματίζει.",
     "permission_notification_access_device_tile_label": "Να επιτρέπεται η πρόσβαση στις ειδοποιήσεις",
     "@----------------------------- DATE AND TIME -----------------------------": {},
-    "day_today": "Σήμερα",
-    "day_yesterday": "Χθες",
-    "nDays": "{count, plural, =0{0 ημέρα} =1{1 ημέρα} other{{count} ημέρες}}",
-    "@nDays": {
-        "placeholders": {
-            "count": {
-                "type": "num",
-                "format": "compact"
-            }
-        }
-    },
     "nHours": "{count, plural, =0{0 ώρα} =1{1 ώρα} other{{count} ώρες}}",
     "@nHours": {
         "placeholders": {
@@ -88,7 +77,6 @@
         "description": "Separator used between time like, 10 hours 'and' 15 minutes"
     },
     "@----------------------------- SHARED STRINGS -----------------------------": {},
-    "timer_status_active": "Ενεργό",
     "timer_status_paused": "Σε Παύση",
     "create_button": "Δημιουργία",
     "update_button": "Ενημέρωση",
@@ -99,9 +87,6 @@
     "dialog_button_infinite": "Άπειρο",
     "schedule_start_label": "Έναρξη",
     "schedule_end_label": "Λήξη",
-    "development_dialog_info": "Το Mindful είναι υπό ανάπτυξη και μπορεί να έχει σφάλματα ή ελλιπή χαρακτηριστικά. Αν αντιμετωπίσεις οποιοδήποτε πρόβλημα, παρακαλούμε να τα αναφέρεις για να μας βοηθήσεις να βελτιωθούμε.\n\nΣε ευχαριστούμε για τα σχόλιά σου!",
-    "development_dialog_button_report_issue": "Αναφορά Ζητήματος",
-    "development_dialog_button_close": "Κλείσιμο",
     "quick_actions_heading": "Γρήγορες ενέργειες",
     "select_distracting_apps_heading": "Επιλογή ενοχλητικών εφαρμογών",
     "your_distracting_apps_heading": "Οι εφαρμογές που σε ενοχλούν",
@@ -140,10 +125,6 @@
     "apps_blocking_tile_subtitle": "Περιόρισε τις εφαρμογές με πολλούς τρόπους.",
     "websites_blocking_tile_subtitle": "Περιορισμός ενηλίκων και προσαρμοσμένων ιστοσελίδων.",
     "screen_time_label": "Χρόνος οθόνης",
-    "longest_streak_label": "Μεγαλύτερο σερί",
-    "current_streak_label": "Τρέχον σερί",
-    "successful_sessions_label": "Επιτυχείς συνεδρίες",
-    "failed_sessions_label": "Αποτυχημένες συνεδρίες",
     "@----------------------------- HOME SCREEN - STATISTICS TAB -----------------------------": {},
     "statistics_tab_title": "Στατιστικά",
     "screen_segment_label": "Οθόνη",
@@ -208,16 +189,6 @@
     "add_website_dialog_button_block": "Φραγή",
     "add_website_already_exist_snack_alert": "Το URL έχει ήδη προστεθεί στη λίστα αποκλεισμένων ιστοσελίδων.",
     "add_website_invalid_url_snack_alert": "Μη έγκυρο URL! Αδυναμία ανάλυσης του ονόματος του κεντρικού υπολογιστή.",
-    "remove_website_dialog_title": "Αφαίρεση ιστοσελίδας",
-    "remove_website_dialog_info": "Σίγουρα; θες να αφαιρέσεις το «{websitehost} από τις αποκλεισμένες ιστοσελίδες.",
-    "@remove_website_dialog_info": {
-        "placeholders": {
-            "websitehost": {
-                "type": "String",
-                "example": "example.com"
-            }
-        }
-    },
     "@----------------------------- FOCUS SCREEN - FOCUS TAB -----------------------------": {},
     "focus_session_duration_tile_title": "Διάρκεια συνεδρίας",
     "focus_session_duration_dialog_info": "Παρακαλώ επέλεξε την επιθυμητή διάρκεια για αυτή τη συνεδρία συγκέντρωσης, προσδιορίζοντας το χρονικό διάστημα που επιθυμείς να παραμείνεις σε συγκέντρωση και χωρίς περισπασμούς.",
@@ -225,7 +196,6 @@
     "@----------------------------- FOCUS SCREEN - TIMELINE TAB -----------------------------": {},
     "timeline_tab_title": "Χρονολόγιο",
     "calender_heading": "Ημερολόγιο",
-    "focus_session_tile_duration_label": "Διάρκεια",
     "@----------------------------- ACTIVE FOCUS SESSION SCREEN -----------------------------": {},
     "@----------------------------- RESTRICTION GROUPS SCREEN -----------------------------": {},
     "@----------------------------- NOTIFICATIONS SCREEN - NOTIFICATIONS TAB -----------------------------": {},

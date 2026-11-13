@@ -20,7 +20,9 @@ import 'package:mindful/core/enums/item_position.dart';
 import 'package:mindful/core/enums/platform_features.dart';
 import 'package:mindful/core/extensions/ext_build_context.dart';
 import 'package:mindful/providers/restrictions/wellbeing_provider.dart';
-import 'package:mindful/ui/common/default_expandable_list_tile.dart';
+import 'package:mindful/core/extensions/ext_num.dart';
+import 'package:mindful/ui/common/rounded_container.dart';
+import 'package:mindful/ui/common/styled_text.dart';
 import 'package:mindful/ui/common/default_list_tile.dart';
 
 class SliverShortsQuickActions extends ConsumerWidget {
@@ -80,157 +82,205 @@ class SliverShortsQuickActions extends ConsumerWidget {
     final instagramUsageLimitSec =
         ref.watch(wellBeingProvider.select((v) => v.instagramUsageLimitSec));
 
+    bool isBlocked(PlatformFeatures f) => blockedFeatures.contains(f);
+    void toggle(PlatformFeatures f) =>
+        _toggleFeature(context, ref, blockedFeatures, f);
+
+    /// Every platform is its own card so it is clear which switch belongs to
+    /// which app.
     return SliverList.list(
       children: [
-        /// Block instagram features
-        DefaultExpandableListTile(
-          position: ItemPosition.top,
-          leading: _buildIcon(context, "assets/vectors/instagram.svg"),
+        /// Instagram
+        _PlatformCard(
+          icon: _buildIcon(context, "assets/vectors/instagram.svg"),
           enabled: haveNecessaryPerms,
-          titleText: context.locale.instagram_features_tile_title,
-          subtitleText: context.locale.instagram_features_tile_subtitle,
-          content: Column(
-            children: [
-              /// Reels
-              DefaultListTile(
-                position: ItemPosition.mid,
-                titleText: context.locale.instagram_features_block_reels,
-                switchValue:
-                    blockedFeatures.contains(PlatformFeatures.instagramReels),
-                onPressed: () => _toggleFeature(
-                  context,
-                  ref,
-                  blockedFeatures,
-                  PlatformFeatures.instagramReels,
-                ),
-              ),
+          title: context.locale.instagram_features_tile_title,
+          subtitle: context.locale.instagram_features_tile_subtitle,
+          children: [
+            DefaultListTile(
+              position: ItemPosition.top,
+              enabled: haveNecessaryPerms,
+              color: Theme.of(context).colorScheme.surfaceContainerHigh,
+              titleText: context.locale.instagram_features_block_reels,
+              switchValue: isBlocked(PlatformFeatures.instagramReels),
+              onPressed: () => toggle(PlatformFeatures.instagramReels),
+            ),
 
-              /// Reels only after daily Instagram usage
-              DefaultHero(
-                tag: HeroTags.instagramUsageLimitTileTag,
-                child: DefaultListTile(
-                  position: ItemPosition.mid,
-                  enabled:
-                      blockedFeatures.contains(PlatformFeatures.instagramReels),
-                  leadingIcon: FluentIcons.timer_20_regular,
-                  titleText: context.locale.instagram_usage_limit_tile_title,
-                  subtitleText: instagramUsageLimitSec > 0
-                      ? context.locale.instagram_usage_limit_tile_subtitle_on(
-                          Duration(seconds: instagramUsageLimitSec)
-                              .toTimeShort(context),
-                        )
-                      : context.locale.instagram_usage_limit_tile_subtitle_off,
-                  switchValue: instagramUsageLimitSec > 0,
-                  onPressed: () => _toggleInstagramUsageLimit(
-                      context, ref, instagramUsageLimitSec),
-                ),
-              ),
-
-              /// Explore
-              DefaultListTile(
+            /// Reels only after daily Instagram usage
+            DefaultHero(
+              tag: HeroTags.instagramUsageLimitTileTag,
+              child: DefaultListTile(
                 position: ItemPosition.mid,
-                titleText: context.locale.instagram_features_block_explore,
-                switchValue:
-                    blockedFeatures.contains(PlatformFeatures.instagramExplore),
-                onPressed: () => _toggleFeature(
-                  context,
-                  ref,
-                  blockedFeatures,
-                  PlatformFeatures.instagramExplore,
-                ),
+                enabled: haveNecessaryPerms &&
+                    isBlocked(PlatformFeatures.instagramReels),
+                color: Theme.of(context).colorScheme.surfaceContainerHigh,
+                leadingIcon: FluentIcons.timer_20_regular,
+                titleText: context.locale.instagram_usage_limit_tile_title,
+                subtitleText: instagramUsageLimitSec > 0
+                    ? context.locale.instagram_usage_limit_tile_subtitle_on(
+                        Duration(seconds: instagramUsageLimitSec)
+                            .toTimeShort(context),
+                      )
+                    : context.locale.instagram_usage_limit_tile_subtitle_off,
+                switchValue: instagramUsageLimitSec > 0,
+                onPressed: () => _toggleInstagramUsageLimit(
+                    context, ref, instagramUsageLimitSec),
               ),
-            ],
-          ),
+            ),
+
+            DefaultListTile(
+              position: ItemPosition.bottom,
+              enabled: haveNecessaryPerms,
+              color: Theme.of(context).colorScheme.surfaceContainerHigh,
+              titleText: context.locale.instagram_features_block_explore,
+              switchValue: isBlocked(PlatformFeatures.instagramExplore),
+              onPressed: () => toggle(PlatformFeatures.instagramExplore),
+            ),
+          ],
         ),
 
-        /// Block snapchat features
-        DefaultExpandableListTile(
-          position: ItemPosition.mid,
-          leading: _buildIcon(context, "assets/vectors/snapchat.svg"),
+        /// YouTube
+        _PlatformCard(
+          icon: _buildIcon(context, "assets/vectors/youtube.svg"),
           enabled: haveNecessaryPerms,
-          titleText: context.locale.snapchat_features_tile_title,
-          subtitleText: context.locale.snapchat_features_tile_subtitle,
-          content: Column(
-            children: [
-              /// Spotlight
-              DefaultListTile(
-                position: ItemPosition.mid,
-                titleText: context.locale.snapchat_features_block_spotlight,
-                switchValue: blockedFeatures
-                    .contains(PlatformFeatures.snapchatSpotlight),
-                onPressed: () => _toggleFeature(
-                  context,
-                  ref,
-                  blockedFeatures,
-                  PlatformFeatures.snapchatSpotlight,
-                ),
-              ),
-
-              /// Discover
-              DefaultListTile(
-                position: ItemPosition.mid,
-                titleText: context.locale.snapchat_features_block_discover,
-                switchValue:
-                    blockedFeatures.contains(PlatformFeatures.snapchatDiscover),
-                onPressed: () => _toggleFeature(
-                  context,
-                  ref,
-                  blockedFeatures,
-                  PlatformFeatures.snapchatDiscover,
-                ),
-              )
-            ],
-          ),
+          title: context.locale.youtube_features_tile_title,
+          subtitle: context.locale.youtube_features_tile_subtitle,
+          children: [
+            DefaultListTile(
+              position: ItemPosition.none,
+              enabled: haveNecessaryPerms,
+              color: Theme.of(context).colorScheme.surfaceContainerHigh,
+              titleText: context.locale.in_app_blocking_feature_shorts,
+              switchValue: isBlocked(PlatformFeatures.youtubeShorts),
+              onPressed: () => toggle(PlatformFeatures.youtubeShorts),
+            ),
+          ],
         ),
 
-        /// Block youtube shorts
-        DefaultListTile(
-          position: ItemPosition.mid,
-          leading: _buildIcon(context, "assets/vectors/youtube.svg"),
+        /// Snapchat
+        _PlatformCard(
+          icon: _buildIcon(context, "assets/vectors/snapchat.svg"),
           enabled: haveNecessaryPerms,
-          titleText: context.locale.youtube_features_tile_title,
-          subtitleText: context.locale.youtube_features_tile_subtitle,
-          switchValue: blockedFeatures.contains(PlatformFeatures.youtubeShorts),
-          onPressed: () => _toggleFeature(
-            context,
-            ref,
-            blockedFeatures,
-            PlatformFeatures.youtubeShorts,
-          ),
+          title: context.locale.snapchat_features_tile_title,
+          subtitle: context.locale.snapchat_features_tile_subtitle,
+          children: [
+            DefaultListTile(
+              position: ItemPosition.top,
+              enabled: haveNecessaryPerms,
+              color: Theme.of(context).colorScheme.surfaceContainerHigh,
+              titleText: context.locale.snapchat_features_block_spotlight,
+              switchValue: isBlocked(PlatformFeatures.snapchatSpotlight),
+              onPressed: () => toggle(PlatformFeatures.snapchatSpotlight),
+            ),
+            DefaultListTile(
+              position: ItemPosition.bottom,
+              enabled: haveNecessaryPerms,
+              color: Theme.of(context).colorScheme.surfaceContainerHigh,
+              titleText: context.locale.snapchat_features_block_discover,
+              switchValue: isBlocked(PlatformFeatures.snapchatDiscover),
+              onPressed: () => toggle(PlatformFeatures.snapchatDiscover),
+            ),
+          ],
         ),
 
-        /// Block facebook reels
-        DefaultListTile(
-          position: ItemPosition.mid,
-          leading: _buildIcon(context, "assets/vectors/facebook.svg"),
+        /// Facebook
+        _PlatformCard(
+          icon: _buildIcon(context, "assets/vectors/facebook.svg"),
           enabled: haveNecessaryPerms,
-          titleText: context.locale.facebook_features_tile_title,
-          subtitleText: context.locale.facebook_features_tile_subtitle,
-          switchValue: blockedFeatures.contains(PlatformFeatures.facebookReels),
-          onPressed: () => _toggleFeature(
-            context,
-            ref,
-            blockedFeatures,
-            PlatformFeatures.facebookReels,
-          ),
+          title: context.locale.facebook_features_tile_title,
+          subtitle: context.locale.facebook_features_tile_subtitle,
+          children: [
+            DefaultListTile(
+              position: ItemPosition.none,
+              enabled: haveNecessaryPerms,
+              color: Theme.of(context).colorScheme.surfaceContainerHigh,
+              titleText: context.locale.in_app_blocking_feature_reels,
+              switchValue: isBlocked(PlatformFeatures.facebookReels),
+              onPressed: () => toggle(PlatformFeatures.facebookReels),
+            ),
+          ],
         ),
 
-        /// Block reddit shorts
-        DefaultListTile(
-          position: ItemPosition.bottom,
-          leading: _buildIcon(context, "assets/vectors/reddit.svg"),
+        /// Reddit
+        _PlatformCard(
+          icon: _buildIcon(context, "assets/vectors/reddit.svg"),
           enabled: haveNecessaryPerms,
-          titleText: context.locale.reddit_features_tile_title,
-          subtitleText: context.locale.reddit_features_tile_subtitle,
-          switchValue: blockedFeatures.contains(PlatformFeatures.redditShorts),
-          onPressed: () => _toggleFeature(
-            context,
-            ref,
-            blockedFeatures,
-            PlatformFeatures.redditShorts,
-          ),
+          title: context.locale.reddit_features_tile_title,
+          subtitle: context.locale.reddit_features_tile_subtitle,
+          children: [
+            DefaultListTile(
+              position: ItemPosition.none,
+              enabled: haveNecessaryPerms,
+              color: Theme.of(context).colorScheme.surfaceContainerHigh,
+              titleText: context.locale.in_app_blocking_feature_shorts,
+              switchValue: isBlocked(PlatformFeatures.redditShorts),
+              onPressed: () => toggle(PlatformFeatures.redditShorts),
+            ),
+          ],
         ),
       ],
+    );
+  }
+}
+
+/// A separate card for one platform: a header with the app's icon and name,
+/// followed by the switches for its blockable features.
+class _PlatformCard extends StatelessWidget {
+  const _PlatformCard({
+    required this.icon,
+    required this.title,
+    required this.subtitle,
+    required this.children,
+    required this.enabled,
+  });
+
+  final Widget icon;
+  final String title;
+  final String subtitle;
+  final List<Widget> children;
+  final bool enabled;
+
+  @override
+  Widget build(BuildContext context) {
+    return RoundedContainer(
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.fromLTRB(12, 16, 12, 12),
+      color: Theme.of(context).colorScheme.surfaceContainer,
+      alignment: Alignment.topLeft,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            child: Row(
+              children: [
+                SizedBox(width: 28, height: 28, child: icon),
+                12.hBox,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      StyledText(
+                        title,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: enabled ? null : Theme.of(context).disabledColor,
+                      ),
+                      StyledText(
+                        subtitle,
+                        fontSize: 13,
+                        color: Theme.of(context).hintColor,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          12.vBox,
+          ...children,
+        ],
+      ),
     );
   }
 }

@@ -18,19 +18,19 @@ import 'package:mindful/config/hero_tags.dart';
 import 'package:mindful/core/enums/item_position.dart';
 import 'package:mindful/core/extensions/ext_build_context.dart';
 import 'package:mindful/core/extensions/ext_num.dart';
+import 'package:mindful/core/utils/focus_targets.dart';
 import 'package:mindful/models/focus_unlock_rule.dart';
-import 'package:mindful/providers/apps/apps_info_provider.dart';
+import 'package:mindful/providers/apps/app_groups_provider.dart';
 import 'package:mindful/providers/focus/focus_unlock_rule_provider.dart';
 import 'package:mindful/providers/usage/todays_apps_usage_provider.dart';
-import 'package:mindful/ui/common/application_icon.dart';
 import 'package:mindful/ui/common/default_slide_to_remove.dart';
+import 'package:mindful/ui/common/focus_target_icon.dart';
 import 'package:mindful/ui/common/rounded_container.dart';
 import 'package:mindful/ui/common/styled_text.dart';
 import 'package:mindful/ui/common/time_text_short.dart';
 import 'package:mindful/ui/dialogs/confirmation_dialog.dart';
 import 'package:mindful/ui/screens/focus/create_update_focus_unlock_screen.dart';
 import 'package:mindful/ui/transitions/default_hero.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 
 /// Dashboard card for a saved earn-unlock session.
 ///
@@ -48,18 +48,16 @@ class FocusUnlockRuleCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    /// Watched directly rather than through `select`: a selector returning a
-    /// freshly built collection is never `==` to the previous one, so it would
-    /// rebuild this card on every notification instead of only on real changes.
-    final appsInfo = ref.watch(appsInfoProvider).value;
-    final unlockAppsInfo = appsInfo == null
-        ? null
-        : rule.unlockApps.map((e) => appsInfo[e]).nonNulls.toList();
+    /// Groups are expanded so their members count towards the earned time
+    final sourceApps = FocusTargets.expand(
+      rule.sourceApps,
+      ref.watch(appGroupsProvider),
+    ).toSet();
 
     final timeSpent = ref.watch(
           todaysAppsUsageProvider.select(
             (v) => v.value?.entries
-                .where((e) => rule.sourceApps.contains(e.key))
+                .where((e) => sourceApps.contains(e.key))
                 .fold<int>(0, (t, e) => t + e.value.screenTime),
           ),
         ) ??
@@ -171,54 +169,16 @@ class FocusUnlockRuleCard extends ConsumerWidget {
               12.vBox,
 
               /// Apps which are waiting to be unlocked
-              ClipRRect(
-                borderRadius: BorderRadius.circular(40),
-                child: Container(
-                  height: 40,
-                  color: Theme.of(context).colorScheme.surfaceContainerHigh,
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 12, right: 4),
-                        child: Icon(
-                          isUnlocked
-                              ? FluentIcons.lock_open_20_filled
-                              : FluentIcons.lock_closed_20_filled,
-                          size: 16,
-                          color: isUnlocked
-                              ? Theme.of(context).colorScheme.primary
-                              : Theme.of(context).hintColor,
-                        ),
-                      ),
-                      Expanded(
-                        child: Skeletonizer.zone(
-                          enableSwitchAnimation: true,
-                          enabled: unlockAppsInfo == null,
-                          child: ListView.builder(
-                            padding: const EdgeInsets.symmetric(horizontal: 6),
-                            physics: const BouncingScrollPhysics(),
-                            scrollDirection: Axis.horizontal,
-                            itemCount: unlockAppsInfo?.length ??
-                                rule.unlockApps.length,
-                            itemBuilder: (context, index) {
-                              final appInfo =
-                                  unlockAppsInfo?.elementAtOrNull(index);
-
-                              return Padding(
-                                padding: const EdgeInsets.only(right: 4),
-                                child: appInfo == null
-                                    ? const Bone.icon(size: 28)
-                                    : ApplicationIcon(
-                                        appInfo: appInfo,
-                                        size: 14,
-                                      ),
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+              FocusTargetsStrip(
+                targets: rule.unlockApps,
+                leading: Icon(
+                  isUnlocked
+                      ? FluentIcons.lock_open_20_filled
+                      : FluentIcons.lock_closed_20_filled,
+                  size: 16,
+                  color: isUnlocked
+                      ? Theme.of(context).colorScheme.primary
+                      : Theme.of(context).hintColor,
                 ),
               ),
             ],

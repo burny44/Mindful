@@ -16,16 +16,14 @@ import 'package:mindful/core/enums/item_position.dart';
 import 'package:mindful/core/extensions/ext_build_context.dart';
 import 'package:mindful/core/extensions/ext_num.dart';
 import 'package:mindful/models/scheduled_focus_session.dart';
-import 'package:mindful/providers/apps/apps_info_provider.dart';
 import 'package:mindful/providers/focus/scheduled_focus_session_provider.dart';
-import 'package:mindful/ui/common/application_icon.dart';
 import 'package:mindful/ui/common/default_slide_to_remove.dart';
+import 'package:mindful/ui/common/focus_target_icon.dart';
 import 'package:mindful/ui/common/rounded_container.dart';
 import 'package:mindful/ui/common/styled_text.dart';
 import 'package:mindful/ui/dialogs/confirmation_dialog.dart';
 import 'package:mindful/ui/screens/focus/create_update_scheduled_focus_screen.dart';
 import 'package:mindful/ui/transitions/default_hero.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 
 class ScheduledFocusSessionCard extends ConsumerWidget {
   const ScheduledFocusSessionCard({
@@ -39,11 +37,6 @@ class ScheduledFocusSessionCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final appsInfo = ref.watch(appsInfoProvider).value;
-    final apps = appsInfo == null
-        ? null
-        : session.distractingApps.map((e) => appsInfo[e]).nonNulls.toList();
-
     return DefaultHero(
       tag: HeroTags.scheduledFocusRemoveTag(session.id),
       child: DefaultSlideToRemove(
@@ -131,32 +124,7 @@ class ScheduledFocusSessionCard extends ConsumerWidget {
                 ),
               ],
               12.vBox,
-              ClipRRect(
-                borderRadius: BorderRadius.circular(40),
-                child: Container(
-                  height: 40,
-                  color: Theme.of(context).colorScheme.surfaceContainerHigh,
-                  child: Skeletonizer.zone(
-                    enableSwitchAnimation: true,
-                    enabled: apps == null,
-                    child: ListView.builder(
-                      padding: const EdgeInsets.symmetric(horizontal: 6),
-                      physics: const BouncingScrollPhysics(),
-                      scrollDirection: Axis.horizontal,
-                      itemCount: apps?.length ?? session.distractingApps.length,
-                      itemBuilder: (context, index) {
-                        final appInfo = apps?.elementAtOrNull(index);
-                        return Padding(
-                          padding: const EdgeInsets.only(right: 4),
-                          child: appInfo == null
-                              ? const Bone.icon(size: 28)
-                              : ApplicationIcon(appInfo: appInfo, size: 14),
-                        );
-                      },
-                    ),
-                  ),
-                ),
-              ),
+              FocusTargetsStrip(targets: session.distractingApps),
             ],
           ),
         ),

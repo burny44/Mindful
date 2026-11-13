@@ -109,11 +109,19 @@ object AppUtils {
      * @param iconData The Drawable to encode.
      * @return The Base64 encoded string representing the app icon.
      */
+    private const val MAX_ICON_SIZE_PX = 192
+
     private fun encodeToBase64(iconData: Drawable): String {
         val byteArrayOS = ByteArrayOutputStream()
+
+        /// Icons are shown at most ~36dp wide, so anything above [MAX_ICON_SIZE_PX] only costs
+        /// transfer, base64 and decode time. Keep the aspect ratio while scaling down.
+        val width = iconData.intrinsicWidth.coerceAtLeast(1)
+        val height = iconData.intrinsicHeight.coerceAtLeast(1)
+        val scale = minOf(1f, MAX_ICON_SIZE_PX.toFloat() / maxOf(width, height))
         val image = Bitmap.createBitmap(
-            iconData.intrinsicWidth,
-            iconData.intrinsicHeight,
+            (width * scale).toInt().coerceAtLeast(1),
+            (height * scale).toInt().coerceAtLeast(1),
             Bitmap.Config.ARGB_8888
         )
 

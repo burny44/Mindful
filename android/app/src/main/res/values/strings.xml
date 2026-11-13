@@ -16,8 +16,6 @@
     <string name="service_running_notification_title">Mindful is running</string>
     <string name="shortcut_upcoming_notifications_label">Batched notifications</string>
     <string name="shortcut_upcoming_notifications_description">Check upcoming batched notifications.</string>
-    <string name="focus_quick_tile_status_active">Active</string>
-    <string name="usage_widget_description">Get a daily view of your screen and data usage</string>
     <string name="widget_screen_time_label">Screen time</string>
     <string name="widget_mobile_data_label">Mobile</string>
     <string name="widget_wifi_data_label">Wifi</string>
@@ -57,10 +55,6 @@
     <string name="emergency_pause_notification_info" comment="Time string as placeholder. ex: 'App blocker will resume after 3m 15s'" formatted="true">App blocker will resume after %s</string>
     <string name="emergency_pause_ended_notification_info">Emergency pause is over, and app blocker is back in action. Distractions are now blocked again, stay focused!</string>
     <string name="focus_session_notification_title">Focus Session</string>
-    <string name="focus_session_notification_info" comment="Time string as placeholder. ex: 'Focus session will end in 33m 15s'" formatted="true">Focus session will end in %s</string>
-    <string name="focus_session_infinite_notification_info" comment="Time string as placeholder. ex: 'You've been focused for 33m 15s'" formatted="true">You\'ve been focused for %s</string>
-    <string name="focus_session_success_notification_info">Congratulations! You\'ve successfully completed your focus session. Great job staying on track! Keep up the amazing work!</string>
-    <string name="focus_session_giveup_notification_info">You gave up! Don\'t worry, you can do better next time. Every effort counts - just keep going</string>
 
     <string name="notification_schedule_batch_title">Unread notifications</string>
     <string name="notification_schedule_batch_summery" comment="Number of notifications as placeholder" formatted="true">You have %d unread notifications while you were away. They’ll be marked as read after 24 hours.</string>

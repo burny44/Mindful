@@ -3,13 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mindful/config/navigation/app_routes.dart';
+import 'package:mindful/core/enums/item_position.dart';
 import 'package:mindful/core/enums/platform_features.dart';
+import 'package:mindful/core/extensions/ext_num.dart';
 import 'package:mindful/core/extensions/ext_build_context.dart';
 import 'package:mindful/core/extensions/ext_duration.dart';
 import 'package:mindful/core/utils/widget_utils.dart';
 import 'package:mindful/providers/restrictions/wellbeing_provider.dart';
 import 'package:mindful/ui/common/content_section_header.dart';
-import 'package:mindful/ui/common/default_list_tile.dart';
+import 'package:mindful/ui/common/rounded_container.dart';
+import 'package:mindful/ui/common/styled_text.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 
 /// Shows the apps which currently have in-app blocking (reels, shorts, etc.) active.
@@ -37,27 +40,10 @@ class SliverInAppBlocking extends ConsumerWidget {
         ContentSectionHeader(title: context.locale.shorts_blocking_tab_title),
         SliverList.builder(
           itemCount: platforms.length,
-          itemBuilder: (context, index) {
-            final platform = platforms[index];
-
-            return DefaultListTile(
-              position: getItemPositionInList(index, platforms.length),
-              leading: SvgPicture.asset(
-                platform.iconPath,
-                width: 24,
-                height: 24,
-                colorFilter: ColorFilter.mode(
-                  Theme.of(context).iconTheme.color ?? Colors.grey,
-                  BlendMode.srcIn,
-                ),
-              ),
-              titleText: platform.name,
-              subtitleText: platform.blockedItems.join(" · "),
-              trailing: const Icon(FluentIcons.chevron_right_20_regular),
-              onPressed: () =>
-                  Navigator.of(context).pushNamed(AppRoutes.shortsBlockingPath),
-            );
-          },
+          itemBuilder: (context, index) => _InAppBlockingCard(
+            platform: platforms[index],
+            position: getItemPositionInList(index, platforms.length),
+          ),
         ),
       ],
     );
@@ -72,8 +58,9 @@ class SliverInAppBlocking extends ConsumerWidget {
     final platforms = <_BlockedPlatform>[];
 
     void add(String name, String iconPath, List<String> items) {
-      if (items.isNotEmpty)
+      if (items.isNotEmpty) {
         platforms.add(_BlockedPlatform(name, iconPath, items));
+      }
     }
 
     add(
@@ -131,6 +118,123 @@ class SliverInAppBlocking extends ConsumerWidget {
     );
 
     return platforms;
+  }
+}
+
+/// Dashboard card for one platform, styled like the focus session cards.
+class _InAppBlockingCard extends StatelessWidget {
+  const _InAppBlockingCard({
+    required this.platform,
+    required this.position,
+  });
+
+  final _BlockedPlatform platform;
+  final ItemPosition position;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+
+    return Padding(
+      padding: const EdgeInsets.only(top: 4),
+      child: ClipRRect(
+        borderRadius: getBorderRadiusFromPosition(position),
+        child: RoundedContainer(
+          borderRadius: BorderRadius.circular(0),
+          padding: const EdgeInsets.all(16),
+          color: scheme.surfaceContainer,
+          onPressed: () =>
+              Navigator.of(context).pushNamed(AppRoutes.shortsBlockingPath),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  SvgPicture.asset(
+                    platform.iconPath,
+                    width: 24,
+                    height: 24,
+                    colorFilter: ColorFilter.mode(
+                      scheme.primary,
+                      BlendMode.srcIn,
+                    ),
+                  ),
+                  12.hBox,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        StyledText(
+                          platform.name,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        StyledText(
+                          context.locale.in_app_blocking_card_subtitle,
+                          color: Theme.of(context).hintColor,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Icon(
+                    FluentIcons.chevron_right_20_regular,
+                    color: Theme.of(context).hintColor,
+                  ),
+                ],
+              ),
+              12.vBox,
+
+              /// Blocked features
+              ClipRRect(
+                borderRadius: BorderRadius.circular(40),
+                child: Container(
+                  height: 40,
+                  color: scheme.surfaceContainerHigh,
+                  child: ListView.builder(
+                    padding: const EdgeInsets.symmetric(horizontal: 6),
+                    physics: const BouncingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: platform.blockedItems.length,
+                    itemBuilder: (context, index) => Padding(
+                      padding: const EdgeInsets.only(right: 4),
+                      child: Center(
+                        child: Container(
+                          height: 28,
+                          padding: const EdgeInsets.only(left: 6, right: 10),
+                          decoration: BoxDecoration(
+                            color: scheme.errorContainer,
+                            borderRadius: BorderRadius.circular(28),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(
+                                FluentIcons.prohibited_20_regular,
+                                size: 16,
+                                color: scheme.onErrorContainer,
+                              ),
+                              4.hBox,
+                              StyledText(
+                                platform.blockedItems[index],
+                                fontSize: 13,
+                                fontWeight: FontWeight.w600,
+                                color: scheme.onErrorContainer,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
 

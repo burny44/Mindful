@@ -45,17 +45,6 @@
     "permission_notification_access_required": "Mindful потребує доступ до сповіщень для того, щоб збирати в пакети та планувати сповіщення.",
     "permission_notification_access_device_tile_label": "Дозволити доступ до сповіщень",
     "@----------------------------- DATE AND TIME -----------------------------": {},
-    "day_today": "Сьогодні",
-    "day_yesterday": "Вчора",
-    "nDays": "{count, plural, =0{0 днів} =1{1 день} other{{count} днів}}",
-    "@nDays": {
-        "placeholders": {
-            "count": {
-                "type": "num",
-                "format": "compact"
-            }
-        }
-    },
     "nHours": "{count, plural, =0{0 годин} =1{1 година} other{{count} годин}}",
     "@nHours": {
         "placeholders": {
@@ -88,7 +77,6 @@
         "description": "Separator used between time like, 10 hours 'and' 15 minutes"
     },
     "@----------------------------- SHARED STRINGS -----------------------------": {},
-    "timer_status_active": "Активний",
     "timer_status_paused": "На паузі",
     "create_button": "Створити",
     "update_button": "Обновити",
@@ -99,9 +87,6 @@
     "dialog_button_infinite": "Необмежено",
     "schedule_start_label": "Початок",
     "schedule_end_label": "Кінець",
-    "development_dialog_info": "Mindful перебуває зараз в процесі розробки і може містити помилки чи незакінчені функції. Якщо ви стикаєтесь з будь-якими проблемами, буль ласка, повідомте про них, щоб допомогти нам у покращенні.\n\nДякуємо за ваш відгук!",
-    "development_dialog_button_report_issue": "Повідомити про проблему",
-    "development_dialog_button_close": "Закрити",
     "quick_actions_heading": "Швидкі дії",
     "select_distracting_apps_heading": "Оберіть застосунки, що відволікають",
     "your_distracting_apps_heading": "Ваші застосунки, що відволікають",
@@ -140,10 +125,6 @@
     "apps_blocking_tile_subtitle": "Обмежити додатки різними способами.",
     "websites_blocking_tile_subtitle": "Обмежити сайти для дорослих та вибрані сайти.",
     "screen_time_label": "Час екрану",
-    "longest_streak_label": "Найтриваліший період",
-    "current_streak_label": "Поточний відрізок",
-    "successful_sessions_label": "Успішні сесії",
-    "failed_sessions_label": "Провалені сесії",
     "@----------------------------- HOME SCREEN - STATISTICS TAB -----------------------------": {},
     "statistics_tab_title": "Статистика",
     "screen_segment_label": "Екран",
@@ -216,16 +197,6 @@
     "add_website_dialog_button_block": "Блокувати",
     "add_website_already_exist_snack_alert": "URL-адреса вже була додана до списку заблокованих вебсайтів.",
     "add_website_invalid_url_snack_alert": "Недійсна URL-адреса! Не вдалося обробити ім'я хосту.",
-    "remove_website_dialog_title": "Видалити вебсайт",
-    "remove_website_dialog_info": "Ви впевнені? Сайт {websitehost} буде видалено з заблокованих.",
-    "@remove_website_dialog_info": {
-        "placeholders": {
-            "websitehost": {
-                "type": "String",
-                "example": "example.com"
-            }
-        }
-    },
     "@----------------------------- FOCUS SCREEN - FOCUS TAB -----------------------------": {},
     "focus_session_duration_tile_title": "Тривалість сеансу",
     "focus_session_duration_dialog_info": "Будь ласка, виберіть бажану тривалість для цього сеансу зосередження, визначаючи, скільки часу ви хочете залишатися зосередженим та без відволікань.",
@@ -233,9 +204,6 @@
     "@----------------------------- FOCUS SCREEN - TIMELINE TAB -----------------------------": {},
     "timeline_tab_title": "Хронологія",
     "calender_heading": "Календар",
-    "focus_session_tile_timestamp_label": "Час",
-    "focus_session_tile_duration_label": "Тривалість",
-    "focus_session_tile_reflection_label": "Аналіз",
     "@----------------------------- ACTIVE FOCUS SESSION SCREEN -----------------------------": {},
     "active_session_reflection_dialog_title": "Підбиття підсумків сеансу",
     "active_session_reflection_dialog_info": "Знайдіть хвилинку, щоб поміркувати про свій прогрес. Яка ваша мета на цю сесію? Чого ви досягли під час цієї сесії?",

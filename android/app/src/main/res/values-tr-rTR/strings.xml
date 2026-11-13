@@ -17,8 +17,6 @@
     <string name="service_running_notification_title">Mindful çalışıyor</string>
     <string name="shortcut_upcoming_notifications_label">Gruplanmış bildirimler</string>
     <string name="shortcut_upcoming_notifications_description">Gelecek toplu bildirimleri kontrol edin.</string>
-    <string name="focus_quick_tile_status_active">Aktif</string>
-    <string name="usage_widget_description">Ekran ve veri kullanımınızın günlük görünümünü alın</string>
     <string name="widget_screen_time_label">Ekran süresi</string>
     <string name="widget_mobile_data_label">Mobil</string>
     <string name="widget_wifi_data_label">Wifi</string>
@@ -41,7 +39,5 @@
     <string name="emergency_pause_notification_title">Acil Duraklatma</string>
     <string name="emergency_pause_ended_notification_info">Acil duraklatma sona erdi ve uygulama engelleyici tekrar devrede. Dikkat dağıtıcılar yeniden engellendi, odaklanmaya devam edin!</string>
     <string name="focus_session_notification_title">Odaklanma Oturumları</string>
-    <string name="focus_session_success_notification_info">Tebrikler! Odaklanma oturumunuzu başarıyla tamamladınız. Hedefe odaklanmayı başardığınız için harika bir iş çıkardınız! Mükemmel çalışmanıza devam edin!</string>
-    <string name="focus_session_giveup_notification_info">Vazgeçtin! Endişelenme, bir dahaki sefere daha iyisini yapabilirsin. Her çaba önemli – sadece devam et</string>
     <string name="notification_schedule_batch_title">Okunmamış bildiriler</string>
 </resources>

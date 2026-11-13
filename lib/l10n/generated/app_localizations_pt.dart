@@ -37,14 +37,6 @@ class AppLocalizationsPt extends AppLocalizations {
       'O Mindful é 100% seguro e funciona offline. Não recolhemos nem armazenamos quaisquer dados pessoais.';
 
   @override
-  String get missing_permissions_dialog_title => 'Permissions needed';
-
-  @override
-  String missing_permissions_dialog_info(String permissions) {
-    return 'Mindful needs these permissions to track screen time and block apps:\n\n$permissions';
-  }
-
-  @override
   String get missing_permissions_card_title => 'Permissions needed';
 
   @override
@@ -150,29 +142,6 @@ class AppLocalizationsPt extends AppLocalizations {
       'Permite acesso à notificação';
 
   @override
-  String get day_today => 'Hoje';
-
-  @override
-  String get day_yesterday => 'Ontem';
-
-  @override
-  String nDays(num count) {
-    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
-      locale: localeName,
-    );
-    final String countString = countNumberFormat.format(count);
-
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$countString dias',
-      one: '1 dia',
-      zero: '0 dias',
-    );
-    return '$_temp0';
-  }
-
-  @override
   String nHours(num count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
@@ -227,9 +196,6 @@ class AppLocalizationsPt extends AppLocalizations {
   String get time_separator_and => 'e';
 
   @override
-  String get timer_status_active => 'Ativo';
-
-  @override
   String get timer_status_paused => 'Pausado';
 
   @override
@@ -258,16 +224,6 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get schedule_end_label => 'Término';
-
-  @override
-  String get development_dialog_info =>
-      'Mindful está atualmente em desenvolvimento e pode ter bugs ou recursos incompletos. Se você encontrar algum problema, por favor informe-os para nos ajudar a melhorar. Obrigado pelo seu feedback!';
-
-  @override
-  String get development_dialog_button_report_issue => 'Reportar problema';
-
-  @override
-  String get development_dialog_button_close => 'Fechar';
 
   @override
   String get quick_actions_heading => 'Ações rápidas';
@@ -438,6 +394,76 @@ class AppLocalizationsPt extends AppLocalizations {
   String get new_session_sessions_heading => 'Focus sessions';
 
   @override
+  String get app_groups_heading => 'App groups';
+
+  @override
+  String get app_groups_info =>
+      'Put apps into groups like Social or Games. A group can be picked in focus sessions and earn unlock sessions instead of picking every app again. Editing a group updates every session that uses it.';
+
+  @override
+  String get app_groups_empty => 'No groups yet.\nTap New group to create one.';
+
+  @override
+  String get app_groups_your_groups_heading => 'Your groups';
+
+  @override
+  String get app_group_new_button => 'New group';
+
+  @override
+  String app_group_apps_count(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count items',
+      one: '1 item',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get app_group_name_tile_title => 'Group name';
+
+  @override
+  String get app_group_name_dialog_info =>
+      'Give this group a name so you can recognise it when picking apps.';
+
+  @override
+  String get app_group_apps_tile_title => 'Apps in group';
+
+  @override
+  String get app_group_apps_info =>
+      'Pick the apps and in-app content which belong to this group.';
+
+  @override
+  String get app_group_remove_dialog_title => 'Remove group?';
+
+  @override
+  String get app_group_remove_dialog_info =>
+      'The group will also be removed from every session that uses it.';
+
+  @override
+  String get app_group_locked_snack =>
+      'This group is used by a strict session which is active right now. It can be changed once the session ends.';
+
+  @override
+  String get app_group_no_name_snack => 'Please give the group a name.';
+
+  @override
+  String get virtual_apps_heading => 'In-app content';
+
+  @override
+  String get virtual_apps_tile_subtitle => 'Blocks only this part of the app';
+
+  @override
+  String get virtual_app_instagram_reels => 'Instagram Reels';
+
+  @override
+  String get virtual_app_youtube_shorts => 'YouTube Shorts';
+
+  @override
+  String get in_app_blocking_card_subtitle => 'Blocked inside the app';
+
+  @override
   String get new_session_save_button => 'Save session';
 
   @override
@@ -457,15 +483,6 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get new_session_remove_dialog_info =>
       'Are you sure you want to remove this focus session? The apps it blocks will be available again.';
-
-  @override
-  String get new_session_status_active => 'Active now';
-
-  @override
-  String get new_session_status_break => 'On break';
-
-  @override
-  String get new_session_status_idle => 'Outside schedule';
 
   @override
   String get new_session_strict_badge => 'Strict';
@@ -582,18 +599,6 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get screen_time_label => 'Tempo de tela';
-
-  @override
-  String get longest_streak_label => 'Sequência mais longa';
-
-  @override
-  String get current_streak_label => 'Sequência atual';
-
-  @override
-  String get successful_sessions_label => 'Sessões bem sucedidas';
-
-  @override
-  String get failed_sessions_label => 'Sessões falhas';
 
   @override
   String get statistics_tab_title => 'Estatísticas';
@@ -830,14 +835,6 @@ class AppLocalizationsPt extends AppLocalizations {
       'URL inválido! Não foi possível analisar o nome do host.';
 
   @override
-  String get remove_website_dialog_title => 'Remover site';
-
-  @override
-  String remove_website_dialog_info(String websitehost) {
-    return 'Você tem certeza? Você quer remover \'$websitehost\' de sites bloqueados.';
-  }
-
-  @override
   String get focus_session_duration_tile_title => 'Duração de sessão';
 
   @override
@@ -849,15 +846,6 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get calender_heading => 'Calendário';
-
-  @override
-  String get focus_session_tile_timestamp_label => 'Marcação de data/hora';
-
-  @override
-  String get focus_session_tile_duration_label => 'Duração';
-
-  @override
-  String get focus_session_tile_reflection_label => 'Reflexão';
 
   @override
   String get active_session_reflection_dialog_title => 'Reflexo de sessão';

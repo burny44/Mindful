@@ -1,0 +1,6 @@
+# Copy this file to key.properties (same folder) and fill in your values.
+# key.properties is gitignored - never commit it or share it.
+storeFile=/home/YOUR_USER/keys/mindful-release.jks
+storePassword=YOUR_PASSWORD
+keyAlias=mindful
+keyPassword=YOUR_PASSWORD

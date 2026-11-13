@@ -45,17 +45,6 @@
     "permission_notification_access_required": "Mindful requer acesso a notificações para agrupar e agendar notificações.",
     "permission_notification_access_device_tile_label": "Permite acesso à notificação",
     "@----------------------------- DATE AND TIME -----------------------------": {},
-    "day_today": "Hoje",
-    "day_yesterday": "Ontem",
-    "nDays": "{count, plural,  =0{0 dias} =1{1 dia} other{{count} dias}}",
-    "@nDays": {
-        "placeholders": {
-            "count": {
-                "type": "num",
-                "format": "compact"
-            }
-        }
-    },
     "nHours": "{count, plural, =0{0 horas} =1{1 hora} other{{count} horas}}",
     "@nHours": {
         "placeholders": {
@@ -88,7 +77,6 @@
         "description": "Separator used between time like, 10 hours 'and' 15 minutes"
     },
     "@----------------------------- SHARED STRINGS -----------------------------": {},
-    "timer_status_active": "Ativo",
     "timer_status_paused": "Pausado",
     "create_button": "Criar",
     "update_button": "Atualizar",
@@ -99,9 +87,6 @@
     "dialog_button_infinite": "Infinito",
     "schedule_start_label": "Começar",
     "schedule_end_label": "Término",
-    "development_dialog_info": "Mindful está atualmente em desenvolvimento e pode ter bugs ou recursos incompletos. Se você encontrar algum problema, por favor informe-os para nos ajudar a melhorar. Obrigado pelo seu feedback!",
-    "development_dialog_button_report_issue": "Reportar problema",
-    "development_dialog_button_close": "Fechar",
     "quick_actions_heading": "Ações rápidas",
     "select_distracting_apps_heading": "Selecione os aplicativos que te distraem",
     "your_distracting_apps_heading": "Seus aplicativos de distração",
@@ -140,10 +125,6 @@
     "apps_blocking_tile_subtitle": "Limite os aplicativos de múltiplas maneiras.",
     "websites_blocking_tile_subtitle": "Limite sites adultos e personalizados.",
     "screen_time_label": "Tempo de tela",
-    "longest_streak_label": "Sequência mais longa",
-    "current_streak_label": "Sequência atual",
-    "successful_sessions_label": "Sessões bem sucedidas",
-    "failed_sessions_label": "Sessões falhas",
     "@----------------------------- HOME SCREEN - STATISTICS TAB -----------------------------": {},
     "statistics_tab_title": "Estatísticas",
     "screen_segment_label": "Tela",
@@ -216,16 +197,6 @@
     "add_website_dialog_button_block": "Bloquear",
     "add_website_already_exist_snack_alert": "O URL já foi adicionado à lista de sites bloqueados.",
     "add_website_invalid_url_snack_alert": "URL inválido! Não foi possível analisar o nome do host.",
-    "remove_website_dialog_title": "Remover site",
-    "remove_website_dialog_info": "Você tem certeza? Você quer remover '{websitehost}' de sites bloqueados.",
-    "@remove_website_dialog_info": {
-        "placeholders": {
-            "websitehost": {
-                "type": "String",
-                "example": "example.com"
-            }
-        }
-    },
     "@----------------------------- FOCUS SCREEN - FOCUS TAB -----------------------------": {},
     "focus_session_duration_tile_title": "Duração de sessão",
     "focus_session_duration_dialog_info": "Por favor, selecione a duração desejada para esta sessão de foco, determinando quanto tempo você deseja permanecer focado e livre de distrações.",
@@ -233,9 +204,6 @@
     "@----------------------------- FOCUS SCREEN - TIMELINE TAB -----------------------------": {},
     "timeline_tab_title": "Linha do Tempo",
     "calender_heading": "Calendário",
-    "focus_session_tile_timestamp_label": "Marcação de data/hora",
-    "focus_session_tile_duration_label": "Duração",
-    "focus_session_tile_reflection_label": "Reflexão",
     "@----------------------------- ACTIVE FOCUS SESSION SCREEN -----------------------------": {},
     "active_session_reflection_dialog_title": "Reflexo de sessão",
     "active_session_reflection_dialog_info": "Dedique um momento para refletir sobre seu progresso. Qual é o seu objetivo para esta sessão? O que você cumpriu durante esta sessão?",

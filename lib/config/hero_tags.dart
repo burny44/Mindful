@@ -89,6 +89,11 @@ class HeroTags {
   static String scheduledFocusRemoveTag(int sessionId) =>
       "focus.scheduled.remove.$sessionId";
 
+  /// Tags used to identify the tiles of an app group based on its ID.
+  static String appGroupNameTag(int groupId) => "appGroup.name.$groupId";
+  static String appGroupSaveTag(int groupId) => "appGroup.save.$groupId";
+  static String appGroupRemoveTag(int groupId) => "appGroup.remove.$groupId";
+
   /// Tag used to identify the tile for data reset time in settings.
   static const dataResetTimeTileTag = "settings.general.dataResetTime";
 

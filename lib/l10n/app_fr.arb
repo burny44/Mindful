@@ -45,17 +45,6 @@
     "permission_notification_access_required": "Mindful nécessite un accès aux notifications pour regrouper et planifier les notifications.",
     "permission_notification_access_device_tile_label": "Autoriser l'accès aux notifications",
     "@----------------------------- DATE AND TIME -----------------------------": {},
-    "day_today": "Aujourd’hui",
-    "day_yesterday": "Hier",
-    "nDays": "{count, plural, =0{0 jour} =1{1 jour} other{{count} jours}}",
-    "@nDays": {
-        "placeholders": {
-            "count": {
-                "type": "num",
-                "format": "compact"
-            }
-        }
-    },
     "nHours": "{count, plural, =0{0 heure} =1{1 heure} other{{count} heures}}",
     "@nHours": {
         "placeholders": {
@@ -88,7 +77,6 @@
         "description": "Separator used between time like, 10 hours 'and' 15 minutes"
     },
     "@----------------------------- SHARED STRINGS -----------------------------": {},
-    "timer_status_active": "Activé",
     "timer_status_paused": "En pause",
     "create_button": "Créer",
     "update_button": "Mettre à jour",
@@ -99,9 +87,6 @@
     "dialog_button_infinite": "Infini",
     "schedule_start_label": "Démarrer",
     "schedule_end_label": "Fin",
-    "development_dialog_info": "Mindful est actuellement en cours de développement et peut avoir des bugs ou des fonctionnalités incomplètes. Si vous rencontrez des problèmes, merci de les signaler pour nous aider à nous améliorer.\n\nMerci pour vos retours !",
-    "development_dialog_button_report_issue": "Signaler un problème",
-    "development_dialog_button_close": "Fermer",
     "quick_actions_heading": "Actions rapides",
     "select_distracting_apps_heading": "Sélectionner les apps qui vous distraient",
     "your_distracting_apps_heading": "Apps qui vous distraient",
@@ -139,10 +124,6 @@
     "apps_blocking_tile_title": "Blocage des applications",
     "apps_blocking_tile_subtitle": "Limitez vos applications de plusieurs façons.",
     "screen_time_label": "Temps d'écran",
-    "longest_streak_label": "Plus longue série",
-    "current_streak_label": "Série en cours",
-    "successful_sessions_label": "Sessions réussies",
-    "failed_sessions_label": "Sessions échouées",
     "@----------------------------- HOME SCREEN - STATISTICS TAB -----------------------------": {},
     "statistics_tab_title": "Statistiques",
     "screen_segment_label": "Écran",
@@ -183,16 +164,6 @@
     "add_website_dialog_button_block": "Bloquer",
     "add_website_already_exist_snack_alert": "L'URL a déjà été ajouté à la liste des sites web bloqués.",
     "add_website_invalid_url_snack_alert": "URL invalide ! Impossible d'analyser le nom d'hôte.",
-    "remove_website_dialog_title": "Retirer le site web",
-    "remove_website_dialog_info": "Êtes-vous sûr(e) ? Vous voulez supprimer '{websitehost}' des sites web bloqués.",
-    "@remove_website_dialog_info": {
-        "placeholders": {
-            "websitehost": {
-                "type": "String",
-                "example": "example.com"
-            }
-        }
-    },
     "@----------------------------- FOCUS SCREEN - FOCUS TAB -----------------------------": {},
     "focus_session_duration_tile_title": "Durée de la session",
     "focus_session_duration_dialog_info": "Veuillez sélectionner la durée souhaitée pour cette session de concentration, en déterminant la durée pendant laquelle vous souhaitez rester concentré et sans distraction.",

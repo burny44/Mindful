@@ -15,8 +15,6 @@
     <string name="toast_enable_notification">Schakel notificaties alstublieft in</string>
     <string name="toast_redirecting">Zoekresultaten filteren</string>
     <string name="service_running_notification_title">Mindful is actief</string>
-    <string name="focus_quick_tile_status_active">Actief</string>
-    <string name="usage_widget_description">Krijg een dagelijkse weergave van uw scherm- en gegevensgebruik</string>
     <string name="widget_screen_time_label">Schermtijd</string>
     <string name="widget_mobile_data_label">Mobiel</string>
     <string name="widget_wifi_data_label">WiFi</string>

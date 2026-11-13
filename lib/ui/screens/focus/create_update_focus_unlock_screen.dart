@@ -282,6 +282,10 @@ class _CreateUpdateFocusUnlockScreenState
 
       /// An app cannot be on both sides of the same rule
       hiddenApps: isSourceApps ? _rule.unlockApps : _rule.sourceApps,
+
+      /// Reels/shorts have no screen time of their own, so they can only be
+      /// locked, not used to earn time
+      allowVirtualApps: !isSourceApps,
     );
 
     if (selected == null || !mounted) return;

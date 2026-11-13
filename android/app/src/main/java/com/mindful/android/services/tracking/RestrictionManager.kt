@@ -28,9 +28,12 @@ class RestrictionManager(
     // Restrictions
     private var appsRestrictions = HashMap<String, AppRestriction>()
 
-    // Focus
+    // Focus (read from the accessibility service thread pool too)
+    @Volatile
     private var focusUnlockRules =
         SharedPrefsHelper.getSetFocusUnlockRules(context, null).filter { it.isValid }
+
+    @Volatile
     private var scheduledFocusSessions =
         SharedPrefsHelper.getSetScheduledFocusSessions(context, null).filter { it.isValid }
 
@@ -50,6 +53,19 @@ class RestrictionManager(
             "init: restored ${scheduledFocusSessions.size} scheduled focus / " +
                 "${focusUnlockRules.size} earn-unlock session(s) from prefs"
         )
+    }
+
+    /**
+     * Returns `true` if a focus session or earn-unlock rule blocks the virtual app [target]
+     * (e.g. [com.mindful.android.AppConstants.VIRTUAL_INSTAGRAM_REELS]) right now.
+     *
+     * Unlike [isAppRestricted] this does not touch launch counts or caches, so it is safe to
+     * call repeatedly from the accessibility service.
+     */
+    fun isVirtualAppBlockedNow(target: String): Boolean {
+        val scheduled = evaluateScheduledFocus(target)
+        if (scheduled != null && scheduled.timeLeftMillis <= 0L) return true
+        return evaluateFocusUnlock(target) != null
     }
 
     fun resetCache() {
@@ -386,5 +402,14 @@ class RestrictionManager(
         }
 
         return null
+    }
+
+    companion object {
+        /**
+         * The manager of the running tracker service, so the accessibility service can share its
+         * session state (including manual breaks). Null when the tracker is not running.
+         */
+        @Volatile
+        var active: RestrictionManager? = null
     }
 }

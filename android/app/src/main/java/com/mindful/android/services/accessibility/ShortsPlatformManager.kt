@@ -123,6 +123,36 @@ class ShortsPlatformManager(
     }
 
     /**
+     * Leaves Instagram Reels / YouTube Shorts right away when they are blocked by a focus session
+     * or earn-unlock rule. Unlike [blockDistraction] there is no daily allowance.
+     *
+     * @param focusBlocked Features currently blocked by focus (only reels and shorts).
+     * @return `true` if blocked content was open and the user was sent back.
+     */
+    fun blockFocusedContent(
+        packageName: String,
+        node: AccessibilityNodeInfo,
+        focusBlocked: Set<PlatformFeatures>,
+    ): Boolean {
+        if (focusBlocked.isEmpty()) return false
+
+        val resolvedPackage =
+            if (packageName.contains(YOUTUBE_CLIENT_PACKAGE_SUFFIX)) YOUTUBE_PACKAGE
+            else packageName
+
+        val isOpen = when (resolvedPackage) {
+            INSTAGRAM_PACKAGE -> PlatformFeatures.INSTAGRAM_REELS in focusBlocked
+                    && isInstagramReelsViewerOpen(node)
+
+            YOUTUBE_PACKAGE -> isYoutubeFeatureOpen(node, focusBlocked)
+            else -> false
+        }
+
+        if (isOpen) blockedContentGoBack.invoke()
+        return isOpen
+    }
+
+    /**
      * Checks if a short-form content website is open in the browser based on WellBeingSettings.
      *
      * @param wellbeing The WellBeingSettings model indicating which platforms are blocked.

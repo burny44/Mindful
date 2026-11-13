@@ -31,6 +31,7 @@ class MindfulTrackerService : Service() {
         overlayManager = OverlayManager(this)
         reminderManager = ReminderManager(overlayManager, ::onNewAppLaunch)
         restrictionManager = RestrictionManager(this, ::stopIfNoUsage)
+        RestrictionManager.active = restrictionManager
         launchTrackingManager = LaunchTrackingManager(
             context = this,
             onNewAppLaunched = ::onNewAppLaunch,
@@ -135,6 +136,7 @@ class MindfulTrackerService : Service() {
     }
 
     override fun onDestroy() {
+        if (RestrictionManager.active === restrictionManager) RestrictionManager.active = null
         Log.d(TAG, "onDestroy: TRACKER service destroyed successfully")
         super.onDestroy()
     }

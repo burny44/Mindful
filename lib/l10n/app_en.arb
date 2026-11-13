@@ -10,16 +10,6 @@
     "permission_button_not_now": "Not Now",
     "permission_button_help": "Help?",
     "permission_sheet_privacy_info": "Mindful is 100% secure and works offline. We do not collect or store any personal data.",
-    "missing_permissions_dialog_title": "Permissions needed",
-    "missing_permissions_dialog_info": "Mindful needs these permissions to track screen time and block apps:\n\n{permissions}",
-    "@missing_permissions_dialog_info": {
-        "placeholders": {
-            "permissions": {
-                "type": "String",
-                "example": "• Usage Access\n• Display Overlay"
-            }
-        }
-    },
     "missing_permissions_card_title": "Permissions needed",
     "missing_permissions_card_info": "Some required permissions are missing. Grant them so Mindful can track and block apps.",
     "permission_grant_step_one": "1. Click on {button_label} button.",
@@ -57,17 +47,6 @@
     "permission_notification_access_required": "Mindful requires notification access to batch and schedule notifications.",
     "permission_notification_access_device_tile_label": "Allow notification access",
     "@----------------------------- DATE AND TIME -----------------------------": {},
-    "day_today": "Today",
-    "day_yesterday": "Yesterday",
-    "nDays": "{count, plural, =0{0 day} =1{1 day} other{{count} days}}",
-    "@nDays": {
-        "placeholders": {
-            "count": {
-                "type": "num",
-                "format": "compact"
-            }
-        }
-    },
     "nHours": "{count, plural, =0{0 hour} =1{1 hour} other{{count} hours}}",
     "@nHours": {
         "placeholders": {
@@ -100,7 +79,6 @@
         "description": "Separator used between time like, 10 hours 'and' 15 minutes"
     },
     "@----------------------------- SHARED STRINGS -----------------------------": {},
-    "timer_status_active": "Active",
     "timer_status_paused": "Paused",
     "create_button": "Create",
     "update_button": "Update",
@@ -111,9 +89,6 @@
     "dialog_button_infinite": "Infinite",
     "schedule_start_label": "Start",
     "schedule_end_label": "End",
-    "development_dialog_info": "Mindful is currently under development and may have bugs or incomplete features. If you encounter any issues, please report them to help us improve.\n\nThank you for your feedback!",
-    "development_dialog_button_report_issue": "Report Issue",
-    "development_dialog_button_close": "Close",
     "quick_actions_heading": "Quick actions",
     "select_distracting_apps_heading": "Select distracting apps",
     "your_distracting_apps_heading": "Your distracting apps",
@@ -174,15 +149,40 @@
         }
     },
     "new_session_sessions_heading": "Focus sessions",
+    "@----------------------------- APP GROUPS -----------------------------": {},
+    "app_groups_heading": "App groups",
+    "app_groups_info": "Put apps into groups like Social or Games. A group can be picked in focus sessions and earn unlock sessions instead of picking every app again. Editing a group updates every session that uses it.",
+    "app_groups_empty": "No groups yet.\nTap New group to create one.",
+    "app_groups_your_groups_heading": "Your groups",
+    "app_group_new_button": "New group",
+    "app_group_apps_count": "{count, plural, =1{1 item} other{{count} items}}",
+    "@app_group_apps_count": {
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "3"
+            }
+        }
+    },
+    "app_group_name_tile_title": "Group name",
+    "app_group_name_dialog_info": "Give this group a name so you can recognise it when picking apps.",
+    "app_group_apps_tile_title": "Apps in group",
+    "app_group_apps_info": "Pick the apps and in-app content which belong to this group.",
+    "app_group_remove_dialog_title": "Remove group?",
+    "app_group_remove_dialog_info": "The group will also be removed from every session that uses it.",
+    "app_group_locked_snack": "This group is used by a strict session which is active right now. It can be changed once the session ends.",
+    "app_group_no_name_snack": "Please give the group a name.",
+    "virtual_apps_heading": "In-app content",
+    "virtual_apps_tile_subtitle": "Blocks only this part of the app",
+    "virtual_app_instagram_reels": "Instagram Reels",
+    "virtual_app_youtube_shorts": "YouTube Shorts",
+    "in_app_blocking_card_subtitle": "Blocked inside the app",
     "new_session_save_button": "Save session",
     "new_session_no_apps_snack": "Select at least one app to block.",
     "new_session_no_days_snack": "Select at least one day for this session.",
     "new_session_breaks_invalid_snack": "Set the number of breaks, break time, and pause between breaks.",
     "new_session_remove_dialog_title": "Remove session",
     "new_session_remove_dialog_info": "Are you sure you want to remove this focus session? The apps it blocks will be available again.",
-    "new_session_status_active": "Active now",
-    "new_session_status_break": "On break",
-    "new_session_status_idle": "Outside schedule",
     "new_session_strict_badge": "Strict",
     "focus_unlock_screen_title": "Earn unlock",
     "focus_unlock_info": "Pick the apps you must use first. After you spend the selected time in those apps, the other apps you choose are unblocked. The session only applies on the selected days and during the start–end schedule.",
@@ -225,10 +225,6 @@
     "apps_blocking_tile_subtitle": "Limit apps in multiple ways.",
     "websites_blocking_tile_subtitle": "Limit adult and custom websites.",
     "screen_time_label": "Screen time",
-    "longest_streak_label": "Longest streak",
-    "current_streak_label": "Current streak",
-    "successful_sessions_label": "Successful sessions",
-    "failed_sessions_label": "Failed sessions",
     "@----------------------------- HOME SCREEN - STATISTICS TAB -----------------------------": {},
     "statistics_tab_title": "Statistics",
     "screen_segment_label": "Screen",
@@ -328,16 +324,6 @@
     "add_website_dialog_button_block": "Block",
     "add_website_already_exist_snack_alert": "The URL has already been added to the list of blocked websites.",
     "add_website_invalid_url_snack_alert": "Invalid URL! Unable to parse the host name.",
-    "remove_website_dialog_title": "Remove website",
-    "remove_website_dialog_info": "Are you sure? you want to remove '{websitehost}' from blocked websites.",
-    "@remove_website_dialog_info": {
-        "placeholders": {
-            "websitehost": {
-                "type": "String",
-                "example": "example.com"
-            }
-        }
-    },
     "@----------------------------- FOCUS SCREEN - FOCUS TAB -----------------------------": {},
     "focus_session_duration_tile_title": "Session duration",
     "focus_session_duration_dialog_info": "Please select the desired duration for this focus session, determining how long you wish to remain focused and distraction-free.",
@@ -345,9 +331,6 @@
     "@----------------------------- FOCUS SCREEN - TIMELINE TAB -----------------------------": {},
     "timeline_tab_title": "Timeline",
     "calender_heading": "Calender",
-    "focus_session_tile_timestamp_label": "Timestamp",
-    "focus_session_tile_duration_label": "Duration",
-    "focus_session_tile_reflection_label": "Reflection",
     "@----------------------------- ACTIVE FOCUS SESSION SCREEN -----------------------------": {},
     "active_session_reflection_dialog_title": "Session reflection",
     "active_session_reflection_dialog_info": "Take a moment to reflect on your progress. What's your goal for this session? What did you accomplish during this session?",

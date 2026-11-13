@@ -17,8 +17,6 @@
     <string name="service_running_notification_title">Mindful ради</string>
     <string name="shortcut_upcoming_notifications_label">Груписана обавештења</string>
     <string name="shortcut_upcoming_notifications_description">Провери предстојећа груписана обавештења.</string>
-    <string name="focus_quick_tile_status_active">Активан</string>
-    <string name="usage_widget_description">Види дневни преглед коришћења података и времена проведеног испред екрана</string>
     <string name="widget_screen_time_label">Време испред екрана</string>
     <string name="widget_mobile_data_label">Мобилни</string>
     <string name="widget_wifi_data_label">Wi-Fi</string>
@@ -41,7 +39,5 @@
     <string name="emergency_pause_notification_title">Хитна пауза</string>
     <string name="emergency_pause_ended_notification_info">Хитна пауза је завршена, а блокатор апликација је поново активиран. Ометања су поново блокирана. Остани фокусиран!</string>
     <string name="focus_session_notification_title">Фокус сесија</string>
-    <string name="focus_session_success_notification_info">Браво! Успешно си завршио/ла своју сесију фокуса. Одличан посао, остани на правом путу! Супер!</string>
-    <string name="focus_session_giveup_notification_info">Главу горе. Не брини, следећи пут ћеш бити бољи. Сваки напор се рачуна – само настави да радиш на себи</string>
     <string name="notification_schedule_batch_title">Непрочитана обавештења</string>
 </resources>

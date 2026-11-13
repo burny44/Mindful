@@ -38,14 +38,6 @@ class AppLocalizationsEl extends AppLocalizations {
       'Το Mindful είναι 100% ασφαλές και λειτουργεί εκτός σύνδεσης. Δεν συλλέγουμε ή αποθηκεύουμε προσωπικά δεδομένα.';
 
   @override
-  String get missing_permissions_dialog_title => 'Permissions needed';
-
-  @override
-  String missing_permissions_dialog_info(String permissions) {
-    return 'Mindful needs these permissions to track screen time and block apps:\n\n$permissions';
-  }
-
-  @override
   String get missing_permissions_card_title => 'Permissions needed';
 
   @override
@@ -154,29 +146,6 @@ class AppLocalizationsEl extends AppLocalizations {
       'Να επιτρέπεται η πρόσβαση στις ειδοποιήσεις';
 
   @override
-  String get day_today => 'Σήμερα';
-
-  @override
-  String get day_yesterday => 'Χθες';
-
-  @override
-  String nDays(num count) {
-    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
-      locale: localeName,
-    );
-    final String countString = countNumberFormat.format(count);
-
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$countString ημέρες',
-      one: '1 ημέρα',
-      zero: '0 ημέρα',
-    );
-    return '$_temp0';
-  }
-
-  @override
   String nHours(num count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
@@ -231,9 +200,6 @@ class AppLocalizationsEl extends AppLocalizations {
   String get time_separator_and => 'και';
 
   @override
-  String get timer_status_active => 'Ενεργό';
-
-  @override
   String get timer_status_paused => 'Σε Παύση';
 
   @override
@@ -262,16 +228,6 @@ class AppLocalizationsEl extends AppLocalizations {
 
   @override
   String get schedule_end_label => 'Λήξη';
-
-  @override
-  String get development_dialog_info =>
-      'Το Mindful είναι υπό ανάπτυξη και μπορεί να έχει σφάλματα ή ελλιπή χαρακτηριστικά. Αν αντιμετωπίσεις οποιοδήποτε πρόβλημα, παρακαλούμε να τα αναφέρεις για να μας βοηθήσεις να βελτιωθούμε.\n\nΣε ευχαριστούμε για τα σχόλιά σου!';
-
-  @override
-  String get development_dialog_button_report_issue => 'Αναφορά Ζητήματος';
-
-  @override
-  String get development_dialog_button_close => 'Κλείσιμο';
 
   @override
   String get quick_actions_heading => 'Γρήγορες ενέργειες';
@@ -441,6 +397,76 @@ class AppLocalizationsEl extends AppLocalizations {
   String get new_session_sessions_heading => 'Focus sessions';
 
   @override
+  String get app_groups_heading => 'App groups';
+
+  @override
+  String get app_groups_info =>
+      'Put apps into groups like Social or Games. A group can be picked in focus sessions and earn unlock sessions instead of picking every app again. Editing a group updates every session that uses it.';
+
+  @override
+  String get app_groups_empty => 'No groups yet.\nTap New group to create one.';
+
+  @override
+  String get app_groups_your_groups_heading => 'Your groups';
+
+  @override
+  String get app_group_new_button => 'New group';
+
+  @override
+  String app_group_apps_count(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count items',
+      one: '1 item',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get app_group_name_tile_title => 'Group name';
+
+  @override
+  String get app_group_name_dialog_info =>
+      'Give this group a name so you can recognise it when picking apps.';
+
+  @override
+  String get app_group_apps_tile_title => 'Apps in group';
+
+  @override
+  String get app_group_apps_info =>
+      'Pick the apps and in-app content which belong to this group.';
+
+  @override
+  String get app_group_remove_dialog_title => 'Remove group?';
+
+  @override
+  String get app_group_remove_dialog_info =>
+      'The group will also be removed from every session that uses it.';
+
+  @override
+  String get app_group_locked_snack =>
+      'This group is used by a strict session which is active right now. It can be changed once the session ends.';
+
+  @override
+  String get app_group_no_name_snack => 'Please give the group a name.';
+
+  @override
+  String get virtual_apps_heading => 'In-app content';
+
+  @override
+  String get virtual_apps_tile_subtitle => 'Blocks only this part of the app';
+
+  @override
+  String get virtual_app_instagram_reels => 'Instagram Reels';
+
+  @override
+  String get virtual_app_youtube_shorts => 'YouTube Shorts';
+
+  @override
+  String get in_app_blocking_card_subtitle => 'Blocked inside the app';
+
+  @override
   String get new_session_save_button => 'Save session';
 
   @override
@@ -460,15 +486,6 @@ class AppLocalizationsEl extends AppLocalizations {
   @override
   String get new_session_remove_dialog_info =>
       'Are you sure you want to remove this focus session? The apps it blocks will be available again.';
-
-  @override
-  String get new_session_status_active => 'Active now';
-
-  @override
-  String get new_session_status_break => 'On break';
-
-  @override
-  String get new_session_status_idle => 'Outside schedule';
 
   @override
   String get new_session_strict_badge => 'Strict';
@@ -586,18 +603,6 @@ class AppLocalizationsEl extends AppLocalizations {
 
   @override
   String get screen_time_label => 'Χρόνος οθόνης';
-
-  @override
-  String get longest_streak_label => 'Μεγαλύτερο σερί';
-
-  @override
-  String get current_streak_label => 'Τρέχον σερί';
-
-  @override
-  String get successful_sessions_label => 'Επιτυχείς συνεδρίες';
-
-  @override
-  String get failed_sessions_label => 'Αποτυχημένες συνεδρίες';
 
   @override
   String get statistics_tab_title => 'Στατιστικά';
@@ -837,14 +842,6 @@ class AppLocalizationsEl extends AppLocalizations {
       'Μη έγκυρο URL! Αδυναμία ανάλυσης του ονόματος του κεντρικού υπολογιστή.';
 
   @override
-  String get remove_website_dialog_title => 'Αφαίρεση ιστοσελίδας';
-
-  @override
-  String remove_website_dialog_info(String websitehost) {
-    return 'Σίγουρα; θες να αφαιρέσεις το «$websitehost από τις αποκλεισμένες ιστοσελίδες.';
-  }
-
-  @override
   String get focus_session_duration_tile_title => 'Διάρκεια συνεδρίας';
 
   @override
@@ -856,15 +853,6 @@ class AppLocalizationsEl extends AppLocalizations {
 
   @override
   String get calender_heading => 'Ημερολόγιο';
-
-  @override
-  String get focus_session_tile_timestamp_label => 'Timestamp';
-
-  @override
-  String get focus_session_tile_duration_label => 'Διάρκεια';
-
-  @override
-  String get focus_session_tile_reflection_label => 'Reflection';
 
   @override
   String get active_session_reflection_dialog_title => 'Session reflection';

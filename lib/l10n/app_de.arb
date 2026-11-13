@@ -41,17 +41,6 @@
     "permission_notification_access_required": "Mindful benötigt Zugriff auf Benachrichtigungen, um Benachrichtigungen senden zu können.",
     "permission_notification_access_device_tile_label": "Zugriff auf Benachrichtigungen zulassen",
     "@----------------------------- DATE AND TIME -----------------------------": {},
-    "day_today": "Heute",
-    "day_yesterday": "Gestern",
-    "nDays": "{count, plural, =0{0 Tage} =1{1 Tag} other{{count} Tage}}",
-    "@nDays": {
-        "placeholders": {
-            "count": {
-                "type": "num",
-                "format": "compact"
-            }
-        }
-    },
     "nHours": "{count, plural, =0{0 Stunden} =1{1 Stunde} other{{count} Stunden}}",
     "@nHours": {
         "placeholders": {
@@ -84,7 +73,6 @@
         "description": "Separator used between time like, 10 hours 'and' 15 minutes"
     },
     "@----------------------------- SHARED STRINGS -----------------------------": {},
-    "timer_status_active": "Aktiv",
     "timer_status_paused": "Pausiert",
     "create_button": "Erstellen",
     "update_button": "Aktualisieren",
@@ -98,10 +86,6 @@
     "@----------------------------- TIPS -----------------------------": {},
     "@----------------------------- ONBOARDING SCREEN -----------------------------": {},
     "@----------------------------- HOME SCREEN - DASHBOARD TAB -----------------------------": {},
-    "longest_streak_label": "Längste Serie",
-    "current_streak_label": "Aktuelle Serie",
-    "successful_sessions_label": "Erfolgreiche Sitzungen",
-    "failed_sessions_label": "Fehlgeschlagene Sitzungen",
     "@----------------------------- HOME SCREEN - STATISTICS TAB -----------------------------": {},
     "@----------------------------- HOME SCREEN - NOTIFICATIONS TAB -----------------------------": {},
     "@----------------------------- HOME SCREEN - BEDTIME TAB -----------------------------": {},

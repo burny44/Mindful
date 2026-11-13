@@ -132,7 +132,8 @@ class MethodChannelService {
     try {
       List<Map> result =
           await _methodChannel.invokeListMethod<Map>('getDeviceAppsInfo') ?? [];
-      return result.map((e) => AppInfo.fromMap(e)).toList();
+      /// Decoding every base64 icon is heavy, so do it off the UI isolate
+      return await compute(_decodeAppInfos, result);
     } catch (e) {
       debugPrint("MethodChannelService.fetchDeviceAppsInfo() Error: $e");
     }
@@ -375,3 +376,7 @@ class MethodChannelService {
   Future<bool> launchUrl(String siteUrl) async =>
       await _methodChannel.invokeMethod('launchUrl', siteUrl);
 }
+
+/// Top-level so it can run in a background isolate via [compute].
+List<AppInfo> _decodeAppInfos(List<Map> maps) =>
+    maps.map((e) => AppInfo.fromMap(e)).toList();

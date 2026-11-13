@@ -52,6 +52,13 @@ class FocusNowFab extends StatelessWidget {
           child: Text(context.locale.focus_unlock_option_label),
         ),
         MenuItemButton(
+          leadingIcon: const Icon(FluentIcons.app_folder_20_regular),
+          onPressed: () => Navigator.of(context).pushNamed(
+            AppRoutes.appGroupsPath,
+          ),
+          child: Text(context.locale.app_groups_heading),
+        ),
+        MenuItemButton(
           leadingIcon: const Icon(FluentIcons.resize_video_20_regular),
           onPressed: () => Navigator.of(context).pushNamed(
             AppRoutes.shortsBlockingPath,

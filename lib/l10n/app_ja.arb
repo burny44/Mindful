@@ -45,17 +45,6 @@
     "permission_notification_access_required": "Mindful が通知をまとめてスケジュール配信するには、通知へのアクセス権限が必要です。",
     "permission_notification_access_device_tile_label": "通知へのアクセスを許可",
     "@----------------------------- DATE AND TIME -----------------------------": {},
-    "day_today": "今日",
-    "day_yesterday": "昨日",
-    "nDays": "{count, plural, =0{0 日} =1{1 日} other{{count} 日}}",
-    "@nDays": {
-        "placeholders": {
-            "count": {
-                "type": "num",
-                "format": "compact"
-            }
-        }
-    },
     "nHours": "{count, plural, =0{0 時間} =1{1 時間} other{{count} 時間}}",
     "@nHours": {
         "placeholders": {
@@ -88,7 +77,6 @@
         "description": "Separator used between time like, 10 hours 'and' 15 minutes"
     },
     "@----------------------------- SHARED STRINGS -----------------------------": {},
-    "timer_status_active": "有効",
     "timer_status_paused": "一時停止",
     "create_button": "作成",
     "update_button": "更新",
@@ -99,9 +87,6 @@
     "dialog_button_infinite": "無制限",
     "schedule_start_label": "開始",
     "schedule_end_label": "終了",
-    "development_dialog_info": "Mindfulは現在開発中のため、不具合や未完成の機能がある可能性があります。 問題が発生した場合は、改善のためご報告ください。\n\nご意見ありがとうございます！",
-    "development_dialog_button_report_issue": "問題を報告",
-    "development_dialog_button_close": "閉じる",
     "quick_actions_heading": "簡単操作",
     "select_distracting_apps_heading": "使用制限するアプリを選択",
     "your_distracting_apps_heading": "使用制限中のアプリ",
@@ -140,10 +125,6 @@
     "apps_blocking_tile_subtitle": "複数の方法でアプリを制限します。",
     "websites_blocking_tile_subtitle": "アダルトサイトやカスタムウェブサイトを制限します。",
     "screen_time_label": "使用時間",
-    "longest_streak_label": "最大連続記録",
-    "current_streak_label": "現在の連続記録",
-    "successful_sessions_label": "集中できた回数",
-    "failed_sessions_label": "集中できなかった回数",
     "@----------------------------- HOME SCREEN - STATISTICS TAB -----------------------------": {},
     "statistics_tab_title": "統計データ",
     "screen_segment_label": "使用時間",
@@ -204,16 +185,6 @@
     "add_website_dialog_button_block": "ブロック",
     "add_website_already_exist_snack_alert": "このURLは既にブロック済みのウェブサイトに追加されています。",
     "add_website_invalid_url_snack_alert": "URLが無効です。ホスト名を確認してください。",
-    "remove_website_dialog_title": "ウェブサイトを削除",
-    "remove_website_dialog_info": "{websitehost} のブロックを解除しますか？",
-    "@remove_website_dialog_info": {
-        "placeholders": {
-            "websitehost": {
-                "type": "String",
-                "example": "example.com"
-            }
-        }
-    },
     "@----------------------------- FOCUS SCREEN - FOCUS TAB -----------------------------": {},
     "focus_session_duration_tile_title": "集中する時間",
     "focus_session_duration_dialog_info": "集中したい時間を選択してください。",
@@ -221,7 +192,6 @@
     "@----------------------------- FOCUS SCREEN - TIMELINE TAB -----------------------------": {},
     "timeline_tab_title": "使用履歴",
     "calender_heading": "カレンダー",
-    "focus_session_tile_duration_label": "継続時間",
     "@----------------------------- ACTIVE FOCUS SESSION SCREEN -----------------------------": {},
     "@----------------------------- RESTRICTION GROUPS SCREEN -----------------------------": {},
     "@----------------------------- NOTIFICATIONS SCREEN - NOTIFICATIONS TAB -----------------------------": {},

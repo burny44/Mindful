@@ -23,6 +23,9 @@ class ApplicationIcon extends StatelessWidget {
     this.isGrayedOut = false,
   });
 
+  /// Largest icon diameter used in the app, in logical pixels.
+  static const double _decodeSizeDp = 40;
+
   final AppInfo appInfo;
   final double size;
   final bool isGrayedOut;
@@ -45,6 +48,14 @@ class ApplicationIcon extends StatelessWidget {
               ? _resolveIcon()
               : Image.memory(
                   appInfo.icon,
+
+                  /// Decode at a fixed small size instead of the full icon.
+                  /// Fixed (not based on [size]) so animated sizes don't
+                  /// re-decode every frame.
+                  cacheWidth: (_decodeSizeDp *
+                          MediaQuery.devicePixelRatioOf(context))
+                      .round(),
+                  gaplessPlayback: true,
                   color: isGrayedOut ? Colors.white : null,
                   colorBlendMode: isGrayedOut ? BlendMode.saturation : null,
                 ),

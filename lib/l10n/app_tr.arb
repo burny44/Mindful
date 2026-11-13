@@ -45,17 +45,6 @@
     "permission_notification_access_required": "Mindful, bildirimleri toplu hale getirmek ve zamanlamak için bildirim erişimi gerektirir.",
     "permission_notification_access_device_tile_label": "Bildirimlere izin ver",
     "@----------------------------- DATE AND TIME -----------------------------": {},
-    "day_today": "Bugün",
-    "day_yesterday": "Dün",
-    "nDays": "{count, plural, =0{0 gün}=1{1 gün} other{{count} gün}}",
-    "@nDays": {
-        "placeholders": {
-            "count": {
-                "type": "num",
-                "format": "compact"
-            }
-        }
-    },
     "nHours": "{count, plural, =0{0 saat}=1{1 saat} other{{count} saat}}",
     "@nHours": {
         "placeholders": {
@@ -88,7 +77,6 @@
         "description": "Separator used between time like, 10 hours 'and' 15 minutes"
     },
     "@----------------------------- SHARED STRINGS -----------------------------": {},
-    "timer_status_active": "Aktif",
     "timer_status_paused": "Duraklatıldı",
     "create_button": "Oluştur",
     "update_button": "Güncelleme",
@@ -99,9 +87,6 @@
     "dialog_button_infinite": "Sonsuz",
     "schedule_start_label": "Başlat",
     "schedule_end_label": "Bitir",
-    "development_dialog_info": "Mindful şu anda geliştirme aşamasındadır ve hatalar veya eksik özellikler içerebilir. Herhangi bir sorunla karşılaşırsanız, lütfen geliştirmemize yardımcı olmak için bunları bildirin.\n\nGeri bildiriminiz için teşekkür ederiz!",
-    "development_dialog_button_report_issue": "Sorun Bildir",
-    "development_dialog_button_close": "Kapat",
     "quick_actions_heading": "Kısayollar",
     "select_distracting_apps_heading": "Dikkat dağıtan uygulamaları seç",
     "your_distracting_apps_heading": "Dikkatinizi dağıtan uygulamalarınız",
@@ -140,10 +125,6 @@
     "apps_blocking_tile_subtitle": "Uygulamaları çeşitli şekillerde sınırlandırın.",
     "websites_blocking_tile_subtitle": "Yetişkin ve özel web sitelerini sınırlayın.",
     "screen_time_label": "Ekran süresi",
-    "longest_streak_label": "En uzun seri",
-    "current_streak_label": "Güncel seri",
-    "successful_sessions_label": "Başarılı oturumlar",
-    "failed_sessions_label": "Başarısız oturumlar",
     "@----------------------------- HOME SCREEN - STATISTICS TAB -----------------------------": {},
     "statistics_tab_title": "İstatistikler",
     "screen_segment_label": "Ekran",
@@ -210,16 +191,6 @@
     "add_website_dialog_button_block": "Engelle",
     "add_website_already_exist_snack_alert": "URL zaten engellenen web siteleri listesine eklenmiştir.",
     "add_website_invalid_url_snack_alert": "Geçersiz URL! Sunucu adresi ayrıştırılamıyor.",
-    "remove_website_dialog_title": "Web sitesini kaldırın",
-    "remove_website_dialog_info": "Emin misiniz? '{websitehost}'u engellenen web sitelerinden kaldırmak istiyorsunuz.",
-    "@remove_website_dialog_info": {
-        "placeholders": {
-            "websitehost": {
-                "type": "String",
-                "example": "example.com"
-            }
-        }
-    },
     "@----------------------------- FOCUS SCREEN - FOCUS TAB -----------------------------": {},
     "focus_session_duration_tile_title": "Oturum süresi",
     "focus_session_duration_dialog_info": "Lütfen bu odaklanma oturumu için istediğiniz süreyi seçin, ne kadar süre odaklanmış ve dikkatiniz dağılmadan kalmak istediğinizi belirleyin.",
@@ -227,7 +198,6 @@
     "@----------------------------- FOCUS SCREEN - TIMELINE TAB -----------------------------": {},
     "timeline_tab_title": "Zaman çizelgesi",
     "calender_heading": "Takvim",
-    "focus_session_tile_duration_label": "Süre",
     "@----------------------------- ACTIVE FOCUS SESSION SCREEN -----------------------------": {},
     "@----------------------------- RESTRICTION GROUPS SCREEN -----------------------------": {},
     "@----------------------------- NOTIFICATIONS SCREEN - NOTIFICATIONS TAB -----------------------------": {},

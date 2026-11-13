@@ -30,11 +30,14 @@ import com.mindful.android.AppConstants.FACEBOOK_PACKAGE
 import com.mindful.android.AppConstants.INSTAGRAM_PACKAGE
 import com.mindful.android.AppConstants.REDDIT_PACKAGE
 import com.mindful.android.AppConstants.SNAPCHAT_PACKAGE
+import com.mindful.android.AppConstants.VIRTUAL_INSTAGRAM_REELS
+import com.mindful.android.AppConstants.VIRTUAL_YOUTUBE_SHORTS
 import com.mindful.android.AppConstants.YOUTUBE_PACKAGE
 import com.mindful.android.enums.PlatformFeatures
 import com.mindful.android.helpers.storage.SharedPrefsHelper
 import com.mindful.android.models.Wellbeing
 import com.mindful.android.receivers.DeviceAppsChangedReceiver
+import com.mindful.android.services.tracking.RestrictionManager
 import com.mindful.android.utils.ThreadUtils
 import com.mindful.android.utils.executors.Throttler
 import java.util.concurrent.ExecutorService
@@ -62,6 +65,12 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
         /// Delay used to coalesce Instagram content-change events (trailing throttle)
         private const val INSTAGRAM_CONTENT_CHECK_DELAY_MS = 250L
 
+        /// How long the focus-blocked reels/shorts state is reused before re-evaluating
+        private const val FOCUS_CHECK_INTERVAL_MS = 3_000L
+
+        /// How long the fallback restriction manager (tracker not running) is reused
+        private const val FALLBACK_MANAGER_TTL_MS = 30_000L
+
         private val browserPackages = mutableSetOf<String>()
         private val shortsPlatformPackages = mutableSetOf<String>()
     }
@@ -83,6 +92,15 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
     private val isInstagramCheckScheduled = AtomicBoolean(false)
 
     private var wellbeing = Wellbeing()
+
+    /// Reels/shorts currently blocked by focus sessions or earn-unlock rules (cached)
+    @Volatile
+    private var focusBlockedFeatures: Set<PlatformFeatures> = emptySet()
+
+    @Volatile
+    private var focusCheckedAt = 0L
+    private var fallbackRestrictionManager: RestrictionManager? = null
+    private var fallbackCreatedAt = 0L
 
     override fun onCreate() {
         super.onCreate()
@@ -137,7 +155,8 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
             // to notice reels opened inside the app (e.g. from a DM) without any scroll.
             if (event.eventType == TYPE_WINDOW_CONTENT_CHANGED) {
                 if (event.packageName?.toString() == INSTAGRAM_PACKAGE
-                    && shortsPlatformPackages.contains(INSTAGRAM_PACKAGE)
+                    && (shortsPlatformPackages.contains(INSTAGRAM_PACKAGE)
+                            || PlatformFeatures.INSTAGRAM_REELS in focusBlockedFeatures)
                 ) {
                     scheduleInstagramCheck()
                 }
@@ -146,6 +165,12 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
 
             // If not desired event, then just return
             if (!desiredEvents.contains(event.eventType)) return
+
+            // Scrolling inside Mindful itself never switches apps, and reading Mindful's own
+            // (Flutter) window on every scroll runs on Mindful's main thread and causes jank.
+            if (event.eventType == TYPE_VIEW_SCROLLED
+                && event.packageName?.toString() == packageName
+            ) return
 
             executorService.submit {
                 // Determine package and event source node
@@ -157,8 +182,16 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
                     // Broadcast event
                     trackingManager.onNewEvent("${it.packageName}")
 
+                    // Reels/shorts blocked by a focus session leave immediately
+                    val focusBlocked = refreshFocusBlockedFeatures()
+
                     // Show or hide the Instagram reels tab lock
-                    updateInstagramReelsLock(it)
+                    updateInstagramReelsLock(it, focusBlocked)
+
+                    if (shortsPlatformManager.blockFocusedContent(
+                            eventPackageName, it, focusBlocked
+                        )
+                    ) return@submit
 
                     // Only process if any of the content is blocked
                     if (shouldBlockContent()) {
@@ -188,7 +221,14 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
 
             executorService.submit {
                 val root = rootInActiveWindow ?: return@submit
-                updateInstagramReelsLock(root)
+                val focusBlocked = refreshFocusBlockedFeatures()
+                updateInstagramReelsLock(root, focusBlocked)
+
+                if (root.packageName?.toString() == INSTAGRAM_PACKAGE
+                    && shortsPlatformManager.blockFocusedContent(
+                        INSTAGRAM_PACKAGE, root, focusBlocked
+                    )
+                ) return@submit
 
                 if (root.packageName?.toString() == INSTAGRAM_PACKAGE && shouldBlockContent()) {
                     processEventInBackground(INSTAGRAM_PACKAGE, root, wellbeing.copy())
@@ -201,12 +241,18 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
      * Shows the lock over Instagram's Reels tab while Instagram is in the foreground and
      * reels are blocked, otherwise hides it.
      */
-    private fun updateInstagramReelsLock(activeNode: AccessibilityNodeInfo) {
+    private fun updateInstagramReelsLock(
+        activeNode: AccessibilityNodeInfo,
+        focusBlocked: Set<PlatformFeatures>,
+    ) {
         try {
             val isInstagramActive = activeNode.packageName?.toString() == INSTAGRAM_PACKAGE
+            val isFocusBlocked = PlatformFeatures.INSTAGRAM_REELS in focusBlocked
+            val isWellbeingTracked = shortsPlatformPackages.contains(INSTAGRAM_PACKAGE)
 
-            if (isInstagramActive && shortsPlatformPackages.contains(INSTAGRAM_PACKAGE)) {
-                val shouldLock = shortsPlatformManager.isInstagramReelsBlocked(wellbeing)
+            if (isInstagramActive && (isFocusBlocked || isWellbeingTracked)) {
+                val shouldLock = isFocusBlocked ||
+                        shortsPlatformManager.isInstagramReelsBlocked(wellbeing)
                 instagramReelsLock.update(activeNode, shouldLock)
             } else {
                 instagramReelsLock.hide()
@@ -214,6 +260,43 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
         } catch (e: Exception) {
             Log.e(TAG, "updateInstagramReelsLock: Failed to update reels lock", e)
         }
+    }
+
+    /**
+     * Returns the reels/shorts features which focus sessions or earn-unlock rules block right
+     * now. Evaluated at most every [FOCUS_CHECK_INTERVAL_MS]; must run off the main thread.
+     *
+     * Uses the running tracker service's state (so manual breaks are respected) and falls back
+     * to a short-lived manager built from the saved sessions when the tracker is not running.
+     */
+    @Synchronized
+    private fun refreshFocusBlockedFeatures(): Set<PlatformFeatures> {
+        val now = System.currentTimeMillis()
+        if (now - focusCheckedAt < FOCUS_CHECK_INTERVAL_MS) return focusBlockedFeatures
+
+        focusBlockedFeatures = try {
+            val manager = RestrictionManager.active ?: run {
+                if (fallbackRestrictionManager == null
+                    || now - fallbackCreatedAt > FALLBACK_MANAGER_TTL_MS
+                ) {
+                    fallbackRestrictionManager = RestrictionManager(this, stopIfNoUsage = {})
+                    fallbackCreatedAt = now
+                }
+                fallbackRestrictionManager!!
+            }
+
+            buildSet {
+                if (manager.isVirtualAppBlockedNow(VIRTUAL_INSTAGRAM_REELS))
+                    add(PlatformFeatures.INSTAGRAM_REELS)
+                if (manager.isVirtualAppBlockedNow(VIRTUAL_YOUTUBE_SHORTS))
+                    add(PlatformFeatures.YOUTUBE_SHORTS)
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "refreshFocusBlockedFeatures: Failed to evaluate focus", e)
+            emptySet()
+        }
+        focusCheckedAt = now
+        return focusBlockedFeatures
     }
 
     /**

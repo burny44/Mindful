@@ -373,14 +373,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.5.2"
-  flutter_confetti:
-    dependency: "direct main"
-    description:
-      name: flutter_confetti
-      sha256: "7e46b82ea0adc456afc91037652bbfbd52a951804fde0708822fad5d68be6398"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.5.1"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -777,14 +769,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  slide_action:
-    dependency: "direct main"
-    description:
-      name: slide_action
-      sha256: "6eabc637d767eaa71905f01a24dbf037c120dd596157e52b7d5c8af82cedcf1c"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.2"
   sliver_tools:
     dependency: "direct main"
     description:

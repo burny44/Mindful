@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:mindful/core/enums/usage_type.dart';
 import 'package:mindful/core/extensions/ext_build_context.dart';
 import 'package:mindful/ui/onboarding/onboarding_screen.dart';
+import 'package:mindful/ui/screens/app_groups/app_groups_screen.dart';
 import 'package:mindful/ui/screens/app_dashboard/app_dashboard_screen.dart';
 import 'package:mindful/ui/screens/change_logs/change_logs_screen.dart';
 import 'package:mindful/ui/screens/focus/create_update_focus_unlock_screen.dart';
@@ -32,6 +33,7 @@ class AppRoutes {
   static const String homePath = '/home';
   static const String focusUnlockRulePath = '/focusUnlock';
   static const String scheduledFocusPath = '/scheduledFocus';
+  static const String appGroupsPath = '/appGroups';
 
   static const String shortsBlockingPath = '/shortsBlocking';
   static const String websitesBlockingPath = '/websitesBlocking';
@@ -64,7 +66,8 @@ class AppRoutes {
 
     /// Parental controls screen
 
-    /// Restriction groups screen
+    /// App groups screen
+    appGroupsPath: (context) => const AppGroupsScreen(),
 
     /// Shorts blocking screen
     shortsBlockingPath: (context) => const ShortsBlockingScreen(),

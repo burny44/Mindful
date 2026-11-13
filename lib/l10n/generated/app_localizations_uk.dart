@@ -37,14 +37,6 @@ class AppLocalizationsUk extends AppLocalizations {
       'Mindful є на 100 % безпечним і працює в автономному режимі. Ми не збираємо або зберігаємо жодні персональні дані.';
 
   @override
-  String get missing_permissions_dialog_title => 'Permissions needed';
-
-  @override
-  String missing_permissions_dialog_info(String permissions) {
-    return 'Mindful needs these permissions to track screen time and block apps:\n\n$permissions';
-  }
-
-  @override
   String get missing_permissions_card_title => 'Permissions needed';
 
   @override
@@ -154,29 +146,6 @@ class AppLocalizationsUk extends AppLocalizations {
       'Дозволити доступ до сповіщень';
 
   @override
-  String get day_today => 'Сьогодні';
-
-  @override
-  String get day_yesterday => 'Вчора';
-
-  @override
-  String nDays(num count) {
-    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
-      locale: localeName,
-    );
-    final String countString = countNumberFormat.format(count);
-
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$countString днів',
-      one: '1 день',
-      zero: '0 днів',
-    );
-    return '$_temp0';
-  }
-
-  @override
   String nHours(num count) {
     final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
       locale: localeName,
@@ -231,9 +200,6 @@ class AppLocalizationsUk extends AppLocalizations {
   String get time_separator_and => 'та';
 
   @override
-  String get timer_status_active => 'Активний';
-
-  @override
   String get timer_status_paused => 'На паузі';
 
   @override
@@ -262,17 +228,6 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get schedule_end_label => 'Кінець';
-
-  @override
-  String get development_dialog_info =>
-      'Mindful перебуває зараз в процесі розробки і може містити помилки чи незакінчені функції. Якщо ви стикаєтесь з будь-якими проблемами, буль ласка, повідомте про них, щоб допомогти нам у покращенні.\n\nДякуємо за ваш відгук!';
-
-  @override
-  String get development_dialog_button_report_issue =>
-      'Повідомити про проблему';
-
-  @override
-  String get development_dialog_button_close => 'Закрити';
 
   @override
   String get quick_actions_heading => 'Швидкі дії';
@@ -444,6 +399,76 @@ class AppLocalizationsUk extends AppLocalizations {
   String get new_session_sessions_heading => 'Focus sessions';
 
   @override
+  String get app_groups_heading => 'App groups';
+
+  @override
+  String get app_groups_info =>
+      'Put apps into groups like Social or Games. A group can be picked in focus sessions and earn unlock sessions instead of picking every app again. Editing a group updates every session that uses it.';
+
+  @override
+  String get app_groups_empty => 'No groups yet.\nTap New group to create one.';
+
+  @override
+  String get app_groups_your_groups_heading => 'Your groups';
+
+  @override
+  String get app_group_new_button => 'New group';
+
+  @override
+  String app_group_apps_count(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count items',
+      one: '1 item',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get app_group_name_tile_title => 'Group name';
+
+  @override
+  String get app_group_name_dialog_info =>
+      'Give this group a name so you can recognise it when picking apps.';
+
+  @override
+  String get app_group_apps_tile_title => 'Apps in group';
+
+  @override
+  String get app_group_apps_info =>
+      'Pick the apps and in-app content which belong to this group.';
+
+  @override
+  String get app_group_remove_dialog_title => 'Remove group?';
+
+  @override
+  String get app_group_remove_dialog_info =>
+      'The group will also be removed from every session that uses it.';
+
+  @override
+  String get app_group_locked_snack =>
+      'This group is used by a strict session which is active right now. It can be changed once the session ends.';
+
+  @override
+  String get app_group_no_name_snack => 'Please give the group a name.';
+
+  @override
+  String get virtual_apps_heading => 'In-app content';
+
+  @override
+  String get virtual_apps_tile_subtitle => 'Blocks only this part of the app';
+
+  @override
+  String get virtual_app_instagram_reels => 'Instagram Reels';
+
+  @override
+  String get virtual_app_youtube_shorts => 'YouTube Shorts';
+
+  @override
+  String get in_app_blocking_card_subtitle => 'Blocked inside the app';
+
+  @override
   String get new_session_save_button => 'Save session';
 
   @override
@@ -463,15 +488,6 @@ class AppLocalizationsUk extends AppLocalizations {
   @override
   String get new_session_remove_dialog_info =>
       'Are you sure you want to remove this focus session? The apps it blocks will be available again.';
-
-  @override
-  String get new_session_status_active => 'Active now';
-
-  @override
-  String get new_session_status_break => 'On break';
-
-  @override
-  String get new_session_status_idle => 'Outside schedule';
 
   @override
   String get new_session_strict_badge => 'Strict';
@@ -589,18 +605,6 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get screen_time_label => 'Час екрану';
-
-  @override
-  String get longest_streak_label => 'Найтриваліший період';
-
-  @override
-  String get current_streak_label => 'Поточний відрізок';
-
-  @override
-  String get successful_sessions_label => 'Успішні сесії';
-
-  @override
-  String get failed_sessions_label => 'Провалені сесії';
 
   @override
   String get statistics_tab_title => 'Статистика';
@@ -835,14 +839,6 @@ class AppLocalizationsUk extends AppLocalizations {
       'Недійсна URL-адреса! Не вдалося обробити ім\'я хосту.';
 
   @override
-  String get remove_website_dialog_title => 'Видалити вебсайт';
-
-  @override
-  String remove_website_dialog_info(String websitehost) {
-    return 'Ви впевнені? Сайт $websitehost буде видалено з заблокованих.';
-  }
-
-  @override
   String get focus_session_duration_tile_title => 'Тривалість сеансу';
 
   @override
@@ -854,15 +850,6 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get calender_heading => 'Календар';
-
-  @override
-  String get focus_session_tile_timestamp_label => 'Час';
-
-  @override
-  String get focus_session_tile_duration_label => 'Тривалість';
-
-  @override
-  String get focus_session_tile_reflection_label => 'Аналіз';
 
   @override
   String get active_session_reflection_dialog_title =>

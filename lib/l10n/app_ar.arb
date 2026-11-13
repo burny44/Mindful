@@ -44,17 +44,6 @@
     "permission_notification_access_required": "يتطلب Mindful الوصول إلى الإشعارات للدفعات والإشعارات المجدولة.",
     "permission_notification_access_device_tile_label": "السماح بالوصول إلى الإشعارات",
     "@----------------------------- DATE AND TIME -----------------------------": {},
-    "day_today": "اليوم",
-    "day_yesterday": "أمس",
-    "nDays": "{count, plural, =0{٠ يوم} =1{يوم واحد} other{{count} أيام}}",
-    "@nDays": {
-        "placeholders": {
-            "count": {
-                "type": "num",
-                "format": "compact"
-            }
-        }
-    },
     "nHours": "{count, plural, =0{٠ ساعة} =1{ساعة واحدة} other{{count} ساعات}}",
     "@nHours": {
         "placeholders": {
@@ -87,7 +76,6 @@
         "description": "Separator used between time like, 10 hours 'and' 15 minutes"
     },
     "@----------------------------- SHARED STRINGS -----------------------------": {},
-    "timer_status_active": "نشيط",
     "timer_status_paused": "متوقف مؤقتا",
     "create_button": "إنشاء",
     "update_button": "تحديث",
@@ -98,9 +86,6 @@
     "dialog_button_infinite": "لانهائي",
     "schedule_start_label": "يبدأ",
     "schedule_end_label": "نهاية",
-    "development_dialog_info": "تطبيق Mindful قيد التطوير حاليًا وقد يحتوي على أخطاء أو ميزات غير مكتملة. إذا واجهت أي مشكلات، فيرجى الإبلاغ عنها لمساعدتنا على التحسين.\n\nشكرًا لك على ملاحظاتك!",
-    "development_dialog_button_report_issue": "الإبلاغ عن المشكلة",
-    "development_dialog_button_close": "غلق",
     "quick_actions_heading": "الإجراءات السريعة",
     "select_distracting_apps_heading": "حدد التطبيقات المشتتة للانتباه",
     "your_distracting_apps_heading": "تطبيقاتك المشتتة للانتباه",
@@ -139,10 +124,6 @@
     "apps_blocking_tile_subtitle": "حدد قيودا على التطبيقات بطرق متعددة.",
     "websites_blocking_tile_subtitle": "حدد قيودا على المواقع الإباحية والمخصصة.",
     "screen_time_label": "وقت استخدام الشاشة",
-    "longest_streak_label": "أطول سلسلة",
-    "current_streak_label": "السلسلة الحالية",
-    "successful_sessions_label": "جلسات ناجحة",
-    "failed_sessions_label": "الجلسات الفاشلة",
     "@----------------------------- HOME SCREEN - STATISTICS TAB -----------------------------": {},
     "statistics_tab_title": "إحصائيات",
     "screen_segment_label": "الشاشة",
@@ -215,16 +196,6 @@
     "add_website_dialog_button_block": "حظر",
     "add_website_already_exist_snack_alert": "تمت إضافة الرابط مسبقا إلى قائمة المواقع المحظورة.",
     "add_website_invalid_url_snack_alert": "رابط غير صالح! تعذر تحليل اسم المضيف.",
-    "remove_website_dialog_title": "إزالة الموقع",
-    "remove_website_dialog_info": "هل أنت متأكد أنك تريد إزالة '{websitehost}' من المواقع المحجوبة.",
-    "@remove_website_dialog_info": {
-        "placeholders": {
-            "websitehost": {
-                "type": "String",
-                "example": "example.com"
-            }
-        }
-    },
     "@----------------------------- FOCUS SCREEN - FOCUS TAB -----------------------------": {},
     "focus_session_duration_tile_title": "مدة الجلسة",
     "focus_session_duration_dialog_info": "يرجى اختيار المدة المطلوبة لهذه جلسة التركيز لتحديد الفترة التي ترغب في البقاء خلالها مركزا وخاليا من المشتتات.",
@@ -232,9 +203,6 @@
     "@----------------------------- FOCUS SCREEN - TIMELINE TAB -----------------------------": {},
     "timeline_tab_title": "الجدول الزمني",
     "calender_heading": "التقويم",
-    "focus_session_tile_timestamp_label": "الطابع الزمني",
-    "focus_session_tile_duration_label": "المدة",
-    "focus_session_tile_reflection_label": "تأمل",
     "@----------------------------- ACTIVE FOCUS SESSION SCREEN -----------------------------": {},
     "active_session_reflection_dialog_title": "تأمل الجلسة",
     "active_session_reflection_dialog_info": "خذ لحظة للتأمل في تقدمك. ما هو هدفك من هذه الجلسة؟ ماذا أنجزت خلال هذه الجلسة؟",

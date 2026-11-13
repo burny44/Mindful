@@ -18,13 +18,11 @@ dependencies:
   fluentui_system_icons: ^1.1.210
   fl_chart: ^1.0.0
   animated_flip_counter: ^0.3.4
-  flutter_confetti: ^0.5.1
   smooth_page_indicator: ^1.2.0+3
   flutter_slidable: ^4.0.0
   dynamic_color:
     path: third_party/dynamic_color
   flutter_svg: ^2.0.17
-  slide_action: ^0.0.2
 
   # Animation
   flutter_animate: ^4.2.0+1

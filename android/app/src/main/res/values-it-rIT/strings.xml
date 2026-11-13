@@ -17,8 +17,6 @@
     <string name="service_running_notification_title">Mindful è in esecuzione</string>
     <string name="shortcut_upcoming_notifications_label">Notifiche raggruppate</string>
     <string name="shortcut_upcoming_notifications_description">Controlla le prossime notifiche raggruppate.</string>
-    <string name="focus_quick_tile_status_active">Attivo</string>
-    <string name="usage_widget_description">Ottieni un riassunto giornaliero del tuo consumo di dati e del tempo passato davanti allo schermo</string>
     <string name="widget_screen_time_label">Tempo sullo schermo</string>
     <string name="widget_mobile_data_label">Rete dati</string>
     <string name="widget_wifi_data_label">Wi-Fi</string>
@@ -41,6 +39,4 @@
     <string name="emergency_pause_notification_title">Pausa di emergenza</string>
     <string name="emergency_pause_ended_notification_info">La pausa di emergenza è terminata, e il blocco delle app è di nuovo attivo. Le distrazioni sono ora bloccate, resta concentrato!</string>
     <string name="focus_session_notification_title">Sessione di concentrazione</string>
-    <string name="focus_session_success_notification_info">Congratulazioni! Hai completato con successo la tua sessione di concentrazione. Ottimo lavoro nel mantenere la costanza, continua cosi!</string>
-    <string name="focus_session_giveup_notification_info">Ti sei arreso, ma non preoccuparti. Potrai fare meglio la prossima volta. Ogni sforzo conta: continua ad andare avanti</string>
 </resources>

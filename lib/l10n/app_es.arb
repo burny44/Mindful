@@ -45,17 +45,6 @@
     "permission_notification_access_required": "Mindful requiere acceso a notificaciones para agrupar y programar las mismas.",
     "permission_notification_access_device_tile_label": "Permitir el acceso a las notificaciones",
     "@----------------------------- DATE AND TIME -----------------------------": {},
-    "day_today": "Hoy",
-    "day_yesterday": "Ayer",
-    "nDays": "{count, plural, =0{0 días} =1{1 día} other{{count} días}}",
-    "@nDays": {
-        "placeholders": {
-            "count": {
-                "type": "num",
-                "format": "compact"
-            }
-        }
-    },
     "nHours": "{count, plural, =0{0 horas} =1{1 hora} other{{count} horas}}",
     "@nHours": {
         "placeholders": {
@@ -88,7 +77,6 @@
         "description": "Separator used between time like, 10 hours 'and' 15 minutes"
     },
     "@----------------------------- SHARED STRINGS -----------------------------": {},
-    "timer_status_active": "Activo",
     "timer_status_paused": "Pausado",
     "create_button": "Crear",
     "update_button": "Actualizar",
@@ -99,9 +87,6 @@
     "dialog_button_infinite": "Infinito",
     "schedule_start_label": "Comienza",
     "schedule_end_label": "Termina",
-    "development_dialog_info": "Mindful se encuentra actualmente en desarrollo y puede contener errores funciones incompletas. Si encuentras algún problema, por favor, infórmanos para ayudarnos a mejorar.\n\n¡Gracias por tus comentarios!",
-    "development_dialog_button_report_issue": "Reportar problema",
-    "development_dialog_button_close": "Cerrar",
     "quick_actions_heading": "Acciones rápidas",
     "select_distracting_apps_heading": "Selecciona las apps que te distraen",
     "your_distracting_apps_heading": "Tus aplicaciones que te distraen",
@@ -140,10 +125,6 @@
     "apps_blocking_tile_subtitle": "Limita las aplicaciones de muchas maneras.",
     "websites_blocking_tile_subtitle": "Limitar sitios para adultos y personalizados.",
     "screen_time_label": "Tiempo de pantalla",
-    "longest_streak_label": "Racha más larga",
-    "current_streak_label": "Racha actual",
-    "successful_sessions_label": "Sesiones exitosas",
-    "failed_sessions_label": "Sesiones fallidas",
     "@----------------------------- HOME SCREEN - STATISTICS TAB -----------------------------": {},
     "statistics_tab_title": "Estadísticas",
     "screen_segment_label": "Pantalla",
@@ -216,16 +197,6 @@
     "add_website_dialog_button_block": "Bloquear",
     "add_website_already_exist_snack_alert": "La URL ya ha sido añadida a la lista de webs bloqueadas.",
     "add_website_invalid_url_snack_alert": "¡URL inválida! No se puede analizar el nombre del host.",
-    "remove_website_dialog_title": "Eliminar sitio web",
-    "remove_website_dialog_info": "¿Estás seguro? Quieres eliminar '{websitehost}' de los sitios web bloqueados.",
-    "@remove_website_dialog_info": {
-        "placeholders": {
-            "websitehost": {
-                "type": "String",
-                "example": "example.com"
-            }
-        }
-    },
     "@----------------------------- FOCUS SCREEN - FOCUS TAB -----------------------------": {},
     "focus_session_duration_tile_title": "Duración de la sesión",
     "focus_session_duration_dialog_info": "Por favor, selecciona la duración deseada para esta sesión de concentración, determinando cuánto tiempo deseas permanecer concentrado y libre de distracciones.",
@@ -233,9 +204,6 @@
     "@----------------------------- FOCUS SCREEN - TIMELINE TAB -----------------------------": {},
     "timeline_tab_title": "Cronología",
     "calender_heading": "Calendario",
-    "focus_session_tile_timestamp_label": "Marca de Tiempo",
-    "focus_session_tile_duration_label": "Duración",
-    "focus_session_tile_reflection_label": "Reflexión",
     "@----------------------------- ACTIVE FOCUS SESSION SCREEN -----------------------------": {},
     "active_session_reflection_dialog_title": "Reflexión de la sesión",
     "active_session_reflection_dialog_info": "Tómate un momento para reflexionar sobre tu progreso. ¿Cuál es tu objetivo para esta sesión? ¿Qué lograste durante esta sesión?",

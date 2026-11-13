@@ -45,17 +45,6 @@
     "permission_notification_access_required": "Апликација Mindful захтева приступ обавештењима како би груписао и заказивао обавештења.",
     "permission_notification_access_device_tile_label": "Дозволи приступ обавештењима",
     "@----------------------------- DATE AND TIME -----------------------------": {},
-    "day_today": "Данас",
-    "day_yesterday": "Јуче",
-    "nDays": "{count, plural, =0{0 дана} =1{1 дан} other{{count} дана}}",
-    "@nDays": {
-        "placeholders": {
-            "count": {
-                "type": "num",
-                "format": "compact"
-            }
-        }
-    },
     "nHours": "{count, plural, =0{0 сати} =1{1 сат} other{{count} сати}}",
     "@nHours": {
         "placeholders": {
@@ -88,7 +77,6 @@
         "description": "Separator used between time like, 10 hours 'and' 15 minutes"
     },
     "@----------------------------- SHARED STRINGS -----------------------------": {},
-    "timer_status_active": "Активан",
     "timer_status_paused": "Паузирано",
     "create_button": "Креирај",
     "update_button": "Ажурирај",
@@ -99,9 +87,6 @@
     "dialog_button_infinite": "Бесконачно",
     "schedule_start_label": "Почетак",
     "schedule_end_label": "Крај",
-    "development_dialog_info": "Mindful је тренутно у развоју и могуће је да садржи грешке или непотпуне функције. Ако наиђеш на проблем, пријави га како бисмо могли да побољшамо апликацију.\n\nХвала на повратним информацијама!",
-    "development_dialog_button_report_issue": "Пријави проблем",
-    "development_dialog_button_close": "Затвори",
     "quick_actions_heading": "Брзе радње",
     "select_distracting_apps_heading": "Избор апликација које одвлаче пажњу",
     "your_distracting_apps_heading": "Апликације које одвлаче пажњу",
@@ -140,10 +125,6 @@
     "apps_blocking_tile_subtitle": "Ограничи апликације на више начина.",
     "websites_blocking_tile_subtitle": "Ограничи садржај за одрасле и одабране веб сајтове.",
     "screen_time_label": "Време испред екрана",
-    "longest_streak_label": "Најдужи низ",
-    "current_streak_label": "Тренутни низ",
-    "successful_sessions_label": "Успешне сесије",
-    "failed_sessions_label": "Неуспешне сесије",
     "@----------------------------- HOME SCREEN - STATISTICS TAB -----------------------------": {},
     "statistics_tab_title": "Статистика",
     "screen_segment_label": "Екран",
@@ -216,16 +197,6 @@
     "add_website_dialog_button_block": "Блокирај",
     "add_website_already_exist_snack_alert": "URL је већ додат на листу блокираних сајтова.",
     "add_website_invalid_url_snack_alert": "Неважећа URL адреса! Сајт није пронађен.",
-    "remove_website_dialog_title": "Уклони сајт",
-    "remove_website_dialog_info": "Да ли си сигуран/сигурна? Желиш ли да уклониш '{websitehost}' са листе блокираних сајтова?",
-    "@remove_website_dialog_info": {
-        "placeholders": {
-            "websitehost": {
-                "type": "String",
-                "example": "example.com"
-            }
-        }
-    },
     "@----------------------------- FOCUS SCREEN - FOCUS TAB -----------------------------": {},
     "focus_session_duration_tile_title": "Трајање сесије",
     "focus_session_duration_dialog_info": "Молимо те да изабереш жељено трајање ове фокус сесије. Одреди колико дуго желиш да останеш фокусиран и без ометања.",
@@ -233,9 +204,6 @@
     "@----------------------------- FOCUS SCREEN - TIMELINE TAB -----------------------------": {},
     "timeline_tab_title": "Временска линија",
     "calender_heading": "Календар",
-    "focus_session_tile_timestamp_label": "Време",
-    "focus_session_tile_duration_label": "Трајање",
-    "focus_session_tile_reflection_label": "Осврт",
     "@----------------------------- ACTIVE FOCUS SESSION SCREEN -----------------------------": {},
     "active_session_reflection_dialog_title": "Осврт на сесију",
     "active_session_reflection_dialog_info": "Одвоји тренутак да размислиш о свом напретку. Који ти је циљ за ову сесију? Шта си постигао током ње?",

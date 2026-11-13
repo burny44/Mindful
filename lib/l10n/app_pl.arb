@@ -42,17 +42,6 @@
     "permission_vpn_info": "Proszę przyznać uprawnienia do tworzenia połączenia wirtualnej sieci prywatnej (VPN). Umożliwi to Mindful ograniczenie dostępu do internetu dla wyznaczonych aplikacji poprzez tworzenie lokalnych sieci VPN na urządzeniu.",
     "permission_notification_access_title": "Dostęp do powiadomień",
     "@----------------------------- DATE AND TIME -----------------------------": {},
-    "day_today": "Dziś",
-    "day_yesterday": "Wczoraj",
-    "nDays": "{count, plural, =0{0 dni} =1{dzień} other{{count} dni}}",
-    "@nDays": {
-        "placeholders": {
-            "count": {
-                "type": "num",
-                "format": "compact"
-            }
-        }
-    },
     "nHours": "{count, plural, =0{0 godzin} =1{1 godzina} other{{count} godzin}}",
     "@nHours": {
         "placeholders": {

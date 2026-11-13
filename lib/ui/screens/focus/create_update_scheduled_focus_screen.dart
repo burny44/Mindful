@@ -325,8 +325,8 @@ class _CreateUpdateScheduledFocusScreenState
                     ? Theme.of(context).colorScheme.error
                     : null,
                 onPressed: () => setState(
-                  () =>
-                      _session = _session.copyWith(isStrict: !_session.isStrict),
+                  () => _session =
+                      _session.copyWith(isStrict: !_session.isStrict),
                 ),
               ).sliver,
 

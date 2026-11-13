@@ -35,6 +35,14 @@ object AppConstants {
     // Platforms package names
     const val INSTAGRAM_PACKAGE: String = "com.instagram.android"
     const val YOUTUBE_PACKAGE: String = "com.google.android.youtube"
+
+    /**
+     * Virtual apps which can be picked in focus sessions, earn-unlock rules and app groups.
+     * Instead of blocking the whole app, only this part of it is blocked by the
+     * accessibility service. Must match FocusTargets on the Flutter side.
+     */
+    const val VIRTUAL_INSTAGRAM_REELS: String = "mindful.virtual.instagram_reels"
+    const val VIRTUAL_YOUTUBE_SHORTS: String = "mindful.virtual.youtube_shorts"
     const val YOUTUBE_CLIENT_PACKAGE_SUFFIX: String = ".android.youtube"
     const val SNAPCHAT_PACKAGE: String = "com.snapchat.android"
     const val FACEBOOK_PACKAGE: String = "com.facebook.katana"
