@@ -12,15 +12,11 @@ import 'package:flutter/material.dart';
 import 'package:mindful/core/enums/usage_type.dart';
 import 'package:mindful/core/extensions/ext_build_context.dart';
 import 'package:mindful/ui/onboarding/onboarding_screen.dart';
-import 'package:mindful/ui/screens/active_session/active_session_screen.dart';
 import 'package:mindful/ui/screens/app_dashboard/app_dashboard_screen.dart';
 import 'package:mindful/ui/screens/change_logs/change_logs_screen.dart';
-import 'package:mindful/ui/screens/focus/focus_screen.dart';
 import 'package:mindful/ui/screens/focus/create_update_focus_unlock_screen.dart';
 import 'package:mindful/ui/screens/focus/create_update_scheduled_focus_screen.dart';
 import 'package:mindful/ui/screens/home/home_screen.dart';
-import 'package:mindful/ui/screens/parental_controls/parental_controls_screen.dart';
-import 'package:mindful/ui/screens/restriction_groups/restriction_groups_screen.dart';
 import 'package:mindful/ui/screens/settings/settings_screen.dart';
 import 'package:mindful/ui/screens/shorts_blocking/shorts_blocking_screen.dart';
 import 'package:mindful/ui/screens/notifications/notifications_screen.dart';
@@ -34,13 +30,9 @@ class AppRoutes {
   static const String settingsPath = '/settings';
 
   static const String homePath = '/home';
-  static const String activeSessionPath = '/activeSession';
-  static const String focusModePath = '/focus';
   static const String focusUnlockRulePath = '/focusUnlock';
   static const String scheduledFocusPath = '/scheduledFocus';
 
-  static const String parentalControlsPath = '/parentalControls';
-  static const String restrictionGroupsPath = '/restrictionGroups';
   static const String shortsBlockingPath = '/shortsBlocking';
   static const String websitesBlockingPath = '/websitesBlocking';
 
@@ -71,10 +63,8 @@ class AppRoutes {
         ),
 
     /// Parental controls screen
-    parentalControlsPath: (context) => const ParentalControlsScreen(),
 
     /// Restriction groups screen
-    restrictionGroupsPath: (context) => const RestrictionGroupsScreen(),
 
     /// Shorts blocking screen
     shortsBlockingPath: (context) => const ShortsBlockingScreen(),
@@ -92,14 +82,6 @@ class AppRoutes {
 
     /// New scheduled focus session screen
     scheduledFocusPath: (context) => const CreateUpdateScheduledFocusScreen(),
-
-    /// Focus mode screen
-    focusModePath: (context) => FocusScreen(
-          initialTabIndex: context.resolveParam<int>("tab"),
-        ),
-
-    /// Active focus session screen
-    activeSessionPath: (context) => const ActiveSessionScreen(),
 
     /// App dashboard screen
     appDashboardPath: (context) => AppDashboardScreen(

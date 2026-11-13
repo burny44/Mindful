@@ -50,7 +50,7 @@ class ScheduledFocusSessionsNotifier
 
   Future<bool> updateSession(ScheduledFocusSession session) async {
     final existing = state.where((e) => e.id == session.id).firstOrNull;
-    if (existing?.isStrict == true) return false;
+    if (existing?.isStrictLocked == true) return false;
 
     state = [...state.map((e) => e.id == session.id ? session : e)];
     await _sync();
@@ -58,7 +58,7 @@ class ScheduledFocusSessionsNotifier
   }
 
   Future<bool> removeSession(ScheduledFocusSession session) async {
-    if (session.isStrict) return false;
+    if (session.isStrictLocked) return false;
 
     state = [...state.where((e) => e.id != session.id)];
     await _sync();

@@ -9,7 +9,6 @@ import com.mindful.android.helpers.storage.SharedPrefsHelper
 import com.mindful.android.helpers.usages.ScreenUsageHelper
 import com.mindful.android.models.AppRestriction
 import com.mindful.android.models.FocusUnlockRule
-import com.mindful.android.models.RestrictionGroup
 import com.mindful.android.models.RestrictionState
 import com.mindful.android.models.ScheduledFocusSession
 import com.mindful.android.utils.DateTimeUtils
@@ -22,20 +21,14 @@ class RestrictionManager(
     private val TAG = "Mindful.RestrictionManager"
 
     val isIdle: Boolean
-        get() = focusedApps.isEmpty()
-                && bedtimeApps.isEmpty()
-                && appsRestrictions.isEmpty()
-                && restrictionGroups.isEmpty()
+        get() = appsRestrictions.isEmpty()
                 && focusUnlockRules.isEmpty()
                 && scheduledFocusSessions.isEmpty()
 
     // Restrictions
     private var appsRestrictions = HashMap<String, AppRestriction>()
-    private var restrictionGroups = HashMap<Int, RestrictionGroup>()
 
     // Focus
-    private var focusedApps = setOf<String>()
-    private var bedtimeApps = setOf<String>()
     private var focusUnlockRules =
         SharedPrefsHelper.getSetFocusUnlockRules(context, null).filter { it.isValid }
     private var scheduledFocusSessions =
@@ -50,7 +43,6 @@ class RestrictionManager(
     val getAppsLaunchCount: HashMap<String, Int> get() = appsLaunchCount
 
     private val alreadyRestrictedApps = HashMap<String, RestrictionState>(0)
-    private val alreadyRestrictedGroups = HashMap<Int, RestrictionState>(0)
 
     init {
         Log.d(
@@ -62,40 +54,16 @@ class RestrictionManager(
 
     fun resetCache() {
         alreadyRestrictedApps.clear()
-        alreadyRestrictedGroups.clear()
         appsLaunchCount.clear()
         manualBreakUntilBySession.clear()
         breaksUsedTodayBySession.clear()
     }
 
-    fun updateRestrictions(
-        appsRestrictionsMap: HashMap<String, AppRestriction>?,
-        restrictionGroupsMap: HashMap<Int, RestrictionGroup>?,
-    ) {
-        appsRestrictionsMap?.let {
-            appsRestrictions = it
-            alreadyRestrictedApps.clear()
-            Log.d(TAG, "updateRestrictions: Apps restrictions updated")
-        }
-
-        restrictionGroupsMap?.let {
-            restrictionGroups = it
-            alreadyRestrictedGroups.clear()
-            Log.d(TAG, "updateRestrictions: Restriction groups updated")
-        }
+    fun updateRestrictions(appsRestrictionsMap: HashMap<String, AppRestriction>) {
+        appsRestrictions = appsRestrictionsMap
+        alreadyRestrictedApps.clear()
+        Log.d(TAG, "updateRestrictions: Apps restrictions updated")
         stopIfNoUsage.invoke()
-    }
-
-    fun updateFocusedApps(apps: Set<String>?) {
-        focusedApps = apps ?: emptySet()
-        if (apps == null) stopIfNoUsage.invoke()
-        Log.d(TAG, "updateFocusedApps: Focus apps updated: $focusedApps")
-    }
-
-    fun updateBedtimeApps(apps: Set<String>?) {
-        bedtimeApps = apps ?: emptySet()
-        if (apps == null) stopIfNoUsage.invoke()
-        Log.d(TAG, "updateBedtimeApps: Bedtime apps updated: $bedtimeApps")
     }
 
     fun updateFocusUnlockRules(rules: List<FocusUnlockRule>) {
@@ -147,7 +115,7 @@ class RestrictionManager(
 
     // returns nearest time stamp for rechecking
     fun isAppRestricted(packageName: String): RestrictionState? {
-        // If already restricted by focus or bedtime or cached
+        // If already restricted (cached)
         val alreadyRestrictedState = evaluateIfAlreadyRestricted(packageName)
         if (alreadyRestrictedState != null) {
             return alreadyRestrictedState
@@ -187,14 +155,6 @@ class RestrictionManager(
 
     private fun evaluateIfAlreadyRestricted(packageName: String): RestrictionState? {
         return when {
-            focusedApps.contains(packageName) -> RestrictionState(
-                type = RestrictionType.FOCUS
-            )
-
-            bedtimeApps.contains(packageName) -> RestrictionState(
-                type = RestrictionType.BEDTIME,
-            )
-
             alreadyRestrictedApps.containsKey(packageName) -> alreadyRestrictedApps[packageName]
             else -> null
         }
@@ -386,30 +346,6 @@ class RestrictionManager(
             }
         }
 
-
-        /// Check group's active period
-        restrictionGroups[restriction.associatedGroupId]?.let {
-            if (it.activePeriodStart != it.activePeriodEnd) {
-                val state = RestrictionState(
-                    type = RestrictionType.GROUP_ACTIVE_PERIOD,
-                    groupName = it.groupName,
-                )
-                /// Outside active period
-                if (DateTimeUtils.isTimeOutsideTODs(it.activePeriodStart, it.activePeriodEnd)) {
-                    Log.d(
-                        TAG,
-                        "evaluateActivePeriodLimit: ${it.groupName} group's active period is over"
-                    )
-                    return state
-                }
-                /// Launched between active period calculate expiration time
-                else {
-                    val willOverInMs = DateTimeUtils.todDifferenceFromNow(it.activePeriodEnd)
-                    futureState.add(state.copy(timeLeftMillis = willOverInMs))
-                }
-            }
-        }
-
         return null
     }
 
@@ -417,11 +353,9 @@ class RestrictionManager(
         restriction: AppRestriction,
         futureStates: MutableSet<RestrictionState>,
     ): RestrictionState? {
-        // Usage map
-        val screenUsage = ScreenUsageHelper.fetchAppUsageTodayTillNow(usageStatsManager)
-
         /// Check for app timer
         if (restriction.timerSec > 0) {
+            val screenUsage = ScreenUsageHelper.fetchAppUsageTodayTillNow(usageStatsManager)
             val screenTimeSec: Long = screenUsage[restriction.appPackage] ?: 0
 
             /// App timer ran out
@@ -448,47 +382,6 @@ class RestrictionManager(
                         reminderType = restriction.reminderType,
                     )
                 )
-            }
-        }
-
-
-        /// Check group's timer ran out
-        restrictionGroups[restriction.associatedGroupId]?.let { group ->
-            // If group is already restricted
-            if (alreadyRestrictedGroups.containsKey(group.id)) {
-                return alreadyRestrictedGroups[group.id]
-            }
-
-            if (group.timerSec > 0) {
-                val groupScreenTimeSec = group.distractingApps.sumOf { screenUsage[it] ?: 0 }
-
-                /// group timer ran out
-                if (groupScreenTimeSec >= group.timerSec) {
-                    Log.d(TAG, "evaluateScreenTimeLimit: App's timer is over")
-                    val state = RestrictionState(
-                        type = RestrictionType.GROUP_TIMER,
-                        screenTimeUsed = groupScreenTimeSec,
-                        screenTimeLimit = group.timerSec.toLong(),
-                        reminderType = restriction.reminderType,
-                        groupName = group.groupName,
-                    )
-
-                    alreadyRestrictedGroups[group.id] = state
-                    return state
-                } else {
-                    /// group timer left so add expiration timestamp
-                    val leftAppLimitMs = (group.timerSec - groupScreenTimeSec) * 1000L
-                    futureStates.add(
-                        RestrictionState(
-                            type = RestrictionType.GROUP_TIMER,
-                            timeLeftMillis = leftAppLimitMs,
-                            screenTimeUsed = groupScreenTimeSec,
-                            screenTimeLimit = group.timerSec.toLong(),
-                            reminderType = restriction.reminderType,
-                            groupName = group.groupName,
-                        )
-                    )
-                }
             }
         }
 

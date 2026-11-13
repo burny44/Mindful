@@ -3,7 +3,6 @@ import 'package:mindful/core/database/app_database.dart';
 import 'package:mindful/core/enums/default_home_tab.dart';
 import 'package:mindful/core/enums/recap_type.dart';
 import 'package:mindful/core/enums/reminder_type.dart';
-import 'package:mindful/core/enums/session_type.dart';
 import 'package:mindful/config/app_constants.dart';
 import 'package:mindful/models/notification_schedule.dart';
 
@@ -28,39 +27,14 @@ const defaultSharedUniqueDataModel = SharedUniqueData(
   excludedApps: [],
 );
 
-const defaultParentalControlsModel = ParentalControls(
-  id: 0,
-  protectedAccess: false,
-  uninstallWindowTime: TimeOfDayAdapter.zero(),
-  isInvincibleModeOn: false,
-  invincibleWindowTime: TimeOfDayAdapter.zero(),
-  includeAppsTimer: true,
-  includeAppsLaunchLimit: false,
-  includeAppsActivePeriod: false,
-  includeGroupsTimer: false,
-  includeGroupsActivePeriod: false,
-  includeShortsTimer: false,
-  includeBedtimeSchedule: false,
-);
-
 const defaultWellbeingModel = Wellbeing(
   id: 0,
   allowedShortsTimeSec: 30 * 60,
+  instagramUsageLimitSec: 0,
   blockedFeatures: [],
   blockNsfwSites: false,
   blockedWebsites: [],
   nsfwWebsites: [],
-);
-
-const defaultBedtimeScheduleModel = BedtimeSchedule(
-  id: 0,
-  scheduleStartTime: TimeOfDayAdapter.zero(),
-  scheduleEndTime: TimeOfDayAdapter.zero(),
-  scheduleDurationInMins: 0,
-  scheduleDays: [true, true, true, true, true, false, false],
-  isScheduleOn: false,
-  shouldStartDnd: false,
-  distractingApps: [],
 );
 
 NotificationSettings defaultNotificationSettingsModel = NotificationSettings(
@@ -97,18 +71,3 @@ const defaultAppRestrictionModel = AppRestriction(
   reminderType: ReminderType.toast,
 );
 
-final defaultFocusModeModel = FocusMode(
-  id: 0,
-  sessionType: SessionType.study,
-  longestStreak: 0,
-  currentStreak: 0,
-  lastTimeStreakUpdated: DateTime(0),
-);
-
-const defaultFocusProfileModel = FocusProfile(
-  sessionType: SessionType.study,
-  sessionDuration: 0,
-  shouldStartDnd: false,
-  enforceSession: false,
-  distractingApps: [],
-);

@@ -38,14 +38,6 @@ class FocusNowFab extends StatelessWidget {
       },
       menuChildren: [
         MenuItemButton(
-          leadingIcon: const Icon(FluentIcons.target_arrow_20_regular),
-          onPressed: () => Navigator.of(context).pushNamed(
-            AppRoutes.focusModePath,
-            arguments: {"tab": 0},
-          ),
-          child: Text(context.locale.focus_now_option_label),
-        ),
-        MenuItemButton(
           leadingIcon: const Icon(FluentIcons.calendar_clock_20_regular),
           onPressed: () => Navigator.of(context).pushNamed(
             AppRoutes.scheduledFocusPath,
@@ -58,6 +50,13 @@ class FocusNowFab extends StatelessWidget {
             AppRoutes.focusUnlockRulePath,
           ),
           child: Text(context.locale.focus_unlock_option_label),
+        ),
+        MenuItemButton(
+          leadingIcon: const Icon(FluentIcons.resize_video_20_regular),
+          onPressed: () => Navigator.of(context).pushNamed(
+            AppRoutes.shortsBlockingPath,
+          ),
+          child: Text(context.locale.shorts_blocking_tab_title),
         ),
       ],
     );

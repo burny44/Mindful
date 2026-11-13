@@ -9,13 +9,17 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+import 'package:mindful/config/hero_tags.dart';
+import 'package:mindful/core/extensions/ext_duration.dart';
+import 'package:mindful/ui/dialogs/timer_picker_dialog.dart';
+import 'package:mindful/ui/transitions/default_hero.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mindful/core/enums/item_position.dart';
 import 'package:mindful/core/enums/platform_features.dart';
 import 'package:mindful/core/extensions/ext_build_context.dart';
 import 'package:mindful/providers/restrictions/wellbeing_provider.dart';
-import 'package:mindful/providers/system/parental_controls_provider.dart';
 import 'package:mindful/ui/common/default_expandable_list_tile.dart';
 import 'package:mindful/ui/common/default_list_tile.dart';
 
@@ -33,20 +37,29 @@ class SliverShortsQuickActions extends ConsumerWidget {
     List<PlatformFeatures> blockedFeatures,
     PlatformFeatures feature,
   ) {
-    final isInvincibleRestricted = ref.read(parentalControlsProvider
-            .select((v) => v.isInvincibleModeOn && v.includeShortsTimer)) &&
-        !ref
-            .read(parentalControlsProvider.notifier)
-            .isBetweenInvincibleWindow &&
-        ref.read(wellBeingProvider.select((v) => v.allowedShortsTimeSec > 0));
+    ref.read(wellBeingProvider.notifier).insertRemoveBlockedFeature(feature);
+  }
 
-    /// If restricted by invincible mode
-    if (isInvincibleRestricted && blockedFeatures.contains(feature)) {
-      context.showSnackAlert(context.locale.invincible_mode_snack_alert);
+  /// Turns the daily Instagram usage limit off, or asks for the time to turn it on.
+  void _toggleInstagramUsageLimit(
+    BuildContext context,
+    WidgetRef ref,
+    int currentLimitSec,
+  ) async {
+    final notifier = ref.read(wellBeingProvider.notifier);
+
+    if (currentLimitSec > 0) {
+      notifier.setInstagramUsageLimit(0);
       return;
     }
 
-    ref.read(wellBeingProvider.notifier).insertRemoveBlockedFeature(feature);
+    final limitSec = await showInstagramUsageLimitPicker(
+      context: context,
+      heroTag: HeroTags.instagramUsageLimitTileTag,
+    );
+
+    if (limitSec == null || limitSec <= 0) return;
+    notifier.setInstagramUsageLimit(limitSec);
   }
 
   Widget _buildIcon(BuildContext context, String path) => Opacity(
@@ -64,6 +77,8 @@ class SliverShortsQuickActions extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final blockedFeatures =
         ref.watch(wellBeingProvider.select((v) => v.blockedFeatures));
+    final instagramUsageLimitSec =
+        ref.watch(wellBeingProvider.select((v) => v.instagramUsageLimitSec));
 
     return SliverList.list(
       children: [
@@ -87,6 +102,27 @@ class SliverShortsQuickActions extends ConsumerWidget {
                   ref,
                   blockedFeatures,
                   PlatformFeatures.instagramReels,
+                ),
+              ),
+
+              /// Reels only after daily Instagram usage
+              DefaultHero(
+                tag: HeroTags.instagramUsageLimitTileTag,
+                child: DefaultListTile(
+                  position: ItemPosition.mid,
+                  enabled:
+                      blockedFeatures.contains(PlatformFeatures.instagramReels),
+                  leadingIcon: FluentIcons.timer_20_regular,
+                  titleText: context.locale.instagram_usage_limit_tile_title,
+                  subtitleText: instagramUsageLimitSec > 0
+                      ? context.locale.instagram_usage_limit_tile_subtitle_on(
+                          Duration(seconds: instagramUsageLimitSec)
+                              .toTimeShort(context),
+                        )
+                      : context.locale.instagram_usage_limit_tile_subtitle_off,
+                  switchValue: instagramUsageLimitSec > 0,
+                  onPressed: () => _toggleInstagramUsageLimit(
+                      context, ref, instagramUsageLimitSec),
                 ),
               ),
 

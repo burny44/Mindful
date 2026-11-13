@@ -1,7 +1,6 @@
 {
     "@----------------------------- SPLASH SCREEN -----------------------------": {},
     "mindful_tagline": "Tập trung vào những gì thực sự quan trọng",
-    "unlock_button_label": "Mở khóa",
     "@----------------------------- APP PERMISSIONS -----------------------------": {},
     "permission_status_allowed": "Được phép",
     "permission_status_not_allowed": "Không được phép",
@@ -28,7 +27,6 @@
     "permission_overlay_device_tile_label": "Cho phép hiển thị trên các ứng dụng khác",
     "permission_accessibility_title": "Khả năng tiếp cận",
     "permission_accessibility_device_tile_label": "Sử dụng Mindful",
-    "permission_dnd_title": "Đừng làm phiền",
     "permission_notification_access_device_tile_label": "Cho phép truy cập thông báo",
     "@----------------------------- DATE AND TIME -----------------------------": {},
     "day_today": "Hôm nay",

@@ -37,11 +37,6 @@ data class AppRestriction(
      * Type of usage reminders to show while using timed app.
      */
     val reminderType: ReminderType = ReminderType.NOTIFICATION,
-
-    /**
-     * ID of the restriction group this app belongs to (nullable).
-     */
-    val associatedGroupId: Int? = null,
 ) {
     companion object {
         /**
@@ -56,9 +51,6 @@ data class AppRestriction(
                 activePeriodStart = jsonObject.optInt("activePeriodStart", 0),
                 activePeriodEnd = jsonObject.optInt("activePeriodEnd", 0),
                 reminderType = ReminderType.fromName(jsonObject.optString("reminderType", "toast")),
-                associatedGroupId = if (jsonObject.isNull("associatedGroupId")) null else jsonObject.optInt(
-                    "associatedGroupId"
-                ),
             )
         }
     }

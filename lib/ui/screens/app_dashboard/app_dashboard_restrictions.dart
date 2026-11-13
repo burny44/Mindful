@@ -12,7 +12,6 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mindful/config/navigation/app_routes.dart';
 import 'package:mindful/core/enums/item_position.dart';
 import 'package:mindful/core/enums/reminder_type.dart';
 import 'package:mindful/core/extensions/ext_build_context.dart';
@@ -21,9 +20,7 @@ import 'package:mindful/core/utils/default_models_utils.dart';
 import 'package:mindful/config/hero_tags.dart';
 import 'package:mindful/models/app_info.dart';
 import 'package:mindful/providers/restrictions/apps_restrictions_provider.dart';
-import 'package:mindful/providers/system/parental_controls_provider.dart';
 import 'package:mindful/providers/usage/apps_launch_count_provider.dart';
-import 'package:mindful/providers/restrictions/restriction_groups_provider.dart';
 import 'package:mindful/ui/common/active_period_tile_content.dart';
 import 'package:mindful/ui/common/default_dropdown_tile.dart';
 import 'package:mindful/ui/common/default_expandable_list_tile.dart';
@@ -53,17 +50,6 @@ class AppDashboardRestrictions extends ConsumerWidget {
     required WidgetRef ref,
     required int launchLimit,
   }) async {
-    /// If restricted by invincible mode
-    final isInvincibleRestricted = ref.read(parentalControlsProvider
-            .select((v) => v.isInvincibleModeOn && v.includeAppsLaunchLimit)) &&
-        !ref.read(parentalControlsProvider.notifier).isBetweenInvincibleWindow;
-
-    /// Show snack bar and return if restricted
-    if (isInvincibleRestricted && launchLimit > 0) {
-      context.showSnackAlert(context.locale.invincible_mode_snack_alert);
-      return;
-    }
-
     final newLimit = await showAppLaunchLimitDialog(
       context: context,
       heroTag: HeroTags.appLaunchLimitTileTag(appInfo.packageName),
@@ -87,9 +73,6 @@ class AppDashboardRestrictions extends ConsumerWidget {
           ),
         ) ??
         defaultAppRestrictionModel;
-
-    final restrictionGroupName = ref.watch(restrictionGroupsProvider
-        .select((v) => v[restriction.associatedGroupId]?.groupName));
 
     return MultiSliver(
       children: [
@@ -172,25 +155,6 @@ class AppDashboardRestrictions extends ConsumerWidget {
                   restriction.activePeriodEnd.format(context),
                 )
               : context.locale.app_limit_status_not_set,
-          canExpand: () {
-            /// If restricted by invincible mode
-            final isInvincibleRestricted = ref.read(
-                    parentalControlsProvider.select((v) =>
-                        v.isInvincibleModeOn && v.includeAppsActivePeriod)) &&
-                !ref
-                    .read(parentalControlsProvider.notifier)
-                    .isBetweenInvincibleWindow;
-
-            if (isInvincibleRestricted &&
-                restriction.periodDurationInMins > 0) {
-              context
-                  .showSnackAlert(context.locale.invincible_mode_snack_alert);
-
-              return false;
-            }
-
-            return true;
-          },
           content: ActivePeriodTileContent(
             totalDuration: restriction.periodDurationInMins.minutes,
             startTime: restriction.activePeriodStart,
@@ -206,22 +170,6 @@ class AppDashboardRestrictions extends ConsumerWidget {
 
         /// Internet access
         AppInternetTile(appInfo: appInfo).sliver,
-
-        /// Associated restriction group
-        DefaultListTile(
-          enabled: !appInfo.isImpSysApp,
-          position: ItemPosition.bottom,
-          titleText: context.locale.restriction_groups_tab_title,
-          subtitleText:
-              restrictionGroupName ?? context.locale.app_limit_status_not_set,
-          leadingIcon: FluentIcons.app_title_20_regular,
-          trailing: Icon(
-            FluentIcons.chevron_right_20_regular,
-            color: appInfo.isImpSysApp ? Theme.of(context).disabledColor : null,
-          ),
-          onPressed: () =>
-              Navigator.of(context).pushNamed(AppRoutes.restrictionGroupsPath),
-        ).sliver,
       ],
     );
   }

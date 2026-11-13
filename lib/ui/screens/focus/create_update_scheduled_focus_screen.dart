@@ -53,7 +53,7 @@ class _CreateUpdateScheduledFocusScreenState
   ScheduledFocusSession _session = const ScheduledFocusSession(name: "Focus");
 
   bool get _isEditing => widget.session != null;
-  bool get _isLocked => widget.session?.isStrict == true;
+  bool get _isLocked => widget.session?.isStrictLocked == true;
 
   @override
   void initState() {
@@ -310,7 +310,7 @@ class _CreateUpdateScheduledFocusScreenState
                 ).sliver,
               ],
 
-              /// Strict — only settable before first save, or while creating
+              /// Strict — editable anytime the session is not currently active
               ContentSectionHeader(
                 title: context.locale.new_session_strict_tile_title,
               ).sliver,

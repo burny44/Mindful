@@ -22,7 +22,6 @@
     <string name="app_blocker_running_notification_info">Mindful verfolgt jetzt die App-Nutzung, um dir dabei zu helfen, konzentriert zu bleiben und deine digitalen Gewohnheiten zu verwalten.</string>
     <string name="overlay_permission_denied_notification_title">Berechtigung verweigert</string>
     <string name="overlay_permission_denied_notification_info">Bitte erteile Mindful die Berechtigung zur Anzeige des Overlays, indem du auf die Benachrichtigung klickst. Suche auf dem nächsten Bildschirm in der Liste der Apps nach Mindful und klicke auf „Zulassen“.</string>
-    <string name="bedtime_started_notification_info">Es ist Zeit, zur Ruhe zu kommen. Die Schlafenszeitroutine hat begonnen und hilft dir, dich zu entspannen und auf eine erholsame Nachtruhe vorzubereiten.</string>
     <string name="emergency_pause_notification_title">Notfall-Pause</string>
     <string name="emergency_pause_ended_notification_info">Die Notpause ist vorbei und der App-Blocker ist wieder aktiv. Ablenkungen werden jetzt wieder blockiert, bleib konzentriert!</string>
     <string name="focus_session_notification_title">Fokus-Sitzung</string>

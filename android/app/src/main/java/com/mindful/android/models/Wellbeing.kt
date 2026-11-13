@@ -20,6 +20,12 @@ data class Wellbeing(
     val allowedShortsTimeMs: Long = DEFAULT_SHORTS_TIME_SEC * 1000L,
 
     /**
+     * If greater than 0, Instagram reels are only blocked after Instagram was used for
+     * this long today (in ms). If 0, reels follow [allowedShortsTimeMs] like other platforms.
+     */
+    val instagramUsageLimitMs: Long = 0L,
+
+    /**
      * Set of blocked platform features.
      */
     val blockedFeatures: Set<PlatformFeatures> = emptySet(),
@@ -48,6 +54,7 @@ data class Wellbeing(
                     "allowedShortsTimeSec",
                     DEFAULT_SHORTS_TIME_SEC
                 ) * 1000L,
+                instagramUsageLimitMs = jsonObject.optInt("instagramUsageLimitSec", 0) * 1000L,
                 blockedFeatures = JsonUtils.parseStringSet(
                     jsonObject.optJSONArray("blockedFeatures")?.toString()
                 ).mapIndexedNotNull { i, e -> PlatformFeatures.fromName(e) }.toSet(),

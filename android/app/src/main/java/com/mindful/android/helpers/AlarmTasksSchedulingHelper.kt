@@ -17,29 +17,22 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.util.Log
-import com.mindful.android.AppConstants
-import com.mindful.android.generics.SafeServiceConnection
-import com.mindful.android.models.BedtimeSchedule
 import com.mindful.android.models.NotificationSettings
-import com.mindful.android.receivers.alarm.BedtimeRoutineReceiver
-import com.mindful.android.receivers.alarm.BedtimeRoutineReceiver.Companion.EXTRA_BEDTIME_SETTINGS_JSON
 import com.mindful.android.receivers.alarm.MidnightResetReceiver
 import com.mindful.android.receivers.alarm.NotificationBatchReceiver
 import com.mindful.android.receivers.alarm.NotificationBatchReceiver.Companion.EXTRA_NOTIFICATION_SETTINGS_JSON
 import com.mindful.android.receivers.alarm.NotificationBatchReceiver.NotificationBatchWorker
-import com.mindful.android.services.tracking.MindfulTrackerService
+import com.mindful.android.AppConstants
 import com.mindful.android.utils.DateTimeUtils.todToTodayCal
-import com.mindful.android.utils.Utils
 import java.util.Calendar
 import java.util.Date
 
 /**
- * Helper class for scheduling alarm tasks related to bedtime routines and midnight resets.
+ * Helper class for scheduling alarm tasks such as midnight resets and notification batches.
  */
 object AlarmTasksSchedulingHelper {
     private const val TAG = "Mindful.AlarmTasksSchedulingHelper"
     private const val MIDNIGHT_RESET_ALARM_ID = 101
-    private const val BEDTIME_ROUTINE_ALARM_ID = 102
     private const val NOTIFICATION_BATCH_ALARM_ID = 103
 
 
@@ -86,105 +79,6 @@ object AlarmTasksSchedulingHelper {
             TAG,
             "scheduleMidnightTask: Midnight reset task scheduled successfully for " + cal.time
         )
-    }
-
-    /**
-     * Schedules the bedtime alert, start, and stop tasks based on the bedtime settings.
-     *
-     * @param context         The application context.
-     * @param jsonBedtimeSettings The json string representation of Bedtime settings object used for scheduling.
-     */
-    fun scheduleBedtimeRoutineTasks(context: Context, jsonBedtimeSettings: String) {
-        val bedtimeSchedule = BedtimeSchedule.fromJson(jsonBedtimeSettings)
-        val extraMap = mapOf(
-            EXTRA_BEDTIME_SETTINGS_JSON to jsonBedtimeSettings
-        )
-
-        val nowInMs = System.currentTimeMillis()
-        var alertTimeMs = todToTodayCal(bedtimeSchedule.scheduleStartTime - 30).timeInMillis
-        var startTimeMs = todToTodayCal(bedtimeSchedule.scheduleStartTime).timeInMillis
-        var endTimeMs =
-            todToTodayCal(bedtimeSchedule.scheduleStartTime + bedtimeSchedule.scheduleDurationInMins).timeInMillis
-
-        // Bedtime is already ended then reschedule for the next day
-        if (endTimeMs < nowInMs) {
-            alertTimeMs += AppConstants.ONE_DAY_IN_MS
-            startTimeMs += AppConstants.ONE_DAY_IN_MS
-            endTimeMs += AppConstants.ONE_DAY_IN_MS
-        }
-
-        // If alert time is in future
-        if (alertTimeMs > nowInMs) {
-            scheduleOrUpdateExactAlarmTask(
-                context = context,
-                receiverClass = BedtimeRoutineReceiver::class.java,
-                intentAction = BedtimeRoutineReceiver.ACTION_ALERT_BEDTIME,
-                epochTimeMs = alertTimeMs,
-                requestCode = BEDTIME_ROUTINE_ALARM_ID,
-                extraMap = extraMap,
-            )
-        }
-
-        // Bedtime start and stop tasks
-        scheduleOrUpdateExactAlarmTask(
-            context = context,
-            receiverClass = BedtimeRoutineReceiver::class.java,
-            intentAction = BedtimeRoutineReceiver.ACTION_START_BEDTIME,
-            epochTimeMs = startTimeMs,
-            requestCode = BEDTIME_ROUTINE_ALARM_ID,
-            extraMap = extraMap,
-        )
-        scheduleOrUpdateExactAlarmTask(
-            context = context,
-            receiverClass = BedtimeRoutineReceiver::class.java,
-            intentAction = BedtimeRoutineReceiver.ACTION_STOP_BEDTIME,
-            epochTimeMs = endTimeMs,
-            requestCode = BEDTIME_ROUTINE_ALARM_ID,
-            extraMap = extraMap,
-        )
-        Log.d(
-            TAG, """
-                 scheduleBedtimeStartTask: Bedtime routine tasks scheduled successfully for - 
-                 alert: ${if (alertTimeMs > nowInMs) "" else "(skipping) "}${Date(alertTimeMs)}
-                 start: ${Date(startTimeMs)}
-                 end: ${Date(endTimeMs)}
-                 """.trimIndent()
-        )
-    }
-
-
-    /**
-     * Cancels both scheduled start and stop bedtime routine tasks.
-     *
-     * @param context The application context.
-     */
-    fun cancelBedtimeRoutineTasks(context: Context) {
-        // Cancel the alarms
-        cancelExactAlarmTasks(
-            context = context,
-            receiverClass = BedtimeRoutineReceiver::class.java,
-            requestCode = BEDTIME_ROUTINE_ALARM_ID,
-            intentActions = listOf(
-                BedtimeRoutineReceiver.ACTION_ALERT_BEDTIME,
-                BedtimeRoutineReceiver.ACTION_START_BEDTIME,
-                BedtimeRoutineReceiver.ACTION_STOP_BEDTIME
-            ),
-        )
-
-        // Let service know
-        runCatching {
-            if (Utils.isServiceRunning(context, MindfulTrackerService::class.java)) {
-                val conn = SafeServiceConnection(context, MindfulTrackerService::class.java)
-                conn.setOnConnectedCallback { service ->
-                    service.getRestrictionManager.updateBedtimeApps(
-                        null
-                    )
-                }
-                conn.bindService()
-                conn.unBindService()
-            }
-        }
-        Log.d(TAG, "cancelBedtimeRoutineTasks: Bedtime routine tasks cancelled successfully")
     }
 
     /**

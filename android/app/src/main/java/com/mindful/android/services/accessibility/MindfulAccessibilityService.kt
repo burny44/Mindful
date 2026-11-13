@@ -17,22 +17,21 @@ import android.content.SharedPreferences
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityEvent.TYPE_VIEW_SCROLLED
 import android.view.accessibility.AccessibilityEvent.TYPE_WINDOWS_CHANGED
+import android.view.accessibility.AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED
 import android.view.accessibility.AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED
 import android.view.accessibility.AccessibilityNodeInfo
-import android.widget.Toast
 import com.mindful.android.AppConstants.FACEBOOK_PACKAGE
 import com.mindful.android.AppConstants.INSTAGRAM_PACKAGE
 import com.mindful.android.AppConstants.REDDIT_PACKAGE
-import com.mindful.android.AppConstants.SETTINGS_PACKAGE
 import com.mindful.android.AppConstants.SNAPCHAT_PACKAGE
 import com.mindful.android.AppConstants.YOUTUBE_PACKAGE
-import com.mindful.android.R
 import com.mindful.android.enums.PlatformFeatures
-import com.mindful.android.helpers.device.PermissionsHelper
 import com.mindful.android.helpers.storage.SharedPrefsHelper
 import com.mindful.android.models.Wellbeing
 import com.mindful.android.receivers.DeviceAppsChangedReceiver
@@ -40,6 +39,7 @@ import com.mindful.android.utils.ThreadUtils
 import com.mindful.android.utils.executors.Throttler
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
+import java.util.concurrent.atomic.AtomicBoolean
 
 /**
  * An AccessibilityService that monitors app usage and blocks access to specified content based on user settings.
@@ -51,8 +51,6 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
         const val ACTION_PERFORM_HOME_PRESS = "com.mindful.android.action.performHomePress"
         const val ACTION_MIDNIGHT_ACCESSIBILITY_RESET =
             "com.mindful.android.action.midnightAccessibilityReset"
-        const val ACTION_TAMPER_PROTECTION_CHANGED =
-            "com.mindful.android.action.tamperProtectionChanged"
 
         // Set of desired events which will be processed
         private val desiredEvents = setOf(
@@ -61,9 +59,11 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
             TYPE_VIEW_SCROLLED
         )
 
+        /// Delay used to coalesce Instagram content-change events (trailing throttle)
+        private const val INSTAGRAM_CONTENT_CHECK_DELAY_MS = 250L
+
         private val browserPackages = mutableSetOf<String>()
         private val shortsPlatformPackages = mutableSetOf<String>()
-        private val devicePlatformPackages = mutableSetOf<String>()
     }
 
 
@@ -76,26 +76,26 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
     // Managers
     private lateinit var shortsPlatformManager: ShortsPlatformManager
     private lateinit var browserManager: BrowserManager
-    private lateinit var deviceFeaturesManager: DeviceFeaturesManager
     private lateinit var trackingManager: TrackingManager
+    private lateinit var instagramReelsLock: InstagramReelsLock
+
+    private val mainHandler = Handler(Looper.getMainLooper())
+    private val isInstagramCheckScheduled = AtomicBoolean(false)
 
     private var wellbeing = Wellbeing()
 
     override fun onCreate() {
         super.onCreate()
         trackingManager = TrackingManager(context = this)
-        deviceFeaturesManager = DeviceFeaturesManager(
-            context = this,
-            blockedContentGoBack = this::goBackWithToast
-        )
+        instagramReelsLock = InstagramReelsLock(service = this)
         shortsPlatformManager = ShortsPlatformManager(
             context = this,
-            blockedContentGoBack = this::goBackWithToast
+            blockedContentGoBack = this::goBack
         )
         browserManager = BrowserManager(
             context = this,
             shortsPlatformManager = shortsPlatformManager,
-            blockedContentGoBack = this::goBackWithToast
+            blockedContentGoBack = this::goBack
         )
 
         // Register shared prefs listener and load data
@@ -114,14 +114,9 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
                 Log.d(TAG, "onStartCommand: Midnight reset completed")
             }
 
-            ACTION_TAMPER_PROTECTION_CHANGED -> {
-                Log.d(TAG, "onStartCommand: Tamper protection changed")
-                refreshServiceConfig()
-            }
-
             ACTION_PERFORM_HOME_PRESS -> {
                 Log.d(TAG, "onStartCommand: Pressing home button")
-                goBackWithToast(GLOBAL_ACTION_HOME)
+                goBack(GLOBAL_ACTION_HOME)
             }
         }
         return super.onStartCommand(intent, flags, startId)
@@ -136,8 +131,21 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
 
     override fun onAccessibilityEvent(event: AccessibilityEvent) {
         try {
-            // If not desired event or executor is shutdown, then just return
-            if (!desiredEvents.contains(event.eventType) || executorService.isShutdown) return
+            if (executorService.isShutdown) return
+
+            // Content changes are only used for Instagram, to keep the reels lock in place and
+            // to notice reels opened inside the app (e.g. from a DM) without any scroll.
+            if (event.eventType == TYPE_WINDOW_CONTENT_CHANGED) {
+                if (event.packageName?.toString() == INSTAGRAM_PACKAGE
+                    && shortsPlatformPackages.contains(INSTAGRAM_PACKAGE)
+                ) {
+                    scheduleInstagramCheck()
+                }
+                return
+            }
+
+            // If not desired event, then just return
+            if (!desiredEvents.contains(event.eventType)) return
 
             executorService.submit {
                 // Determine package and event source node
@@ -148,6 +156,9 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
                 node?.let {
                     // Broadcast event
                     trackingManager.onNewEvent("${it.packageName}")
+
+                    // Show or hide the Instagram reels tab lock
+                    updateInstagramReelsLock(it)
 
                     // Only process if any of the content is blocked
                     if (shouldBlockContent()) {
@@ -165,6 +176,47 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
     }
 
     /**
+     * Runs one Instagram check shortly after a burst of content-change events.
+     * At most one check is pending at a time and it always runs after the latest event.
+     */
+    private fun scheduleInstagramCheck() {
+        if (!isInstagramCheckScheduled.compareAndSet(false, true)) return
+
+        mainHandler.postDelayed({
+            isInstagramCheckScheduled.set(false)
+            if (executorService.isShutdown) return@postDelayed
+
+            executorService.submit {
+                val root = rootInActiveWindow ?: return@submit
+                updateInstagramReelsLock(root)
+
+                if (root.packageName?.toString() == INSTAGRAM_PACKAGE && shouldBlockContent()) {
+                    processEventInBackground(INSTAGRAM_PACKAGE, root, wellbeing.copy())
+                }
+            }
+        }, INSTAGRAM_CONTENT_CHECK_DELAY_MS)
+    }
+
+    /**
+     * Shows the lock over Instagram's Reels tab while Instagram is in the foreground and
+     * reels are blocked, otherwise hides it.
+     */
+    private fun updateInstagramReelsLock(activeNode: AccessibilityNodeInfo) {
+        try {
+            val isInstagramActive = activeNode.packageName?.toString() == INSTAGRAM_PACKAGE
+
+            if (isInstagramActive && shortsPlatformPackages.contains(INSTAGRAM_PACKAGE)) {
+                val shouldLock = shortsPlatformManager.isInstagramReelsBlocked(wellbeing)
+                instagramReelsLock.update(activeNode, shouldLock)
+            } else {
+                instagramReelsLock.hide()
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "updateInstagramReelsLock: Failed to update reels lock", e)
+        }
+    }
+
+    /**
      * Processes accessibility event in background thread instead of main thread.
      *
      * @param packageName The package name of the app generating the event.
@@ -177,9 +229,6 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
     ) {
         try {
             when (packageName) {
-                in devicePlatformPackages ->
-                    deviceFeaturesManager.blockFeatures(packageName, node, wellBeing)
-
                 in shortsPlatformPackages ->
                     shortsPlatformManager.blockDistraction(packageName, node, wellBeing)
 
@@ -213,20 +262,12 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
 
 
     /**
-     * Performs the back action and shows a toast message indicating that the content is blocked.
+     * Performs the back action (or [customAction]) to leave blocked content.
      */
-    private fun goBackWithToast(customAction: Int? = null) {
+    private fun goBack(customAction: Int? = null) {
         throttler.submit {
             ThreadUtils.runOnMainThread {
-                // Perform the back action (can be done on background thread)
                 performGlobalAction(customAction ?: GLOBAL_ACTION_BACK)
-
-                // Post Toast to main thread
-                Toast.makeText(
-                    this@MindfulAccessibilityService,
-                    getString(R.string.toast_blocked_content),
-                    Toast.LENGTH_LONG
-                ).show()
             }
         }
     }
@@ -238,14 +279,8 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
         try {
             // Using hashset to avoid duplicates
             browserPackages.clear()
-            devicePlatformPackages.clear()
             shortsPlatformPackages.clear()
             val pm = packageManager
-
-            // Check admin and add settings to blocked packages
-            if (PermissionsHelper.getAndAskAdminPermission(this, false)) {
-                devicePlatformPackages.add(SETTINGS_PACKAGE)
-            }
 
             // Fetch installed browser packages
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"))
@@ -298,7 +333,6 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
             Log.d(
                 TAG, "refreshServiceConfig: Accessibility service config updated successfully: " +
                         "\n settings: $wellbeing" +
-                        "\n device platforms: $devicePlatformPackages" +
                         "\n short platforms: $shortsPlatformPackages" +
                         "\n browsers: $browserPackages"
             )
@@ -323,6 +357,8 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
 
     override fun onDestroy() {
         try {
+            mainHandler.removeCallbacksAndMessages(null)
+            instagramReelsLock.hide()
             executorService.shutdownNow()
             trackingManager.startManualTracking()
 

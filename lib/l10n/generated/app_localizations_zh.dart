@@ -12,9 +12,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get mindful_tagline => '聚焦重要的事';
 
   @override
-  String get unlock_button_label => '解锁';
-
-  @override
   String get permission_status_off => '关';
 
   @override
@@ -112,19 +109,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get permission_accessibility_device_tile_label => '使用Mindful';
 
   @override
-  String get permission_dnd_title => '请勿打扰';
-
-  @override
-  String get permission_dnd_info =>
-      '请授予请勿打扰访问权限。这将允许Mindful在睡眠时间表期间开始和停止请勿打扰模式。';
-
-  @override
-  String get permission_dnd_tile_title => '开始DND';
-
-  @override
-  String get permission_dnd_tile_subtitle => '同时启用请勿打扰模式。';
-
-  @override
   String get permission_battery_optimization_tile_title => '忽略电池优化';
 
   @override
@@ -143,15 +127,6 @@ class AppLocalizationsZh extends AppLocalizations {
   @override
   String get permission_vpn_info =>
       '请授予创建虚拟专用网络（VPN）连接的权限。这将使Mindful能够通过在设备上创建本地VPN来限制指定应用程序的互联网访问。';
-
-  @override
-  String get permission_admin_title => '管理员';
-
-  @override
-  String get permission_admin_info => '仅需要管理权限进行基本操作，以确保应用程序正常工作并保持防篡改。';
-
-  @override
-  String get permission_admin_snack_alert => '篡改保护只能在选定的时间窗口内禁用。';
 
   @override
   String get permission_notification_access_title => '通知访问';
@@ -278,9 +253,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get schedule_end_label => '结束';
 
   @override
-  String get exit_without_saving_dialog_info => '您是否确定您要退出而不保存？';
-
-  @override
   String get development_dialog_info =>
       'Mindful 目前处于开发阶段，可能存在漏洞或不完整的功能。如果您遇到任何问题，请报告以帮助我们改进。\n\n感谢您的反馈！';
 
@@ -289,12 +261,6 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get development_dialog_button_close => '关闭';
-
-  @override
-  String get dnd_settings_tile_title => '勿扰设置';
-
-  @override
-  String get dnd_settings_tile_subtitle => '管理哪些应用和通知可以在勿扰模式下到达您。';
 
   @override
   String get quick_actions_heading => '快速操作';
@@ -316,13 +282,7 @@ class AppLocalizationsZh extends AppLocalizations {
       '此应用的屏幕使用和限制不可用，目前仅可访问网络使用情况';
 
   @override
-  String get create_group_fab_button => '创建群组';
-
-  @override
   String get active_period_info => '设置允许访问的时间段。超出此时间范围，访问将受到限制。';
-
-  @override
-  String get minimum_distracting_apps_snack_alert => '至少选择一个分散注意力的应用。';
 
   @override
   String get donation_card_title => '支持我们';
@@ -342,87 +302,6 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get app_restart_dialog_info => 'Mindful 将在倒计时结束后自动重启。请耐心等待，应用正在应用更改。';
-
-  @override
-  String get accessibility_tip => '需要更智能，更省电的拦截吗？为Mindful启动无障碍权限。';
-
-  @override
-  String get battery_optimization_tip =>
-      'Mindful无法运行？在设置中启用“忽略电池优化”以便可以更流畅的运行。';
-
-  @override
-  String get invincible_mode_tip => '不小心移除了限制？使用隐藏模式锁定它们，直到第二天或调整窗口。';
-
-  @override
-  String get glance_usage_tip => '想要深入了解？查看 Glance 功能，了解你的使用模式和屏幕使用时间。';
-
-  @override
-  String get tamper_protection_tip => '正在卸载 Mindful？请先启用卸载窗口以安全地禁用防篡改保护。';
-
-  @override
-  String get notification_blocking_tip => '需要减少打扰？使用通知拦截以静音所选择的应用。';
-
-  @override
-  String get usage_history_tip => '想复盘一下你的习惯吗？查看使用历史记录，了解之前的使用模式。';
-
-  @override
-  String get focus_mode_tip => '需要更加专注？打开专注模式以在执行任务时不被应用和通知打扰。';
-
-  @override
-  String get bedtime_reminder_tip => '想要提升你的睡眠质量？设置一个睡眠提醒以提升睡眠品质。';
-
-  @override
-  String get custom_blocking_tip => '需要自定义体验？创建符合您需求的应用拦截规则。';
-
-  @override
-  String get session_timeline_tip => '想要追踪专注力过程？查看时间线，了解你的专注历程。';
-
-  @override
-  String get short_content_blocking_tip =>
-      '社交应用让你分心？屏蔽 Instagram、YouTube 等平台上的短视频，保持专注。';
-
-  @override
-  String get parental_controls_tip => '需要家长管理？为孩子的设备设置限制，确保安全使用。';
-
-  @override
-  String get notification_batching_tip => '想要减少干扰？使用通知批量处理功能，将通知分组并一次性查看。';
-
-  @override
-  String get notification_scheduling_tip => '需要管理通知？安排特定的时间以接收所选择应用的通知。';
-
-  @override
-  String get quick_focus_tile_tip => '想更快专注？添加“专注”快捷方式即可立即激活专注模式。';
-
-  @override
-  String get app_shortcuts_tip => '想要即时访问应用？长按应用图标即可添加快捷方式。';
-
-  @override
-  String get backup_usage_db_tip => '想要保存数据？备份您的数据，确保数据安全。';
-
-  @override
-  String get dynamic_material_color_tip => '想要自定义主题？启用动态材质颜色，使其与设备主题匹配。';
-
-  @override
-  String get amoled_dark_theme_tip => '想要更加省电？使用 AMOLED 深色主题，降低 OLED 屏幕的耗电。';
-
-  @override
-  String get customize_usage_history_tip => '想要保留使用记录？自定义使用记录中存储的周数。';
-
-  @override
-  String get grouped_apps_blocking_tip =>
-      '想要同时屏蔽多个应用？使用“限制组”功能，对应用限制进行分组，即可同时屏蔽多个应用。';
-
-  @override
-  String get websites_blocking_tip => '想要更干净的浏览体验？屏蔽自定义或 NSFW 网站，更专注于上网。';
-
-  @override
-  String get data_usage_tip => '想要追踪你的数据？监控你的手机和 Wi-Fi 数据使用情况，了解互联网使用情况。';
-
-  @override
-  String get block_internet_tip => '需要阻止某个应用的网络连接？从应用的控制面板中切断特定应用的网络连接。';
-
-  @override
-  String get emergency_passes_tip => '需要休息一下？每天使用 3 张紧急通行证，即可暂时解锁应用程序 5 分钟。';
 
   @override
   String get onboarding_skip_btn_label => '跳过';
@@ -463,9 +342,6 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get focus_now_fab_button => '立即专注';
-
-  @override
-  String get focus_now_option_label => 'Focus now';
 
   @override
   String get focus_unlock_option_label => 'Earn unlock';
@@ -532,11 +408,11 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get new_session_strict_tile_subtitle =>
-      'Once saved, this session cannot be edited or removed.';
+      'Cannot be edited or removed while the schedule is active.';
 
   @override
   String get new_session_strict_locked_snack =>
-      'This session is strict and cannot be changed.';
+      'This strict session is active and cannot be changed right now.';
 
   @override
   String get new_session_no_apps_selected => 'No apps selected';
@@ -678,15 +554,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get username_dialog_button_apply => '应用';
 
   @override
-  String get glance_tile_title => '一瞥';
-
-  @override
-  String get glance_tile_subtitle => '快速查看您的使用情况。';
-
-  @override
-  String get parental_controls_tile_subtitle => '无敌模式和防篡改保护。';
-
-  @override
   String get restrictions_heading => '限制';
 
   @override
@@ -696,40 +563,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get apps_blocking_tile_subtitle => '以多种方式限制应用。';
 
   @override
-  String get grouped_apps_blocking_tile_title => '分组应用屏蔽';
-
-  @override
-  String get grouped_apps_blocking_tile_subtitle => '同时限制一组应用。';
-
-  @override
-  String get shorts_blocking_tile_subtitle => '在多个平台上限制短内容。';
-
-  @override
   String get websites_blocking_tile_subtitle => '限制成人和自定义网站。';
 
   @override
   String get screen_time_label => '屏幕时间';
-
-  @override
-  String get total_data_label => '总数据';
-
-  @override
-  String get mobile_data_label => '移动数据';
-
-  @override
-  String get wifi_data_label => 'WIFI 数据';
-
-  @override
-  String get focus_today_label => '今日专注';
-
-  @override
-  String get focus_weekly_label => '本周专注';
-
-  @override
-  String get focus_monthly_label => '本月专注';
-
-  @override
-  String get focus_lifetime_label => '生涯专注';
 
   @override
   String get longest_streak_label => '最长连续记录';
@@ -811,136 +648,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get new_schedule_dialog_field_label => '时间表名称';
 
   @override
-  String get bedtime_tab_title => '睡眠时间';
-
-  @override
-  String get bedtime_tab_info =>
-      '通过选择时间段和一周中的某些天来设置睡眠时间表。选择分散注意力的应用以进行屏蔽，并启用勿扰模式（DND），以便度过一个宁静的夜晚。';
-
-  @override
-  String get schedule_tile_title => '时间表';
-
-  @override
-  String get schedule_tile_subtitle => '启用或禁用每日时间表。';
-
-  @override
-  String get bedtime_no_days_selected_snack_alert => '请至少选择一周中的某一天。';
-
-  @override
-  String get bedtime_minimum_duration_snack_alert => '睡眠时间的总时长必须至少为30分钟。';
-
-  @override
-  String get distracting_apps_tile_title => '分散注意力的应用';
-
-  @override
-  String get distracting_apps_tile_subtitle => '选择哪些应用会干扰你的睡前例行程序。';
-
-  @override
-  String get bedtime_distracting_apps_modify_snack_alert =>
-      '在睡眠时间表激活时，不允许修改分散注意力的应用列表。';
-
-  @override
-  String get parental_controls_tab_title => '家长控制';
-
-  @override
-  String get invincible_mode_heading => '无敌模式';
-
-  @override
-  String get invincible_mode_tile_title => '激活无敌模式';
-
-  @override
-  String get invincible_mode_info =>
-      '当无敌模式开启时，您将无法在达到每日配额后调整选定的限制。然而，您可以在选定的10分钟无敌窗口内进行更改。';
-
-  @override
-  String get invincible_mode_snack_alert => '由于无敌模式，限制的修改不被允许。';
-
-  @override
-  String get invincible_mode_dialog_info =>
-      '您确定要启用无敌模式吗？此操作是不可逆的。一旦无敌模式开启，除非卸载此应用，否则无法关闭。';
-
-  @override
-  String get invincible_mode_turn_off_snack_alert => '只要此应用安装在您的设备上，无敌模式就无法关闭。';
-
-  @override
-  String get invincible_mode_dialog_button_start_anyway => '无论如何开始';
-
-  @override
-  String get invincible_mode_include_timer_tile_title => '包含计时器';
-
-  @override
-  String get invincible_mode_include_launch_limit_tile_title => '包含启动限制';
-
-  @override
-  String get invincible_mode_include_active_period_tile_title => '包含活跃期';
-
-  @override
-  String get invincible_mode_app_restrictions_tile_title => '应用限制';
-
-  @override
-  String get invincible_mode_app_restrictions_tile_subtitle =>
-      '防止在每日限制被超过后更改应用的选定限制。';
-
-  @override
-  String get invincible_mode_group_restrictions_tile_title => '组限制';
-
-  @override
-  String get invincible_mode_group_restrictions_tile_subtitle =>
-      '防止在每日限制被超过后更改组的选定限制。';
-
-  @override
-  String get invincible_mode_include_shorts_timer_tile_title => '包含短视频计时器';
-
-  @override
-  String get invincible_mode_include_shorts_timer_tile_subtitle =>
-      '防止在达到每日短视频限制后进行更改。';
-
-  @override
-  String get invincible_mode_include_bedtime_tile_title => '包含睡眠时间';
-
-  @override
-  String get invincible_mode_include_bedtime_tile_subtitle =>
-      '防止在活跃的睡眠时间表期间进行更改。';
-
-  @override
-  String get protected_access_tile_title => '受保护访问';
-
-  @override
-  String get protected_access_tile_subtitle => '使用设备锁保护Mindful。';
-
-  @override
-  String get protected_access_no_lock_snack_alert => '请先在设备上设置生物识别锁以启用此功能。';
-
-  @override
-  String get protected_access_removed_lock_snack_alert =>
-      '您的设备锁已被移除。为了继续，请设置一个新锁。';
-
-  @override
-  String get protected_access_failed_lock_snack_alert => '身份验证失败。您需要验证设备锁才能继续。';
-
-  @override
-  String get tamper_protection_tile_title => '防篡改保护';
-
-  @override
-  String get tamper_protection_tile_subtitle => '防止卸载和强制停止应用。';
-
-  @override
-  String get tamper_protection_confirmation_dialog_info =>
-      '一旦启用，您将无法卸载、强制停止或清除 Mindful 的数据，除非在指定的卸载时间段内。没有其他例外。\n\n请自行承担风险。';
-
-  @override
-  String get uninstall_window_tile_title => '卸载窗口';
-
-  @override
-  String get uninstall_window_tile_subtitle => '防篡改保护可以在选定时间后的10分钟内被禁用。';
-
-  @override
-  String get invincible_window_tile_title => '无敌窗口';
-
-  @override
-  String get invincible_window_tile_subtitle => '选定的限制可以在选定时间后的10分钟内被修改。';
-
-  @override
   String get shorts_blocking_tab_title => '短视频阻止';
 
   @override
@@ -970,6 +677,46 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get instagram_features_block_explore => '限制发现部分。';
+
+  @override
+  String get instagram_usage_limit_tile_title =>
+      'Only after daily Instagram use';
+
+  @override
+  String get instagram_usage_limit_tile_subtitle_off =>
+      'Block reels only after using Instagram for a set time each day.';
+
+  @override
+  String instagram_usage_limit_tile_subtitle_on(String time) {
+    return 'Reels get blocked after $time of Instagram today.';
+  }
+
+  @override
+  String get instagram_usage_limit_picker_title => 'Daily Instagram time';
+
+  @override
+  String get instagram_usage_limit_picker_info =>
+      'Reels stay available until you have used Instagram for this long today. After that, reels are blocked until midnight.';
+
+  @override
+  String get in_app_blocking_feature_reels => 'Reels';
+
+  @override
+  String get in_app_blocking_feature_explore => 'Explore';
+
+  @override
+  String get in_app_blocking_feature_spotlight => 'Spotlight';
+
+  @override
+  String get in_app_blocking_feature_discover => 'Discover';
+
+  @override
+  String get in_app_blocking_feature_shorts => 'Shorts';
+
+  @override
+  String in_app_blocking_reels_after_usage(String time) {
+    return 'Reels after $time of use';
+  }
 
   @override
   String get snapchat_features_tile_title => 'Snapchat';
@@ -1064,160 +811,17 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String get focus_tab_title => '专注';
-
-  @override
-  String get focus_tab_info =>
-      '当你需要专注时，通过选择类型、暂停干扰应用并启用请勿打扰模式来开始新会话，以实现无干扰的专注。';
-
-  @override
-  String get active_session_card_title => '活动会话';
-
-  @override
-  String get active_session_card_info =>
-      '你有一个正在运行的专注会话！点击“查看”以检查你的进度并查看已过去的时间。';
-
-  @override
-  String get active_session_card_view_button => '查看';
-
-  @override
-  String get focus_distracting_apps_removal_snack_alert =>
-      '在专注会话活动期间，不允许从干扰应用列表中删除应用程序。但是，你仍然可以在此期间将其他应用程序添加到列表中。';
-
-  @override
-  String get focus_profile_tile_title => '专注类型';
-
-  @override
   String get focus_session_duration_tile_title => '会话时长';
-
-  @override
-  String get focus_session_duration_tile_subtitle => '无限（除非你停止）';
 
   @override
   String get focus_session_duration_dialog_info =>
       '请选择此次专注会话的期望时长，以确定你希望保持专注和无干扰的时间长度。';
 
   @override
-  String get focus_profile_customization_tile_title => '类型自定义';
-
-  @override
-  String get focus_profile_customization_tile_subtitle => '自定义所选择的类型。';
-
-  @override
-  String get focus_enforce_tile_title => '强制会话';
-
-  @override
-  String get focus_enforce_tile_subtitle => '防止在计时结束前结束会话。';
-
-  @override
-  String get focus_session_start_button => 'Swipe to start Session';
-
-  @override
-  String get focus_session_minimum_apps_snack_alert => '请至少选择一个干扰应用以开始专注会话';
-
-  @override
-  String get focus_session_already_active_snack_alert =>
-      '你已经有一个正在运行的专注会话。请在开始新会话之前完成或停止当前会话。';
-
-  @override
-  String get focus_session_type_study => '学习';
-
-  @override
-  String get focus_session_type_work => '工作';
-
-  @override
-  String get focus_session_type_exercise => '锻炼';
-
-  @override
-  String get focus_session_type_meditation => '冥想';
-
-  @override
-  String get focus_session_type_creativeWriting => '创意写作';
-
-  @override
-  String get focus_session_type_reading => '阅读';
-
-  @override
-  String get focus_session_type_programming => '编程';
-
-  @override
-  String get focus_session_type_chores => '家务';
-
-  @override
-  String get focus_session_type_projectPlanning => '项目规划';
-
-  @override
-  String get focus_session_type_artAndDesign => '艺术与设计';
-
-  @override
-  String get focus_session_type_languageLearning => '语言学习';
-
-  @override
-  String get focus_session_type_musicPractice => '音乐练习';
-
-  @override
-  String get focus_session_type_selfCare => '自我护理';
-
-  @override
-  String get focus_session_type_brainstorming => '头脑风暴';
-
-  @override
-  String get focus_session_type_skillDevelopment => '技能发展';
-
-  @override
-  String get focus_session_type_research => '研究';
-
-  @override
-  String get focus_session_type_networking => '人脉拓展';
-
-  @override
-  String get focus_session_type_cooking => '烹饪';
-
-  @override
-  String get focus_session_type_sportsTraining => '体育训练';
-
-  @override
-  String get focus_session_type_restAndRelaxation => '休息放松';
-
-  @override
-  String get focus_session_type_other => '其他';
-
-  @override
   String get timeline_tab_title => '时间轴';
 
   @override
-  String get focus_timeline_tab_info =>
-      '从日历中选择日期，探索你的专注之旅。追踪你的进度，回顾你的成功，并从挑战中学习。';
-
-  @override
-  String selected_month_productive_time_snack_alert(String timeString) {
-    return '您在选定月份的总高效时间为 $timeString。';
-  }
-
-  @override
-  String get selected_month_productive_days_label => '高效天数';
-
-  @override
-  String selected_month_productive_days_snack_alert(num daysCount) {
-    return '您在选定月份共有 $daysCount 天高效。';
-  }
-
-  @override
-  String get selected_day_focused_time_label => '专注时间';
-
-  @override
-  String selected_day_focused_time_snack_alert(String timeString) {
-    return '您在选定日期的总专注时间为 $timeString。';
-  }
-
-  @override
   String get calender_heading => '日历';
-
-  @override
-  String get your_sessions_heading => '您的会话';
-
-  @override
-  String get your_sessions_empty_list_hint => '未记录选定日期的专注会话。';
 
   @override
   String get focus_session_tile_timestamp_label => '时间线';
@@ -1229,38 +833,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get focus_session_tile_reflection_label => '反映';
 
   @override
-  String get focus_session_state_active => '进行中';
-
-  @override
-  String get focus_session_state_successful => '成功';
-
-  @override
-  String get focus_session_state_failed => '失败';
-
-  @override
-  String get active_session_tab_title => '会话';
-
-  @override
-  String get active_session_none_warning => '未找到活跃会话。返回主屏幕。';
-
-  @override
-  String get active_session_dialog_button_keep_pushing => '继续推进';
-
-  @override
-  String get active_session_finish_dialog_title => '完成';
-
-  @override
-  String get active_session_finish_dialog_info =>
-      '坚持下去！你正在建立宝贵的专注力。确定要结束这个专注会话吗？每多一刻都能帮助你实现目标。';
-
-  @override
-  String get active_session_giveup_dialog_title => '放弃';
-
-  @override
-  String get active_session_giveup_dialog_info =>
-      '坚持住！你快成功了，现在不要放弃！确定要提前结束这个专注会话吗？进度将会丢失。';
-
-  @override
   String get active_session_reflection_dialog_title => '会话反思';
 
   @override
@@ -1269,68 +841,6 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get active_session_reflection_dialog_tip => '小提示：您可以随时在会话时间线中编辑此内容。';
-
-  @override
-  String get active_session_giveup_snack_alert =>
-      '你放弃了！别担心，下次你可以做得更好。每一次努力都很重要——继续前进吧';
-
-  @override
-  String get active_session_quote_one => '每一步都很重要，坚强地继续前进';
-
-  @override
-  String get active_session_quote_two => '保持专注！你正在取得惊人的进步';
-
-  @override
-  String get active_session_quote_three => '你做得非常棒！继续保持动力';
-
-  @override
-  String get active_session_quote_four => '只剩一点了，你做得非常出色';
-
-  @override
-  String active_session_quote_five(String durationString) {
-    return '恭喜你 🎉 \n 你已完成时长为 $durationString 的专注会话。\n\n 做得非常好，继续保持惊人的工作';
-  }
-
-  @override
-  String get restriction_groups_tab_title => '限制组';
-
-  @override
-  String get restriction_groups_tab_info =>
-      '为一组应用设置综合屏幕使用时间限制。一旦总使用时间达到你的限制，组内所有应用将被暂停，以帮助保持专注和平衡。';
-
-  @override
-  String get restriction_group_time_spent_label => '今日使用时间';
-
-  @override
-  String get restriction_group_time_left_label => '今日剩余时间';
-
-  @override
-  String get restriction_group_name_tile_title => '组名称';
-
-  @override
-  String get restriction_group_name_picker_dialog_info =>
-      '为限制组输入一个名称，以便于识别和管理。';
-
-  @override
-  String get restriction_group_timer_tile_title => '组定时器';
-
-  @override
-  String get restriction_group_timer_picker_dialog_info =>
-      '为该组设置每日时间限制。一旦达到你的限制，组内所有应用将在午夜前暂停。';
-
-  @override
-  String get restriction_group_active_period_tile_title => '组活跃期';
-
-  @override
-  String get remove_restriction_group_dialog_title => '删除组';
-
-  @override
-  String remove_restriction_group_dialog_info(String groupName) {
-    return '确定吗？你要从限制组中删除 \'$groupName\'。';
-  }
-
-  @override
-  String get restriction_group_invalid_limits_snack_alert => '请设置定时器或活跃期限制。';
 
   @override
   String get notifications_empty_list_hint => '今日没有被批量处理的通知。';

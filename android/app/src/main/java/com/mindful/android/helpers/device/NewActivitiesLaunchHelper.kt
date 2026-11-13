@@ -15,13 +15,10 @@ import android.app.Activity
 import android.app.ActivityOptions
 import android.app.AlarmManager
 import android.app.PendingIntent
-import android.app.StatusBarManager
-import android.app.admin.DevicePolicyManager
 import android.content.ActivityNotFoundException
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.graphics.drawable.Icon
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
@@ -30,11 +27,7 @@ import android.widget.Toast
 import com.mindful.android.AppConstants
 import com.mindful.android.MainActivity
 import com.mindful.android.R
-import com.mindful.android.helpers.storage.SharedPrefsHelper
 import com.mindful.android.models.Notification
-import com.mindful.android.receivers.DeviceAdminReceiver
-import com.mindful.android.services.quickTiles.FocusQuickTileService
-import io.flutter.plugin.common.MethodChannel
 import java.util.Locale
 
 
@@ -86,27 +79,6 @@ object NewActivitiesLaunchHelper {
 
 
     /**
-     * Deactivate the admin privileges.
-     *
-     * @param context The context to use for launching the activity.
-     */
-    fun disableDeviceAdmin(context: Context) {
-        try {
-            val componentName = ComponentName(context, DeviceAdminReceiver::class.java)
-            val devicePolicyManager =
-                context.getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
-
-            if (devicePolicyManager.isAdminActive(componentName)) {
-                devicePolicyManager.removeActiveAdmin(componentName)
-            }
-        } catch (e: Exception) {
-            Log.e(TAG, "disableDeviceAdmin: Failed to deactivate admin", e)
-            SharedPrefsHelper.insertCrashLogToPrefs(context, e)
-        }
-    }
-
-
-    /**
      * Opens the mindful's notification settings for permission.
      *
      * @param context The context to use for launching the activity.
@@ -124,44 +96,6 @@ object NewActivitiesLaunchHelper {
         Toast.makeText(context, R.string.toast_enable_notification, Toast.LENGTH_LONG).show()
     }
 
-
-    /**
-     * Prompts the user for to add the quick focus tile.
-     *
-     * @param context The context to use for launching the activity.
-     */
-    fun promptForQuickFocusTile(context: Context, result: MethodChannel.Result) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            try {
-                val statusBarManager = context.getSystemService(StatusBarManager::class.java)
-                statusBarManager?.requestAddTileService(
-                    ComponentName(context, FocusQuickTileService::class.java),
-                    context.getString(R.string.shortcut_focus_mode_label),
-                    Icon.createWithResource(context, R.drawable.ic_focus_mode),
-                    context.mainExecutor
-                ) {
-                    result.success(it == StatusBarManager.TILE_ADD_REQUEST_RESULT_TILE_ADDED)
-                }
-            } catch (e: Exception) {
-                result.success(false)
-            }
-        } else {
-            result.success(false)
-        }
-    }
-
-    /**
-     * Opens the do not disturb device settings.
-     *
-     * @param context The context to use for launching the activity.
-     */
-    fun openDeviceDndSettings(context: Context) {
-        try {
-            context.startActivity(Intent("android.settings.ZEN_MODE_SETTINGS"))
-        } catch (e: ActivityNotFoundException) {
-            Log.e(TAG, "openDeviceDndSettings: Unable to open device DND settings", e)
-        }
-    }
 
     /**
      * Navigates user to the appropriate auto-start settings screen based on the device manufacturer.

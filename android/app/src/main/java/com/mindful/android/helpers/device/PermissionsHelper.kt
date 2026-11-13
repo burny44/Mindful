@@ -16,10 +16,8 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlarmManager
 import android.app.NotificationManager
-import android.app.admin.DevicePolicyManager
 import android.app.usage.UsageStatsManager
 import android.content.ActivityNotFoundException
-import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -33,9 +31,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.net.toUri
 import com.mindful.android.AppConstants
-import com.mindful.android.R
 import com.mindful.android.helpers.storage.SharedPrefsHelper
-import com.mindful.android.receivers.DeviceAdminReceiver
 import com.mindful.android.services.accessibility.MindfulAccessibilityService
 import com.mindful.android.utils.Utils
 
@@ -46,38 +42,6 @@ import com.mindful.android.utils.Utils
  */
 object PermissionsHelper {
     private const val TAG = "Mindful.PermissionsHelper"
-
-    /**
-     * Checks if the device administration permission is granted and optionally asks for it if not granted.
-     *
-     * @param context          The application context used to check permissions and start activities.
-     * @param askPermissionToo Whether to prompt the user to enable device administration permission if not granted.
-     * @return True if device administration permission is granted, false otherwise.
-     */
-    fun getAndAskAdminPermission(context: Context, askPermissionToo: Boolean): Boolean {
-        val componentName = ComponentName(context, DeviceAdminReceiver::class.java)
-        val devicePolicyManager =
-            context.getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
-
-        if (devicePolicyManager.isAdminActive(componentName)) {
-            return true
-        }
-
-        if (askPermissionToo) {
-            try {
-                val intent = Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN)
-                    .putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, componentName)
-                    .putExtra(
-                        DevicePolicyManager.EXTRA_ADD_EXPLANATION,
-                        R.string.admin_description
-                    )
-                context.startActivity(intent)
-            } catch (e: ActivityNotFoundException) {
-                Log.e(TAG, "getAndAskAdminPermission: Unable to open device ADMIN settings", e)
-            }
-        }
-        return false
-    }
 
     /**
      * Checks if the accessibility permission is granted and optionally asks for it if not granted.
@@ -263,32 +227,6 @@ object PermissionsHelper {
                 }
 
                 SharedPrefsHelper.getSetNotificationAskCount(activity, count + 1)
-            }
-        }
-        return false
-    }
-
-    /**
-     * Checks if the Do Not Disturb (DND) permission is granted and optionally asks for it if not granted.
-     *
-     * @param context          The application context used to check permissions and start activities.
-     * @param askPermissionToo Whether to prompt the user to enable DND permission if not granted.
-     * @return True if DND permission is granted, false otherwise.
-     */
-    fun getAndAskDndPermission(context: Context, askPermissionToo: Boolean): Boolean {
-        val notificationManager =
-            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        if (notificationManager.isNotificationPolicyAccessGranted) return true
-
-        if (askPermissionToo) {
-            try {
-                context.startActivity(Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS))
-            } catch (e: ActivityNotFoundException) {
-                Log.e(
-                    TAG,
-                    "getAndAskDndPermission: Unable to open DO NOT DISTURB ACCESS settings",
-                    e
-                )
             }
         }
         return false

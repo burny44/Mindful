@@ -10,7 +10,6 @@
 
 import 'package:drift/drift.dart';
 import 'package:mindful/core/database/adapters/time_of_day_adapter.dart';
-import 'package:mindful/core/database/app_database.dart';
 import 'package:mindful/core/enums/reminder_type.dart';
 
 @DataClassName("AppRestriction")
@@ -42,10 +41,6 @@ class AppRestrictionTable extends Table {
   /// Total duration of active period from start to end in MINUTES
   IntColumn get periodDurationInMins =>
       integer().withDefault(const Constant(0))();
-
-  /// ID of the [RestrictionGroup] this app is associated with or NULL
-  IntColumn get associatedGroupId =>
-      integer().nullable().withDefault(const Constant(null))();
 
   /// Flag denoting if this app can access internet or not
   BoolColumn get canAccessInternet =>

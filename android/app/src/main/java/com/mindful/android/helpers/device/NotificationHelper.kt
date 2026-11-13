@@ -20,15 +20,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.provider.Settings
-import android.util.Log
-import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.net.toUri
 import com.mindful.android.R
-import com.mindful.android.enums.DndWakeLock
-import com.mindful.android.helpers.storage.SharedPrefsHelper
 import com.mindful.android.utils.AppUtils
-import com.mindful.android.utils.ThreadUtils.runOnMainThread
 
 /**
  * NotificationHelper provides utility methods for managing notification channels and permissions
@@ -36,12 +31,9 @@ import com.mindful.android.utils.ThreadUtils.runOnMainThread
  * It includes functionalities to register notification channels and request notification permissions.
  */
 object NotificationHelper {
-    private const val TAG = "Mindful.NotificationHelper"
 
     // Notification channel IDs
     const val CRITICAL_CHANNEL_ID: String = "mindful.notification.channel.CRITICAL"
-    const val FOCUS_CHANNEL_ID: String = "mindful.notification.channel.FOCUS"
-    const val BEDTIME_CHANNEL_ID: String = "mindful.notification.channel.BEDTIME"
     const val NOTIFICATION_BATCHING_CHANNEL_ID: String =
         "mindful.notification.channel.NOTIFICATION_BATCHING"
     private const val SERVICE_CHANNEL_ID: String =
@@ -64,24 +56,6 @@ object NotificationHelper {
             ).apply {
                 description =
                     "These notifications include crucial updates regarding the essential system operations to ensure Mindful runs smoothly."
-            }
-
-            val focusChannel = NotificationChannel(
-                FOCUS_CHANNEL_ID,
-                "Focus Sessions",
-                NotificationManager.IMPORTANCE_HIGH
-            ).apply {
-                description =
-                    "These notifications include updates regarding focus sessions to help you stay on track."
-            }
-
-            val bedtimeChannel = NotificationChannel(
-                BEDTIME_CHANNEL_ID,
-                "Bedtime Routine",
-                NotificationManager.IMPORTANCE_DEFAULT
-            ).apply {
-                description =
-                    "These notifications include updates regarding bedtime routine to help you get a peaceful sleep."
             }
 
             val notificationBatchingChannel = NotificationChannel(
@@ -119,13 +93,15 @@ object NotificationHelper {
             notificationManager.createNotificationChannels(
                 listOf(
                     criticalChannel,
-                    focusChannel,
-                    bedtimeChannel,
                     notificationBatchingChannel,
                     serviceChannel,
                     usageRemindersChannel
                 )
             )
+
+            // Remove channels of removed features (bedtime, focus now) from older installs
+            notificationManager.deleteNotificationChannel("mindful.notification.channel.BEDTIME")
+            notificationManager.deleteNotificationChannel("mindful.notification.channel.FOCUS")
         }
     }
 
@@ -187,72 +163,4 @@ object NotificationHelper {
         )
     }
 
-    /**
-     * Toggles the Do Not Disturb (DND) mode on or off based on the provided flag.
-     *
-     * @param context     The application context used to access system services.
-     * @param featureLock     The feature which is requesting to toggle dnd.
-     * @param shouldStart If true, enables DND mode; if false, disables it.
-     */
-    fun toggleDnd(
-        context: Context,
-        featureLock: DndWakeLock,
-        shouldStart: Boolean,
-    ) {
-        val notificationManager =
-            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-        // Check if permission for DND mode is granted
-        if (notificationManager.isNotificationPolicyAccessGranted) {
-            if (shouldStart) {
-
-                /// Return if dnd lock is not free
-                val currentLock = SharedPrefsHelper.getSetDndWakeLock(context, null)
-                if (currentLock != DndWakeLock.NONE && currentLock != featureLock) {
-                    showDndLockToast(context, currentLock)
-                    return
-                }
-
-                /// Otherwise start DND
-                notificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_PRIORITY)
-                SharedPrefsHelper.getSetDndWakeLock(context, featureLock)
-                Log.d(TAG, "toggleDnd: DND mode started by $featureLock")
-            } else {
-                /// Return if dnd is being utilized by another feature but requested by another feature
-                val currentLock = SharedPrefsHelper.getSetDndWakeLock(context, null)
-                if (currentLock != featureLock) {
-                    showDndLockToast(context, currentLock)
-                    return
-                }
-
-                notificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_ALL)
-                SharedPrefsHelper.getSetDndWakeLock(context, DndWakeLock.NONE)
-                Log.d(TAG, "toggleDnd: DND mode stopped by $featureLock")
-            }
-        } else {
-            Log.d(TAG, "toggleDnd: Do not have permission to modify DND mode")
-        }
-    }
-
-
-    private fun showDndLockToast(
-        context: Context,
-        currentLock: DndWakeLock,
-    ) {
-        val feature = when (currentLock) {
-            DndWakeLock.FOCUS_MODE -> context.getString(R.string.app_paused_restriction_focus_mode)
-            DndWakeLock.BEDTIME_MODE -> context.getString(R.string.app_paused_restriction_bedtime_mode)
-            else -> ""
-        }
-
-        if (feature.isNotEmpty()) {
-            runOnMainThread {
-                Toast.makeText(
-                    context,
-                    context.getString(R.string.toast_dnd_utilized_by_feature, feature),
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-        }
-    }
 }

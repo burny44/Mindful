@@ -17,12 +17,9 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mindful/config/navigation/app_routes.dart';
 import 'package:mindful/core/extensions/ext_build_context.dart';
-import 'package:mindful/core/extensions/ext_num.dart';
-import 'package:mindful/core/services/auth_service.dart';
 import 'package:mindful/config/navigation/navigation_service.dart';
 import 'package:mindful/core/services/method_channel_service.dart';
 import 'package:mindful/providers/system/mindful_settings_provider.dart';
-import 'package:mindful/providers/system/parental_controls_provider.dart';
 import 'package:mindful/providers/system/permissions_provider.dart';
 import 'package:mindful/ui/common/breathing_widget.dart';
 import 'package:mindful/ui/common/rounded_container.dart';
@@ -39,7 +36,6 @@ class SplashScreen extends ConsumerStatefulWidget {
 class _SplashScreenState extends ConsumerState<SplashScreen> {
   bool _haveAllEssentialPermissions = false;
   bool _isOnboardingDone = false;
-  bool _isAccessProtected = false;
   bool _isAppUpdated = false;
 
   @override
@@ -57,13 +53,10 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     _isAppUpdated = settings.appVersion !=
         MethodChannelService.instance.deviceInfo.mindfulVersion;
 
-    _isAccessProtected =
-        (await ref.read(parentalControlsProvider.notifier).init())
-            .protectedAccess;
     _haveAllEssentialPermissions = perms.haveAllEssentialPermissions;
 
     if (mounted) setState(() {});
-    _isAccessProtected ? _authenticate() : _goToNextScreen(true);
+    _goToNextScreen(true);
   }
 
   void _goToNextScreen(bool shouldDelay) async {
@@ -78,34 +71,6 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
         arguments: {"isOnboardingDone": _isOnboardingDone},
       );
     }
-  }
-
-  void _authenticate() async {
-    final isAuthenticated = await AuthService.instance.authenticate();
-
-    /// Return if not mounted
-    if (!mounted) return;
-
-    /// If removed locks
-    if (isAuthenticated == null) {
-      context.showSnackAlert(
-        context.locale.protected_access_removed_lock_snack_alert,
-        icon: FluentIcons.fingerprint_20_filled,
-      );
-      return;
-    }
-
-    /// If aborted the auth
-    if (!isAuthenticated) {
-      context.showSnackAlert(
-        context.locale.protected_access_failed_lock_snack_alert,
-        icon: FluentIcons.fingerprint_20_filled,
-      );
-
-      return;
-    }
-
-    _goToNextScreen(false);
   }
 
   @override
@@ -157,13 +122,6 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
             ),
 
             const Divider(color: Colors.transparent),
-            _isAccessProtected
-                ? FilledButton.icon(
-                    icon: const Icon(FluentIcons.fingerprint_20_regular),
-                    label: Text(context.locale.unlock_button_label),
-                    onPressed: _authenticate,
-                  )
-                : 0.vBox,
 
             /// Make
             const StyledText(

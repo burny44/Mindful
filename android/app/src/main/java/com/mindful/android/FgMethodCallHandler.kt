@@ -6,30 +6,22 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.net.VpnService
 import androidx.activity.result.ActivityResultLauncher
-import com.mindful.android.enums.DndWakeLock
 import com.mindful.android.generics.SafeServiceConnection
 import com.mindful.android.generics.ServiceBinder
-import com.mindful.android.helpers.AlarmTasksSchedulingHelper.cancelBedtimeRoutineTasks
 import com.mindful.android.helpers.AlarmTasksSchedulingHelper.cancelNotificationBatchTask
-import com.mindful.android.helpers.AlarmTasksSchedulingHelper.scheduleBedtimeRoutineTasks
 import com.mindful.android.helpers.AlarmTasksSchedulingHelper.scheduleNotificationBatchTask
 import com.mindful.android.helpers.device.DeviceAppsHelper.getDeviceAppInfos
 import com.mindful.android.helpers.device.NewActivitiesLaunchHelper
-import com.mindful.android.helpers.device.NotificationHelper
 import com.mindful.android.helpers.device.PermissionsHelper
 import com.mindful.android.helpers.storage.SharedPrefsHelper
 import com.mindful.android.helpers.usages.AppsUsageHelper.getAppsUsageForInterval
 import com.mindful.android.models.AppRestriction
-import com.mindful.android.models.BedtimeSchedule
-import com.mindful.android.models.FocusSession
 import com.mindful.android.models.FocusUnlockRule
 import com.mindful.android.models.ScheduledFocusSession
 import com.mindful.android.models.Notification
 import com.mindful.android.models.NotificationSettings
-import com.mindful.android.models.RestrictionGroup
 import com.mindful.android.services.notification.MindfulNotificationListenerService
 import com.mindful.android.services.timer.EmergencyPauseService
-import com.mindful.android.services.timer.FocusSessionService
 import com.mindful.android.services.tracking.MindfulTrackerService
 import com.mindful.android.services.vpn.MindfulVpnService
 import com.mindful.android.utils.AppUtils
@@ -45,12 +37,6 @@ class FgMethodCallHandler(
     private val activity: Activity? = null,
     private val vpnPermLauncher: ActivityResultLauncher<Intent>? = null,
 ) : MethodCallHandler {
-
-    private val focusServiceConn =
-        SafeServiceConnection(
-            context = context,
-            serviceClass = FocusSessionService::class.java
-        )
 
     private val trackerServiceConn =
         SafeServiceConnection(
@@ -76,7 +62,6 @@ class FgMethodCallHandler(
         trackerServiceConn.bindService()
         vpnServiceConn.bindService()
         notificationServiceConn.bindService()
-        focusServiceConn.bindService()
     }
 
 
@@ -85,7 +70,6 @@ class FgMethodCallHandler(
         trackerServiceConn.unBindService()
         vpnServiceConn.unBindService()
         notificationServiceConn.unBindService()
-        focusServiceConn.unBindService()
     }
 
     private fun updateLocale(languageCode: String) {
@@ -162,15 +146,7 @@ class FgMethodCallHandler(
                 val appRestrictions = JsonUtils.parseAppRestrictionsMap(
                     call.arguments() ?: ""
                 )
-                updateTrackerServiceRestrictions(appRestrictions, null)
-                result.success(true)
-            }
-
-            "updateRestrictionsGroups" -> {
-                val restrictionGroups = JsonUtils.parseRestrictionGroupsMap(
-                    call.arguments() ?: ""
-                )
-                updateTrackerServiceRestrictions(null, restrictionGroups)
+                updateTrackerServiceRestrictions(appRestrictions)
                 result.success(true)
             }
 
@@ -213,20 +189,6 @@ class FgMethodCallHandler(
                 result.success(true)
             }
 
-            "updateBedtimeSchedule" -> {
-                val jsonBedtimeSettings = call.arguments() ?: ""
-                val bedtimeSettings = BedtimeSchedule.fromJson(jsonBedtimeSettings)
-                if (bedtimeSettings.isScheduleOn) {
-                    scheduleBedtimeRoutineTasks(context, jsonBedtimeSettings)
-                } else {
-                    cancelBedtimeRoutineTasks(context)
-                    if (bedtimeSettings.shouldStartDnd) {
-                        NotificationHelper.toggleDnd(context, DndWakeLock.BEDTIME_MODE, false)
-                    }
-                }
-                result.success(true)
-            }
-
             "activeEmergencyPause" -> {
                 if (!Utils.isServiceRunning(context, EmergencyPauseService::class.java)
                     && Utils.isServiceRunning(context, MindfulTrackerService::class.java)
@@ -240,29 +202,6 @@ class FgMethodCallHandler(
                 } else {
                     result.success(false)
                 }
-            }
-
-            "updateFocusSession" -> {
-                val focusSession = FocusSession.fromJson(call.arguments() ?: "")
-                if (focusServiceConn.isActive) {
-                    focusServiceConn.service?.updateFocusSession(focusSession)
-                } else {
-                    focusServiceConn.setOnConnectedCallback { service: FocusSessionService ->
-                        service.startFocusSession(
-                            focusSession
-                        )
-                    }
-                    focusServiceConn.startAndBind()
-                }
-                result.success(true)
-            }
-
-            "giveUpOrFinishFocusSession" -> {
-                if (focusServiceConn.isActive) {
-                    focusServiceConn.service?.giveUpOrStopFocusSession(call.arguments() ?: false)
-                    focusServiceConn.unBindService()
-                }
-                result.success(true)
             }
 
             "updateNotificationSettings" -> {
@@ -296,15 +235,6 @@ class FgMethodCallHandler(
             "getAndAskAccessibilityPermission" -> {
                 result.success(
                     PermissionsHelper.getAndAskAccessibilityPermission(
-                        context,
-                        call.arguments() ?: false
-                    )
-                )
-            }
-
-            "getAndAskAdminPermission" -> {
-                result.success(
-                    PermissionsHelper.getAndAskAdminPermission(
                         context,
                         call.arguments() ?: false
                     )
@@ -358,15 +288,6 @@ class FgMethodCallHandler(
                 )
             }
 
-            "getAndAskDndPermission" -> {
-                result.success(
-                    PermissionsHelper.getAndAskDndPermission(
-                        context,
-                        call.arguments() ?: false
-                    )
-                )
-            }
-
             "getAndAskNotificationAccessPermission" -> {
                 result.success(
                     PermissionsHelper.getAndAskNotificationAccessPermission(
@@ -383,15 +304,6 @@ class FgMethodCallHandler(
             // ==============================================================================================================
             // ====================================== UTILS =================================================================
             // ==============================================================================================================
-
-            "disableDeviceAdmin" -> {
-                NewActivitiesLaunchHelper.disableDeviceAdmin(context)
-                result.success(true)
-            }
-
-            "promptForQuickTile" -> {
-                NewActivitiesLaunchHelper.promptForQuickFocusTile(context, result)
-            }
 
             "openAppWithPackage" -> {
                 NewActivitiesLaunchHelper.openAppWithPackage(
@@ -418,11 +330,6 @@ class FgMethodCallHandler(
                     context,
                     call.arguments() ?: ""
                 )
-                result.success(true)
-            }
-
-            "openDeviceDndSettings" -> {
-                NewActivitiesLaunchHelper.openDeviceDndSettings(context)
                 result.success(true)
             }
 
@@ -481,20 +388,13 @@ class FgMethodCallHandler(
     }
 
     private fun updateTrackerServiceRestrictions(
-        appRestrictions: HashMap<String, AppRestriction>?,
-        restrictionGroups: HashMap<Int, RestrictionGroup>?,
+        appRestrictions: HashMap<String, AppRestriction>,
     ) {
         if (trackerServiceConn.isActive) {
-            trackerServiceConn.service?.getRestrictionManager?.updateRestrictions(
-                appRestrictions,
-                restrictionGroups
-            )
-        } else if (appRestrictions?.isNotEmpty() == true || restrictionGroups?.isNotEmpty() == true) {
+            trackerServiceConn.service?.getRestrictionManager?.updateRestrictions(appRestrictions)
+        } else if (appRestrictions.isNotEmpty()) {
             trackerServiceConn.setOnConnectedCallback { service ->
-                service.getRestrictionManager.updateRestrictions(
-                    appRestrictions,
-                    restrictionGroups
-                )
+                service.getRestrictionManager.updateRestrictions(appRestrictions)
             }
             trackerServiceConn.startAndBind()
         }

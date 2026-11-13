@@ -13,9 +13,6 @@ class AppLocalizationsEl extends AppLocalizations {
       'Επικεντρωθείτε σε ό,τι έχει πραγματικά σημασία';
 
   @override
-  String get unlock_button_label => 'Ξεκλείδωμα';
-
-  @override
   String get permission_status_off => 'Απενεργοποιημένο';
 
   @override
@@ -119,20 +116,6 @@ class AppLocalizationsEl extends AppLocalizations {
   String get permission_accessibility_device_tile_label => 'Χρήση Mindful';
 
   @override
-  String get permission_dnd_title => 'Μην ενοχλείτε';
-
-  @override
-  String get permission_dnd_info =>
-      'Παρακαλώ χορήγησε πρόσβαση στη λειτουργία \"Μην ενοχλείτε\". Αυτό θα επιτρέψει στο Mindful να ξεκινήσει και να σταματήσει τη λειτουργία \"Μην ενοχλείτε\" κατά τη διάρκεια του χρονοδιαγράμματος ύπνου.';
-
-  @override
-  String get permission_dnd_tile_title => 'Έναρξη DND';
-
-  @override
-  String get permission_dnd_tile_subtitle =>
-      'Ενεργοποίηση και της λειτουργίας Μην ενοχλείτε.';
-
-  @override
   String get permission_battery_optimization_tile_title =>
       'Αγνόηση Βελτιστοποίησης Μπαταρίας';
 
@@ -154,17 +137,6 @@ class AppLocalizationsEl extends AppLocalizations {
   @override
   String get permission_vpn_info =>
       'Παρακαλώ παραχώρησε άδεια για τη δημιουργία σύνδεσης εικονικού ιδιωτικού δικτύου (VPN). Αυτό θα επιτρέψει στο Mindful να περιορίσει την πρόσβαση στο διαδίκτυο για καθορισμένες εφαρμογές με τη δημιουργία τοπικών στη συσκευή VPN.';
-
-  @override
-  String get permission_admin_title => 'Διαχειριστής';
-
-  @override
-  String get permission_admin_info =>
-      'Απαιτούνται δικαιώματα διαχειριστή μόνο για βασικές λειτουργίες ώστε να διασφαλίζεται ότι η εφαρμογή λειτουργεί σωστά και παραμένει απαραβίαστη.';
-
-  @override
-  String get permission_admin_snack_alert =>
-      'Η προστασία Παραβίασης μπορεί να απενεργοποιηθεί μόνο κατά τη διάρκεια του επιλεγμένου χρονικού παραθύρου.';
 
   @override
   String get permission_notification_access_title => 'Πρόσβαση Ειδοποιήσεων';
@@ -292,10 +264,6 @@ class AppLocalizationsEl extends AppLocalizations {
   String get schedule_end_label => 'Λήξη';
 
   @override
-  String get exit_without_saving_dialog_info =>
-      'Σίγουρα θες να βγεις χωρίς αποθήκευση;';
-
-  @override
   String get development_dialog_info =>
       'Το Mindful είναι υπό ανάπτυξη και μπορεί να έχει σφάλματα ή ελλιπή χαρακτηριστικά. Αν αντιμετωπίσεις οποιοδήποτε πρόβλημα, παρακαλούμε να τα αναφέρεις για να μας βοηθήσεις να βελτιωθούμε.\n\nΣε ευχαριστούμε για τα σχόλιά σου!';
 
@@ -304,13 +272,6 @@ class AppLocalizationsEl extends AppLocalizations {
 
   @override
   String get development_dialog_button_close => 'Κλείσιμο';
-
-  @override
-  String get dnd_settings_tile_title => 'Ρυθμίσεις Μην ενοχλείτε';
-
-  @override
-  String get dnd_settings_tile_subtitle =>
-      'Διαχειρίσου ποιες εφαρμογές και ειδοποιήσεις μπορούν να σε φτάσουν στο DND.';
 
   @override
   String get quick_actions_heading => 'Γρήγορες ενέργειες';
@@ -333,15 +294,8 @@ class AppLocalizationsEl extends AppLocalizations {
       'Η χρήση και οι περιορισμοί οθόνης δεν είναι διαθέσιμοι για αυτήν την εφαρμογή. Προς το παρόν, μόνο η χρήση δικτύου είναι προσβάσιμη';
 
   @override
-  String get create_group_fab_button => 'Δημιουργία Ομάδας';
-
-  @override
   String get active_period_info =>
       'Όρισε μια χρονική περίοδο κατά την οποία θα επιτρέπεται η πρόσβαση. Εκτός αυτού του χρονικού πλαισίου, η πρόσβαση θα περιοριστεί.';
-
-  @override
-  String get minimum_distracting_apps_snack_alert =>
-      'Επέλεξε τουλάχιστον μία εφαρμογή που αποσπά την προσοχή.';
 
   @override
   String get donation_card_title => 'Υποστήριξέ μας';
@@ -363,110 +317,6 @@ class AppLocalizationsEl extends AppLocalizations {
   @override
   String get app_restart_dialog_info =>
       'Το Mindful θα επανεκκινήσει αυτόματα μόλις ολοκληρωθεί η αντίστροφη μέτρηση. Παρακαλώ να κάνεις υπομονή καθώς εφαρμόζονται αλλαγές.';
-
-  @override
-  String get accessibility_tip =>
-      'Θέλετε έναν πιο έξυπνο, πιο φιλικό προς την μπαταρία αποκλεισμό; Ενεργοποίησε την άδεια προσβασιμότητας για Mindful.';
-
-  @override
-  String get battery_optimization_tip =>
-      'Το Mindful δεν λειτουργεί; Επιτρέψτε την \'Αγνόηση Βελτιστοποίησης Μπαταρίας\' στις Ρυθμίσεις για να συνεχίσει να λειτουργεί ομαλά.';
-
-  @override
-  String get invincible_mode_tip =>
-      'Περιορισμοί που αφαιρέθηκαν τυχαία; Χρησιμοποιήστε τη Άτρωτη λειτουργία για να τους κλειδώσετε μέχρι την επόμενη μέρα ή το παράθυρο ρύθμισης.';
-
-  @override
-  String get glance_usage_tip =>
-      'Θέλετε πληροφορίες; Ελέγξτε την ενότητα Ματιά για να δείτε τα μοτίβα χρήσης και την ώρα επί οθόνης.';
-
-  @override
-  String get tamper_protection_tip =>
-      'Απεγκατάσταση του Mindful; Ενεργοποιήστε το Παράθυρο Απεγκατάστασης για να απενεργοποιήσετε με ασφάλεια την προστασία παραβίασης πρώτα.';
-
-  @override
-  String get notification_blocking_tip =>
-      'Θέλετε να μειώσετε τους περισπασμούς; Χρησιμοποιήστε το Μπλοκάρισμα Ειδοποιήσεων για σίγαση επιλεγμένων εφαρμογών.';
-
-  @override
-  String get usage_history_tip =>
-      'Θέλετε να συλλογιστείτε τις συνήθειές σας; Ελέγξτε το ιστορικό χρήσης για να δείτε τα προηγούμενα μοτίβα.';
-
-  @override
-  String get focus_mode_tip =>
-      'Χρειάζεστε βαθιά συγκέντρωση; Ενεργοποιήστε τη λειτουργία εστίασης για να μπλοκάρετε εφαρμογές και ειδοποιήσεις κατά τη διάρκεια εργασιών.';
-
-  @override
-  String get bedtime_reminder_tip =>
-      'Θέλετε να βελτιώσετε τον ύπνο σας; Ρυθμίστε μια Υπενθύμιση Ύπνου για να χαλαρώσετε.';
-
-  @override
-  String get custom_blocking_tip =>
-      'Χρειάζεσαι μια προσαρμοσμένη εμπερία; Δημιούργησε κανόνες αποκλεισμού εφαρμογών που ταιριάζουν στις ανάγκες σου.';
-
-  @override
-  String get session_timeline_tip =>
-      'Want to track focus sessions? View timeline to see your focus journey.';
-
-  @override
-  String get short_content_blocking_tip =>
-      'Distracted by social apps? Block short content on Instagram, YouTube, etc., to stay focused.';
-
-  @override
-  String get parental_controls_tip =>
-      'Need parental control? Set restrictions for your child\'s device to ensure a safe experience.';
-
-  @override
-  String get notification_batching_tip =>
-      'Want to reduce distractions? Use Notification Batching to group notifications and check them at once.';
-
-  @override
-  String get notification_scheduling_tip =>
-      'Need to manage notifications? Schedule when you receive notifications for specific apps.';
-
-  @override
-  String get quick_focus_tile_tip =>
-      'Need quick access to focus? Add a Quick Focus Tile to instantly activate Focus Mode.';
-
-  @override
-  String get app_shortcuts_tip =>
-      'Want instant app access? Add shortcuts by long-pressing the app icon for quick actions.';
-
-  @override
-  String get backup_usage_db_tip =>
-      'Want to save your data? Backup your usage database to keep your records safe.';
-
-  @override
-  String get dynamic_material_color_tip =>
-      'Want a custom theme? Enable Dynamic Material You color to match your device\'s theme.';
-
-  @override
-  String get amoled_dark_theme_tip =>
-      'Want to save battery? Use AMOLED Dark Theme to reduce power consumption on OLED screens.';
-
-  @override
-  String get customize_usage_history_tip =>
-      'Want to keep usage history? Customize how many weeks of data to store in Usage History.';
-
-  @override
-  String get grouped_apps_blocking_tip =>
-      'Want to block apps together? Use Restriction Groups to group app limits and block multiple apps at once.';
-
-  @override
-  String get websites_blocking_tip =>
-      'Want a cleaner browsing experience? Block custom or NSFW websites for a more focused online time.';
-
-  @override
-  String get data_usage_tip =>
-      'Want to track your data? Monitor your mobile and Wi-Fi data usage for internet consumption.';
-
-  @override
-  String get block_internet_tip =>
-      'Need to block an app\'s internet? Cut off internet for specific app from app\'s dashboard.';
-
-  @override
-  String get emergency_passes_tip =>
-      'Need a break? Use 3 Emergency Passes daily to temporarily unblock apps for 5 minutes.';
 
   @override
   String get onboarding_skip_btn_label => 'Παράλειψη';
@@ -507,9 +357,6 @@ class AppLocalizationsEl extends AppLocalizations {
 
   @override
   String get focus_now_fab_button => 'Εστίαση τώρα';
-
-  @override
-  String get focus_now_option_label => 'Focus now';
 
   @override
   String get focus_unlock_option_label => 'Earn unlock';
@@ -576,11 +423,11 @@ class AppLocalizationsEl extends AppLocalizations {
 
   @override
   String get new_session_strict_tile_subtitle =>
-      'Once saved, this session cannot be edited or removed.';
+      'Cannot be edited or removed while the schedule is active.';
 
   @override
   String get new_session_strict_locked_snack =>
-      'This session is strict and cannot be changed.';
+      'This strict session is active and cannot be changed right now.';
 
   @override
   String get new_session_no_apps_selected => 'No apps selected';
@@ -724,16 +571,6 @@ class AppLocalizationsEl extends AppLocalizations {
   String get username_dialog_button_apply => 'Εφαρμογή';
 
   @override
-  String get glance_tile_title => 'Ματιά';
-
-  @override
-  String get glance_tile_subtitle => 'Ρίξε μια γρήγορη ματιά στη χρήση σου.';
-
-  @override
-  String get parental_controls_tile_subtitle =>
-      'Λειτουργία άτρωτου και προστασία από παραβίαση.';
-
-  @override
   String get restrictions_heading => 'Περιορισμοί';
 
   @override
@@ -744,44 +581,11 @@ class AppLocalizationsEl extends AppLocalizations {
       'Περιόρισε τις εφαρμογές με πολλούς τρόπους.';
 
   @override
-  String get grouped_apps_blocking_tile_title =>
-      'Αποκλεισμός ομαδοποιημένων εφαρμογών';
-
-  @override
-  String get grouped_apps_blocking_tile_subtitle =>
-      'Περιορισμός ομάδας εφαρμογών ταυτόχρονα.';
-
-  @override
-  String get shorts_blocking_tile_subtitle =>
-      'Περιορισμός σύντομου περιεχομένου σε πολλαπλές πλατφόρμες.';
-
-  @override
   String get websites_blocking_tile_subtitle =>
       'Περιορισμός ενηλίκων και προσαρμοσμένων ιστοσελίδων.';
 
   @override
   String get screen_time_label => 'Χρόνος οθόνης';
-
-  @override
-  String get total_data_label => 'Συνολικά δεδομένα';
-
-  @override
-  String get mobile_data_label => 'Δεδομένα κινητής';
-
-  @override
-  String get wifi_data_label => 'Δεδομένα Wifi';
-
-  @override
-  String get focus_today_label => 'Εστίαση σήμερα';
-
-  @override
-  String get focus_weekly_label => 'Εστίαση εβδομαδιαία';
-
-  @override
-  String get focus_monthly_label => 'Εστίαση μηνιαία';
-
-  @override
-  String get focus_lifetime_label => 'Εστίαση συνολικά';
 
   @override
   String get longest_streak_label => 'Μεγαλύτερο σερί';
@@ -865,156 +669,6 @@ class AppLocalizationsEl extends AppLocalizations {
   String get new_schedule_dialog_field_label => 'Όνομα προγράμματος';
 
   @override
-  String get bedtime_tab_title => 'Ώρα για ύπνο';
-
-  @override
-  String get bedtime_tab_info =>
-      'Ρύθμισε το πρόγραμμα ύπνου σου επιλέγοντας μια χρονική περίοδο και ημέρες της εβδομάδας. Επέλεξε ενοχλητικές εφαρμογές για αποκλεισμό και ενεργοποίηση λειτουργίας \"Μην ενοχλείτε\" (DND) για μια ήρεμη νύχτα.';
-
-  @override
-  String get schedule_tile_title => 'Πρόγραμμα';
-
-  @override
-  String get schedule_tile_subtitle =>
-      'Ενεργοποίηση ή απενεργοποίηση ημερήσιου προγράμματος.';
-
-  @override
-  String get bedtime_no_days_selected_snack_alert =>
-      'Επέλεξε τουλάχιστον μία ημέρα της εβδομάδας.';
-
-  @override
-  String get bedtime_minimum_duration_snack_alert =>
-      'Η συνολική διάρκεια του ύπνου πρέπει να είναι τουλάχιστον 30 λεπτά.';
-
-  @override
-  String get distracting_apps_tile_title => 'Ενοχλητικές εφαρμογές';
-
-  @override
-  String get distracting_apps_tile_subtitle =>
-      'Επέλεξε ποιες εφαρμογές σού αποσπούν την προσοχή από τη ρουτίνα ύπνου σου.';
-
-  @override
-  String get bedtime_distracting_apps_modify_snack_alert =>
-      'Τροποποιήσεις στη λίστα των ενοχλητικών εφαρμογών δεν επιτρέπονται ενώ το χρονοδιάγραμμα ώρα για ύπνο είναι ενεργό.';
-
-  @override
-  String get parental_controls_tab_title => 'Γονικοί έλεγχοι';
-
-  @override
-  String get invincible_mode_heading => 'Άτρωτη λειτουργία';
-
-  @override
-  String get invincible_mode_tile_title => 'Ενεργοποίηση άτρωτης λειτουργίας';
-
-  @override
-  String get invincible_mode_info =>
-      'Όταν η Άτρωτη Λειτουργία είναι ενεργή, δεν θα μπορείς να προσαρμόσεις τα επιλεγμένα όρια μετά την επίτευξη του ημερήσιου ορίου σου. Ωστόσο, μπορείς να κάνεις αλλαγές μέσα σε ένα επιλεγμένο άτρωτο παράθυρο 10 λεπτών.';
-
-  @override
-  String get invincible_mode_snack_alert =>
-      'Λόγω της άτρωτης λειτουργίας, δεν επιτρέπονται τροποποιήσεις σε περιορισμούς.';
-
-  @override
-  String get invincible_mode_dialog_info =>
-      'Σίγουρα ότι θες να ενεργοποιήσεις την Άτρωτη Λειτουργία; Αυτή η ενέργεια είναι μη αναστρέψιμη. Μόλις ενεργοποιηθεί η Άτρωτη λειτουργία, δεν μπορείς να την απενεργοποιήσεις για όσο διάστημα αυτή η εφαρμογή είναι εγκατεστημένη στη συσκευή σου.';
-
-  @override
-  String get invincible_mode_turn_off_snack_alert =>
-      'Η Άτρωτη Λειτουργία δεν μπορεί να απενεργοποιηθεί για όσο διάστημα αυτή η εφαρμογή παραμένει εγκατεστημένη στη συσκευή σου.';
-
-  @override
-  String get invincible_mode_dialog_button_start_anyway =>
-      'Εκκίνηση οπωσδήποτε';
-
-  @override
-  String get invincible_mode_include_timer_tile_title =>
-      'Συμπερίληψη χρονομέτρου';
-
-  @override
-  String get invincible_mode_include_launch_limit_tile_title =>
-      'Συμπερίληψη ορίου εκκίνησης';
-
-  @override
-  String get invincible_mode_include_active_period_tile_title =>
-      'Συμπερίληψη ενεργής περιόδου';
-
-  @override
-  String get invincible_mode_app_restrictions_tile_title =>
-      'Περιορισμοί εφαρμογών';
-
-  @override
-  String get invincible_mode_app_restrictions_tile_subtitle =>
-      'Αποτροπή αλλαγών στους επιλεγμένους περιορισμούς της εφαρμογής μόλις ξεπεραστούν τα ημερήσια όρια.';
-
-  @override
-  String get invincible_mode_group_restrictions_tile_title =>
-      'Ομαδοποίηση περιορισμών';
-
-  @override
-  String get invincible_mode_group_restrictions_tile_subtitle =>
-      'Αποτροπή αλλαγών στους επιλεγμένους περιορισμούς της ομάδας μόλις ξεπεραστούν τα ημερήσια όρια.';
-
-  @override
-  String get invincible_mode_include_shorts_timer_tile_title =>
-      'Συμπερίληψη χρονομέτρου shorts';
-
-  @override
-  String get invincible_mode_include_shorts_timer_tile_subtitle =>
-      'Αποτρέπει τις αλλαγές μετά την επίτευξη του ημερήσιου ορίου shorts.';
-
-  @override
-  String get invincible_mode_include_bedtime_tile_title =>
-      'Συμπερίληψη ώρας για ύπνο';
-
-  @override
-  String get invincible_mode_include_bedtime_tile_subtitle =>
-      'Αποτρέπει τις αλλαγές κατά τη διάρκεια του ενεργού προγράμματος ώρας για ύπνο.';
-
-  @override
-  String get protected_access_tile_title => 'Προστατευμένη πρόσβαση';
-
-  @override
-  String get protected_access_tile_subtitle =>
-      'Προστάτεψε το Mindful με το κλείδωμα της συσκευής σου.';
-
-  @override
-  String get protected_access_no_lock_snack_alert =>
-      'Παρακαλώ ρύθμισε πρώτα ένα βιομετρικό κλείδωμα στη συσκευή σου για να ενεργοποιήσεις αυτήν τη λειτουργία.';
-
-  @override
-  String get protected_access_removed_lock_snack_alert =>
-      'Το κλείδωμα της συσκευής σου έχει αφαιρεθεί. Για να συνεχίσεις, παρακαλώ ρύθμισε ένα νέο κλείδωμα.';
-
-  @override
-  String get protected_access_failed_lock_snack_alert =>
-      'Η ταυτοποίηση απέτυχε. Πρέπει να επαληθεύσεις το κλείδωμα της συσκευής σου για να συνεχίσεις.';
-
-  @override
-  String get tamper_protection_tile_title => 'Προστασία παραβίασης';
-
-  @override
-  String get tamper_protection_tile_subtitle =>
-      'Αποτροπή απεγκατάστασης και αναγκαστικής διακοπής της εφαρμογής.';
-
-  @override
-  String get tamper_protection_confirmation_dialog_info =>
-      'Once enabled, you won\'t be able to uninstall, force stop, or clear Mindful\'s data, except during the selected uninstall window. There are no workarounds.\n\nProceed at your own risk.';
-
-  @override
-  String get uninstall_window_tile_title => 'Παράθυρο απεγκατάστασης';
-
-  @override
-  String get uninstall_window_tile_subtitle =>
-      'Η προστασία παραβίασης μπορεί να απενεργοποιηθεί εντός 10 λεπτών από τον επιλεγμένο χρόνο.';
-
-  @override
-  String get invincible_window_tile_title => 'Παράθυρο άτρωτης';
-
-  @override
-  String get invincible_window_tile_subtitle =>
-      'Τα επιλεγμένα όρια μπορούν να τροποποιηθούν μέσα σε 10 λεπτά από τον επιλεγμένο χρόνο.';
-
-  @override
   String get shorts_blocking_tab_title => 'Φραγή shorts';
 
   @override
@@ -1046,6 +700,46 @@ class AppLocalizationsEl extends AppLocalizations {
   @override
   String get instagram_features_block_explore =>
       'Περιορισμός ενότητας εξερεύνησης.';
+
+  @override
+  String get instagram_usage_limit_tile_title =>
+      'Only after daily Instagram use';
+
+  @override
+  String get instagram_usage_limit_tile_subtitle_off =>
+      'Block reels only after using Instagram for a set time each day.';
+
+  @override
+  String instagram_usage_limit_tile_subtitle_on(String time) {
+    return 'Reels get blocked after $time of Instagram today.';
+  }
+
+  @override
+  String get instagram_usage_limit_picker_title => 'Daily Instagram time';
+
+  @override
+  String get instagram_usage_limit_picker_info =>
+      'Reels stay available until you have used Instagram for this long today. After that, reels are blocked until midnight.';
+
+  @override
+  String get in_app_blocking_feature_reels => 'Reels';
+
+  @override
+  String get in_app_blocking_feature_explore => 'Explore';
+
+  @override
+  String get in_app_blocking_feature_spotlight => 'Spotlight';
+
+  @override
+  String get in_app_blocking_feature_discover => 'Discover';
+
+  @override
+  String get in_app_blocking_feature_shorts => 'Shorts';
+
+  @override
+  String in_app_blocking_reels_after_usage(String time) {
+    return 'Reels after $time of use';
+  }
 
   @override
   String get snapchat_features_tile_title => 'Snapchat';
@@ -1151,165 +845,17 @@ class AppLocalizationsEl extends AppLocalizations {
   }
 
   @override
-  String get focus_tab_title => 'Συγκέντρωση';
-
-  @override
-  String get focus_tab_info =>
-      'Όταν χρειάζεσαι χρόνο για να εστιάσεις, ξεκίνα μια νέα συνεδρία επιλέγοντας τον τύπο, τις ενοχλητικές εφαρμογές προς παύση και ενεργοποίησε το «Μην ενοχλείτε» για αδιάλειπτη συγκέντρωση.';
-
-  @override
-  String get active_session_card_title => 'Ενεργή συνεδρία';
-
-  @override
-  String get active_session_card_info =>
-      'Εκτελείται μια ενεργή συνεδρία συγκέντρωσης! Κάνε κλικ στην επιλογή «Προβολή» για να ελέγξεις την πρόοδό σου και να δεις πόσος χρόνος έχει παρέλθει.';
-
-  @override
-  String get active_session_card_view_button => 'Προβολή';
-
-  @override
-  String get focus_distracting_apps_removal_snack_alert =>
-      'Η αφαίρεση εφαρμογών από τη λίστα ενοχλητικών εφαρμογών δεν επιτρέπεται όταν μια συνεδρία εστίασης είναι ενεργή. Ωστόσο, μπορείς να προσθέσεις πρόσθετες εφαρμογές στη λίστα κατά τη διάρκεια αυτής της περιόδου.';
-
-  @override
-  String get focus_profile_tile_title => 'Focus profile';
-
-  @override
   String get focus_session_duration_tile_title => 'Διάρκεια συνεδρίας';
-
-  @override
-  String get focus_session_duration_tile_subtitle =>
-      'Άπειρο (εκτός αν σταματήσεις)';
 
   @override
   String get focus_session_duration_dialog_info =>
       'Παρακαλώ επέλεξε την επιθυμητή διάρκεια για αυτή τη συνεδρία συγκέντρωσης, προσδιορίζοντας το χρονικό διάστημα που επιθυμείς να παραμείνεις σε συγκέντρωση και χωρίς περισπασμούς.';
 
   @override
-  String get focus_profile_customization_tile_title => 'Profile customization';
-
-  @override
-  String get focus_profile_customization_tile_subtitle =>
-      'Customize settings for the selected profile.';
-
-  @override
-  String get focus_enforce_tile_title => 'Enforce session';
-
-  @override
-  String get focus_enforce_tile_subtitle =>
-      'Prevents ending a session before time ends.';
-
-  @override
-  String get focus_session_start_button => 'Swipe to start Session';
-
-  @override
-  String get focus_session_minimum_apps_snack_alert =>
-      'Επέλεξε τουλάχιστον μία ενοχλητική εφαρμογή για να ξεκινήσει η συνεδρία εστίασης';
-
-  @override
-  String get focus_session_already_active_snack_alert =>
-      'Έχεις ήδη μια ενεργή συνεδρία εστίασης. Παρακαλώ ολοκλήρωσε ή σταμάτα την τρέχουσα συνεδρία σου πριν ξεκίνα μια νέα.';
-
-  @override
-  String get focus_session_type_study => 'Μελέτη';
-
-  @override
-  String get focus_session_type_work => 'Εργασία';
-
-  @override
-  String get focus_session_type_exercise => 'Γυμναστική';
-
-  @override
-  String get focus_session_type_meditation => 'Διαλογισμός';
-
-  @override
-  String get focus_session_type_creativeWriting => 'Δημιουργική Γραφή';
-
-  @override
-  String get focus_session_type_reading => 'Ανάγνωση';
-
-  @override
-  String get focus_session_type_programming => 'Προγραμματισμός';
-
-  @override
-  String get focus_session_type_chores => 'Δουλειές σπιτιού';
-
-  @override
-  String get focus_session_type_projectPlanning => 'Σχεδιασμός Έργου';
-
-  @override
-  String get focus_session_type_artAndDesign => 'Τέχνη και Σχέδιο';
-
-  @override
-  String get focus_session_type_languageLearning => 'Εκμάθηση Γλώσσας';
-
-  @override
-  String get focus_session_type_musicPractice => 'Μουσική Εξάσκηση';
-
-  @override
-  String get focus_session_type_selfCare => 'Αυτοφροντίδα';
-
-  @override
-  String get focus_session_type_brainstorming => 'Γέννηση ιδεών';
-
-  @override
-  String get focus_session_type_skillDevelopment => 'Ανάπτυξη Δεξιότητας';
-
-  @override
-  String get focus_session_type_research => 'Έρευνα';
-
-  @override
-  String get focus_session_type_networking => 'Δικτύωση';
-
-  @override
-  String get focus_session_type_cooking => 'Μαγειρική';
-
-  @override
-  String get focus_session_type_sportsTraining => 'Αθλητική Εκπαίδευση';
-
-  @override
-  String get focus_session_type_restAndRelaxation => 'Ξεκούραση και χαλάρωση';
-
-  @override
-  String get focus_session_type_other => 'Άλλο';
-
-  @override
   String get timeline_tab_title => 'Χρονολόγιο';
 
   @override
-  String get focus_timeline_tab_info =>
-      'Explore your focus journey by selecting a date from the calendar. Track your progress, revisit your successes, and learn from the challenges.';
-
-  @override
-  String selected_month_productive_time_snack_alert(String timeString) {
-    return 'Ο συνολικός παραγωγικός χρόνος σου για τον επιλεγμένο μήνα είναι $timeString.';
-  }
-
-  @override
-  String get selected_month_productive_days_label => 'Παραγωγικές ημέρες';
-
-  @override
-  String selected_month_productive_days_snack_alert(num daysCount) {
-    return 'Συνολικά έχεις $daysCount παραγωγικές μέρες τον επιλεγμένο μήνα.';
-  }
-
-  @override
-  String get selected_day_focused_time_label => 'Χρόνος εστίασης';
-
-  @override
-  String selected_day_focused_time_snack_alert(String timeString) {
-    return 'Ο συνολικός εστιασμένος χρόνος σου για την επιλεγμένη ημέρα είναι $timeString.';
-  }
-
-  @override
   String get calender_heading => 'Ημερολόγιο';
-
-  @override
-  String get your_sessions_heading => 'Οι συνεδρίες σου';
-
-  @override
-  String get your_sessions_empty_list_hint =>
-      'Δεν καταγράφηκαν συνεδρίες εστίασης για την επιλεγμένη ημέρα.';
 
   @override
   String get focus_session_tile_timestamp_label => 'Timestamp';
@@ -1321,40 +867,6 @@ class AppLocalizationsEl extends AppLocalizations {
   String get focus_session_tile_reflection_label => 'Reflection';
 
   @override
-  String get focus_session_state_active => 'Ενεργή';
-
-  @override
-  String get focus_session_state_successful => 'Επιτυχής';
-
-  @override
-  String get focus_session_state_failed => 'Απέτυχε';
-
-  @override
-  String get active_session_tab_title => 'Συνεδρία';
-
-  @override
-  String get active_session_none_warning =>
-      'Δεν βρέθηκε καμία ενεργή συνεδρία. Επιστροφή στην αρχική οθόνη.';
-
-  @override
-  String get active_session_dialog_button_keep_pushing =>
-      'Συνέχισε να προσπαθείς';
-
-  @override
-  String get active_session_finish_dialog_title => 'Τέλος';
-
-  @override
-  String get active_session_finish_dialog_info =>
-      'Κράτα γερά! Χτίζεις πολύτιμη συγκέντρωση. Σίγουρα θες να τερματίσεις αυτή τη συνεδρία εστίασης; Κάθε επιπλέον στιγμή μετράει προς τους στόχους σου.';
-
-  @override
-  String get active_session_giveup_dialog_title => 'Τα παρατάω';
-
-  @override
-  String get active_session_giveup_dialog_info =>
-      'Κρατήσου! Σχεδόν τα κατάφερες, μη τα παρατάς τώρα! Σίγουρα θες να τερματίσεις αυτήν την συνεδρία εστίασης νωρίτερα; Η πρόοδος θα χαθεί.';
-
-  @override
   String get active_session_reflection_dialog_title => 'Session reflection';
 
   @override
@@ -1364,73 +876,6 @@ class AppLocalizationsEl extends AppLocalizations {
   @override
   String get active_session_reflection_dialog_tip =>
       'Tip: You can always edit this later in the session timeline.';
-
-  @override
-  String get active_session_giveup_snack_alert =>
-      'Τα παράτησες! Μην ανησυχείς, μπορείς να τα πας καλύτερα την επόμενη φορά. Κάθε προσπάθεια μετράει - απλά συνέχισε';
-
-  @override
-  String get active_session_quote_one =>
-      'Κάθε βήμα μετράει, κράτα γερά και συνέχισε';
-
-  @override
-  String get active_session_quote_two =>
-      'Μείνε σε συγκέντρωση! Κάνεις εκπληκτική πρόοδο';
-
-  @override
-  String get active_session_quote_three => 'Τα σπας! Κράτα την ορμή ζωντανή';
-
-  @override
-  String get active_session_quote_four =>
-      'Λίγο ακόμα για να τα καταφέρεις, τα πας φανταστικά';
-
-  @override
-  String active_session_quote_five(String durationString) {
-    return 'Συγχαρητήρια 🎉 \n Ολοκλήρωσες την συνεδρία εστίασης του $durationString.\n\nΕξαιρετικά, συνέχισε την καταπληκτική δουλειά';
-  }
-
-  @override
-  String get restriction_groups_tab_title => 'Ομάδες περιορισμών';
-
-  @override
-  String get restriction_groups_tab_info =>
-      'Όρισε ένα συνδυασμένο χρονικό όριο οθόνης για μια ομάδα εφαρμογών. Μόλις η συνολική χρήση φτάσει το όριό σου, όλες οι εφαρμογές της ομάδας θα διακοπούν για να διατηρήσουν την συγκέντρωση και την ισορροπία.';
-
-  @override
-  String get restriction_group_time_spent_label => 'Χρόνος που πέρασε σήμερα';
-
-  @override
-  String get restriction_group_time_left_label => 'Χρόνος που έμεινε σήμερα';
-
-  @override
-  String get restriction_group_name_tile_title => 'Όνομα ομάδας';
-
-  @override
-  String get restriction_group_name_picker_dialog_info =>
-      'Εισήγαγε ένα όνομα για την ομάδα περιορισμών για να βοηθήσεις στον εντοπισμό και τη διαχείρισή του εύκολα.';
-
-  @override
-  String get restriction_group_timer_tile_title => 'Χρονόμετρο ομάδας';
-
-  @override
-  String get restriction_group_timer_picker_dialog_info =>
-      'Όρισε ένα ημερήσιο χρονικό όριο για αυτήν την ομάδα. Μόλις συμπληρωθεί το όριό σου, όλες οι εφαρμογές αυτής της ομάδας θα διακοπούν μέχρι τα μεσάνυχτα.';
-
-  @override
-  String get restriction_group_active_period_tile_title =>
-      'Ενεργή περίοδος ομάδας';
-
-  @override
-  String get remove_restriction_group_dialog_title => 'Αφαίρεση ομάδας';
-
-  @override
-  String remove_restriction_group_dialog_info(String groupName) {
-    return 'Σίγουρα; θες να αφαιρέσεις το «$groupName» από τις ομάδες περιορισμού.';
-  }
-
-  @override
-  String get restriction_group_invalid_limits_snack_alert =>
-      'Όρισε είτε ένα χρονόμετρο είτε ένα όριο ενεργής περιόδου.';
 
   @override
   String get notifications_empty_list_hint =>

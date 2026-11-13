@@ -15,9 +15,6 @@ class PermissionsModel {
   /// Indicates whether the usage access permission is granted.
   final bool haveUsageAccessPermission;
 
-  /// Indicates whether the Do Not Disturb (DND) permission is granted.
-  final bool haveDndPermission;
-
   /// Indicates whether the display overlay permission is granted.
   final bool haveDisplayOverlayPermission;
 
@@ -33,22 +30,17 @@ class PermissionsModel {
   /// Indicates whether the ignore battery optimization permission is granted.
   final bool haveIgnoreOptimizationPermission;
 
-  /// Indicates whether the Admin permission is granted.
-  final bool haveAdminPermission;
-
   /// Indicates whether the Notification Access permission is granted.
   final bool haveNotificationAccessPermission;
 
   const PermissionsModel({
     this.haveNotificationPermission = true,
     this.haveUsageAccessPermission = true,
-    this.haveDndPermission = true,
     this.haveDisplayOverlayPermission = true,
     this.haveVpnPermission = true,
     this.haveAccessibilityPermission = true,
     this.haveAlarmsPermission = true,
     this.haveIgnoreOptimizationPermission = true,
-    this.haveAdminPermission = true,
     this.haveNotificationAccessPermission = true,
   });
 
@@ -68,25 +60,21 @@ class PermissionsModel {
   PermissionsModel copyWith({
     bool? haveNotificationPermission,
     bool? haveUsageAccessPermission,
-    bool? haveDndPermission,
     bool? haveDisplayOverlayPermission,
     bool? haveVpnPermission,
     bool? haveAccessibilityPermission,
     bool? haveAlarmsPermission,
     bool? haveIgnoreOptimizationPermission,
-    bool? haveAdminPermission,
     bool? haveNotificationAccessPermission,
   }) {
     return PermissionsModel(
       haveNotificationPermission: haveNotificationPermission ?? this.haveNotificationPermission,
       haveUsageAccessPermission: haveUsageAccessPermission ?? this.haveUsageAccessPermission,
-      haveDndPermission: haveDndPermission ?? this.haveDndPermission,
       haveDisplayOverlayPermission: haveDisplayOverlayPermission ?? this.haveDisplayOverlayPermission,
       haveVpnPermission: haveVpnPermission ?? this.haveVpnPermission,
       haveAccessibilityPermission: haveAccessibilityPermission ?? this.haveAccessibilityPermission,
       haveAlarmsPermission: haveAlarmsPermission ?? this.haveAlarmsPermission,
       haveIgnoreOptimizationPermission: haveIgnoreOptimizationPermission ?? this.haveIgnoreOptimizationPermission,
-      haveAdminPermission: haveAdminPermission ?? this.haveAdminPermission,
       haveNotificationAccessPermission: haveNotificationAccessPermission ?? this.haveNotificationAccessPermission,
     );
   }

@@ -17,7 +17,6 @@
     <!-- ________________________________ PERMISSIONS _______________________________________ -->
     <!-- ____________________________________________________________________________________ -->
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
@@ -26,7 +25,6 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
     <uses-permission android:name="android.permission.INTERNET" /> <!-- The app does not need
     INTERNET permission but it is declared only to create local vpn socket -->
     <uses-permission
@@ -135,20 +133,6 @@
         <!-- ________________________________ RECEIVERS ______________________________________ -->
         <!-- _________________________________________________________________________________ -->
         <receiver
-            android:name=".receivers.DeviceAdminReceiver"
-            android:enabled="true"
-            android:exported="false"
-            android:label="@string/app_name"
-            android:permission="android.permission.BIND_DEVICE_ADMIN">
-            <meta-data
-                android:name="android.app.device_admin"
-                android:resource="@xml/mindful_admin_config" />
-
-            <intent-filter>
-                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
-            </intent-filter>
-        </receiver>
-        <receiver
             android:name=".receivers.DeviceBootReceiver"
             android:enabled="true"
             android:exported="false">
@@ -157,10 +141,6 @@
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
             </intent-filter>
         </receiver>
-        <receiver
-            android:name=".receivers.alarm.BedtimeRoutineReceiver"
-            android:enabled="true"
-            android:exported="false" />
         <receiver
             android:name=".receivers.alarm.MidnightResetReceiver"
             android:enabled="true"
@@ -172,24 +152,6 @@
         <!-- _________________________________________________________________________________ -->
         <!-- ________________________ SYSTEM BOUND SERVICES __________________________________ -->
         <!-- _________________________________________________________________________________ -->
-        <service
-            android:name=".services.quickTiles.FocusQuickTileService"
-            android:description="@string/shortcut_focus_mode_description"
-            android:exported="true"
-            android:icon="@drawable/ic_focus_mode"
-            android:label="@string/shortcut_focus_mode_label"
-            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
-            <intent-filter>
-                <action android:name="android.service.quicksettings.action.QS_TILE" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.service.quicksettings.ACTIVE_TILE"
-                android:value="true" />
-            <meta-data
-                android:name="android.service.quicksettings.TOGGLEABLE_TILE"
-                android:value="true" />
-        </service>
         <service
             android:name=".services.accessibility.MindfulAccessibilityService"
             android:enabled="true"
@@ -235,11 +197,6 @@
         </service>
         <service
             android:name=".services.tracking.MindfulTrackerService"
-            android:enabled="true"
-            android:exported="false"
-            android:foregroundServiceType="specialUse" />
-        <service
-            android:name=".services.timer.FocusSessionService"
             android:enabled="true"
             android:exported="false"
             android:foregroundServiceType="specialUse" />

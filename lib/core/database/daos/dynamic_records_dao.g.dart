@@ -7,13 +7,24 @@ mixin _$DynamicRecordsDaoMixin on DatabaseAccessor<AppDatabase> {
   $AppRestrictionTableTable get appRestrictionTable =>
       attachedDatabase.appRestrictionTable;
   $CrashLogsTableTable get crashLogsTable => attachedDatabase.crashLogsTable;
-  $FocusSessionsTableTable get focusSessionsTable =>
-      attachedDatabase.focusSessionsTable;
-  $FocusProfileTableTable get focusProfileTable =>
-      attachedDatabase.focusProfileTable;
-  $RestrictionGroupsTableTable get restrictionGroupsTable =>
-      attachedDatabase.restrictionGroupsTable;
   $AppUsageTableTable get appUsageTable => attachedDatabase.appUsageTable;
   $NotificationsTableTable get notificationsTable =>
       attachedDatabase.notificationsTable;
+  DynamicRecordsDaoManager get managers => DynamicRecordsDaoManager(this);
+}
+
+class DynamicRecordsDaoManager {
+  final _$DynamicRecordsDaoMixin _db;
+  DynamicRecordsDaoManager(this._db);
+  $$AppRestrictionTableTableTableManager get appRestrictionTable =>
+      $$AppRestrictionTableTableTableManager(
+          _db.attachedDatabase, _db.appRestrictionTable);
+  $$CrashLogsTableTableTableManager get crashLogsTable =>
+      $$CrashLogsTableTableTableManager(
+          _db.attachedDatabase, _db.crashLogsTable);
+  $$AppUsageTableTableTableManager get appUsageTable =>
+      $$AppUsageTableTableTableManager(_db.attachedDatabase, _db.appUsageTable);
+  $$NotificationsTableTableTableManager get notificationsTable =>
+      $$NotificationsTableTableTableManager(
+          _db.attachedDatabase, _db.notificationsTable);
 }

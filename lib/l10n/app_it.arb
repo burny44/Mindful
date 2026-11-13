@@ -1,7 +1,6 @@
 {
     "@----------------------------- SPLASH SCREEN -----------------------------": {},
     "mindful_tagline": "Concentrati sulle cose importanti",
-    "unlock_button_label": "Sblocca",
     "@----------------------------- APP PERMISSIONS -----------------------------": {},
     "permission_status_off": "Spento",
     "permission_status_allowed": "Concesso",
@@ -31,8 +30,6 @@
     "permission_overlay_title": "Overlay Schermo",
     "permission_accessibility_title": "Accessibilità",
     "permission_accessibility_device_tile_label": "Usa Mindful",
-    "permission_dnd_title": "Non disturbare",
-    "permission_dnd_tile_title": "Avvia DND",
     "permission_battery_optimization_tile_title": "Ignora Ottimizzazioni Batteria",
     "permission_vpn_title": "Crea VPN",
     "@----------------------------- DATE AND TIME -----------------------------": {},
@@ -71,13 +68,7 @@
     "show_all_apps_tile_title": "Mostra tutte le app",
     "@----------------------------- HOME SCREEN - NOTIFICATIONS TAB -----------------------------": {},
     "@----------------------------- HOME SCREEN - BEDTIME TAB -----------------------------": {},
-    "bedtime_tab_title": "Ora di dormire",
-    "schedule_tile_title": "Programma",
-    "schedule_tile_subtitle": "Abilita o disabilita la programmazione giornaliera.",
-    "bedtime_no_days_selected_snack_alert": "Seleziona almeno un giorno della settimana.",
     "@----------------------------- PARENTAL CONTROLS SCREEN-----------------------------": {},
-    "invincible_mode_heading": "Modalità invincibile",
-    "invincible_mode_tile_title": "Attiva modalità invincibile",
     "@----------------------------- SHORTS BLOCKING SCREEN-----------------------------": {},
     "short_content_heading": "Contenuti brevi",
     "@----------------------------- WEBSITES BLOCKING SCREEN-----------------------------": {},
@@ -90,82 +81,13 @@
     "add_website_dialog_button_block": "Blocca",
     "remove_website_dialog_title": "Rimuovi sito",
     "@----------------------------- FOCUS SCREEN - FOCUS TAB -----------------------------": {},
-    "focus_tab_title": "Concentrati",
-    "active_session_card_title": "Sessione attiva",
-    "active_session_card_view_button": "Visualizza",
     "@----------------------------- FOCUS SESSION TYPES -----------------------------": {},
-    "focus_session_type_study": "Studio",
-    "focus_session_type_work": "Lavoro",
-    "focus_session_type_exercise": "Esercizio",
-    "focus_session_type_meditation": "Meditazione",
-    "focus_session_type_creativeWriting": "Scrittura Creativa",
-    "focus_session_type_reading": "Leggere",
-    "focus_session_type_programming": "Programmazione",
-    "focus_session_type_chores": "Compiti",
-    "focus_session_type_projectPlanning": "Programmazione Progetto",
-    "focus_session_type_artAndDesign": "Arte e Design",
-    "focus_session_type_languageLearning": "Apprendimento Linguistico",
-    "focus_session_type_musicPractice": "Pratica Musicale",
-    "focus_session_type_selfCare": "Cura Personale",
-    "focus_session_type_brainstorming": "Brainstorming",
-    "focus_session_type_research": "Ricerca",
-    "focus_session_type_cooking": "Cucinare",
-    "focus_session_type_sportsTraining": "Allenamento Sportivo",
-    "focus_session_type_restAndRelaxation": "Riposo e Rilassamento",
-    "focus_session_type_other": "Altro",
     "@----------------------------- FOCUS SCREEN - TIMELINE TAB -----------------------------": {},
     "timeline_tab_title": "Cronologia",
-    "selected_month_productive_days_label": "Giorni produttivi",
-    "selected_month_productive_days_snack_alert": "Hai avuto un totale di {daysCount} giorni produttivi nel mese selezionato.",
-    "@selected_month_productive_days_snack_alert": {
-        "placeholders": {
-            "daysCount": {
-                "type": "num",
-                "example": "12"
-            }
-        }
-    },
-    "selected_day_focused_time_label": "Tempo concentrato",
-    "selected_day_focused_time_snack_alert": "Il tuo tempo totale di concentrazione per il giorno selezionato è {timeString}.",
-    "@selected_day_focused_time_snack_alert": {
-        "placeholders": {
-            "timeString": {
-                "type": "String",
-                "example": "3 hours and 15 minutes"
-            }
-        }
-    },
     "calender_heading": "Calendario",
-    "your_sessions_heading": "Le tue sessioni",
-    "your_sessions_empty_list_hint": "Nessuna sessione registrata nel giorno selezionato.",
     "focus_session_tile_duration_label": "Durata",
-    "focus_session_state_active": "Attiva",
-    "focus_session_state_successful": "Completato",
-    "focus_session_state_failed": "Fallita",
     "@----------------------------- ACTIVE FOCUS SESSION SCREEN -----------------------------": {},
-    "active_session_tab_title": "Sessione",
-    "active_session_none_warning": "Nessuna sessione attiva. Ritorna alla schermata iniziale.",
-    "active_session_dialog_button_keep_pushing": "Continua così",
-    "active_session_finish_dialog_title": "Finito",
-    "active_session_finish_dialog_info": "Resisti! Stai andando forte. Sei sicuro che vuoi interrompere la sessione? Ogni passo ti porta sempre più vicino al tuo obiettivo.",
-    "active_session_giveup_dialog_title": "Arrenditi",
-    "active_session_giveup_dialog_info": "Resisti! Ce l'hai quasi fatta, non ti arrendere adesso! Sei sicuro di voler interrompere prematuramente questa sessione? Tutti i progressi fatti saranno perduti.",
-    "active_session_giveup_snack_alert": "Ti sei arreso! Non ti preoccupare, puoi fare meglio la prossima volta. Ogni sforzo conta - basta non fermarsi",
-    "active_session_quote_one": "Ogni passo conta, resta forte e non ti fermare",
-    "active_session_quote_two": "Rimani concentrato! Stai facendo dei progressi impressionanti",
-    "active_session_quote_three": "Stai andando forte! Continua così",
-    "active_session_quote_four": "Solo un altro po', stai andando alla grande",
-    "active_session_quote_five": "Congratulazioni! 🎉\nHai completato la tua sessione di concentrazione di {durationString}.\n\nOttimo lavoro - continua così!",
-    "@active_session_quote_five": {
-        "placeholders": {
-            "durationString": {
-                "type": "String",
-                "example": "30 minutes"
-            }
-        }
-    },
     "@----------------------------- RESTRICTION GROUPS SCREEN -----------------------------": {},
-    "restriction_groups_tab_title": "Gruppi di limitazioni",
     "@----------------------------- NOTIFICATIONS SCREEN - NOTIFICATIONS TAB -----------------------------": {},
     "@----------------------------- NOTIFICATIONS SCREEN - NOTIFICATIONS TIMELINE TAB -----------------------------": {},
     "@----------------------------- APPS DASHBOARD SCREEN -----------------------------": {},

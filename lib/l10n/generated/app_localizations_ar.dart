@@ -12,9 +12,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get mindful_tagline => 'Focus on what truly Matters';
 
   @override
-  String get unlock_button_label => 'فتح';
-
-  @override
   String get permission_status_off => 'إيقاف';
 
   @override
@@ -117,19 +114,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get permission_accessibility_device_tile_label => 'استخدم Mindful';
 
   @override
-  String get permission_dnd_title => 'عدم الإزعاج';
-
-  @override
-  String get permission_dnd_info =>
-      'يرجى منح ميزة \"عدم الإزعاج\" حق الوصول. سيسمح هذا لتطبيق Mindful ببدء وإيقاف وضع \"عدم الإزعاج\" أثناء جدول وقت النوم.';
-
-  @override
-  String get permission_dnd_tile_title => 'ابدأ عدم الإزعاج';
-
-  @override
-  String get permission_dnd_tile_subtitle => 'قم أيضًا بتمكين وضع عدم الإزعاج.';
-
-  @override
   String get permission_battery_optimization_tile_title =>
       'تجاهل تحسين البطارية';
 
@@ -151,17 +135,6 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get permission_vpn_info =>
       'يرجى منح الإذن لإنشاء اتصال بشبكة خاصة افتراضية (VPN). سيسمح هذا لـ Mindful بتقييد الوصول إلى الإنترنت للتطبيقات المحددة من خلال إنشاء شبكة VPN محلية على الجهاز.';
-
-  @override
-  String get permission_admin_title => 'مسؤول';
-
-  @override
-  String get permission_admin_info =>
-      'تكون الامتيازات الإدارية ضرورية فقط للعمليات الأساسية لضمان عمل التطبيق بشكل صحيح وبقائه مقاومًا للتلاعب.';
-
-  @override
-  String get permission_admin_snack_alert =>
-      'لا يمكن تعطيل الحماية من العبث إلا خلال فترة زمنية محددة.';
 
   @override
   String get permission_notification_access_title => 'الوصول إلى الإشعارات';
@@ -289,10 +262,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get schedule_end_label => 'نهاية';
 
   @override
-  String get exit_without_saving_dialog_info =>
-      'هل أنت متأكد أنك تريد الخروج دون حفظ؟';
-
-  @override
   String get development_dialog_info =>
       'تطبيق Mindful قيد التطوير حاليًا وقد يحتوي على أخطاء أو ميزات غير مكتملة. إذا واجهت أي مشكلات، فيرجى الإبلاغ عنها لمساعدتنا على التحسين.\n\nشكرًا لك على ملاحظاتك!';
 
@@ -301,13 +270,6 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get development_dialog_button_close => 'غلق';
-
-  @override
-  String get dnd_settings_tile_title => 'إعدادات عدم الإزعاج';
-
-  @override
-  String get dnd_settings_tile_subtitle =>
-      'إدارة التطبيقات والإشعارات التي يمكنها الوصول إليك في وضع عدم الإزعاج.';
 
   @override
   String get quick_actions_heading => 'الإجراءات السريعة';
@@ -331,15 +293,8 @@ class AppLocalizationsAr extends AppLocalizations {
       'لا يتوفر استخدام الشاشة والقيود لهذا التطبيق. في الوقت الحالي، يمكن الوصول إلى استخدام الشبكة فقط';
 
   @override
-  String get create_group_fab_button => 'إنشاء مجموعة';
-
-  @override
   String get active_period_info =>
       'حدد مدّة زمنية يُسمح خلالها بالوصول. وخارج هذه المدّة الزمنية، سيتم تقييد الوصول.';
-
-  @override
-  String get minimum_distracting_apps_snack_alert =>
-      'حدد تطبيقًا واحدًا علي الأقل يشتت انتباهك.';
 
   @override
   String get donation_card_title => 'ادعمنا';
@@ -360,110 +315,6 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get app_restart_dialog_info =>
       'سيتم إعادة تشغيل Mindful تلقائيًا بمجرد انتهاء العد التنازلي. يرجى التحلي بالصبر أثناء تطبيق التغييرات.';
-
-  @override
-  String get accessibility_tip =>
-      'هل ترغب في حظر أذكى وأكثر توفيرا للطاقة؟ فعل إذن إمكانية الوصول لتطبيق Mindful.';
-
-  @override
-  String get battery_optimization_tip =>
-      'هل لا يعمل تطبيق Mindful؟ اسمح بخيار \"تجاهل تحسين البطارية\" من الإعدادات ليعمل بسلاسة.';
-
-  @override
-  String get invincible_mode_tip =>
-      'هل أزلت القيود عن طريق الخطأ؟ استخدم وضع الحماية القصوى لقفلها حتى اليوم التالي أو حتى نافذة التعديل.';
-
-  @override
-  String get glance_usage_tip =>
-      'تريد الحصول على إحصاءات؟ تفقد قسم \"نظرة سريعة\" لعرض أنماط استخدامك ومدة وقت الشاشة.';
-
-  @override
-  String get tamper_protection_tip =>
-      'هل تنوي إزالة تطبيق Mindful؟ فعل نافذة إلغاء التثبيت لتعطيل حماية العبث بأمان أولا.';
-
-  @override
-  String get notification_blocking_tip =>
-      'تريد تقليل التشتت؟ استخدم ميزة حظر الإشعارات لكتم التطبيقات المحددة.';
-
-  @override
-  String get usage_history_tip =>
-      'تريد التأمل في عاداتك؟ تفقد سجل الاستخدام للاطلاع على الأنماط السابقة.';
-
-  @override
-  String get focus_mode_tip =>
-      'تحتاج إلى تركيز عميق؟ فعل وضع التركيز لحظر التطبيقات والإشعارات أثناء المهام.';
-
-  @override
-  String get bedtime_reminder_tip =>
-      'تريد تحسين نومك؟ اضبط تذكير موعد النوم للاسترخاء كل ليلة.';
-
-  @override
-  String get custom_blocking_tip =>
-      'تحتاج إلى تجربة مخصصة؟ أنشئ قواعد حظر التطبيقات التي تناسب احتياجاتك.';
-
-  @override
-  String get session_timeline_tip =>
-      'تريد متابعة جلسات التركيز؟ اطلع على الجدول الزمني لرؤية رحلة تركيزك.';
-
-  @override
-  String get short_content_blocking_tip =>
-      'تشتت بسبب تطبيقات التواصل الاجتماعي؟ احظر المحتوى القصير على إنستغرام ويوتيوب وغيرها للبقاء مركزا.';
-
-  @override
-  String get parental_controls_tip =>
-      'تحتاج إلى رقابة أبوية؟ ضع قيودا على جهاز طفلك لضمان تجربة امنة.';
-
-  @override
-  String get notification_batching_tip =>
-      'تريد تقليل التشتت؟ استخدم تجميع الإشعارات لجمعها معا والتحقق منها دفعة واحدة.';
-
-  @override
-  String get notification_scheduling_tip =>
-      'تحتاج لإدارة الإشعارات؟ جدولة مواعيد استلام الإشعارات لتطبيقات معينة.';
-
-  @override
-  String get quick_focus_tile_tip =>
-      'هل تحتاج إلى وصول سريع للتركيز؟ أضف لوحة تركيز سريعة لتفعيل وضع التركيز على الفور.';
-
-  @override
-  String get app_shortcuts_tip =>
-      'تريد وصولا فوريا للتطبيقات؟ أضف اختصارات بالضغط المطول على أيقونة التطبيق للإجراءات السريعة.';
-
-  @override
-  String get backup_usage_db_tip =>
-      'هل ترغب في حفظ بياناتك؟ قم بعمل نسخة احتياطية لقاعدة بيانات الاستخدام للحفاظ على سجلاتك بأمان.';
-
-  @override
-  String get dynamic_material_color_tip =>
-      'تريد ثيم مخصص؟ فعل لون Material You الديناميكي ليتناسب مع ثيم جهازك.';
-
-  @override
-  String get amoled_dark_theme_tip =>
-      'تريد توفير البطارية؟ استخدم الثيم الداكن AMOLED لتقليل استهلاك الطاقة على شاشات OLED.';
-
-  @override
-  String get customize_usage_history_tip =>
-      'تريد الاحتفاظ بسجل الاستخدام؟ خصص عدد الأسابيع التي تريد تخزين بياناتها في سجل الاستخدام.';
-
-  @override
-  String get grouped_apps_blocking_tip =>
-      'تريد حظر التطبيقات معا؟ استخدم مجموعات القيود لتجميع حدود التطبيقات وحظر عدة تطبيقات دفعة واحدة.';
-
-  @override
-  String get websites_blocking_tip =>
-      'تريد تجربة تصفح أنظف؟ احظر مواقع مخصصة أو مواقع غير مناسبة لمزيد من التركيز أثناء التصفح.';
-
-  @override
-  String get data_usage_tip =>
-      'تريد متابعة بياناتك؟ راقب استخدام بيانات الجوال والواي فاي لاستهلاك الإنترنت.';
-
-  @override
-  String get block_internet_tip =>
-      'تحتاج لحظر إنترنت تطبيق؟ قم بقطع الإنترنت لتطبيق معين من لوحة التحكم الخاصة به.';
-
-  @override
-  String get emergency_passes_tip =>
-      'تحتاج استراحة؟ استخدم 3 تصاريح طوارئ يوميا لفتح التطبيقات مؤقتا لمدة 5 دقائق.';
 
   @override
   String get onboarding_skip_btn_label => 'تخطي';
@@ -504,9 +355,6 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get focus_now_fab_button => 'ركز الان';
-
-  @override
-  String get focus_now_option_label => 'Focus now';
 
   @override
   String get focus_unlock_option_label => 'Earn unlock';
@@ -573,11 +421,11 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get new_session_strict_tile_subtitle =>
-      'Once saved, this session cannot be edited or removed.';
+      'Cannot be edited or removed while the schedule is active.';
 
   @override
   String get new_session_strict_locked_snack =>
-      'This session is strict and cannot be changed.';
+      'This strict session is active and cannot be changed right now.';
 
   @override
   String get new_session_no_apps_selected => 'No apps selected';
@@ -720,16 +568,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get username_dialog_button_apply => 'تطبيق';
 
   @override
-  String get glance_tile_title => 'نظرة سريعة';
-
-  @override
-  String get glance_tile_subtitle => 'ألق نظرة سريعة على استخدامك.';
-
-  @override
-  String get parental_controls_tile_subtitle =>
-      'وضع الحماية القصوى وحماية العبث.';
-
-  @override
   String get restrictions_heading => 'القيود';
 
   @override
@@ -740,43 +578,11 @@ class AppLocalizationsAr extends AppLocalizations {
       'حدد قيودا على التطبيقات بطرق متعددة.';
 
   @override
-  String get grouped_apps_blocking_tile_title => 'حظر التطبيقات المجمعة';
-
-  @override
-  String get grouped_apps_blocking_tile_subtitle =>
-      'حدد قيودا على مجموعة تطبيقات في وقت واحد.';
-
-  @override
-  String get shorts_blocking_tile_subtitle =>
-      'حدد قيودا على المحتوى القصير في عدة منصات.';
-
-  @override
   String get websites_blocking_tile_subtitle =>
       'حدد قيودا على المواقع الإباحية والمخصصة.';
 
   @override
   String get screen_time_label => 'وقت استخدام الشاشة';
-
-  @override
-  String get total_data_label => 'إجمالي البيانات';
-
-  @override
-  String get mobile_data_label => 'بيانات الجوال';
-
-  @override
-  String get wifi_data_label => 'بيانات الواي فاي';
-
-  @override
-  String get focus_today_label => 'تركيز اليوم';
-
-  @override
-  String get focus_weekly_label => 'تركيز أسبوعي';
-
-  @override
-  String get focus_monthly_label => 'تركيز شهري';
-
-  @override
-  String get focus_lifetime_label => 'تركيز مدى الحياة';
 
   @override
   String get longest_streak_label => 'أطول سلسلة';
@@ -860,150 +666,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get new_schedule_dialog_field_label => 'اسم الجدول';
 
   @override
-  String get bedtime_tab_title => 'موعد النوم';
-
-  @override
-  String get bedtime_tab_info =>
-      'قم بتعيين جدول وقت النوم الخاص بك عن طريق اختيار فترة زمنية وأيام الأسبوع. اختر التطبيقات المشتتة لحظرها وفعّل وضع عدم الإزعاج (DND) لقضاء ليلة هادئة.';
-
-  @override
-  String get schedule_tile_title => 'الجدول الزمني';
-
-  @override
-  String get schedule_tile_subtitle => 'تمكين أو تعطيل الجدول اليومي.';
-
-  @override
-  String get bedtime_no_days_selected_snack_alert =>
-      'اختر يوما واحدا على الأقل من أيام الأسبوع.';
-
-  @override
-  String get bedtime_minimum_duration_snack_alert =>
-      'يجب أن تكون مدة وقت النوم الإجمالية 30 دقيقة على الأقل.';
-
-  @override
-  String get distracting_apps_tile_title => 'التطبيقات المشتتة';
-
-  @override
-  String get distracting_apps_tile_subtitle =>
-      'حدد التطبيقات التي تشتتك عن روتين وقت النوم.';
-
-  @override
-  String get bedtime_distracting_apps_modify_snack_alert =>
-      'لا يسمح بتعديل قائمة التطبيقات المشتتة أثناء تفعيل جدول وقت النوم.';
-
-  @override
-  String get parental_controls_tab_title => 'الرقابة الأبوية';
-
-  @override
-  String get invincible_mode_heading => 'وضع غير قابل للهزيمة';
-
-  @override
-  String get invincible_mode_tile_title => 'تفعيل وضع غير قابل للهزيمة';
-
-  @override
-  String get invincible_mode_info =>
-      'عند تفعيل وضع غير قابل للهزيمة، لن تتمكن من تعديل الحدود المختارة بعد الوصول إلى الحصة اليومية. ومع ذلك، يمكنك إجراء تغييرات خلال نافذة غير قابلة للهزيمة مدتها 10 دقائق.';
-
-  @override
-  String get invincible_mode_snack_alert =>
-      'نظرا لتفعيل وضع غير قابل للهزيمة، لا يسمح بتعديل القيود.';
-
-  @override
-  String get invincible_mode_dialog_info =>
-      'هل أنت متأكد تمامًا من رغبتك في تفعيل وضع غير قابل للهزيمة؟ هذا الإجراء لا يمكن التراجع عنه. بمجرد تفعيل وضع غير قابل للهزيمة، لن تتمكن من إيقافه طالما أن هذا التطبيق مثبت على جهازك.';
-
-  @override
-  String get invincible_mode_turn_off_snack_alert =>
-      'لا يمكن إيقاف وضع غير قابل للهزيمة طالما أن هذا التطبيق مثبت على جهازك.';
-
-  @override
-  String get invincible_mode_dialog_button_start_anyway => 'ابدأ على أي حال';
-
-  @override
-  String get invincible_mode_include_timer_tile_title => 'تضمين المؤقت';
-
-  @override
-  String get invincible_mode_include_launch_limit_tile_title =>
-      'تضمين حد التشغيل';
-
-  @override
-  String get invincible_mode_include_active_period_tile_title =>
-      'تضمين الفترة النشطة';
-
-  @override
-  String get invincible_mode_app_restrictions_tile_title => 'قيود التطبيق';
-
-  @override
-  String get invincible_mode_app_restrictions_tile_subtitle =>
-      'منع تعديل القيود المحددة للتطبيق بمجرد تجاوز الحدود اليومية.';
-
-  @override
-  String get invincible_mode_group_restrictions_tile_title => 'قيود المجموعة';
-
-  @override
-  String get invincible_mode_group_restrictions_tile_subtitle =>
-      'منع تعديل القيود المحددة للمجموعة بمجرد تجاوز الحدود اليومية.';
-
-  @override
-  String get invincible_mode_include_shorts_timer_tile_title =>
-      'تضمين مؤقت الفيديوهات القصيرة';
-
-  @override
-  String get invincible_mode_include_shorts_timer_tile_subtitle =>
-      'يمنع التعديلات بعد الوصول إلى حد الفيديوهات القصيرة اليومي.';
-
-  @override
-  String get invincible_mode_include_bedtime_tile_title => 'تضمين وقت النوم';
-
-  @override
-  String get invincible_mode_include_bedtime_tile_subtitle =>
-      'يمنع التعديلات أثناء تفعيل جدول وقت النوم.';
-
-  @override
-  String get protected_access_tile_title => 'وصول محمي';
-
-  @override
-  String get protected_access_tile_subtitle =>
-      'احمِ تطبيق Mindful بواسطة قفل جهازك.';
-
-  @override
-  String get protected_access_no_lock_snack_alert =>
-      'يرجى إعداد قفل بيومتري على جهازك أولا لتمكين هذه الميزة.';
-
-  @override
-  String get protected_access_removed_lock_snack_alert =>
-      'تم إزالة قفل جهازك. للمتابعة، يرجى إعداد قفل جديد.';
-
-  @override
-  String get protected_access_failed_lock_snack_alert =>
-      'فشل التحقق. تحتاج إلى تأكيد قفل جهازك للمتابعة.';
-
-  @override
-  String get tamper_protection_tile_title => 'حماية من التلاعب';
-
-  @override
-  String get tamper_protection_tile_subtitle =>
-      'منع إلغاء التثبيت وإيقاف التطبيق قسريا.';
-
-  @override
-  String get tamper_protection_confirmation_dialog_info =>
-      'بمجرد التفعيل، لن تتمكن من إلغاء التثبيت أو إيقاف التطبيق قسريا أو مسح بيانات Mindful، إلا خلال فترة إلغاء التثبيت المحددة. لا توجد حلول بديلة.\n\nتابع على مسؤوليتك الخاصة.';
-
-  @override
-  String get uninstall_window_tile_title => 'نافذة إلغاء التثبيت';
-
-  @override
-  String get uninstall_window_tile_subtitle =>
-      'يمكن تعطيل حماية التلاعب خلال 10 دقائق من الوقت المحدد.';
-
-  @override
-  String get invincible_window_tile_title => 'نافذة الوضع غير القابل للهزيمة';
-
-  @override
-  String get invincible_window_tile_subtitle =>
-      'يمكن تعديل الحدود المختارة خلال 10 دقائق من الوقت المحدد.';
-
-  @override
   String get shorts_blocking_tab_title => 'حجب الفيديوهات القصيرة';
 
   @override
@@ -1033,6 +695,46 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get instagram_features_block_explore => 'تقييد قسم الاستكشاف.';
+
+  @override
+  String get instagram_usage_limit_tile_title =>
+      'Only after daily Instagram use';
+
+  @override
+  String get instagram_usage_limit_tile_subtitle_off =>
+      'Block reels only after using Instagram for a set time each day.';
+
+  @override
+  String instagram_usage_limit_tile_subtitle_on(String time) {
+    return 'Reels get blocked after $time of Instagram today.';
+  }
+
+  @override
+  String get instagram_usage_limit_picker_title => 'Daily Instagram time';
+
+  @override
+  String get instagram_usage_limit_picker_info =>
+      'Reels stay available until you have used Instagram for this long today. After that, reels are blocked until midnight.';
+
+  @override
+  String get in_app_blocking_feature_reels => 'Reels';
+
+  @override
+  String get in_app_blocking_feature_explore => 'Explore';
+
+  @override
+  String get in_app_blocking_feature_spotlight => 'Spotlight';
+
+  @override
+  String get in_app_blocking_feature_discover => 'Discover';
+
+  @override
+  String get in_app_blocking_feature_shorts => 'Shorts';
+
+  @override
+  String in_app_blocking_reels_after_usage(String time) {
+    return 'Reels after $time of use';
+  }
 
   @override
   String get snapchat_features_tile_title => 'سناب شات';
@@ -1134,165 +836,17 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String get focus_tab_title => 'التركيز';
-
-  @override
-  String get focus_tab_info =>
-      'عندما تحتاج إلى وقت للتركيز، ابدأ جلسة جديدة باختيار النوع، وتحديد التطبيقات المشتتة لإيقافها مؤقتا، وتفعيل وضع \"عدم الإزعاج\" لتحقيق تركيز دون انقطاع.';
-
-  @override
-  String get active_session_card_title => 'جلسة نشطة';
-
-  @override
-  String get active_session_card_info =>
-      'لديك جلسة تركيز نشطة! انقر على \"عرض\" لمتابعة تقدمك ومعرفة الوقت المنقضي.';
-
-  @override
-  String get active_session_card_view_button => 'عرض';
-
-  @override
-  String get focus_distracting_apps_removal_snack_alert =>
-      'لا يسمح بإزالة التطبيقات من قائمة التطبيقات المشتتة أثناء جلسة التركيز النشطة. ومع ذلك، يمكنك إضافة تطبيقات إضافية إلى القائمة خلال هذه الفترة.';
-
-  @override
-  String get focus_profile_tile_title => 'ملف التركيز';
-
-  @override
   String get focus_session_duration_tile_title => 'مدة الجلسة';
-
-  @override
-  String get focus_session_duration_tile_subtitle =>
-      'غير محدودة (ما لم تقم بالإيقاف)';
 
   @override
   String get focus_session_duration_dialog_info =>
       'يرجى اختيار المدة المطلوبة لهذه جلسة التركيز لتحديد الفترة التي ترغب في البقاء خلالها مركزا وخاليا من المشتتات.';
 
   @override
-  String get focus_profile_customization_tile_title => 'تخصيص الملف الشخصي';
-
-  @override
-  String get focus_profile_customization_tile_subtitle =>
-      'خصص الإعدادات للملف الشخصي المحدد.';
-
-  @override
-  String get focus_enforce_tile_title => 'فرض الجلسة';
-
-  @override
-  String get focus_enforce_tile_subtitle =>
-      'يمنع إنهاء الجلسة قبل انتهاء الوقت المحدد.';
-
-  @override
-  String get focus_session_start_button => 'Swipe to start Session';
-
-  @override
-  String get focus_session_minimum_apps_snack_alert =>
-      'اختر تطبيقا واحدا على الأقل من التطبيقات المشتتة لبدء جلسة التركيز';
-
-  @override
-  String get focus_session_already_active_snack_alert =>
-      'لديك جلسة تركيز نشطة بالفعل. يرجى إكمالها أو إيقافها قبل بدء جلسة جديدة.';
-
-  @override
-  String get focus_session_type_study => 'دراسة';
-
-  @override
-  String get focus_session_type_work => 'عمل';
-
-  @override
-  String get focus_session_type_exercise => 'تمرين';
-
-  @override
-  String get focus_session_type_meditation => 'تأمل';
-
-  @override
-  String get focus_session_type_creativeWriting => 'الكتابة الإبداعية';
-
-  @override
-  String get focus_session_type_reading => 'قراءة';
-
-  @override
-  String get focus_session_type_programming => 'برمجة';
-
-  @override
-  String get focus_session_type_chores => 'أعمال منزلية';
-
-  @override
-  String get focus_session_type_projectPlanning => 'تخطيط المشروع';
-
-  @override
-  String get focus_session_type_artAndDesign => 'الفن والتصميم';
-
-  @override
-  String get focus_session_type_languageLearning => 'تعلم اللغات';
-
-  @override
-  String get focus_session_type_musicPractice => 'تمرين الموسيقى';
-
-  @override
-  String get focus_session_type_selfCare => 'العناية الذاتية';
-
-  @override
-  String get focus_session_type_brainstorming => 'جلسة عصف ذهني';
-
-  @override
-  String get focus_session_type_skillDevelopment => 'تطوير المهارات';
-
-  @override
-  String get focus_session_type_research => 'بحث';
-
-  @override
-  String get focus_session_type_networking => 'تواصل اجتماعي';
-
-  @override
-  String get focus_session_type_cooking => 'طبخ';
-
-  @override
-  String get focus_session_type_sportsTraining => 'تدريب رياضي';
-
-  @override
-  String get focus_session_type_restAndRelaxation => 'راحة واسترخاء';
-
-  @override
-  String get focus_session_type_other => 'أخرى';
-
-  @override
   String get timeline_tab_title => 'الجدول الزمني';
 
   @override
-  String get focus_timeline_tab_info =>
-      'استكشف رحلة تركيزك باختيار تاريخ من التقويم. تابع تقدمك، أعد زيارة نجاحاتك، وتعلم من التحديات.';
-
-  @override
-  String selected_month_productive_time_snack_alert(String timeString) {
-    return 'إجمالي وقت إنتاجيتك للشهر المحدد هو $timeString.';
-  }
-
-  @override
-  String get selected_month_productive_days_label => 'الأيام الإنتاجية';
-
-  @override
-  String selected_month_productive_days_snack_alert(num daysCount) {
-    return 'لقد حققت إجمالي $daysCount يوما إنتاجيا في الشهر المحدد.';
-  }
-
-  @override
-  String get selected_day_focused_time_label => 'وقت التركيز';
-
-  @override
-  String selected_day_focused_time_snack_alert(String timeString) {
-    return 'إجمالي وقت تركيزك لليوم المحدد هو $timeString.';
-  }
-
-  @override
   String get calender_heading => 'التقويم';
-
-  @override
-  String get your_sessions_heading => 'جلساتك';
-
-  @override
-  String get your_sessions_empty_list_hint =>
-      'لا توجد جلسات تركيز مسجلة لليوم المحدد.';
 
   @override
   String get focus_session_tile_timestamp_label => 'الطابع الزمني';
@@ -1304,39 +858,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get focus_session_tile_reflection_label => 'تأمل';
 
   @override
-  String get focus_session_state_active => 'نشط';
-
-  @override
-  String get focus_session_state_successful => 'ناجح';
-
-  @override
-  String get focus_session_state_failed => 'فشل';
-
-  @override
-  String get active_session_tab_title => 'جلسة';
-
-  @override
-  String get active_session_none_warning =>
-      'لم يتم العثور على جلسة نشطة. جار العودة إلى الشاشة الرئيسية.';
-
-  @override
-  String get active_session_dialog_button_keep_pushing => 'استمر في التقدم';
-
-  @override
-  String get active_session_finish_dialog_title => 'إنهاء';
-
-  @override
-  String get active_session_finish_dialog_info =>
-      'ابق قويا! أنت تبني تركيزا قيما. هل أنت متأكد من رغبتك في إنهاء جلسة التركيز هذه؟ كل لحظة إضافية تساهم في تحقيق أهدافك.';
-
-  @override
-  String get active_session_giveup_dialog_title => 'الاستسلام';
-
-  @override
-  String get active_session_giveup_dialog_info =>
-      'تمسك! أنت على وشك الانتهاء، لا تستسلم الان! هل أنت متأكد من رغبتك في إنهاء جلسة التركيز مبكرا؟ سيتم فقدان التقدم المحرز.';
-
-  @override
   String get active_session_reflection_dialog_title => 'تأمل الجلسة';
 
   @override
@@ -1346,71 +867,6 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get active_session_reflection_dialog_tip =>
       'نصيحة: يمكنك دائما تعديل هذا لاحقا في خط زمني الجلسة.';
-
-  @override
-  String get active_session_giveup_snack_alert =>
-      'لقد استسلمت! لا تقلق، يمكنك أن تكون أفضل في المرة القادمة. كل جهد يحتسب – فقط واصل المحاولة';
-
-  @override
-  String get active_session_quote_one =>
-      'كل خطوة تحتسب، ابق قويا واستمر في المضي قدما';
-
-  @override
-  String get active_session_quote_two => 'ابق مركزا! أنت تحقق تقدما مذهلا';
-
-  @override
-  String get active_session_quote_three =>
-      'أنت تتألق! حافظ على هذا الزخم واستمر';
-
-  @override
-  String get active_session_quote_four => 'تبقى القليل فقط، أنت تقوم بعمل رائع';
-
-  @override
-  String active_session_quote_five(String durationString) {
-    return 'تهانينا 🎉\nلقد أتممت جلسة التركيز التي استغرقت $durationString.\n\nعمل رائع، استمر في هذا الأداء المذهل';
-  }
-
-  @override
-  String get restriction_groups_tab_title => 'مجموعات القيود';
-
-  @override
-  String get restriction_groups_tab_info =>
-      'حدد حدا زمنيا مجمعا لاستخدام شاشة مجموعة من التطبيقات. عند الوصول إلى الحد الإجمالي، سيتم إيقاف جميع التطبيقات في المجموعة لمساعدتك على الحفاظ على التركيز والتوازن.';
-
-  @override
-  String get restriction_group_time_spent_label => 'الوقت المستغرق اليوم';
-
-  @override
-  String get restriction_group_time_left_label => 'الوقت المتبقي اليوم';
-
-  @override
-  String get restriction_group_name_tile_title => 'اسم المجموعة';
-
-  @override
-  String get restriction_group_name_picker_dialog_info =>
-      'أدخل اسما لمجموعة القيود لتسهيل التعرف عليها وإدارتها.';
-
-  @override
-  String get restriction_group_timer_tile_title => 'مؤقت المجموعة';
-
-  @override
-  String get restriction_group_timer_picker_dialog_info =>
-      'حدد حدا زمنيا يوميا لهذه المجموعة. عند الوصول إلى الحد، سيتم إيقاف جميع التطبيقات في هذه المجموعة حتى منتصف الليل.';
-
-  @override
-  String get restriction_group_active_period_tile_title => 'فترة نشاط المجموعة';
-
-  @override
-  String get remove_restriction_group_dialog_title => 'حذف المجموعة';
-
-  @override
-  String remove_restriction_group_dialog_info(String groupName) {
-    return 'هل أنت متأكد من رغبتك في إزالة \'$groupName\' من مجموعات القيود.';
-  }
-
-  @override
-  String get restriction_group_invalid_limits_snack_alert =>
-      'قم بتحديد مؤقت أو حد فترة نشاط.';
 
   @override
   String get notifications_empty_list_hint =>

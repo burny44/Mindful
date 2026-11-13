@@ -180,18 +180,6 @@ class MethodChannelService {
         jsonEncode(appRestrictions),
       );
 
-  /// Safe method to update restriction groups list in the TRACKER service.
-  ///
-  /// This method push the updated list to the service if it is already running
-  /// otherwise only start service if list is not empty
-  Future<void> updateRestrictionsGroups(
-    List<RestrictionGroup> restrictionGroups,
-  ) async =>
-      _methodChannel.invokeMethod(
-        'updateRestrictionsGroups',
-        jsonEncode(restrictionGroups),
-      );
-
   /// Safe method to update the earn-unlock sessions in the TRACKER service.
   ///
   /// This method push the updated list to the service if it is already running
@@ -243,6 +231,7 @@ class MethodChannelService {
         jsonEncode(
           {
             "allowedShortsTimeSec": wellBeingSettings.allowedShortsTimeSec,
+            "instagramUsageLimitSec": wellBeingSettings.instagramUsageLimitSec,
             "blockNsfwSites": wellBeingSettings.blockNsfwSites,
             "blockedFeatures":
                 wellBeingSettings.blockedFeatures.map((e) => e.name).toList(),
@@ -252,62 +241,15 @@ class MethodChannelService {
         ),
       );
 
-  /// Updates the bedtime schedule.
-  ///
-  /// This method takes a [BedtimeSchedule] object and sends it to the native side
-  Future<bool> updateBedtimeSchedule(BedtimeSchedule bedtimeSettings) async =>
-      await _methodChannel.invokeMethod(
-        'updateBedtimeSchedule',
-        jsonEncode(bedtimeSettings),
-      );
-
   /// Uses an emergency pass and pause the tracking service.
   ///
   /// This method sends a request to the native side to use an emergency pass.
   Future<bool> activeEmergencyPause() async =>
       await _methodChannel.invokeMethod('activeEmergencyPause');
 
-  /// Start new focus session or only updates the list of distracting apps if already running.
-  ///
-  /// This method sends a request to the native side to start focus session.
-  Future<void> updateFocusSession({
-    required FocusSession session,
-    required FocusProfile profile,
-  }) async =>
-      await _methodChannel.invokeMethod(
-        'updateFocusSession',
-        jsonEncode({
-          'startTimeMsEpoch': session.startDateTime.millisecondsSinceEpoch,
-          'durationSeconds': session.durationSecs,
-          'toggleDnd': profile.shouldStartDnd,
-          'distractingApps': profile.distractingApps,
-        }),
-      );
-
-  /// Giveup or Finish running focus session with success or failure.
-  ///
-  /// This method sends a request to the native side to stop already running focus session.
-  Future<bool> giveUpOrFinishFocusSession({
-    required bool isTheSessionSuccessful,
-  }) async =>
-      await _methodChannel.invokeMethod(
-        'giveUpOrFinishFocusSession',
-        isTheSessionSuccessful,
-      );
-
   // ===========================================================================================
   // ==================================== PERMISSIONS ==========================================
   // ===========================================================================================
-  /// Checks if the admin permission is granted and optionally asks for it.
-  ///
-  /// Returns `true` if the permission is granted Otherwise, returns `false`.
-  Future<bool> getAndAskAdminPermission(
-          {bool askPermissionToo = false}) async =>
-      await _methodChannel.invokeMethod(
-        'getAndAskAdminPermission',
-        askPermissionToo,
-      );
-
   /// Checks if the accessibility permission is granted and optionally asks for it.
   ///
   /// This method returns `true` if the permission is granted Otherwise, it returns `false`.
@@ -377,15 +319,6 @@ class MethodChannelService {
         askPermissionToo,
       );
 
-  /// Checks if the Do Not Disturb (DND) permission is granted and optionally asks for it.
-  ///
-  /// Returns `true` if the permission is granted Otherwise, returns `false`.
-  Future<bool> getAndAskDndPermission({bool askPermissionToo = false}) async =>
-      await _methodChannel.invokeMethod(
-        'getAndAskDndPermission',
-        askPermissionToo,
-      );
-
   /// Checks if the Notification Access permission is granted and optionally asks for it.
   ///
   /// Returns `true` if the permission is granted Otherwise, returns `false`.
@@ -396,17 +329,9 @@ class MethodChannelService {
         askPermissionToo,
       );
 
-  /// Disable device Admin if active.
-  Future<bool> disableDeviceAdmin() async =>
-      await _methodChannel.invokeMethod('disableDeviceAdmin');
-
   // ===========================================================================================
   // ============================== EXTERNAL ACTIVITIES ========================================
   // ===========================================================================================
-
-  /// Opens the device's Do Not Disturb (DND) settings.
-  Future<bool> openDeviceDndSettings() async =>
-      await _methodChannel.invokeMethod('openDeviceDndSettings');
 
   /// Opens the device specific settings to whitelist mindful.
   Future<bool> openAutoStartSettings() async =>
@@ -449,8 +374,4 @@ class MethodChannelService {
   /// This method takes the URL string and sends it to the native side for launching in the browser.
   Future<bool> launchUrl(String siteUrl) async =>
       await _methodChannel.invokeMethod('launchUrl', siteUrl);
-
-  /// Prompts the user to add Quick Focus Tile to the status bar
-  Future<bool> promptForQuickTile() async =>
-      await _methodChannel.invokeMethod('promptForQuickTile');
 }

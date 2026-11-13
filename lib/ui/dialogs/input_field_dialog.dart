@@ -71,33 +71,6 @@ Future<String?> showUsernameInputDialog({
   );
 }
 
-/// Animates the hero widget to a alert dialog with input field to enter group name
-///
-/// Returns the entered text
-Future<String?> showGroupNameInputDialog({
-  required BuildContext context,
-  required Object heroTag,
-  required String initialText,
-}) async {
-  return await Navigator.of(context).push<String>(
-    HeroPageRoute(
-      builder: (context) => _InputFieldDialog(
-        heroTag: heroTag,
-        initialText: initialText,
-        keyboardType: TextInputType.text,
-        dialogIcon: FluentIcons.tab_desktop_bottom_20_filled,
-        fieldIcon: FluentIcons.tab_desktop_bottom_20_regular,
-        title: context.locale.restriction_group_name_tile_title,
-        fieldLabel: context.locale.restriction_group_name_tile_title,
-        hintText: "Social Media, Entertainment, Games, etc",
-        helperText: context.locale.restriction_group_name_picker_dialog_info,
-        negativeBtnLabel: context.locale.dialog_button_cancel,
-        positiveBtnLabel: context.locale.dialog_button_set,
-      ),
-    ),
-  );
-}
-
 /// Animates the hero widget to a alert dialog with input field to enter the
 /// name of an earn-unlock session
 ///

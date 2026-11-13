@@ -18,17 +18,8 @@ class HeroTags {
   /// Tag used to identify the FAB for adding a distracting website.
   static const editUsernameTag = "dashboard.editUsername";
 
-  /// Tag used to identify the invincible mode tile.
-  static const invincibleModeTileTag = "parentalControls.invincibleModeTile";
-
-  /// Tag used to identify the tile for selecting invincible window start time.
-  static const invincibleWindowTileTag = "parentalControls.invincibleWindow";
-
-  /// Tag used to identify the tile for toggling tamper protection.
-  static const tamperProtectionTileTag = "parentalControls.tamperProtection";
-
-  /// Tag used to identify the tile for selecting uninstall window start time.
-  static const uninstallWindowTileTag = "parentalControls.uninstallWindow";
+  /// Tag used to identify the daily Instagram usage limit (for reels) tile.
+  static const instagramUsageLimitTileTag = "shortsBlocking.instagramUsageLimit";
 
   /// Tag used to identify the short content timer picker.
   static const shortContentTimerPickerTag = "shortsBlocking.shortsTimerPicker";
@@ -98,16 +89,6 @@ class HeroTags {
   static String scheduledFocusRemoveTag(int sessionId) =>
       "focus.scheduled.remove.$sessionId";
 
-  /// Tag used to identify the tile for timer picker in focus mode.
-  static const focusModeTimerTileTag = "focus.focusSessionTimerTile";
-
-  /// Tag used to identify the button for give up or finish session in active session screen.
-  static const giveUpOrFinishFocusSessionTag = "activeSession.giveUpOrFinish";
-
-  /// Tag used to identify the button for session reflection in active session screen.
-  static String sessionReflectionTag(int sessionId) =>
-      "activeSession.sessionReflection.$sessionId";
-
   /// Tag used to identify the tile for data reset time in settings.
   static const dataResetTimeTileTag = "settings.general.dataResetTime";
 
@@ -116,22 +97,6 @@ class HeroTags {
 
   /// Tag used to identify the tile for clearing crash log in settings.
   static const clearCrashLogsTileTag = "settings.database.clearCrashLogs";
-
-  /// Tag used to identify the remove button in a restriction group card based on the group ID.
-  static String removeRestrictionGroupTag(int groupId) =>
-      "restrictionGroupScreen.removerestrictionGroup.$groupId";
-
-  /// Tag used to identify the update button in a restriction group card based on the group ID.
-  static String updateRestrictionGroupTag(int groupId) =>
-      "restrictionGroupScreen.updaterestrictionGroup.$groupId";
-
-  /// Tag used to identify the restriction group name tile based on the group ID.
-  static String restrictionGroupNameTileTag(int groupId) =>
-      "restrictionGroupScreen.restrictionGroupName.$groupId";
-
-  /// Tag used to identify the restriction group timer tile based on the group ID.
-  static String restrictionGroupTimerTileTag(int groupId) =>
-      "restrictionGroupScreen.restrictionGroupTimer.$groupId";
 
   /// Tag used to identify the create notification schedule FAB .
   static const newNotificationScheduleFABTag =

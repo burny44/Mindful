@@ -27,6 +27,11 @@ class WellbeingTable extends Table {
   IntColumn get allowedShortsTimeSec =>
       integer().withDefault(const Constant(30 * 60))();
 
+  /// Daily Instagram usage in SECONDS after which reels get blocked.
+  /// 0 means disabled, reels then follow [allowedShortsTimeSec].
+  IntColumn get instagramUsageLimitSec =>
+      integer().withDefault(const Constant(0))();
+
   /// List of feature which are blocked
   TextColumn get blockedFeatures => text()
       .map(const EnumListConverter<PlatformFeatures>(PlatformFeatures.values))

@@ -124,13 +124,9 @@ object OverlayBuilder {
         val limitType = sheetView.findViewById<TextView>(R.id.overlay_sheet_limit_type)
         limitType.text = context.getString(
             when (state.type) {
-                RestrictionType.FOCUS -> R.string.app_paused_restriction_focus_mode
-                RestrictionType.BEDTIME -> R.string.app_paused_restriction_bedtime_mode
                 RestrictionType.LAUNCH_COUNT -> R.string.app_paused_restriction_launch_count
                 RestrictionType.APP_TIMER -> R.string.app_paused_restriction_app_timer
                 RestrictionType.APP_ACTIVE_PERIOD -> R.string.app_paused_restriction_app_active_period
-                RestrictionType.GROUP_TIMER -> R.string.app_paused_restriction_group_timer
-                RestrictionType.GROUP_ACTIVE_PERIOD -> R.string.app_paused_restriction_group_active_period
                 RestrictionType.FOCUS_UNLOCK -> R.string.app_paused_restriction_focus_unlock
                 RestrictionType.SCHEDULED_FOCUS -> R.string.app_paused_restriction_scheduled_focus
             }
@@ -278,12 +274,6 @@ object OverlayBuilder {
         val isLimitExhausted = state.screenTimeUsed >= state.screenTimeLimit
 
         return when (state.type) {
-            RestrictionType.FOCUS ->
-                context.getString(R.string.app_paused_reason_focus_session)
-
-            RestrictionType.BEDTIME ->
-                context.getString(R.string.app_paused_reason_bedtime)
-
             RestrictionType.LAUNCH_COUNT ->
                 context.getString(R.string.app_paused_reason_launch_count_out)
 
@@ -293,19 +283,6 @@ object OverlayBuilder {
 
             RestrictionType.APP_ACTIVE_PERIOD ->
                 context.getString(R.string.app_paused_reason_app_active_period_over)
-
-            RestrictionType.GROUP_TIMER ->
-                if (isLimitExhausted) context.getString(
-                    R.string.app_paused_reason_group_timer_out,
-                    state.groupName
-                )
-                else context.getString(R.string.app_paused_reason_group_timer_left, state.groupName)
-
-            RestrictionType.GROUP_ACTIVE_PERIOD ->
-                context.getString(
-                    R.string.app_paused_reason_group_active_period_over,
-                    state.groupName
-                )
 
             RestrictionType.FOCUS_UNLOCK ->
                 context.getString(

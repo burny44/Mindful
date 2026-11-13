@@ -156,12 +156,6 @@ abstract class AppLocalizations {
   /// **'Focus on what truly Matters'**
   String get mindful_tagline;
 
-  /// No description provided for @unlock_button_label.
-  ///
-  /// In en, this message translates to:
-  /// **'Unlock'**
-  String get unlock_button_label;
-
   /// No description provided for @permission_status_off.
   ///
   /// In en, this message translates to:
@@ -336,30 +330,6 @@ abstract class AppLocalizations {
   /// **'Use Mindful'**
   String get permission_accessibility_device_tile_label;
 
-  /// No description provided for @permission_dnd_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Do not disturb'**
-  String get permission_dnd_title;
-
-  /// No description provided for @permission_dnd_info.
-  ///
-  /// In en, this message translates to:
-  /// **'Please grant Do Not Disturb access. This will allow Mindful to start and stop Do Not Disturb mode during the bedtime schedule.'**
-  String get permission_dnd_info;
-
-  /// No description provided for @permission_dnd_tile_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Start DND'**
-  String get permission_dnd_tile_title;
-
-  /// No description provided for @permission_dnd_tile_subtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Also enable Do Not Disturb mode.'**
-  String get permission_dnd_tile_subtitle;
-
   /// No description provided for @permission_battery_optimization_tile_title.
   ///
   /// In en, this message translates to:
@@ -395,24 +365,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please grant permission to create virtual private network (VPN) connection. This will enable Mindful to restrict internet access for designated applications by creating local on device VPN.'**
   String get permission_vpn_info;
-
-  /// No description provided for @permission_admin_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Admin'**
-  String get permission_admin_title;
-
-  /// No description provided for @permission_admin_info.
-  ///
-  /// In en, this message translates to:
-  /// **'Administrative privileges are needed only for essential operations to ensure the app works properly and remains tamper-proof.'**
-  String get permission_admin_info;
-
-  /// No description provided for @permission_admin_snack_alert.
-  ///
-  /// In en, this message translates to:
-  /// **'Tamper protection can only be disabled during the selected time window.'**
-  String get permission_admin_snack_alert;
 
   /// No description provided for @permission_notification_access_title.
   ///
@@ -546,12 +498,6 @@ abstract class AppLocalizations {
   /// **'End'**
   String get schedule_end_label;
 
-  /// No description provided for @exit_without_saving_dialog_info.
-  ///
-  /// In en, this message translates to:
-  /// **'Are you sure you want to exit without saving?'**
-  String get exit_without_saving_dialog_info;
-
   /// No description provided for @development_dialog_info.
   ///
   /// In en, this message translates to:
@@ -569,18 +515,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Close'**
   String get development_dialog_button_close;
-
-  /// No description provided for @dnd_settings_tile_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Do not disturb settings'**
-  String get dnd_settings_tile_title;
-
-  /// No description provided for @dnd_settings_tile_subtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Manage which apps and notifications can reach you in DND.'**
-  String get dnd_settings_tile_subtitle;
 
   /// No description provided for @quick_actions_heading.
   ///
@@ -618,23 +552,11 @@ abstract class AppLocalizations {
   /// **'Screen usage and restrictions are unavailable for this application. At present, only network usage is accessible'**
   String get custom_apps_quick_actions_unavailable_warning;
 
-  /// No description provided for @create_group_fab_button.
-  ///
-  /// In en, this message translates to:
-  /// **'Create Group'**
-  String get create_group_fab_button;
-
   /// No description provided for @active_period_info.
   ///
   /// In en, this message translates to:
   /// **'Set a time period during which access will be allowed. Outside of this time frame, access will be restricted.'**
   String get active_period_info;
-
-  /// No description provided for @minimum_distracting_apps_snack_alert.
-  ///
-  /// In en, this message translates to:
-  /// **'Select at least one distracting app.'**
-  String get minimum_distracting_apps_snack_alert;
 
   /// No description provided for @donation_card_title.
   ///
@@ -671,162 +593,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Mindful will automatically restart once the countdown finishes. Please be patient as changes are applied.'**
   String get app_restart_dialog_info;
-
-  /// No description provided for @accessibility_tip.
-  ///
-  /// In en, this message translates to:
-  /// **'Want smarter, more battery-friendly blocking? Enable Accessibility permission for Mindful.'**
-  String get accessibility_tip;
-
-  /// No description provided for @battery_optimization_tip.
-  ///
-  /// In en, this message translates to:
-  /// **'Mindful not working? Allow \'Ignore Battery Optimization\' in Settings to keep it running smoothly.'**
-  String get battery_optimization_tip;
-
-  /// No description provided for @invincible_mode_tip.
-  ///
-  /// In en, this message translates to:
-  /// **'Accidentally removed restrictions? Use Invincible Mode to lock them until the next day or adjustment window.'**
-  String get invincible_mode_tip;
-
-  /// No description provided for @glance_usage_tip.
-  ///
-  /// In en, this message translates to:
-  /// **'Want insights? Check the Glance section to view your usage patterns and screen time.'**
-  String get glance_usage_tip;
-
-  /// No description provided for @tamper_protection_tip.
-  ///
-  /// In en, this message translates to:
-  /// **'Uninstalling Mindful? Enable the Uninstall Window to safely disable tamper protection first.'**
-  String get tamper_protection_tip;
-
-  /// No description provided for @notification_blocking_tip.
-  ///
-  /// In en, this message translates to:
-  /// **'Want to reduce distractions? Use Notification Blocking to silence selected apps.'**
-  String get notification_blocking_tip;
-
-  /// No description provided for @usage_history_tip.
-  ///
-  /// In en, this message translates to:
-  /// **'Want to reflect on your habits? Check Usage History to see past patterns.'**
-  String get usage_history_tip;
-
-  /// No description provided for @focus_mode_tip.
-  ///
-  /// In en, this message translates to:
-  /// **'Need deep focus? Turn on Focus Mode to block apps and notifications during tasks.'**
-  String get focus_mode_tip;
-
-  /// No description provided for @bedtime_reminder_tip.
-  ///
-  /// In en, this message translates to:
-  /// **'Want to improve your sleep? Set a Bedtime Reminder to wind down nightly.'**
-  String get bedtime_reminder_tip;
-
-  /// No description provided for @custom_blocking_tip.
-  ///
-  /// In en, this message translates to:
-  /// **'Need a custom experience? Create app blocking rules that fit your needs.'**
-  String get custom_blocking_tip;
-
-  /// No description provided for @session_timeline_tip.
-  ///
-  /// In en, this message translates to:
-  /// **'Want to track focus sessions? View timeline to see your focus journey.'**
-  String get session_timeline_tip;
-
-  /// No description provided for @short_content_blocking_tip.
-  ///
-  /// In en, this message translates to:
-  /// **'Distracted by social apps? Block short content on Instagram, YouTube, etc., to stay focused.'**
-  String get short_content_blocking_tip;
-
-  /// No description provided for @parental_controls_tip.
-  ///
-  /// In en, this message translates to:
-  /// **'Need parental control? Set restrictions for your child\'s device to ensure a safe experience.'**
-  String get parental_controls_tip;
-
-  /// No description provided for @notification_batching_tip.
-  ///
-  /// In en, this message translates to:
-  /// **'Want to reduce distractions? Use Notification Batching to group notifications and check them at once.'**
-  String get notification_batching_tip;
-
-  /// No description provided for @notification_scheduling_tip.
-  ///
-  /// In en, this message translates to:
-  /// **'Need to manage notifications? Schedule when you receive notifications for specific apps.'**
-  String get notification_scheduling_tip;
-
-  /// No description provided for @quick_focus_tile_tip.
-  ///
-  /// In en, this message translates to:
-  /// **'Need quick access to focus? Add a Quick Focus Tile to instantly activate Focus Mode.'**
-  String get quick_focus_tile_tip;
-
-  /// No description provided for @app_shortcuts_tip.
-  ///
-  /// In en, this message translates to:
-  /// **'Want instant app access? Add shortcuts by long-pressing the app icon for quick actions.'**
-  String get app_shortcuts_tip;
-
-  /// No description provided for @backup_usage_db_tip.
-  ///
-  /// In en, this message translates to:
-  /// **'Want to save your data? Backup your usage database to keep your records safe.'**
-  String get backup_usage_db_tip;
-
-  /// No description provided for @dynamic_material_color_tip.
-  ///
-  /// In en, this message translates to:
-  /// **'Want a custom theme? Enable Dynamic Material You color to match your device\'s theme.'**
-  String get dynamic_material_color_tip;
-
-  /// No description provided for @amoled_dark_theme_tip.
-  ///
-  /// In en, this message translates to:
-  /// **'Want to save battery? Use AMOLED Dark Theme to reduce power consumption on OLED screens.'**
-  String get amoled_dark_theme_tip;
-
-  /// No description provided for @customize_usage_history_tip.
-  ///
-  /// In en, this message translates to:
-  /// **'Want to keep usage history? Customize how many weeks of data to store in Usage History.'**
-  String get customize_usage_history_tip;
-
-  /// No description provided for @grouped_apps_blocking_tip.
-  ///
-  /// In en, this message translates to:
-  /// **'Want to block apps together? Use Restriction Groups to group app limits and block multiple apps at once.'**
-  String get grouped_apps_blocking_tip;
-
-  /// No description provided for @websites_blocking_tip.
-  ///
-  /// In en, this message translates to:
-  /// **'Want a cleaner browsing experience? Block custom or NSFW websites for a more focused online time.'**
-  String get websites_blocking_tip;
-
-  /// No description provided for @data_usage_tip.
-  ///
-  /// In en, this message translates to:
-  /// **'Want to track your data? Monitor your mobile and Wi-Fi data usage for internet consumption.'**
-  String get data_usage_tip;
-
-  /// No description provided for @block_internet_tip.
-  ///
-  /// In en, this message translates to:
-  /// **'Need to block an app\'s internet? Cut off internet for specific app from app\'s dashboard.'**
-  String get block_internet_tip;
-
-  /// No description provided for @emergency_passes_tip.
-  ///
-  /// In en, this message translates to:
-  /// **'Need a break? Use 3 Emergency Passes daily to temporarily unblock apps for 5 minutes.'**
-  String get emergency_passes_tip;
 
   /// No description provided for @onboarding_skip_btn_label.
   ///
@@ -899,12 +665,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Focus'**
   String get focus_now_fab_button;
-
-  /// No description provided for @focus_now_option_label.
-  ///
-  /// In en, this message translates to:
-  /// **'Focus now'**
-  String get focus_now_option_label;
 
   /// No description provided for @focus_unlock_option_label.
   ///
@@ -1023,13 +783,13 @@ abstract class AppLocalizations {
   /// No description provided for @new_session_strict_tile_subtitle.
   ///
   /// In en, this message translates to:
-  /// **'Once saved, this session cannot be edited or removed.'**
+  /// **'Cannot be edited or removed while the schedule is active.'**
   String get new_session_strict_tile_subtitle;
 
   /// No description provided for @new_session_strict_locked_snack.
   ///
   /// In en, this message translates to:
-  /// **'This session is strict and cannot be changed.'**
+  /// **'This strict session is active and cannot be changed right now.'**
   String get new_session_strict_locked_snack;
 
   /// No description provided for @new_session_no_apps_selected.
@@ -1278,24 +1038,6 @@ abstract class AppLocalizations {
   /// **'Apply'**
   String get username_dialog_button_apply;
 
-  /// No description provided for @glance_tile_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Glance'**
-  String get glance_tile_title;
-
-  /// No description provided for @glance_tile_subtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Take a quick glance at your usage.'**
-  String get glance_tile_subtitle;
-
-  /// No description provided for @parental_controls_tile_subtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Invincible mode and tamper protection.'**
-  String get parental_controls_tile_subtitle;
-
   /// No description provided for @restrictions_heading.
   ///
   /// In en, this message translates to:
@@ -1314,24 +1056,6 @@ abstract class AppLocalizations {
   /// **'Limit apps in multiple ways.'**
   String get apps_blocking_tile_subtitle;
 
-  /// No description provided for @grouped_apps_blocking_tile_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Grouped apps blocking'**
-  String get grouped_apps_blocking_tile_title;
-
-  /// No description provided for @grouped_apps_blocking_tile_subtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Limit group of apps simultaneously.'**
-  String get grouped_apps_blocking_tile_subtitle;
-
-  /// No description provided for @shorts_blocking_tile_subtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Limit short content on multiple platforms.'**
-  String get shorts_blocking_tile_subtitle;
-
   /// No description provided for @websites_blocking_tile_subtitle.
   ///
   /// In en, this message translates to:
@@ -1343,48 +1067,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Screen time'**
   String get screen_time_label;
-
-  /// No description provided for @total_data_label.
-  ///
-  /// In en, this message translates to:
-  /// **'Total data'**
-  String get total_data_label;
-
-  /// No description provided for @mobile_data_label.
-  ///
-  /// In en, this message translates to:
-  /// **'Mobile data'**
-  String get mobile_data_label;
-
-  /// No description provided for @wifi_data_label.
-  ///
-  /// In en, this message translates to:
-  /// **'Wifi data'**
-  String get wifi_data_label;
-
-  /// No description provided for @focus_today_label.
-  ///
-  /// In en, this message translates to:
-  /// **'Focus today'**
-  String get focus_today_label;
-
-  /// No description provided for @focus_weekly_label.
-  ///
-  /// In en, this message translates to:
-  /// **'Focus weekly'**
-  String get focus_weekly_label;
-
-  /// No description provided for @focus_monthly_label.
-  ///
-  /// In en, this message translates to:
-  /// **'Focus monthly'**
-  String get focus_monthly_label;
-
-  /// No description provided for @focus_lifetime_label.
-  ///
-  /// In en, this message translates to:
-  /// **'Focus lifetime'**
-  String get focus_lifetime_label;
 
   /// No description provided for @longest_streak_label.
   ///
@@ -1542,250 +1224,10 @@ abstract class AppLocalizations {
   /// **'Schedule name'**
   String get new_schedule_dialog_field_label;
 
-  /// No description provided for @bedtime_tab_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Bedtime'**
-  String get bedtime_tab_title;
-
-  /// No description provided for @bedtime_tab_info.
-  ///
-  /// In en, this message translates to:
-  /// **'Set your bedtime schedule by selecting a time period and days of the week. Choose distracting apps to block and enable Do Not Disturb (DND) mode for a peaceful night.'**
-  String get bedtime_tab_info;
-
-  /// No description provided for @schedule_tile_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Schedule'**
-  String get schedule_tile_title;
-
-  /// No description provided for @schedule_tile_subtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Enable or disable daily schedule.'**
-  String get schedule_tile_subtitle;
-
-  /// No description provided for @bedtime_no_days_selected_snack_alert.
-  ///
-  /// In en, this message translates to:
-  /// **'Select at least one day of the week.'**
-  String get bedtime_no_days_selected_snack_alert;
-
-  /// No description provided for @bedtime_minimum_duration_snack_alert.
-  ///
-  /// In en, this message translates to:
-  /// **'The total bedtime duration must be at least 30 minutes.'**
-  String get bedtime_minimum_duration_snack_alert;
-
-  /// No description provided for @distracting_apps_tile_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Distracting apps'**
-  String get distracting_apps_tile_title;
-
-  /// No description provided for @distracting_apps_tile_subtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Select which apps are distracting you from your bedtime routine.'**
-  String get distracting_apps_tile_subtitle;
-
-  /// No description provided for @bedtime_distracting_apps_modify_snack_alert.
-  ///
-  /// In en, this message translates to:
-  /// **'Modifications to the list of distracting apps is not permitted while the bedtime schedule is active.'**
-  String get bedtime_distracting_apps_modify_snack_alert;
-
-  /// No description provided for @parental_controls_tab_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Parental controls'**
-  String get parental_controls_tab_title;
-
-  /// No description provided for @invincible_mode_heading.
-  ///
-  /// In en, this message translates to:
-  /// **'Invincible mode'**
-  String get invincible_mode_heading;
-
-  /// No description provided for @invincible_mode_tile_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Activate invincible mode'**
-  String get invincible_mode_tile_title;
-
-  /// No description provided for @invincible_mode_info.
-  ///
-  /// In en, this message translates to:
-  /// **'When Invincible Mode is on, you won\'t be able to adjust selected limits after reaching your daily quota. However, you can make changes within a selected 10-minute invincible window.'**
-  String get invincible_mode_info;
-
-  /// No description provided for @invincible_mode_snack_alert.
-  ///
-  /// In en, this message translates to:
-  /// **'Due to invincible mode, modifications to restrictions is not allowed.'**
-  String get invincible_mode_snack_alert;
-
-  /// No description provided for @invincible_mode_dialog_info.
-  ///
-  /// In en, this message translates to:
-  /// **'Are you absolutely sure you want to enable Invincible Mode? This action is irreversible. Once Invincible Mode is turned on, you cannot turn it off as long as this app is installed on your device.'**
-  String get invincible_mode_dialog_info;
-
-  /// No description provided for @invincible_mode_turn_off_snack_alert.
-  ///
-  /// In en, this message translates to:
-  /// **'Invincible Mode cannot be turned off as long as this app remains installed on your device.'**
-  String get invincible_mode_turn_off_snack_alert;
-
-  /// No description provided for @invincible_mode_dialog_button_start_anyway.
-  ///
-  /// In en, this message translates to:
-  /// **'Start anyway'**
-  String get invincible_mode_dialog_button_start_anyway;
-
-  /// No description provided for @invincible_mode_include_timer_tile_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Include timer'**
-  String get invincible_mode_include_timer_tile_title;
-
-  /// No description provided for @invincible_mode_include_launch_limit_tile_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Include launch limit'**
-  String get invincible_mode_include_launch_limit_tile_title;
-
-  /// No description provided for @invincible_mode_include_active_period_tile_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Include active period'**
-  String get invincible_mode_include_active_period_tile_title;
-
-  /// No description provided for @invincible_mode_app_restrictions_tile_title.
-  ///
-  /// In en, this message translates to:
-  /// **'App restrictions'**
-  String get invincible_mode_app_restrictions_tile_title;
-
-  /// No description provided for @invincible_mode_app_restrictions_tile_subtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Prevent changes to the app\'s selected restrictions once the daily limits are exceeded.'**
-  String get invincible_mode_app_restrictions_tile_subtitle;
-
-  /// No description provided for @invincible_mode_group_restrictions_tile_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Group restrictions'**
-  String get invincible_mode_group_restrictions_tile_title;
-
-  /// No description provided for @invincible_mode_group_restrictions_tile_subtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Prevent changes to the group\'s selected restrictions once the daily limits are exceeded.'**
-  String get invincible_mode_group_restrictions_tile_subtitle;
-
-  /// No description provided for @invincible_mode_include_shorts_timer_tile_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Include shorts timer'**
-  String get invincible_mode_include_shorts_timer_tile_title;
-
-  /// No description provided for @invincible_mode_include_shorts_timer_tile_subtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Prevents changes after reaching your daily shorts limit.'**
-  String get invincible_mode_include_shorts_timer_tile_subtitle;
-
-  /// No description provided for @invincible_mode_include_bedtime_tile_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Include bedtime'**
-  String get invincible_mode_include_bedtime_tile_title;
-
-  /// No description provided for @invincible_mode_include_bedtime_tile_subtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Prevents changes during the active bedtime schedule.'**
-  String get invincible_mode_include_bedtime_tile_subtitle;
-
-  /// No description provided for @protected_access_tile_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Protected access'**
-  String get protected_access_tile_title;
-
-  /// No description provided for @protected_access_tile_subtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Protect Mindful with your device lock.'**
-  String get protected_access_tile_subtitle;
-
-  /// No description provided for @protected_access_no_lock_snack_alert.
-  ///
-  /// In en, this message translates to:
-  /// **'Please set up a biometric lock on your device first to enable this feature.'**
-  String get protected_access_no_lock_snack_alert;
-
-  /// No description provided for @protected_access_removed_lock_snack_alert.
-  ///
-  /// In en, this message translates to:
-  /// **'Your device lock has been removed. To continue, please set up a new lock.'**
-  String get protected_access_removed_lock_snack_alert;
-
-  /// No description provided for @protected_access_failed_lock_snack_alert.
-  ///
-  /// In en, this message translates to:
-  /// **'Authentication failed. You need to verify your device lock to proceed.'**
-  String get protected_access_failed_lock_snack_alert;
-
-  /// No description provided for @tamper_protection_tile_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Tamper protection'**
-  String get tamper_protection_tile_title;
-
-  /// No description provided for @tamper_protection_tile_subtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Prevent uninstalling and force stopping the app.'**
-  String get tamper_protection_tile_subtitle;
-
-  /// No description provided for @tamper_protection_confirmation_dialog_info.
-  ///
-  /// In en, this message translates to:
-  /// **'Once enabled, you won\'t be able to uninstall, force stop, or clear Mindful\'s data, except during the selected uninstall window. There are no workarounds.\n\nProceed at your own risk.'**
-  String get tamper_protection_confirmation_dialog_info;
-
-  /// No description provided for @uninstall_window_tile_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Uninstall window'**
-  String get uninstall_window_tile_title;
-
-  /// No description provided for @uninstall_window_tile_subtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Tamper protection can be disabled within 10 minutes from the selected time.'**
-  String get uninstall_window_tile_subtitle;
-
-  /// No description provided for @invincible_window_tile_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Invincible window'**
-  String get invincible_window_tile_title;
-
-  /// No description provided for @invincible_window_tile_subtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Selected limits can be modified within 10 minutes from the selected time.'**
-  String get invincible_window_tile_subtitle;
-
   /// No description provided for @shorts_blocking_tab_title.
   ///
   /// In en, this message translates to:
-  /// **'Shorts blocking'**
+  /// **'In app blocking'**
   String get shorts_blocking_tab_title;
 
   /// No description provided for @shorts_blocking_tab_info.
@@ -1835,6 +1277,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Restrict explore section.'**
   String get instagram_features_block_explore;
+
+  /// No description provided for @instagram_usage_limit_tile_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Only after daily Instagram use'**
+  String get instagram_usage_limit_tile_title;
+
+  /// No description provided for @instagram_usage_limit_tile_subtitle_off.
+  ///
+  /// In en, this message translates to:
+  /// **'Block reels only after using Instagram for a set time each day.'**
+  String get instagram_usage_limit_tile_subtitle_off;
+
+  /// No description provided for @instagram_usage_limit_tile_subtitle_on.
+  ///
+  /// In en, this message translates to:
+  /// **'Reels get blocked after {time} of Instagram today.'**
+  String instagram_usage_limit_tile_subtitle_on(String time);
+
+  /// No description provided for @instagram_usage_limit_picker_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily Instagram time'**
+  String get instagram_usage_limit_picker_title;
+
+  /// No description provided for @instagram_usage_limit_picker_info.
+  ///
+  /// In en, this message translates to:
+  /// **'Reels stay available until you have used Instagram for this long today. After that, reels are blocked until midnight.'**
+  String get instagram_usage_limit_picker_info;
+
+  /// No description provided for @in_app_blocking_feature_reels.
+  ///
+  /// In en, this message translates to:
+  /// **'Reels'**
+  String get in_app_blocking_feature_reels;
+
+  /// No description provided for @in_app_blocking_feature_explore.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore'**
+  String get in_app_blocking_feature_explore;
+
+  /// No description provided for @in_app_blocking_feature_spotlight.
+  ///
+  /// In en, this message translates to:
+  /// **'Spotlight'**
+  String get in_app_blocking_feature_spotlight;
+
+  /// No description provided for @in_app_blocking_feature_discover.
+  ///
+  /// In en, this message translates to:
+  /// **'Discover'**
+  String get in_app_blocking_feature_discover;
+
+  /// No description provided for @in_app_blocking_feature_shorts.
+  ///
+  /// In en, this message translates to:
+  /// **'Shorts'**
+  String get in_app_blocking_feature_shorts;
+
+  /// No description provided for @in_app_blocking_reels_after_usage.
+  ///
+  /// In en, this message translates to:
+  /// **'Reels after {time} of use'**
+  String in_app_blocking_reels_after_usage(String time);
 
   /// No description provided for @snapchat_features_tile_title.
   ///
@@ -2010,59 +1518,11 @@ abstract class AppLocalizations {
   /// **'Are you sure? you want to remove \'{websitehost}\' from blocked websites.'**
   String remove_website_dialog_info(String websitehost);
 
-  /// No description provided for @focus_tab_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Focus'**
-  String get focus_tab_title;
-
-  /// No description provided for @focus_tab_info.
-  ///
-  /// In en, this message translates to:
-  /// **'When you need time to focus, start a new session by selecting the type, choosing distracting apps to pause, and enabling Do Not Disturb for uninterrupted concentration.'**
-  String get focus_tab_info;
-
-  /// No description provided for @active_session_card_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Active session'**
-  String get active_session_card_title;
-
-  /// No description provided for @active_session_card_info.
-  ///
-  /// In en, this message translates to:
-  /// **'You have an active focus session running! Click \'View\' to check your progress and see how much time has elapsed.'**
-  String get active_session_card_info;
-
-  /// No description provided for @active_session_card_view_button.
-  ///
-  /// In en, this message translates to:
-  /// **'View'**
-  String get active_session_card_view_button;
-
-  /// No description provided for @focus_distracting_apps_removal_snack_alert.
-  ///
-  /// In en, this message translates to:
-  /// **'Removal of apps from the distracting apps list is not permitted while a Focus Session is active. However, you may still add additional apps to the list during this time.'**
-  String get focus_distracting_apps_removal_snack_alert;
-
-  /// No description provided for @focus_profile_tile_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Focus profile'**
-  String get focus_profile_tile_title;
-
   /// No description provided for @focus_session_duration_tile_title.
   ///
   /// In en, this message translates to:
   /// **'Session duration'**
   String get focus_session_duration_tile_title;
-
-  /// No description provided for @focus_session_duration_tile_subtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Infinite (unless you stop)'**
-  String get focus_session_duration_tile_subtitle;
 
   /// No description provided for @focus_session_duration_dialog_info.
   ///
@@ -2070,233 +1530,17 @@ abstract class AppLocalizations {
   /// **'Please select the desired duration for this focus session, determining how long you wish to remain focused and distraction-free.'**
   String get focus_session_duration_dialog_info;
 
-  /// No description provided for @focus_profile_customization_tile_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Profile customization'**
-  String get focus_profile_customization_tile_title;
-
-  /// No description provided for @focus_profile_customization_tile_subtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Customize settings for the selected profile.'**
-  String get focus_profile_customization_tile_subtitle;
-
-  /// No description provided for @focus_enforce_tile_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Enforce session'**
-  String get focus_enforce_tile_title;
-
-  /// No description provided for @focus_enforce_tile_subtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Prevents ending a session before time ends.'**
-  String get focus_enforce_tile_subtitle;
-
-  /// No description provided for @focus_session_start_button.
-  ///
-  /// In en, this message translates to:
-  /// **'Swipe to start Session'**
-  String get focus_session_start_button;
-
-  /// No description provided for @focus_session_minimum_apps_snack_alert.
-  ///
-  /// In en, this message translates to:
-  /// **'Select at least one distracting app to start focus session'**
-  String get focus_session_minimum_apps_snack_alert;
-
-  /// No description provided for @focus_session_already_active_snack_alert.
-  ///
-  /// In en, this message translates to:
-  /// **'You already have an active focus session running. Please complete or stop your current session before starting a new one.'**
-  String get focus_session_already_active_snack_alert;
-
-  /// No description provided for @focus_session_type_study.
-  ///
-  /// In en, this message translates to:
-  /// **'Study'**
-  String get focus_session_type_study;
-
-  /// No description provided for @focus_session_type_work.
-  ///
-  /// In en, this message translates to:
-  /// **'Work'**
-  String get focus_session_type_work;
-
-  /// No description provided for @focus_session_type_exercise.
-  ///
-  /// In en, this message translates to:
-  /// **'Exercise'**
-  String get focus_session_type_exercise;
-
-  /// No description provided for @focus_session_type_meditation.
-  ///
-  /// In en, this message translates to:
-  /// **'Meditation'**
-  String get focus_session_type_meditation;
-
-  /// No description provided for @focus_session_type_creativeWriting.
-  ///
-  /// In en, this message translates to:
-  /// **'Creative Writing'**
-  String get focus_session_type_creativeWriting;
-
-  /// No description provided for @focus_session_type_reading.
-  ///
-  /// In en, this message translates to:
-  /// **'Reading'**
-  String get focus_session_type_reading;
-
-  /// No description provided for @focus_session_type_programming.
-  ///
-  /// In en, this message translates to:
-  /// **'Programming'**
-  String get focus_session_type_programming;
-
-  /// No description provided for @focus_session_type_chores.
-  ///
-  /// In en, this message translates to:
-  /// **'Chores'**
-  String get focus_session_type_chores;
-
-  /// No description provided for @focus_session_type_projectPlanning.
-  ///
-  /// In en, this message translates to:
-  /// **'Project Planning'**
-  String get focus_session_type_projectPlanning;
-
-  /// No description provided for @focus_session_type_artAndDesign.
-  ///
-  /// In en, this message translates to:
-  /// **'Art and Design'**
-  String get focus_session_type_artAndDesign;
-
-  /// No description provided for @focus_session_type_languageLearning.
-  ///
-  /// In en, this message translates to:
-  /// **'Language Learning'**
-  String get focus_session_type_languageLearning;
-
-  /// No description provided for @focus_session_type_musicPractice.
-  ///
-  /// In en, this message translates to:
-  /// **'Music Practice'**
-  String get focus_session_type_musicPractice;
-
-  /// No description provided for @focus_session_type_selfCare.
-  ///
-  /// In en, this message translates to:
-  /// **'Self Care'**
-  String get focus_session_type_selfCare;
-
-  /// No description provided for @focus_session_type_brainstorming.
-  ///
-  /// In en, this message translates to:
-  /// **'Brainstorming'**
-  String get focus_session_type_brainstorming;
-
-  /// No description provided for @focus_session_type_skillDevelopment.
-  ///
-  /// In en, this message translates to:
-  /// **'Skill Development'**
-  String get focus_session_type_skillDevelopment;
-
-  /// No description provided for @focus_session_type_research.
-  ///
-  /// In en, this message translates to:
-  /// **'Research'**
-  String get focus_session_type_research;
-
-  /// No description provided for @focus_session_type_networking.
-  ///
-  /// In en, this message translates to:
-  /// **'Networking'**
-  String get focus_session_type_networking;
-
-  /// No description provided for @focus_session_type_cooking.
-  ///
-  /// In en, this message translates to:
-  /// **'Cooking'**
-  String get focus_session_type_cooking;
-
-  /// No description provided for @focus_session_type_sportsTraining.
-  ///
-  /// In en, this message translates to:
-  /// **'Sports Training'**
-  String get focus_session_type_sportsTraining;
-
-  /// No description provided for @focus_session_type_restAndRelaxation.
-  ///
-  /// In en, this message translates to:
-  /// **'Rest and Relaxation'**
-  String get focus_session_type_restAndRelaxation;
-
-  /// No description provided for @focus_session_type_other.
-  ///
-  /// In en, this message translates to:
-  /// **'Other'**
-  String get focus_session_type_other;
-
   /// No description provided for @timeline_tab_title.
   ///
   /// In en, this message translates to:
   /// **'Timeline'**
   String get timeline_tab_title;
 
-  /// No description provided for @focus_timeline_tab_info.
-  ///
-  /// In en, this message translates to:
-  /// **'Explore your focus journey by selecting a date from the calendar. Track your progress, revisit your successes, and learn from the challenges.'**
-  String get focus_timeline_tab_info;
-
-  /// No description provided for @selected_month_productive_time_snack_alert.
-  ///
-  /// In en, this message translates to:
-  /// **'Your total productive time for the selected month is {timeString}.'**
-  String selected_month_productive_time_snack_alert(String timeString);
-
-  /// No description provided for @selected_month_productive_days_label.
-  ///
-  /// In en, this message translates to:
-  /// **'Productive days'**
-  String get selected_month_productive_days_label;
-
-  /// No description provided for @selected_month_productive_days_snack_alert.
-  ///
-  /// In en, this message translates to:
-  /// **'You\'ve had a total of {daysCount} productive days in the selected month.'**
-  String selected_month_productive_days_snack_alert(num daysCount);
-
-  /// No description provided for @selected_day_focused_time_label.
-  ///
-  /// In en, this message translates to:
-  /// **'Focused time'**
-  String get selected_day_focused_time_label;
-
-  /// No description provided for @selected_day_focused_time_snack_alert.
-  ///
-  /// In en, this message translates to:
-  /// **'Your total focused time for the selected day is {timeString}.'**
-  String selected_day_focused_time_snack_alert(String timeString);
-
   /// No description provided for @calender_heading.
   ///
   /// In en, this message translates to:
   /// **'Calender'**
   String get calender_heading;
-
-  /// No description provided for @your_sessions_heading.
-  ///
-  /// In en, this message translates to:
-  /// **'Your sessions'**
-  String get your_sessions_heading;
-
-  /// No description provided for @your_sessions_empty_list_hint.
-  ///
-  /// In en, this message translates to:
-  /// **'No focus sessions recorded for the selected day.'**
-  String get your_sessions_empty_list_hint;
 
   /// No description provided for @focus_session_tile_timestamp_label.
   ///
@@ -2316,66 +1560,6 @@ abstract class AppLocalizations {
   /// **'Reflection'**
   String get focus_session_tile_reflection_label;
 
-  /// No description provided for @focus_session_state_active.
-  ///
-  /// In en, this message translates to:
-  /// **'Active'**
-  String get focus_session_state_active;
-
-  /// No description provided for @focus_session_state_successful.
-  ///
-  /// In en, this message translates to:
-  /// **'Successful'**
-  String get focus_session_state_successful;
-
-  /// No description provided for @focus_session_state_failed.
-  ///
-  /// In en, this message translates to:
-  /// **'Failed'**
-  String get focus_session_state_failed;
-
-  /// No description provided for @active_session_tab_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Session'**
-  String get active_session_tab_title;
-
-  /// No description provided for @active_session_none_warning.
-  ///
-  /// In en, this message translates to:
-  /// **'No active session found. Returning to the home screen.'**
-  String get active_session_none_warning;
-
-  /// No description provided for @active_session_dialog_button_keep_pushing.
-  ///
-  /// In en, this message translates to:
-  /// **'Keep pushing'**
-  String get active_session_dialog_button_keep_pushing;
-
-  /// No description provided for @active_session_finish_dialog_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Finish'**
-  String get active_session_finish_dialog_title;
-
-  /// No description provided for @active_session_finish_dialog_info.
-  ///
-  /// In en, this message translates to:
-  /// **'Stay strong! You\'re building valuable focus. Are you sure you want to end this focus session? Every extra moment counts toward your goals.'**
-  String get active_session_finish_dialog_info;
-
-  /// No description provided for @active_session_giveup_dialog_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Give up'**
-  String get active_session_giveup_dialog_title;
-
-  /// No description provided for @active_session_giveup_dialog_info.
-  ///
-  /// In en, this message translates to:
-  /// **'Hold on! You\'re almost there don\'t give up now! Are you sure you want to end this focus session early? Progress will be lost.'**
-  String get active_session_giveup_dialog_info;
-
   /// No description provided for @active_session_reflection_dialog_title.
   ///
   /// In en, this message translates to:
@@ -2393,114 +1577,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Tip: You can always edit this later in the session timeline.'**
   String get active_session_reflection_dialog_tip;
-
-  /// No description provided for @active_session_giveup_snack_alert.
-  ///
-  /// In en, this message translates to:
-  /// **'You gave up! Don\'t worry, you can do better next time. Every effort counts - just keep going'**
-  String get active_session_giveup_snack_alert;
-
-  /// No description provided for @active_session_quote_one.
-  ///
-  /// In en, this message translates to:
-  /// **'Every step counts, stay strong and keep going'**
-  String get active_session_quote_one;
-
-  /// No description provided for @active_session_quote_two.
-  ///
-  /// In en, this message translates to:
-  /// **'Stay focused! you\'re making amazing progress'**
-  String get active_session_quote_two;
-
-  /// No description provided for @active_session_quote_three.
-  ///
-  /// In en, this message translates to:
-  /// **'You\'re crushing it! Keep the momentum going'**
-  String get active_session_quote_three;
-
-  /// No description provided for @active_session_quote_four.
-  ///
-  /// In en, this message translates to:
-  /// **'Just a little more to go, you\'re doing fantastic'**
-  String get active_session_quote_four;
-
-  /// No description provided for @active_session_quote_five.
-  ///
-  /// In en, this message translates to:
-  /// **'Congratulations 🎉 \n You\'ve completed your focus session of {durationString}.\n\nGreat job, keep up the amazing work'**
-  String active_session_quote_five(String durationString);
-
-  /// No description provided for @restriction_groups_tab_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Restriction groups'**
-  String get restriction_groups_tab_title;
-
-  /// No description provided for @restriction_groups_tab_info.
-  ///
-  /// In en, this message translates to:
-  /// **'Set a combined screen time limit for a group of apps. Once the total usage reaches your limit, all apps in the group will be paused to help maintain focus and balance.'**
-  String get restriction_groups_tab_info;
-
-  /// No description provided for @restriction_group_time_spent_label.
-  ///
-  /// In en, this message translates to:
-  /// **'Time spent today'**
-  String get restriction_group_time_spent_label;
-
-  /// No description provided for @restriction_group_time_left_label.
-  ///
-  /// In en, this message translates to:
-  /// **'Time left today'**
-  String get restriction_group_time_left_label;
-
-  /// No description provided for @restriction_group_name_tile_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Group name'**
-  String get restriction_group_name_tile_title;
-
-  /// No description provided for @restriction_group_name_picker_dialog_info.
-  ///
-  /// In en, this message translates to:
-  /// **'Enter a name for the restriction group to help identify and manage it easily.'**
-  String get restriction_group_name_picker_dialog_info;
-
-  /// No description provided for @restriction_group_timer_tile_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Group timer'**
-  String get restriction_group_timer_tile_title;
-
-  /// No description provided for @restriction_group_timer_picker_dialog_info.
-  ///
-  /// In en, this message translates to:
-  /// **'Set a daily time limit for this group. Once your limit is reached, all the apps in this group will be paused until midnight.'**
-  String get restriction_group_timer_picker_dialog_info;
-
-  /// No description provided for @restriction_group_active_period_tile_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Group active period'**
-  String get restriction_group_active_period_tile_title;
-
-  /// No description provided for @remove_restriction_group_dialog_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Remove group'**
-  String get remove_restriction_group_dialog_title;
-
-  /// No description provided for @remove_restriction_group_dialog_info.
-  ///
-  /// In en, this message translates to:
-  /// **'Are you sure? you want to remove \'{groupName}\' from restriction groups.'**
-  String remove_restriction_group_dialog_info(String groupName);
-
-  /// No description provided for @restriction_group_invalid_limits_snack_alert.
-  ///
-  /// In en, this message translates to:
-  /// **'Set either a timer or an active period limit.'**
-  String get restriction_group_invalid_limits_snack_alert;
 
   /// No description provided for @notifications_empty_list_hint.
   ///

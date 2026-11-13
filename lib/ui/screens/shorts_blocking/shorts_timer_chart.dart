@@ -17,7 +17,6 @@ import 'package:mindful/core/extensions/ext_duration.dart';
 import 'package:mindful/core/extensions/ext_num.dart';
 import 'package:mindful/config/hero_tags.dart';
 import 'package:mindful/providers/restrictions/wellbeing_provider.dart';
-import 'package:mindful/providers/system/parental_controls_provider.dart';
 import 'package:mindful/ui/common/rounded_container.dart';
 import 'package:mindful/ui/common/time_text_short.dart';
 import 'package:mindful/ui/common/styled_text.dart';
@@ -37,19 +36,6 @@ class ShortsTimerChart extends ConsumerWidget {
   final int remainingTimeSec;
 
   void _editAllowedTime(BuildContext context, WidgetRef ref) async {
-    final isInvincibleRestricted = ref.read(parentalControlsProvider
-            .select((v) => v.isInvincibleModeOn && v.includeShortsTimer)) &&
-        !ref.read(parentalControlsProvider.notifier).isBetweenInvincibleWindow;
-
-    /// Check if restricted by invincible mode
-    if (isInvincibleRestricted && allowedTimeSec > 0) {
-      context.showSnackAlert(
-        context.locale.invincible_mode_snack_alert,
-      );
-
-      return;
-    }
-
     final newTimer = await showShortsTimerPicker(
       context: context,
       heroTag: HeroTags.shortContentTimerPickerTag,

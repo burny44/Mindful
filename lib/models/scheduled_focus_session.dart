@@ -15,7 +15,7 @@ import 'package:mindful/core/database/adapters/time_of_day_adapter.dart';
 ///
 /// [distractingApps] stay blocked while the session is inside its schedule and
 /// not currently in a break. When [isStrict] is true the session cannot be
-/// edited or removed after it is saved.
+/// edited or removed while it is currently active.
 class ScheduledFocusSession {
   const ScheduledFocusSession({
     this.id = 0,
@@ -47,6 +47,31 @@ class ScheduledFocusSession {
 
   bool get isValid =>
       distractingApps.isNotEmpty && scheduleDays.contains(true);
+
+  /// Whether the schedule window is currently active (Mon=0 … Sun=6).
+  /// Matches the native tracker day/time check.
+  bool isActiveNow([DateTime? now]) {
+    final n = now ?? DateTime.now();
+    final dayIndex = n.weekday - 1;
+    if (dayIndex < 0 || dayIndex >= scheduleDays.length) return false;
+    if (!scheduleDays[dayIndex]) return false;
+
+    final start = scheduleStartTime.toMinutes;
+    final end = scheduleEndTime.toMinutes;
+    if (start == end) return true;
+
+    final nowTod = n.hour * 60 + n.minute;
+    if (end < start) {
+      /// Overnight: active unless now is in [end, start).
+      return nowTod < end || nowTod >= start;
+    }
+
+    /// Same day: active in [start, end).
+    return nowTod >= start && nowTod < end;
+  }
+
+  /// Strict sessions are locked only while the schedule is active.
+  bool get isStrictLocked => isStrict && isActiveNow();
 
   ScheduledFocusSession copyWith({
     int? id,

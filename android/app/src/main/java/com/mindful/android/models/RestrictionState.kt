@@ -8,7 +8,7 @@ data class RestrictionState(
     /** The type of restriction that this state represents **/
     val type: RestrictionType,
 
-    /** The group name if this restriction belongs to a group **/
+    /** Name of the focus-unlock rule or scheduled session behind this restriction **/
     val groupName: String? = null,
 
     /** Time left in milliseconds before the restriction starts **/

@@ -1,7 +1,6 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:mindful/config/navigation/app_routes.dart';
-import 'package:mindful/core/extensions/ext_build_context.dart';
 import 'package:mindful/core/services/method_channel_service.dart';
 
 @immutable
@@ -42,23 +41,10 @@ class ChangeLogsData {
 
   /// Change logs for this latest version
   final List<ChangeLog> _latest = [
-    ChangeLog(
+    const ChangeLog(
       icon: FluentIcons.target_arrow_20_filled,
       label: "Quick Focus Tile",
-      onTap: (ctx) async {
-        final isSuccess =
-            await MethodChannelService.instance.promptForQuickTile();
-
-        if (!ctx.mounted) return;
-
-        ctx.showSnackAlert(
-          isSuccess
-              ? "Quick tile added successfully."
-              : "Tile is already added or something went wrong!",
-          icon: FluentIcons.target_arrow_20_filled,
-        );
-      },
-      bulletPoints: const [
+      bulletPoints: [
         "One tap to focus mode.",
         "Directly open focus mode.",
         "Use pre-configured profiles.",
@@ -96,12 +82,10 @@ class ChangeLogsData {
         "More reminder options.",
       ],
     ),
-    ChangeLog(
+    const ChangeLog(
       icon: FluentIcons.shield_keyhole_20_filled,
       label: "Parental controls",
-      onTap: (context) =>
-          Navigator.of(context).pushNamed(AppRoutes.parentalControlsPath),
-      bulletPoints: const [
+      bulletPoints: [
         "Invincible mode for distractions.",
         "Prevent restriction changes outside the Invincible window.",
         "Tamper protection for sneaky workarounds.",
@@ -151,12 +135,10 @@ class ChangeLogsData {
         "New active period limit.",
       ],
     ),
-    ChangeLog(
+    const ChangeLog(
       icon: FluentIcons.prohibited_multiple_20_filled,
       label: "Group restrictions",
-      onTap: (context) =>
-          Navigator.of(context).pushNamed(AppRoutes.restrictionGroupsPath),
-      bulletPoints: const [
+      bulletPoints: [
         "Add restrictions to group of apps.",
         "Combined time limit.",
         "Combined active period limit.",

@@ -1,7 +1,6 @@
 {
     "@----------------------------- SPLASH SCREEN -----------------------------": {},
     "mindful_tagline": "Fokus auf das wirklich wichtige",
-    "unlock_button_label": "Entsperren",
     "@----------------------------- APP PERMISSIONS -----------------------------": {},
     "permission_status_off": "Aus",
     "permission_status_allowed": "Zugelassen",
@@ -37,9 +36,6 @@
     "permission_battery_optimization_allow_info": "Wenn Sie „Batterieoptimierung ignorieren“ zulassen, wird auf einigen Geräten automatisch die Berechtigung „Alarme und Erinnerungen“ erteilt.",
     "permission_vpn_title": "VPN erstellen",
     "permission_vpn_info": "Bitte erteilen Sie die Berechtigung zum Erstellen einer VPN-Verbindung (Virtual Private Network). Dadurch kann Mindful den Internetzugriff für bestimmte Anwendungen einschränken, indem es ein lokales VPN auf dem Gerät erstellt.",
-    "permission_admin_title": "Admin",
-    "permission_admin_info": "Administrative Rechte sind nur für wesentliche Vorgänge erforderlich, um sicherzustellen, dass die Anwendung ordnungsgemäß funktioniert und manipulationssicher ist.",
-    "permission_admin_snack_alert": "Der Manipulationsschutz kann nur während des gewählten Zeitfensters deaktiviert werden.",
     "permission_notification_access_title": "Zugriff auf Benachrichtigungen",
     "permission_notification_access_info": "Bitte erteile die Erlaubnis für den Zugriff auf Benachrichtigungen. Dies ermöglicht Mindful, dir  Benachrichtigungen zu senden.",
     "permission_notification_access_required": "Mindful benötigt Zugriff auf Benachrichtigungen, um Benachrichtigungen senden zu können.",

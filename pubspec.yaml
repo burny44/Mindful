@@ -34,7 +34,7 @@ dependencies:
   path: ^1.9.0
   path_provider: ^2.1.2
   file_picker: ^12.2.0
-  sqlite3: ^2.4.5
+  sqlite3: ^3.9.1
   # Ships the native SQLite build. Was pulled in transitively by drift_flutter,
   # which this project never imported -- it opens NativeDatabase itself.
   sqlite3_flutter_libs: ^0.5.34
@@ -44,7 +44,6 @@ dependencies:
   intl: any
   sliver_tools: ^0.2.12
   flutter_riverpod: ^2.5.1
-  local_auth: ^2.3.0
   app_links: ^6.3.3
 
 dev_dependencies:
@@ -76,9 +75,6 @@ flutter:
     - assets/illustrations/onboarding_4.png
    
     # Vector icons
-    - assets/vectors/github.svg
-    - assets/vectors/bmc.svg
-    - assets/vectors/telegram.svg
     - assets/vectors/instagram.svg
     - assets/vectors/snapchat.svg
     - assets/vectors/youtube.svg

@@ -15,7 +15,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.util.Log
-import com.mindful.android.enums.DndWakeLock
 import com.mindful.android.models.FocusUnlockRule
 import com.mindful.android.models.ScheduledFocusSession
 import com.mindful.android.models.Wellbeing
@@ -33,7 +32,6 @@ object SharedPrefsHelper {
     private const val UNIQUE_PREFS_BOX = "UniquePrefs"
     private const val PREF_KEY_NOTIFICATION_PERMISSION_COUNT = "notificationPermissionCount"
     private const val PREF_KEY_SHORTS_SCREEN_TIME = "shortsScreenTime"
-    private const val PREF_KEY_DND_WAKE_LOCK = "dndWakeLock"
     private const val PREF_KEY_EXCLUDED_APPS = "excludedApps"
     private const val PREF_KEY_SCHEDULED_FOCUS_SESSIONS = "scheduledFocusSessions"
     private const val PREF_KEY_FOCUS_UNLOCK_RULES = "focusUnlockRules"
@@ -116,25 +114,6 @@ object SharedPrefsHelper {
         }
     }
 
-
-    /**
-     * Get the wake lock set for the dnd to modify it if lock is null else store it.
-     *
-     * @param context The application context.
-     * @param lock   The lock type for dnd.
-     */
-    fun getSetDndWakeLock(context: Context, lock: DndWakeLock?): DndWakeLock {
-        checkAndInitializeUniquePrefs(context)
-        // store it
-        lock?.let {
-            mUniquePrefs!!.edit().putInt(PREF_KEY_DND_WAKE_LOCK, it.ordinal)
-                .apply()
-            return it
-        }
-
-        // fetch it
-        return DndWakeLock.values()[mUniquePrefs!!.getInt(PREF_KEY_DND_WAKE_LOCK, 0)]
-    }
 
     /**
      * Get the notification permission request count if count is null else store it.

@@ -13,5 +13,4 @@ enum DefaultHomeTab {
   dashboard,
   statistics,
   notifications,
-  bedtime,
 }

@@ -12,9 +12,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String get mindful_tagline => 'Neyin önemli olduğuna odaklan';
 
   @override
-  String get unlock_button_label => 'Kilidi açın';
-
-  @override
   String get permission_status_off => 'Kapalı';
 
   @override
@@ -118,20 +115,6 @@ class AppLocalizationsTr extends AppLocalizations {
       'Dikkatliyi kullanın';
 
   @override
-  String get permission_dnd_title => 'Rahatsız etme';
-
-  @override
-  String get permission_dnd_info =>
-      'Lütfen Rahatsız Etmeyin erişimine izin verin. Bu, Mindful\'un yatma zamanı programı sırasında Rahatsız Etmeyin modunu başlatmasına ve durdurmasına izin verecektir.';
-
-  @override
-  String get permission_dnd_tile_title => 'Rahatsız etmeyin';
-
-  @override
-  String get permission_dnd_tile_subtitle =>
-      'Rahatsız etmeyin moduna izin verin.';
-
-  @override
   String get permission_battery_optimization_tile_title =>
       'Batarya optimizasyonu devre dışı bırakın';
 
@@ -152,17 +135,6 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get permission_vpn_info =>
       'Lütfen sanal özel ağ(VPN) oluşturmaya izin veriniz. Bu sayede Mindful internetizi lokal bir şekilde kısıtlayacaktır.';
-
-  @override
-  String get permission_admin_title => 'Yönetici';
-
-  @override
-  String get permission_admin_info =>
-      'Yönetici ayrıcalıkları, uygulamanın düzgün çalışmasını ve kurcalanmaya karşı korumalı kalmasını sağlamak için yalnızca temel işlemler için gereklidir.';
-
-  @override
-  String get permission_admin_snack_alert =>
-      'Kurcalama koruması yalnızca seçilen zaman aralığında devre dışı bırakılabilir.';
 
   @override
   String get permission_notification_access_title => 'Bildirim izni';
@@ -290,10 +262,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String get schedule_end_label => 'Bitir';
 
   @override
-  String get exit_without_saving_dialog_info =>
-      'Kaydetmeden çıkmak istediğinizden emin misiniz?';
-
-  @override
   String get development_dialog_info =>
       'Mindful şu anda geliştirme aşamasındadır ve hatalar veya eksik özellikler içerebilir. Herhangi bir sorunla karşılaşırsanız, lütfen geliştirmemize yardımcı olmak için bunları bildirin.\n\nGeri bildiriminiz için teşekkür ederiz!';
 
@@ -302,13 +270,6 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get development_dialog_button_close => 'Kapat';
-
-  @override
-  String get dnd_settings_tile_title => 'Rahatsız etmeyin ayarları';
-
-  @override
-  String get dnd_settings_tile_subtitle =>
-      'DND\'de hangi uygulamaların ve bildirimlerin size ulaşabileceğini yönetin.';
 
   @override
   String get quick_actions_heading => 'Kısayollar';
@@ -333,15 +294,8 @@ class AppLocalizationsTr extends AppLocalizations {
       'Ekran süresi ve kısıtlama bu uygulama için kullanılamıyor. Sadece internet kullanımı erişilebilir';
 
   @override
-  String get create_group_fab_button => 'Grup Oluştur';
-
-  @override
   String get active_period_info =>
       'Erişime izin verilecek bir zaman aralığı belirleyin. Bu zaman diliminin dışında erişim kısıtlanacaktır.';
-
-  @override
-  String get minimum_distracting_apps_snack_alert =>
-      'En az bir dikkat dağıtıcı uygulama seçin.';
 
   @override
   String get donation_card_title => 'Bizi destekleyin';
@@ -363,110 +317,6 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get app_restart_dialog_info =>
       'Geri sayım bittiğinde Mindful otomatik olarak yeniden başlayacaktır. Değişiklikler uygulanırken lütfen sabırlı olun.';
-
-  @override
-  String get accessibility_tip =>
-      'Daha akıllı, daha pil dostu engelleme mi istiyorsunuz? Mindful için Erişilebilirlik iznini etkinleştirin.';
-
-  @override
-  String get battery_optimization_tip =>
-      'Mindful çalışmıyor mu? Sorunsuz çalışmasını sağlamak için Ayarlar\'da \'Pil Optimizasyonunu Yoksay\'a izin verin.';
-
-  @override
-  String get invincible_mode_tip =>
-      'Yanlışlıkla kısıtlamaları mı kaldırdınız? Bir sonraki güne veya ayar penceresine kadar kilitlemek için Yenilmez Modu kullanın.';
-
-  @override
-  String get glance_usage_tip =>
-      'İçgörü mü istiyorsunuz? Kullanım kalıplarınızı ve ekran sürenizi görüntülemek için Glance bölümünü kontrol edin.';
-
-  @override
-  String get tamper_protection_tip =>
-      'Mindful\'u kaldırıyor musunuz? Önce kurcalama korumasını güvenli bir şekilde devre dışı bırakmak için Kaldırma Penceresini etkinleştirin.';
-
-  @override
-  String get notification_blocking_tip =>
-      'Dikkat dağıtıcı unsurları azaltmak mı istiyorsunuz? Seçili uygulamaları susturmak için Bildirim Engelleme özelliğini kullanın.';
-
-  @override
-  String get usage_history_tip =>
-      'Alışkanlıklarınız üzerinde düşünmek ister misiniz? Geçmiş kalıpları görmek için Kullanım Geçmişi\'ni kontrol edin.';
-
-  @override
-  String get focus_mode_tip =>
-      'Derin odaklanmaya mı ihtiyacınız var? Görevler sırasında uygulamaları ve bildirimleri engellemek için Odak Modunu açın.';
-
-  @override
-  String get bedtime_reminder_tip =>
-      'Uykunuzu iyileştirmek mi istiyorsunuz? Geceleri rahatlamak için bir Yatma Zamanı Hatırlatıcısı ayarlayın.';
-
-  @override
-  String get custom_blocking_tip =>
-      'Özel bir deneyime mi ihtiyacınız var? İhtiyaçlarınıza uyan uygulama engelleme kuralları oluşturun.';
-
-  @override
-  String get session_timeline_tip =>
-      'Want to track focus sessions? View timeline to see your focus journey.';
-
-  @override
-  String get short_content_blocking_tip =>
-      'Distracted by social apps? Block short content on Instagram, YouTube, etc., to stay focused.';
-
-  @override
-  String get parental_controls_tip =>
-      'Need parental control? Set restrictions for your child\'s device to ensure a safe experience.';
-
-  @override
-  String get notification_batching_tip =>
-      'Want to reduce distractions? Use Notification Batching to group notifications and check them at once.';
-
-  @override
-  String get notification_scheduling_tip =>
-      'Need to manage notifications? Schedule when you receive notifications for specific apps.';
-
-  @override
-  String get quick_focus_tile_tip =>
-      'Need quick access to focus? Add a Quick Focus Tile to instantly activate Focus Mode.';
-
-  @override
-  String get app_shortcuts_tip =>
-      'Want instant app access? Add shortcuts by long-pressing the app icon for quick actions.';
-
-  @override
-  String get backup_usage_db_tip =>
-      'Want to save your data? Backup your usage database to keep your records safe.';
-
-  @override
-  String get dynamic_material_color_tip =>
-      'Want a custom theme? Enable Dynamic Material You color to match your device\'s theme.';
-
-  @override
-  String get amoled_dark_theme_tip =>
-      'Pil tasarrufu yapmak ister misiniz? OLED ekranlarda güç tüketimini azaltmak için AMOLED Koyu Tema\'yı kullanın.';
-
-  @override
-  String get customize_usage_history_tip =>
-      'Kullanım geçmişini korumak ister misiniz? Kullanım Geçmişinde kaç haftalık verinin saklanacağını özelleştirin.';
-
-  @override
-  String get grouped_apps_blocking_tip =>
-      'Want to block apps together? Use Restriction Groups to group app limits and block multiple apps at once.';
-
-  @override
-  String get websites_blocking_tip =>
-      'Want a cleaner browsing experience? Block custom or NSFW websites for a more focused online time.';
-
-  @override
-  String get data_usage_tip =>
-      'Want to track your data? Monitor your mobile and Wi-Fi data usage for internet consumption.';
-
-  @override
-  String get block_internet_tip =>
-      'Need to block an app\'s internet? Cut off internet for specific app from app\'s dashboard.';
-
-  @override
-  String get emergency_passes_tip =>
-      'Need a break? Use 3 Emergency Passes daily to temporarily unblock apps for 5 minutes.';
 
   @override
   String get onboarding_skip_btn_label => 'Atla';
@@ -507,9 +357,6 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get focus_now_fab_button => 'Şimdi odaklan';
-
-  @override
-  String get focus_now_option_label => 'Focus now';
 
   @override
   String get focus_unlock_option_label => 'Earn unlock';
@@ -576,11 +423,11 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get new_session_strict_tile_subtitle =>
-      'Once saved, this session cannot be edited or removed.';
+      'Cannot be edited or removed while the schedule is active.';
 
   @override
   String get new_session_strict_locked_snack =>
-      'This session is strict and cannot be changed.';
+      'This strict session is active and cannot be changed right now.';
 
   @override
   String get new_session_no_apps_selected => 'No apps selected';
@@ -723,16 +570,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String get username_dialog_button_apply => 'Uygula';
 
   @override
-  String get glance_tile_title => 'Bakış';
-
-  @override
-  String get glance_tile_subtitle => 'Kullanımınıza hızlıca bir göz atın.';
-
-  @override
-  String get parental_controls_tile_subtitle =>
-      'Değiştirilemez mod ve kurcalamaya karşı koruma.';
-
-  @override
   String get restrictions_heading => 'Kısıtlamalar';
 
   @override
@@ -743,44 +580,11 @@ class AppLocalizationsTr extends AppLocalizations {
       'Uygulamaları çeşitli şekillerde sınırlandırın.';
 
   @override
-  String get grouped_apps_blocking_tile_title =>
-      'Gruplandırılmış uygulama engelleme';
-
-  @override
-  String get grouped_apps_blocking_tile_subtitle =>
-      'Uygulama gruplarını aynı anda sınırlandırın.';
-
-  @override
-  String get shorts_blocking_tile_subtitle =>
-      'Kısa içeriği birden fazla platformda sınırlandırın.';
-
-  @override
   String get websites_blocking_tile_subtitle =>
       'Yetişkin ve özel web sitelerini sınırlayın.';
 
   @override
   String get screen_time_label => 'Ekran süresi';
-
-  @override
-  String get total_data_label => 'Toplam veri';
-
-  @override
-  String get mobile_data_label => 'Mobil veri';
-
-  @override
-  String get wifi_data_label => 'Wifi veri';
-
-  @override
-  String get focus_today_label => 'Günlük odaklanma';
-
-  @override
-  String get focus_weekly_label => 'Haftalık odaklanma';
-
-  @override
-  String get focus_monthly_label => 'Aylık odaklanma';
-
-  @override
-  String get focus_lifetime_label => 'Şimdiye kadarki odaklanma';
 
   @override
   String get longest_streak_label => 'En uzun seri';
@@ -864,154 +668,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String get new_schedule_dialog_field_label => 'Program adı';
 
   @override
-  String get bedtime_tab_title => 'Uyku vakti';
-
-  @override
-  String get bedtime_tab_info =>
-      'Bir zaman aralığı ve haftanın günlerini seçerek yatma zamanı programınızı ayarlayın. Engellenecek dikkat dağıtıcı uygulamaları seçin ve huzurlu bir gece için Rahatsız Etmeyin (DND) modunu etkinleştirin.';
-
-  @override
-  String get schedule_tile_title => 'Program';
-
-  @override
-  String get schedule_tile_subtitle =>
-      'Günlük programı etkinleştirme veya devre dışı bırakma.';
-
-  @override
-  String get bedtime_no_days_selected_snack_alert =>
-      'Haftanın en az bir gününü seçin.';
-
-  @override
-  String get bedtime_minimum_duration_snack_alert =>
-      'Toplam yatma süresi en az 30 dakika olmalıdır.';
-
-  @override
-  String get distracting_apps_tile_title => 'Dikkat dağıtıcı uygulamalar';
-
-  @override
-  String get distracting_apps_tile_subtitle =>
-      'Hangi uygulamaların sizi yatma zamanı rutininizden uzaklaştırdığını seçin.';
-
-  @override
-  String get bedtime_distracting_apps_modify_snack_alert =>
-      'Yatma zamanı programı aktifken dikkat dağıtıcı uygulamalar listesinde değişiklik yapılmasına izin verilmez.';
-
-  @override
-  String get parental_controls_tab_title => 'Ebeveyn Kontrolleri';
-
-  @override
-  String get invincible_mode_heading => 'Değiştirilemez mod';
-
-  @override
-  String get invincible_mode_tile_title => 'Değiştirilemez modu aktifleştir';
-
-  @override
-  String get invincible_mode_info =>
-      'Değiştirilemez Mod açıkken, günlük kotanıza ulaştıktan sonra seçilen limitleri ayarlayamazsınız. Ancak, seçilen 10 dakikalık değiştirilemez pencere içinde değişiklik yapabilirsiniz.';
-
-  @override
-  String get invincible_mode_snack_alert =>
-      'Değiştirilemez mod nedeniyle, kısıtlamalarda değişiklik yapılmasına izin verilmez.';
-
-  @override
-  String get invincible_mode_dialog_info =>
-      'Değiştirilemez Modu etkinleştirmek istediğinizden kesinlikle emin misiniz? Bu işlem geri döndürülemez. Değiştirilemez Mod bir kez açıldığında, bu uygulama cihazınızda yüklü olduğu sürece kapatamazsınız.';
-
-  @override
-  String get invincible_mode_turn_off_snack_alert =>
-      'Bu uygulama cihazınızda yüklü kaldığı sürece değiştirilemez mod kapatılamaz.';
-
-  @override
-  String get invincible_mode_dialog_button_start_anyway => 'Yine de başlat';
-
-  @override
-  String get invincible_mode_include_timer_tile_title => 'Zamanlayıcı dahil et';
-
-  @override
-  String get invincible_mode_include_launch_limit_tile_title =>
-      'Başlatma limitini dahil edin';
-
-  @override
-  String get invincible_mode_include_active_period_tile_title =>
-      'Aktif dönemi dahil edin';
-
-  @override
-  String get invincible_mode_app_restrictions_tile_title =>
-      'Uygulama kısıtlayıcı';
-
-  @override
-  String get invincible_mode_app_restrictions_tile_subtitle =>
-      'Günlük limitler aşıldığında uygulamanın seçilen kısıtlamalarında değişiklik yapılmasını önleyin.';
-
-  @override
-  String get invincible_mode_group_restrictions_tile_title =>
-      'Grup kısıtlamaları';
-
-  @override
-  String get invincible_mode_group_restrictions_tile_subtitle =>
-      'Günlük limitler aşıldığında grubun seçilen kısıtlamalarında değişiklik yapılmasını önleyin.';
-
-  @override
-  String get invincible_mode_include_shorts_timer_tile_title =>
-      'Kısa video zamanlayıcısını dahil edin';
-
-  @override
-  String get invincible_mode_include_shorts_timer_tile_subtitle =>
-      'Günlük kısa video limitinize ulaştıktan sonra değişiklik yapılmasını önler.';
-
-  @override
-  String get invincible_mode_include_bedtime_tile_title =>
-      'Uyku vaktini dahil edin';
-
-  @override
-  String get invincible_mode_include_bedtime_tile_subtitle =>
-      'Aktif uyku vakti programı sırasında değişiklikleri önler.';
-
-  @override
-  String get protected_access_tile_title => 'Korumalı erişim';
-
-  @override
-  String get protected_access_tile_subtitle =>
-      'Mindful\'u cihaz kilidinizle koruyun.';
-
-  @override
-  String get protected_access_no_lock_snack_alert =>
-      'Bu özelliği etkinleştirmek için lütfen önce cihazınızda bir biyometrik kilit ayarlayın.';
-
-  @override
-  String get protected_access_removed_lock_snack_alert =>
-      'Cihaz kilidiniz kaldırıldı. Devam etmek için lütfen yeni bir kilit ayarlayın.';
-
-  @override
-  String get protected_access_failed_lock_snack_alert =>
-      'Kimlik doğrulama başarısız oldu. Devam etmek için cihaz kilidinizi doğrulamanız gerekiyor.';
-
-  @override
-  String get tamper_protection_tile_title => 'Kurcalama koruması';
-
-  @override
-  String get tamper_protection_tile_subtitle =>
-      'Kaldırmayı önleyin ve uygulamayı durdurmaya zorlayın.';
-
-  @override
-  String get tamper_protection_confirmation_dialog_info =>
-      'Once enabled, you won\'t be able to uninstall, force stop, or clear Mindful\'s data, except during the selected uninstall window. There are no workarounds.\n\nProceed at your own risk.';
-
-  @override
-  String get uninstall_window_tile_title => 'Kaldırma penceresi';
-
-  @override
-  String get uninstall_window_tile_subtitle =>
-      'Kurcalama koruması seçilen zamandan itibaren 10 dakika içinde devre dışı bırakılabilir.';
-
-  @override
-  String get invincible_window_tile_title => 'Değiştirilemez mod';
-
-  @override
-  String get invincible_window_tile_subtitle =>
-      'Seçilen limitler, seçilen saatten itibaren 10 dakika içinde değiştirilebilir.';
-
-  @override
   String get shorts_blocking_tab_title => 'Kısa video engelleyici';
 
   @override
@@ -1042,6 +698,46 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get instagram_features_block_explore => 'Keşfet bölümünü kısıtlayın.';
+
+  @override
+  String get instagram_usage_limit_tile_title =>
+      'Only after daily Instagram use';
+
+  @override
+  String get instagram_usage_limit_tile_subtitle_off =>
+      'Block reels only after using Instagram for a set time each day.';
+
+  @override
+  String instagram_usage_limit_tile_subtitle_on(String time) {
+    return 'Reels get blocked after $time of Instagram today.';
+  }
+
+  @override
+  String get instagram_usage_limit_picker_title => 'Daily Instagram time';
+
+  @override
+  String get instagram_usage_limit_picker_info =>
+      'Reels stay available until you have used Instagram for this long today. After that, reels are blocked until midnight.';
+
+  @override
+  String get in_app_blocking_feature_reels => 'Reels';
+
+  @override
+  String get in_app_blocking_feature_explore => 'Explore';
+
+  @override
+  String get in_app_blocking_feature_spotlight => 'Spotlight';
+
+  @override
+  String get in_app_blocking_feature_discover => 'Discover';
+
+  @override
+  String get in_app_blocking_feature_shorts => 'Shorts';
+
+  @override
+  String in_app_blocking_reels_after_usage(String time) {
+    return 'Reels after $time of use';
+  }
 
   @override
   String get snapchat_features_tile_title => 'Snapchat';
@@ -1146,164 +842,17 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get focus_tab_title => 'Odak';
-
-  @override
-  String get focus_tab_info =>
-      'Odaklanmak için zamana ihtiyacınız olduğunda, türü seçerek, duraklatılacak dikkat dağıtıcı uygulamaları seçerek ve kesintisiz konsantrasyon için Rahatsız Etmeyin özelliğini etkinleştirerek yeni bir oturum başlatın.';
-
-  @override
-  String get active_session_card_title => 'Aktif oturum';
-
-  @override
-  String get active_session_card_info =>
-      'Aktif bir odaklanma oturumunuz devam ediyor! İlerlemenizi kontrol etmek ve ne kadar zaman geçtiğini görmek için \'Görüntüle\'ye tıklayın.';
-
-  @override
-  String get active_session_card_view_button => 'Görüntüle';
-
-  @override
-  String get focus_distracting_apps_removal_snack_alert =>
-      'Odaklanma Oturumu etkinken dikkat dağıtıcı uygulamalar listesinden uygulama kaldırmaya izin verilmez. Ancak, bu süre zarfında listeye ek uygulamalar ekleyebilirsiniz.';
-
-  @override
-  String get focus_profile_tile_title => 'Odaklanma profili';
-
-  @override
   String get focus_session_duration_tile_title => 'Oturum süresi';
-
-  @override
-  String get focus_session_duration_tile_subtitle => 'Sonsuz (durdurana kadar)';
 
   @override
   String get focus_session_duration_dialog_info =>
       'Lütfen bu odaklanma oturumu için istediğiniz süreyi seçin, ne kadar süre odaklanmış ve dikkatiniz dağılmadan kalmak istediğinizi belirleyin.';
 
   @override
-  String get focus_profile_customization_tile_title => 'Profile customization';
-
-  @override
-  String get focus_profile_customization_tile_subtitle =>
-      'Customize settings for the selected profile.';
-
-  @override
-  String get focus_enforce_tile_title => 'Enforce session';
-
-  @override
-  String get focus_enforce_tile_subtitle =>
-      'Prevents ending a session before time ends.';
-
-  @override
-  String get focus_session_start_button => 'Swipe to start Session';
-
-  @override
-  String get focus_session_minimum_apps_snack_alert =>
-      'Odaklanma oturumunu başlatmak için en az bir dikkat dağıtıcı uygulama seçin';
-
-  @override
-  String get focus_session_already_active_snack_alert =>
-      'Halihazırda aktif bir odaklanma oturumunuz var. Lütfen yeni bir oturum başlatmadan önce mevcut oturumunuzu tamamlayın veya durdurun.';
-
-  @override
-  String get focus_session_type_study => 'Ders çalışma';
-
-  @override
-  String get focus_session_type_work => 'İş';
-
-  @override
-  String get focus_session_type_exercise => 'Egzersiz';
-
-  @override
-  String get focus_session_type_meditation => 'Meditasyon';
-
-  @override
-  String get focus_session_type_creativeWriting => 'Yaratıcı Yazarlık';
-
-  @override
-  String get focus_session_type_reading => 'Okuma';
-
-  @override
-  String get focus_session_type_programming => 'Programlama';
-
-  @override
-  String get focus_session_type_chores => 'Ev İşleri';
-
-  @override
-  String get focus_session_type_projectPlanning => 'Proje Planlama';
-
-  @override
-  String get focus_session_type_artAndDesign => 'Sanat ve Tasarım';
-
-  @override
-  String get focus_session_type_languageLearning => 'Dil Öğrenimi';
-
-  @override
-  String get focus_session_type_musicPractice => 'Müzik Pratiği';
-
-  @override
-  String get focus_session_type_selfCare => 'Kişisel Bakım';
-
-  @override
-  String get focus_session_type_brainstorming => 'Beyin Fırtınası';
-
-  @override
-  String get focus_session_type_skillDevelopment => 'Beceri Geliştirme';
-
-  @override
-  String get focus_session_type_research => 'Araştırma';
-
-  @override
-  String get focus_session_type_networking => 'İlişki ağı oluşturma';
-
-  @override
-  String get focus_session_type_cooking => 'Yemek yapma';
-
-  @override
-  String get focus_session_type_sportsTraining => 'Spor antremanı';
-
-  @override
-  String get focus_session_type_restAndRelaxation => 'Dinlenme ve Rahatlama';
-
-  @override
-  String get focus_session_type_other => 'Diğer';
-
-  @override
   String get timeline_tab_title => 'Zaman çizelgesi';
 
   @override
-  String get focus_timeline_tab_info =>
-      'Explore your focus journey by selecting a date from the calendar. Track your progress, revisit your successes, and learn from the challenges.';
-
-  @override
-  String selected_month_productive_time_snack_alert(String timeString) {
-    return 'Seçilen ay için toplam üretkenlik süreniz $timeString.';
-  }
-
-  @override
-  String get selected_month_productive_days_label => 'Verimli günler';
-
-  @override
-  String selected_month_productive_days_snack_alert(num daysCount) {
-    return 'Seçilen ayda toplam $daysCount verimli gün geçirdiniz.';
-  }
-
-  @override
-  String get selected_day_focused_time_label => 'Odaklanmış zaman';
-
-  @override
-  String selected_day_focused_time_snack_alert(String timeString) {
-    return 'Seçilen gün için odaklandığınız toplam süre $timeString.';
-  }
-
-  @override
   String get calender_heading => 'Takvim';
-
-  @override
-  String get your_sessions_heading => 'Seanslarınız';
-
-  @override
-  String get your_sessions_empty_list_hint =>
-      'Seçilen gün için hiçbir odak oturumu kaydedilmemiştir.';
 
   @override
   String get focus_session_tile_timestamp_label => 'Timestamp';
@@ -1315,39 +864,6 @@ class AppLocalizationsTr extends AppLocalizations {
   String get focus_session_tile_reflection_label => 'Reflection';
 
   @override
-  String get focus_session_state_active => 'Aktif';
-
-  @override
-  String get focus_session_state_successful => 'Başarılı';
-
-  @override
-  String get focus_session_state_failed => 'Başarısız';
-
-  @override
-  String get active_session_tab_title => 'Oturum';
-
-  @override
-  String get active_session_none_warning =>
-      'Aktif oturum bulunamadı. Ana ekrana dönülüyor.';
-
-  @override
-  String get active_session_dialog_button_keep_pushing => 'Oturuma devam et';
-
-  @override
-  String get active_session_finish_dialog_title => 'Bitir';
-
-  @override
-  String get active_session_finish_dialog_info =>
-      'Güçlü kalın! Değerli bir odaklanma oluşturuyorsunuz. Bu odaklanma seansını bitirmek istediğinize emin misiniz? Fazladan her an hedefleriniz için önemlidir.';
-
-  @override
-  String get active_session_giveup_dialog_title => 'Vazgeç';
-
-  @override
-  String get active_session_giveup_dialog_info =>
-      'Bir saniye! Neredeyse tamamladın, şimdi pes etme! Bu odaklanma oturumunu erken bitirmek istediğinden emin misin? İlerleme kaybolacak.';
-
-  @override
   String get active_session_reflection_dialog_title => 'Session reflection';
 
   @override
@@ -1357,72 +873,6 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get active_session_reflection_dialog_tip =>
       'Tip: You can always edit this later in the session timeline.';
-
-  @override
-  String get active_session_giveup_snack_alert =>
-      'Vazgeçtin! Endişelenme, bir dahaki sefere daha iyisini yapabilirsin. Her çaba önemli – sadece devam et';
-
-  @override
-  String get active_session_quote_one =>
-      'Her adım önemlidir, güçlü kalın ve devam edin';
-
-  @override
-  String get active_session_quote_two =>
-      'Odaklanmaya devam et! İnanılmaz bir ilerleme kaydediyorsun';
-
-  @override
-  String get active_session_quote_three => 'Eziyorsun! Momentumu devam ettir';
-
-  @override
-  String get active_session_quote_four =>
-      'Sadece biraz daha kaldı, harika gidiyorsun';
-
-  @override
-  String active_session_quote_five(String durationString) {
-    return 'Tebrikler 🎉 \n $durationString odaklanma seansınızı tamamladınız.\n\nHarika iş, harika çalışmaya devam edin';
-  }
-
-  @override
-  String get restriction_groups_tab_title => 'Kısıtlama grupları';
-
-  @override
-  String get restriction_groups_tab_info =>
-      'Bir grup uygulama için birleşik bir ekran süresi sınırı belirleyin. Toplam kullanım sınırınıza ulaştığında, odaklanmayı ve dengeyi korumaya yardımcı olmak için gruptaki tüm uygulamalar duraklatılacaktır.';
-
-  @override
-  String get restriction_group_time_spent_label => 'Bugün harcanan zaman';
-
-  @override
-  String get restriction_group_time_left_label => 'Bugün kalan zaman';
-
-  @override
-  String get restriction_group_name_tile_title => 'Grup adı';
-
-  @override
-  String get restriction_group_name_picker_dialog_info =>
-      'Kısıtlama grubunun kolayca tanımlanmasına ve yönetilmesine yardımcı olmak için bir ad girin.';
-
-  @override
-  String get restriction_group_timer_tile_title => 'Grup zamanlayıcısı';
-
-  @override
-  String get restriction_group_timer_picker_dialog_info =>
-      'Bu grup için günlük bir zaman sınırı belirleyin. Sınırınıza ulaşıldığında, bu gruptaki tüm uygulamalar gece yarısına kadar duraklatılacaktır.';
-
-  @override
-  String get restriction_group_active_period_tile_title => 'Grup aktif dönemi';
-
-  @override
-  String get remove_restriction_group_dialog_title => 'Grubu sil';
-
-  @override
-  String remove_restriction_group_dialog_info(String groupName) {
-    return 'Emin misiniz? \'$groupName\' öğesini kısıtlama gruplarından kaldırmak istiyorsunuz.';
-  }
-
-  @override
-  String get restriction_group_invalid_limits_snack_alert =>
-      'Bir zamanlayıcı ya da aktif süre sınırı belirleyin.';
 
   @override
   String get notifications_empty_list_hint =>

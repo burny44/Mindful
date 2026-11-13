@@ -7,7 +7,7 @@ import org.json.JSONObject
  * A saved scheduled focus session.
  *
  * [distractingApps] stay blocked while the session is inside its schedule and not currently
- * in a break. When [isStrict] is true the Flutter side refuses further edits.
+ * in a break. When [isStrict] is true the Flutter side refuses edits while active.
  */
 data class ScheduledFocusSession(
     val id: Long = 0,

@@ -55,7 +55,7 @@ class AppInternetTile extends ConsumerWidget {
             onPressed: onPressed,
           )
         : DefaultListTile(
-            position: ItemPosition.mid,
+            position: ItemPosition.bottom,
             switchValue: haveInternetAccess,
             enabled: !appInfo.isImpSysApp,
             titleText: context.locale.internet_access_tile_title,

@@ -8,7 +8,6 @@
  *
  */
 
-import 'package:drift/drift.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mindful/core/database/adapters/time_of_day_adapter.dart';
 import 'package:mindful/core/database/app_database.dart';
@@ -131,63 +130,6 @@ class AppsRestrictionsNotifier
     _updateStateDbAndServices(appPackage, restriction, updateVpn: true);
   }
 
-  /// Updates the id of associated [RestrictionGroup] for a specific app package.
-  Future<void> updateAssociatedGroupId({
-    required List<String> appPackages,
-    bool removeIds = false,
-    int? groupId,
-  }) async {
-    List<AppRestriction> updatedRestrictions = [];
-    Map<String, AppRestriction> updatedState = {...state};
-
-    final skippedApps = removeIds
-        ? appPackages
-        : state.values
-            .where((e) => (e.associatedGroupId ?? -1) == groupId)
-            .map((e) => e.appPackage);
-
-    /// Remove associated group id for the removed old packages
-    for (var appPackage in skippedApps) {
-      final restriction =
-          state[appPackage]?.copyWith(associatedGroupId: const Value(null)) ??
-              defaultAppRestrictionModel.copyWith(
-                appPackage: appPackage,
-                associatedGroupId: const Value(null),
-              );
-
-      updatedRestrictions.add(restriction);
-      updatedState.update(
-        appPackage,
-        (value) => restriction,
-        ifAbsent: () => restriction,
-      );
-    }
-
-    if (!removeIds) {
-      /// Add/Update associated group id for the new packages
-      for (var appPackage in appPackages) {
-        final restriction =
-            state[appPackage]?.copyWith(associatedGroupId: Value(groupId)) ??
-                defaultAppRestrictionModel.copyWith(
-                  appPackage: appPackage,
-                  associatedGroupId: Value(groupId),
-                );
-
-        updatedRestrictions.add(restriction);
-        updatedState.update(
-          appPackage,
-          (value) => restriction,
-          ifAbsent: () => restriction,
-        );
-      }
-    }
-
-    /// Update database and state
-    state = updatedState;
-    await _dao.insertAppRestrictionsByPackage(updatedRestrictions);
-    await _updateTrackerService();
-  }
-
   /// Updates state and database with the provided data.
   ///
   /// Also update VPN service if flag is TRUE else update Tracker service
@@ -217,8 +159,7 @@ class AppsRestrictionsNotifier
               _installedApps.contains(e.appPackage) &&
               (e.timerSec > 0 ||
                   e.launchLimit > 0 ||
-                  e.periodDurationInMins > 0 ||
-                  e.associatedGroupId != null),
+                  e.periodDurationInMins > 0),
         )
         .toList();
 

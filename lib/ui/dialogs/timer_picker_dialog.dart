@@ -63,6 +63,29 @@ Future<int?> showShortsTimerPicker({
       ),
     );
 
+/// Animates the hero widget to a alert dialog containing duration picker for the
+/// daily Instagram usage after which reels get blocked.
+///
+/// Returns time in seconds and take initial time in seconds
+Future<int?> showInstagramUsageLimitPicker({
+  required BuildContext context,
+  required Object heroTag,
+  int initialTime = 30 * 60,
+}) async =>
+    await Navigator.of(context).push<int>(
+      HeroPageRoute(
+        builder: (context) => _DurationPickerDialog(
+          title: context.locale.instagram_usage_limit_picker_title,
+          info: context.locale.instagram_usage_limit_picker_info,
+          icon: const Icon(FluentIcons.timer_20_regular),
+          heroTag: heroTag,
+          initialTimeInSec: initialTime,
+          positiveButtonLabel: context.locale.dialog_button_set,
+          showActionButton: false,
+        ),
+      ),
+    );
+
 /// Animates the hero widget to a alert dialog containing duration picker with the provided configurations
 ///
 /// Returns time in seconds and take initial time in seconds
@@ -125,26 +148,6 @@ Future<int?> showScheduledFocusDurationPicker({
         info: info,
         positiveButtonLabel: context.locale.dialog_button_set,
         showActionButton: false,
-      ),
-    ),
-  );
-}
-
-Future<int?> showRestrictionGroupTimerPicker({
-  required BuildContext context,
-  required Object heroTag,
-  required String groupName,
-  int initialTime = 0,
-}) async {
-  return await Navigator.of(context).push<int?>(
-    HeroPageRoute(
-      builder: (context) => _DurationPickerDialog(
-        title: groupName,
-        icon: const Icon(FluentIcons.timer_20_regular),
-        heroTag: heroTag,
-        initialTimeInSec: initialTime,
-        info: context.locale.restriction_group_timer_picker_dialog_info,
-        positiveButtonLabel: context.locale.dialog_button_set,
       ),
     ),
   );

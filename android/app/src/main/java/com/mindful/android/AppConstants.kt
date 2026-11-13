@@ -27,15 +27,12 @@ object AppConstants {
     const val TRACKER_SERVICE_NOTIFICATION_ID: Int = 101
     const val VPN_SERVICE_NOTIFICATION_ID: Int = 102
     const val EMERGENCY_PAUSE_SERVICE_NOTIFICATION_ID: Int = 103
-    const val FOCUS_SESSION_SERVICE_NOTIFICATION_ID: Int = 104
-    const val BEDTIME_ROUTINE_NOTIFICATION_ID: Int = 105
     const val NOTIFICATION_BATCH_SCHEDULE_NOTIFICATION_ID: Int = 106
 
     const val SETTINGS_PACKAGE: String = "com.android.settings"
     const val SYSTEM_UI_PACKAGE: String = "com.android.systemui"
 
     // Platforms package names
-    const val SYSTEM_SETTINGS_PACKAGE: String = "com.android.settings"
     const val INSTAGRAM_PACKAGE: String = "com.instagram.android"
     const val YOUTUBE_PACKAGE: String = "com.google.android.youtube"
     const val YOUTUBE_CLIENT_PACKAGE_SUFFIX: String = ".android.youtube"

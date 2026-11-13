@@ -27,8 +27,7 @@ class Initializer {
       (e) =>
           e.timerSec <= 0 &&
           e.periodDurationInMins <= 0 &&
-          e.launchLimit <= 0 &&
-          e.associatedGroupId == null,
+          e.launchLimit <= 0,
     );
 
     /// update tracker service
@@ -37,15 +36,6 @@ class Initializer {
     /// update vpn service
     await MethodChannelService.instance
         .updateInternetBlockedApps(internetBlockedApps);
-
-    /// Update restriction groups
-    final restrictionGroups = await dynamicDao.fetchRestrictionGroups();
-    await MethodChannelService.instance
-        .updateRestrictionsGroups(restrictionGroups);
-
-    /// Fetch and update bedtime routine
-    final bedtime = await uniqueDao.loadBedtimeSchedule();
-    await MethodChannelService.instance.updateBedtimeSchedule(bedtime);
 
     /// Fetch and update wellbeing
     final wellbeing = await uniqueDao.loadWellBeingSettings();

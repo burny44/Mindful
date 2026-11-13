@@ -47,8 +47,8 @@ class ScheduledFocusSessionCard extends ConsumerWidget {
     return DefaultHero(
       tag: HeroTags.scheduledFocusRemoveTag(session.id),
       child: DefaultSlideToRemove(
-        enabled: !session.isStrict,
-        removable: !session.isStrict,
+        enabled: !session.isStrictLocked,
+        removable: !session.isStrictLocked,
         key: Key("scheduledFocusSession.${session.id}"),
         position: position ?? ItemPosition.none,
         onDismiss: () => _removeSession(context, ref),
@@ -57,16 +57,6 @@ class ScheduledFocusSessionCard extends ConsumerWidget {
           padding: const EdgeInsets.all(16),
           color: Theme.of(context).colorScheme.surfaceContainer,
           onPressed: () {
-            if (session.isStrict) {
-              /// Still allow opening in read-only mode
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) =>
-                      CreateUpdateScheduledFocusScreen(session: session),
-                ),
-              );
-              return;
-            }
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) =>
@@ -175,7 +165,7 @@ class ScheduledFocusSessionCard extends ConsumerWidget {
   }
 
   void _removeSession(BuildContext context, WidgetRef ref) async {
-    if (session.isStrict) {
+    if (session.isStrictLocked) {
       context.showSnackAlert(context.locale.new_session_strict_locked_snack);
       return;
     }

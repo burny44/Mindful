@@ -3,13 +3,12 @@ package com.mindful.android.utils
 import android.util.Log
 import com.mindful.android.models.AppRestriction
 import com.mindful.android.models.FocusUnlockRule
-import com.mindful.android.models.RestrictionGroup
 import com.mindful.android.models.ScheduledFocusSession
 import org.json.JSONArray
 import org.json.JSONException
 
 /**
- * Utility functions for JSON parsing related to app restrictions and restriction groups.
+ * Utility functions for JSON parsing related to app restrictions and focus sessions.
  */
 object JsonUtils {
     private const val TAG = "Mindful.JsonUtils"
@@ -154,30 +153,6 @@ object JsonUtils {
         } catch (e: JSONException) {
             Log.e(TAG, "parseScheduledFocusSessions: Failed to parse ScheduledFocusSessions", e)
             emptyList()
-        }
-    }
-
-    /**
-     * Deserializes a JSON string into a HashMap mapping group IDs to [RestrictionGroup] objects.
-     *
-     * @param jsonString The JSON string representing a list of RestrictionGroups.
-     * @return A HashMap of [RestrictionGroup] or an empty map if parsing fails.
-     */
-    fun parseRestrictionGroupsMap(jsonString: String?): HashMap<Int, RestrictionGroup> {
-        val map = HashMap<Int, RestrictionGroup>()
-        if (jsonString.isNullOrBlank()) return map
-
-        return try {
-            JSONArray(jsonString).let { jsonArray ->
-                for (i in 0 until jsonArray.length()) {
-                    val group = RestrictionGroup.fromJson(jsonArray.getString(i))
-                    map[group.id] = group
-                }
-                map
-            }
-        } catch (e: JSONException) {
-            Log.e(TAG, "jsonStrToRestrictionGroupsHashMap: Failed to parse RestrictionGroups", e)
-            map
         }
     }
 }

@@ -161,10 +161,6 @@ class TabGeneral extends ConsumerWidget {
               label: context.locale.notifications_tab_title,
               value: DefaultHomeTab.notifications,
             ),
-            DefaultDropdownItem(
-              label: context.locale.bedtime_tab_title,
-              value: DefaultHomeTab.bedtime,
-            ),
           ],
         ).sliver,
 

@@ -24,7 +24,7 @@ import 'package:mindful/ui/common/content_section_header.dart';
 import 'package:mindful/ui/common/sliver_tabs_bottom_padding.dart';
 import 'package:mindful/ui/common/styled_text.dart';
 import 'package:mindful/ui/common/usage_glance_card.dart';
-import 'package:mindful/ui/screens/focus/focus_timeline/sliver_heatmap_calender.dart';
+import 'package:mindful/ui/common/sliver_heatmap_calender.dart';
 import 'package:mindful/ui/screens/notifications/sliver_notifications_list.dart';
 
 class TabNotificationTimeline extends ConsumerStatefulWidget {

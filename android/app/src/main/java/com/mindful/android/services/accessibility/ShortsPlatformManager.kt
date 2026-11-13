@@ -1,5 +1,6 @@
 package com.mindful.android.services.accessibility
 
+import android.app.usage.UsageStatsManager
 import android.content.Context
 import android.util.Log
 import android.view.accessibility.AccessibilityNodeInfo
@@ -11,6 +12,7 @@ import com.mindful.android.AppConstants.YOUTUBE_CLIENT_PACKAGE_SUFFIX
 import com.mindful.android.AppConstants.YOUTUBE_PACKAGE
 import com.mindful.android.enums.PlatformFeatures
 import com.mindful.android.helpers.storage.SharedPrefsHelper
+import com.mindful.android.helpers.usages.ScreenUsageHelper
 import com.mindful.android.models.Wellbeing
 import org.jetbrains.annotations.Contract
 
@@ -23,6 +25,50 @@ class ShortsPlatformManager(
     private var lastTimeShortsEvent = 0L
     private var lastTimeSaved = 0L
     private var shortContentScreenTime = SharedPrefsHelper.getSetShortsScreenTimeMs(context, null)
+
+    private val usageStatsManager =
+        context.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
+
+    // Cached Instagram usage for today, refreshed at most every [USAGE_CACHE_MS]
+    private var instagramUsageTodayMs = 0L
+    private var instagramUsageCheckedAt = 0L
+
+    /**
+     * Returns `true` if Instagram reels should be blocked right now.
+     *
+     * With a daily Instagram usage limit set, reels are blocked only once Instagram was used
+     * for that long today. Otherwise the shared short content allowance is used.
+     */
+    fun isInstagramReelsBlocked(wellbeing: Wellbeing): Boolean {
+        if (PlatformFeatures.INSTAGRAM_REELS !in wellbeing.blockedFeatures) return false
+
+        return if (wellbeing.instagramUsageLimitMs > 0) {
+            fetchInstagramUsageTodayMs() >= wellbeing.instagramUsageLimitMs
+        } else {
+            isShortsLimitReached(wellbeing.allowedShortsTimeMs)
+        }
+    }
+
+    private fun fetchInstagramUsageTodayMs(): Long {
+        val now = System.currentTimeMillis()
+        if (now - instagramUsageCheckedAt > USAGE_CACHE_MS) {
+            val usageSec = runCatching {
+                ScreenUsageHelper.fetchAppUsageTodayTillNow(usageStatsManager)[INSTAGRAM_PACKAGE]
+            }.getOrNull() ?: 0L
+
+            instagramUsageTodayMs = usageSec * 1000L
+            instagramUsageCheckedAt = now
+        }
+        return instagramUsageTodayMs
+    }
+
+    /**
+     * Returns `true` if short content is currently blocked, i.e. the daily allowance
+     * is used up or no allowance is set (negative value).
+     */
+    fun isShortsLimitReached(allowedShortContentTimeMs: Long): Boolean =
+        allowedShortContentTimeMs < 0 ||
+                shortContentScreenTime > (allowedShortContentTimeMs + SAVING_INTERVAL_MS)
 
     fun resetShortsScreenTime() {
         shortContentScreenTime = 0L
@@ -47,6 +93,17 @@ class ShortsPlatformManager(
             else packageName
 
         val blockedFeatures = wellbeing.blockedFeatures
+
+        /// Instagram reels with a daily usage limit: allowed until the limit is used up,
+        /// then blocked without counting towards the short content allowance.
+        if (resolvedPackage == INSTAGRAM_PACKAGE
+            && wellbeing.instagramUsageLimitMs > 0
+            && PlatformFeatures.INSTAGRAM_REELS in blockedFeatures
+            && isInstagramReelsViewerOpen(node)
+        ) {
+            if (isInstagramReelsBlocked(wellbeing)) blockedContentGoBack.invoke()
+            return
+        }
 
         /// Check if blocking is enabled for platforms
         val isFeatureOpen = when (resolvedPackage) {
@@ -114,7 +171,7 @@ class ShortsPlatformManager(
         maxAllowedDuration: Long = 30 * 1000L,
     ) {
         // Check if limit is exhausted
-        if (allowedShortContentTimeMs < 0 || shortContentScreenTime > (allowedShortContentTimeMs + SAVING_INTERVAL_MS)) {
+        if (isShortsLimitReached(allowedShortContentTimeMs)) {
             blockedContentGoBack.invoke()
             return
         }
@@ -144,6 +201,9 @@ class ShortsPlatformManager(
 
         // The minimum interval between saving short content's screen time in shared preferences
         private const val SAVING_INTERVAL_MS = (30 * 1000L)
+
+        // How long the fetched Instagram usage is reused before querying usage stats again
+        private const val USAGE_CACHE_MS = (30 * 1000L)
 
         /**
          * Max allowed duration for each short content platform (based on the highest short length or duration)
@@ -186,7 +246,7 @@ class ShortsPlatformManager(
         ): Boolean {
             return when {
                 PlatformFeatures.INSTAGRAM_REELS in blockedFeatures &&
-                        doesNodeByIdExists(node, "com.instagram.android:id/clips_video_container")
+                        isInstagramReelsViewerOpen(node)
                 -> true
 
                 PlatformFeatures.INSTAGRAM_EXPLORE in blockedFeatures &&
@@ -196,6 +256,37 @@ class ShortsPlatformManager(
                 else -> false
             }
         }
+
+        /**
+         * Checks if the user is actually watching Reels, without reacting to reels/videos
+         * that are shown inside the home feed.
+         *
+         * Instagram uses the same `clips_video_container` for reels inside the home feed and
+         * for the dedicated Reels viewer, so that view alone can't be used. Instead:
+         * 1. Reels tab is open: the `clips_tab` button in the bottom bar is selected.
+         * 2. Full-screen reel viewer (e.g. a reel opened from a DM or a profile): a reel video
+         *    is on screen and the bottom tab bar is gone. The home feed always shows the
+         *    tab bar with the feed tab selected, so feed videos are not affected.
+         */
+        private fun isInstagramReelsViewerOpen(node: AccessibilityNodeInfo): Boolean {
+            val reelsTabs = node.findAccessibilityNodeInfosByViewId(INSTA_REELS_TAB_ID)
+            if (reelsTabs.any { it.isSelected && it.isVisibleToUser }) return true
+
+            val isReelVideoOnScreen = node
+                .findAccessibilityNodeInfosByViewId(INSTA_REEL_VIDEO_ID)
+                .any { it.isVisibleToUser }
+            if (!isReelVideoOnScreen) return false
+
+            val isTabBarVisible = reelsTabs.any { it.isVisibleToUser } ||
+                    node.findAccessibilityNodeInfosByViewId(INSTA_FEED_TAB_ID)
+                        .any { it.isVisibleToUser }
+
+            return !isTabBarVisible
+        }
+
+        private const val INSTA_REELS_TAB_ID = InstagramReelsLock.REELS_TAB_ID
+        private const val INSTA_FEED_TAB_ID = "com.instagram.android:id/feed_tab"
+        private const val INSTA_REEL_VIDEO_ID = "com.instagram.android:id/clips_video_container"
 
         /**
          * Checks if YouTube Shorts is currently open.

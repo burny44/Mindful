@@ -14,11 +14,9 @@ enum PermissionType {
   notification,
   usageAccess,
   displayOverlay,
-  doNotDisturb,
   accessibility,
   vpn,
   ignoreOptimization,
   exactAlarm,
-  admin,
   notificationAccess,
 }

@@ -9,7 +9,6 @@
  */
 
 import 'package:flutter/widgets.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mindful/core/enums/permission_type.dart';
 import 'package:mindful/core/services/method_channel_service.dart';
@@ -41,8 +40,6 @@ class PermissionNotifier extends StateNotifier<PermissionsModel>
           await MethodChannelService.instance.getAndAskUsageAccessPermission(),
       haveDisplayOverlayPermission: await MethodChannelService.instance
           .getAndAskDisplayOverlayPermission(),
-      haveDndPermission:
-          await MethodChannelService.instance.getAndAskDndPermission(),
       haveAccessibilityPermission: await MethodChannelService.instance
           .getAndAskAccessibilityPermission(),
       haveVpnPermission:
@@ -51,8 +48,6 @@ class PermissionNotifier extends StateNotifier<PermissionsModel>
           await MethodChannelService.instance.getAndAskExactAlarmPermission(),
       haveIgnoreOptimizationPermission: await MethodChannelService.instance
           .getAndAskIgnoreBatteryOptimizationPermission(),
-      haveAdminPermission:
-          await MethodChannelService.instance.getAndAskAdminPermission(),
       haveNotificationAccessPermission: await MethodChannelService.instance
           .getAndAskNotificationAccessPermission(),
     );
@@ -87,10 +82,6 @@ class PermissionNotifier extends StateNotifier<PermissionsModel>
           haveDisplayOverlayPermission: await MethodChannelService.instance
               .getAndAskDisplayOverlayPermission(),
         ),
-      PermissionType.doNotDisturb => state.copyWith(
-          haveDndPermission:
-              await MethodChannelService.instance.getAndAskDndPermission(),
-        ),
       PermissionType.accessibility => state.copyWith(
           haveAccessibilityPermission: await MethodChannelService.instance
               .getAndAskAccessibilityPermission(),
@@ -108,10 +99,6 @@ class PermissionNotifier extends StateNotifier<PermissionsModel>
               .getAndAskIgnoreBatteryOptimizationPermission(),
           haveAlarmsPermission: await MethodChannelService.instance
               .getAndAskExactAlarmPermission(),
-        ),
-      PermissionType.admin => state.copyWith(
-          haveAdminPermission:
-              await MethodChannelService.instance.getAndAskAdminPermission(),
         ),
       PermissionType.notificationAccess => state.copyWith(
           haveNotificationAccessPermission: await MethodChannelService.instance
@@ -157,13 +144,6 @@ class PermissionNotifier extends StateNotifier<PermissionsModel>
         .getAndAskVpnPermission(askPermissionToo: true);
   }
 
-  /// Requests the Do Not Disturb permission and updates the internal state.
-  void askDndPermission() async {
-    _askedPermission = PermissionType.doNotDisturb;
-    await MethodChannelService.instance
-        .getAndAskDndPermission(askPermissionToo: true);
-  }
-
   /// Requests the Set Exact Alarm permission and updates the internal state.
   void askExactAlarmPermission() async {
     _askedPermission = PermissionType.exactAlarm;
@@ -178,24 +158,7 @@ class PermissionNotifier extends StateNotifier<PermissionsModel>
         .getAndAskIgnoreBatteryOptimizationPermission(askPermissionToo: true);
   }
 
-  /// Requests the Admin permission and updates the internal state.
-  void askAdminPermission() async {
-    _askedPermission = PermissionType.admin;
-    await MethodChannelService.instance
-        .getAndAskAdminPermission(askPermissionToo: true);
-  }
-
-  /// Request the device to disable admin if already enabled
-  void disableAdminPermission() async {
-    await MethodChannelService.instance.disableDeviceAdmin();
-    await Future.delayed(500.ms);
-    state = state.copyWith(
-      haveAdminPermission:
-          await MethodChannelService.instance.getAndAskAdminPermission(),
-    );
-  }
-
-  /// Requests the Admin permission and updates the internal state.
+  /// Requests the notification access permission and updates the internal state.
   void askNotificationAccessPermission() async {
     _askedPermission = PermissionType.notificationAccess;
     await MethodChannelService.instance
