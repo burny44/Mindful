@@ -13,13 +13,14 @@ class HeroTags {
   static const betaWarningTag = "mindful.appbar.betaWarning";
 
   /// Tag used to identify the beta warning container
-  static const donationDialogTag = "mindful.appbar.donation";
 
   /// Tag used to identify the FAB for adding a distracting website.
   static const editUsernameTag = "dashboard.editUsername";
 
   /// Tag used to identify the daily Instagram usage limit (for reels) tile.
   static const instagramUsageLimitTileTag = "shortsBlocking.instagramUsageLimit";
+  static const youtubeShortsLimitTileTag = "shortsBlocking.youtubeShortsLimit";
+  static const shortAllowanceTileTag = "shortsBlocking.shortAllowance";
 
   /// Tag used to identify the short content timer picker.
 

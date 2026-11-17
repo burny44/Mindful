@@ -1,6 +1,5 @@
 package com.mindful.android.services.accessibility
 
-import android.app.usage.UsageStatsManager
 import android.content.Context
 import android.util.Log
 import android.view.accessibility.AccessibilityNodeInfo
@@ -8,11 +7,12 @@ import com.mindful.android.AppConstants.FACEBOOK_PACKAGE
 import com.mindful.android.AppConstants.INSTAGRAM_PACKAGE
 import com.mindful.android.AppConstants.REDDIT_PACKAGE
 import com.mindful.android.AppConstants.SNAPCHAT_PACKAGE
+import com.mindful.android.AppConstants.VIRTUAL_INSTAGRAM_REELS
+import com.mindful.android.AppConstants.VIRTUAL_YOUTUBE_SHORTS
 import com.mindful.android.AppConstants.YOUTUBE_CLIENT_PACKAGE_SUFFIX
 import com.mindful.android.AppConstants.YOUTUBE_PACKAGE
 import com.mindful.android.enums.PlatformFeatures
 import com.mindful.android.helpers.storage.SharedPrefsHelper
-import com.mindful.android.helpers.usages.ScreenUsageHelper
 import com.mindful.android.models.Wellbeing
 import org.jetbrains.annotations.Contract
 
@@ -22,58 +22,43 @@ class ShortsPlatformManager(
     private val blockedContentGoBack: () -> Unit,
 ) {
 
-    private var lastTimeShortsEvent = 0L
-    private var lastTimeSaved = 0L
-    private var shortContentScreenTime = SharedPrefsHelper.getSetShortsScreenTimeMs(context, null)
-
-    private val usageStatsManager =
-        context.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
-
-    // Cached Instagram usage for today, refreshed at most every [USAGE_CACHE_MS]
-    private var instagramUsageTodayMs = 0L
-    private var instagramUsageCheckedAt = 0L
-
     /**
      * Returns `true` if Instagram reels should be blocked right now.
      *
-     * With a daily Instagram usage limit set, reels are blocked only once Instagram was used
-     * for that long today. Otherwise the shared short content allowance is used.
+     * With a daily reels limit set, reels are blocked once reels were watched for that long
+     * today or the shared allowance (if on) is used up. Otherwise only the allowance applies.
      */
     fun isInstagramReelsBlocked(wellbeing: Wellbeing): Boolean {
         if (PlatformFeatures.INSTAGRAM_REELS !in wellbeing.blockedFeatures) return false
 
-        return if (wellbeing.instagramUsageLimitMs > 0) {
-            fetchInstagramUsageTodayMs() >= wellbeing.instagramUsageLimitMs
+        return if (wellbeing.instagramReelsLimitMs > 0) {
+            ShortFormUsageTracker.todayMs(context, VIRTUAL_INSTAGRAM_REELS) >=
+                    wellbeing.instagramReelsLimitMs || isAllowanceOnAndUsedUp(wellbeing)
         } else {
-            isShortsLimitReached(wellbeing.allowedShortsTimeMs)
+            isAllowanceUsedUp(wellbeing)
         }
-    }
-
-    private fun fetchInstagramUsageTodayMs(): Long {
-        val now = System.currentTimeMillis()
-        if (now - instagramUsageCheckedAt > USAGE_CACHE_MS) {
-            val usageSec = runCatching {
-                ScreenUsageHelper.fetchAppUsageTodayTillNow(usageStatsManager)[INSTAGRAM_PACKAGE]
-            }.getOrNull() ?: 0L
-
-            instagramUsageTodayMs = usageSec * 1000L
-            instagramUsageCheckedAt = now
-        }
-        return instagramUsageTodayMs
     }
 
     /**
-     * Returns `true` if short content is currently blocked, i.e. the daily allowance
-     * is used up or no allowance is set (negative value).
+     * Returns `true` if YouTube shorts with their own daily limit must be blocked: the limit
+     * or the shared allowance (if on) is used up.
      */
-    fun isShortsLimitReached(allowedShortContentTimeMs: Long): Boolean =
-        allowedShortContentTimeMs < 0 ||
-                shortContentScreenTime > (allowedShortContentTimeMs + SAVING_INTERVAL_MS)
+    private fun isYoutubeShortsLimitReached(wellbeing: Wellbeing): Boolean =
+        ShortFormUsageTracker.todayMs(context, VIRTUAL_YOUTUBE_SHORTS) >=
+                wellbeing.youtubeShortsLimitMs || isAllowanceOnAndUsedUp(wellbeing)
 
-    fun resetShortsScreenTime() {
-        shortContentScreenTime = 0L
-        SharedPrefsHelper.getSetShortsScreenTimeMs(context, 0L)
-    }
+    /**
+     * Returns `true` if blocked short content without its own limit must be blocked now:
+     * the shared daily allowance is off (negative) or used up. The allowance counts all
+     * short content watched today (measured by [ShortFormUsageTracker]).
+     */
+    fun isAllowanceUsedUp(wellbeing: Wellbeing): Boolean =
+        wellbeing.allowedShortsTimeMs <= 0 || isAllowanceOnAndUsedUp(wellbeing)
+
+    /** Returns `true` if the shared allowance is on and all of it was used today. */
+    private fun isAllowanceOnAndUsedUp(wellbeing: Wellbeing): Boolean =
+        wellbeing.allowedShortsTimeMs > 0 &&
+                ShortFormUsageTracker.allowanceUsedMs(context) >= wellbeing.allowedShortsTimeMs
 
     /**
      * Checks if a blocked short-form content feature is open and applies restrictions.
@@ -94,14 +79,23 @@ class ShortsPlatformManager(
 
         val blockedFeatures = wellbeing.blockedFeatures
 
-        /// Instagram reels with a daily usage limit: allowed until the limit is used up,
-        /// then blocked without counting towards the short content allowance.
+        /// Instagram reels with their own daily limit: allowed until that much reels time
+        /// or the shared allowance was used up today.
         if (resolvedPackage == INSTAGRAM_PACKAGE
-            && wellbeing.instagramUsageLimitMs > 0
+            && wellbeing.instagramReelsLimitMs > 0
             && PlatformFeatures.INSTAGRAM_REELS in blockedFeatures
             && isInstagramReelsViewerOpen(node)
         ) {
             if (isInstagramReelsBlocked(wellbeing)) blockedContentGoBack.invoke()
+            return
+        }
+
+        /// Same for YouTube shorts with their own daily limit
+        if (resolvedPackage == YOUTUBE_PACKAGE
+            && wellbeing.youtubeShortsLimitMs > 0
+            && isYoutubeFeatureOpen(node, blockedFeatures)
+        ) {
+            if (isYoutubeShortsLimitReached(wellbeing)) blockedContentGoBack.invoke()
             return
         }
 
@@ -115,11 +109,48 @@ class ShortsPlatformManager(
             else -> false
         }
 
-        if (isFeatureOpen) {
-            maxAllowedDuration[resolvedPackage]?.let {
-                updateShortsScreenTime(wellbeing.allowedShortsTimeMs, it)
-            }
+        // Time is measured by ShortFormUsageTracker, only enforce the allowance here
+        if (isFeatureOpen && isAllowanceUsedUp(wellbeing)) blockedContentGoBack.invoke()
+    }
+
+    /**
+     * Returns which short form viewer is open in [node]'s window regardless of any blocking
+     * settings: [VIRTUAL_INSTAGRAM_REELS], [VIRTUAL_YOUTUBE_SHORTS] or null.
+     */
+    fun detectShortFormViewer(node: AccessibilityNodeInfo): String? {
+        val pkg = node.packageName?.toString() ?: return null
+        return when {
+            pkg == INSTAGRAM_PACKAGE ->
+                if (isInstagramReelsViewerOpen(node)) VIRTUAL_INSTAGRAM_REELS else null
+
+            pkg == YOUTUBE_PACKAGE || pkg.contains(YOUTUBE_CLIENT_PACKAGE_SUFFIX) ->
+                if (doesNodeByIdExists(node, "$pkg:id/reel_player_underlay"))
+                    VIRTUAL_YOUTUBE_SHORTS else null
+
+            else -> null
         }
+    }
+
+    /**
+     * Like [detectShortFormViewer], but also returns
+     * [ShortFormUsageTracker.OTHER_SHORT_CONTENT] while other blocked short content
+     * (Explore, Snapchat, Facebook, Reddit) is open, so it counts towards the allowance.
+     */
+    fun detectShortContent(node: AccessibilityNodeInfo, wellbeing: Wellbeing): String? {
+        detectShortFormViewer(node)?.let { return it }
+
+        val blocked = wellbeing.blockedFeatures
+        if (blocked.isEmpty()) return null
+        val isOtherOpen = when (node.packageName?.toString()) {
+            INSTAGRAM_PACKAGE -> PlatformFeatures.INSTAGRAM_EXPLORE in blocked &&
+                    isInstagramFeatureOpen(node, setOf(PlatformFeatures.INSTAGRAM_EXPLORE))
+
+            SNAPCHAT_PACKAGE -> isSnapchatFeatureOpen(node, blocked)
+            FACEBOOK_PACKAGE -> isFacebookFeatureOpen(node, blocked)
+            REDDIT_PACKAGE -> isRedditFeatureOpen(node, blocked)
+            else -> false
+        }
+        return if (isOtherOpen) ShortFormUsageTracker.OTHER_SHORT_CONTENT else null
     }
 
     /**
@@ -180,72 +211,22 @@ class ShortsPlatformManager(
                     && doesUrlContainsAnyElement(mSnapDiscoverUrls, url) -> true
 
             else -> false
-        }.let {
-            if (it) {
-                updateShortsScreenTime(wellbeing.allowedShortsTimeMs)
+        }.let { isOpen ->
+            if (isOpen) {
+                // Count it towards the allowance, leave once it's used up
+                ShortFormUsageTracker.observe(context, ShortFormUsageTracker.OTHER_SHORT_CONTENT)
+                if (isAllowanceUsedUp(wellbeing)) blockedContentGoBack.invoke()
                 return true
             }
         }
 
+        // Browser left the short content
+        if (ShortFormUsageTracker.watching != null) ShortFormUsageTracker.observe(context, null)
         return false
     }
 
-    /**
-     * Updates the total screen time spent on short-form content and blocks access if the allowed time is exceeded.
-     *
-     * @param allowedShortContentTimeMs The maximum time allowed for short-form content.
-     * @param maxAllowedDuration The maximum duration considered for a single short-form content session.
-     */
-    private fun updateShortsScreenTime(
-        allowedShortContentTimeMs: Long,
-        maxAllowedDuration: Long = 30 * 1000L,
-    ) {
-        // Check if limit is exhausted
-        if (isShortsLimitReached(allowedShortContentTimeMs)) {
-            blockedContentGoBack.invoke()
-            return
-        }
-
-        // Calculate screen time since last check
-        val currentTime = System.currentTimeMillis()
-        val elapsedTime = if (lastTimeShortsEvent != 0L) currentTime - lastTimeShortsEvent else 0
-
-        // Update only if elapsedTime is less than MAX_ALLOWED_DURATION otherwise user may have closed short content,
-        shortContentScreenTime += (if (elapsedTime <= maxAllowedDuration) elapsedTime else 0)
-        lastTimeShortsEvent = currentTime
-
-        // Check if the minimum interval has passed before calling shared preferences
-        if ((currentTime - lastTimeSaved) > SAVING_INTERVAL_MS) {
-            SharedPrefsHelper.getSetShortsScreenTimeMs(context, shortContentScreenTime)
-            lastTimeSaved = currentTime
-            Log.d(
-                TAG,
-                "checkTimerAndBlockShortContent: shorts time saved: " + (shortContentScreenTime / 1000L) + " seconds"
-            )
-        }
-    }
-
-
     companion object {
         private const val TAG = "Mindful.ShortsPlatformManager"
-
-        // The minimum interval between saving short content's screen time in shared preferences
-        private const val SAVING_INTERVAL_MS = (30 * 1000L)
-
-        // How long the fetched Instagram usage is reused before querying usage stats again
-        private const val USAGE_CACHE_MS = (30 * 1000L)
-
-        /**
-         * Max allowed duration for each short content platform (based on the highest short length or duration)
-         * If the interval between two short content block event is <= DURATION then it is considered that user is watching short content
-         **/
-        private val maxAllowedDuration = mapOf(
-            INSTAGRAM_PACKAGE to (90 * 1000L),
-            SNAPCHAT_PACKAGE to (60 * 1000L),
-            FACEBOOK_PACKAGE to (90 * 1000L),
-            REDDIT_PACKAGE to (60 * 1000L),
-            YOUTUBE_PACKAGE to (3 * 60 * 1000L),
-        )
 
         // Possible URLs of different short-form content platforms
         private val mInstaReelUrls = listOf("instagram.com/reels/", "m.instagram.com/reels/")

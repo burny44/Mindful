@@ -25,6 +25,7 @@ import 'package:mindful/providers/apps/filtered_packages_provider.dart';
 import 'package:mindful/providers/usage/todays_apps_usage_provider.dart';
 import 'package:mindful/ui/common/default_list_tile.dart';
 import 'package:mindful/ui/common/default_refresh_indicator.dart';
+import 'package:mindful/ui/common/search_bar.dart';
 import 'package:mindful/ui/common/content_section_header.dart';
 import 'package:mindful/ui/common/sliver_implicitly_animated_list.dart';
 import 'package:mindful/ui/common/sliver_usage_chart_panel.dart';
@@ -114,6 +115,16 @@ class _TabStatisticsState extends ConsumerState<TabStatistics> {
             ],
           ).sliver,
 
+          /// Search apps by name
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8),
+            child: DefaultSearchBar(
+              hintText: context.locale.search_apps_hint,
+              onSubmitted: (query) => setState(
+                () => _filter = _filter.copyWith(query: query.trim()),
+              ),
+            ),
+          ).sliver,
 
           /// Most used apps list
           SliverAnimatedSwitcher(
@@ -139,7 +150,9 @@ class _TabStatisticsState extends ConsumerState<TabStatistics> {
           20.vSliverBox,
 
           /// Show all apps button
-          if (!_filter.includeAll && filteredApps.hasValue)
+          if (!_filter.includeAll &&
+              _filter.query.isEmpty &&
+              filteredApps.hasValue)
             DefaultListTile(
               isPrimary: true,
               leading: const Icon(FluentIcons.select_all_off_20_regular),

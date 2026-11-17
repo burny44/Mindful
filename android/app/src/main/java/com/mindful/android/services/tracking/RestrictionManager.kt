@@ -68,6 +68,13 @@ class RestrictionManager(
         return evaluateFocusUnlock(target) != null
     }
 
+    /**
+     * Returns the scheduled focus state which blocks the virtual app [target] right now
+     * (with its session and breaks), or null if no scheduled focus session blocks it.
+     */
+    fun scheduledFocusBlockOf(target: String): RestrictionState? =
+        evaluateScheduledFocus(target)?.takeIf { it.timeLeftMillis <= 0L }
+
     fun resetCache() {
         alreadyRestrictedApps.clear()
         appsLaunchCount.clear()
@@ -86,7 +93,11 @@ class RestrictionManager(
         focusUnlockRules = rules.filter { it.isValid }
         Log.d(
             TAG,
-            "updateFocusUnlockRules: ${focusUnlockRules.size} earn-unlock session(s) updated"
+            "updateFocusUnlockRules: ${focusUnlockRules.size} earn-unlock session(s) updated: " +
+                    focusUnlockRules.joinToString {
+                        "'${it.name}' ${it.scheduleStartTime}-${it.scheduleEndTime} days=${it.scheduleDays} " +
+                                "need=${it.requiredTimeSec}s sources=${it.sourceApps} unlock=${it.unlockApps.size} apps"
+                    }
         )
         stopIfNoUsage.invoke()
     }
@@ -129,8 +140,14 @@ class RestrictionManager(
     }
 
 
-    // returns nearest time stamp for rechecking
-    fun isAppRestricted(packageName: String): RestrictionState? {
+    /**
+     * Returns the state which blocks [packageName] right now (`timeLeftMillis <= 0`), or the
+     * nearest future one to recheck at, or null if nothing restricts it.
+     *
+     * @param countLaunch Whether this counts as a new launch for the launch limit. False for
+     *   rechecks of the app which is already open (e.g. after taking a break).
+     */
+    fun isAppRestricted(packageName: String, countLaunch: Boolean = true): RestrictionState? {
         // If already restricted (cached)
         val alreadyRestrictedState = evaluateIfAlreadyRestricted(packageName)
         if (alreadyRestrictedState != null) {
@@ -138,35 +155,39 @@ class RestrictionManager(
         }
 
         evaluateFocusUnlock(packageName)?.let { return it }
-        evaluateScheduledFocus(packageName)?.let { return it }
+
+        /// A scheduled focus session blocks right away, unless it is on a break. A break
+        /// only lifts the session itself, the app's own limits (timer, launches...) still
+        /// apply.
+        val scheduledFocus = evaluateScheduledFocus(packageName)
+        val focusBlocksNow = scheduledFocus != null && scheduledFocus.timeLeftMillis <= 0L
 
         // If no restrictions
-        val restriction = appsRestrictions[packageName] ?: return null
+        val restriction = appsRestrictions[packageName] ?: return scheduledFocus
 
-        // Increment and Check app launch count
-        val launchCount = appsLaunchCount.getOrDefault(packageName, 0) + 1
-        if ((restriction.launchLimit > 0) && (launchCount > restriction.launchLimit)) {
-            return RestrictionState(type = RestrictionType.LAUNCH_COUNT).also {
-                alreadyRestrictedApps[packageName] = it
+        // Increment and Check app launch count (launches blocked by focus don't count)
+        if (countLaunch && !focusBlocksNow) {
+            val launchCount = appsLaunchCount.getOrDefault(packageName, 0) + 1
+            if ((restriction.launchLimit > 0) && (launchCount > restriction.launchLimit)) {
+                return RestrictionState(type = RestrictionType.LAUNCH_COUNT).also {
+                    alreadyRestrictedApps[packageName] = it
+                }
             }
+            appsLaunchCount[packageName] = launchCount
         }
-        appsLaunchCount[packageName] = launchCount
 
         val futureStates: MutableSet<RestrictionState> = mutableSetOf()
 
-        /// evaluate active periods
+        /// The app's own limits come first: once they are used up a focus break can't make
+        /// the app usable, so there is no point in offering one.
         evaluateActivePeriodLimit(restriction, futureStates)?.let { return it }
-
-        /// Evaluate screen time
         evaluateScreenTimeLimit(restriction, futureStates)?.let { return it }
 
+        if (focusBlocksNow) return scheduledFocus
+        scheduledFocus?.let { futureStates.add(it) }
+
         /// Return the nearest expiration
-        if (futureStates.isNotEmpty()) {
-            val nearestFutureState = futureStates.minBy { it.timeLeftMillis }
-            return nearestFutureState
-        } else {
-            return null
-        }
+        return futureStates.minByOrNull { it.timeLeftMillis }
     }
 
     private fun evaluateIfAlreadyRestricted(packageName: String): RestrictionState? {
@@ -181,13 +202,18 @@ class RestrictionManager(
      * awaits its required time. Sessions where the time is already earned do not block.
      */
     private fun evaluateFocusUnlock(packageName: String): RestrictionState? {
-        val activeRules = focusUnlockRules.filter {
-            it.unlockApps.contains(packageName)
-                    && !it.sourceApps.contains(packageName)
-                    && isFocusUnlockScheduledNow(it)
+        val targetingRules = focusUnlockRules.filter {
+            it.unlockApps.contains(packageName) && !it.sourceApps.contains(packageName)
         }
+        val activeRules = targetingRules.filter { isFocusUnlockScheduledNow(it) }
 
-        if (activeRules.isEmpty()) return null
+        if (activeRules.isEmpty()) {
+            if (targetingRules.isNotEmpty()) Log.d(
+                TAG,
+                "evaluateFocusUnlock: $packageName not locked, '${targetingRules.joinToString { it.name }}' not scheduled now"
+            )
+            return null
+        }
 
         val screenUsage = ScreenUsageHelper.fetchAppUsageTodayTillNow(usageStatsManager)
 
@@ -196,6 +222,12 @@ class RestrictionManager(
         return activeRules
             .map { rule ->
                 rule to rule.sourceApps.sumOf { screenUsage[it] ?: 0L }
+            }
+            .onEach { (rule, spentSec) ->
+                if (spentSec >= rule.requiredTimeSec) Log.d(
+                    TAG,
+                    "evaluateFocusUnlock: '${rule.name}' already earned ${spentSec}s of ${rule.requiredTimeSec}s"
+                )
             }
             .filter { (rule, spentSec) -> spentSec < rule.requiredTimeSec }
             .maxByOrNull { (rule, spentSec) -> rule.requiredTimeSec - spentSec }

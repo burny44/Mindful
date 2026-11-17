@@ -53,6 +53,13 @@ class AppInfo {
     );
   }
 
+  AppInfo copyWithName(String name) => AppInfo(
+        name: name,
+        packageName: packageName,
+        isImpSysApp: isImpSysApp,
+        icon: icon,
+      );
+
   @override
   String toString() {
     return 'AppInfo(name: $name, packageName: $packageName, isImpSysApp: $isImpSysApp)';

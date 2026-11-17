@@ -94,10 +94,7 @@
     "imp_distracting_apps_snack_alert": "Δεν επιτρέπεται η προσθήκη σημαντικών εφαρμογών συστήματος στη λίστα των ενοχλητικών εφαρμογών.",
     "custom_apps_quick_actions_unavailable_warning": "Η χρήση και οι περιορισμοί οθόνης δεν είναι διαθέσιμοι για αυτήν την εφαρμογή. Προς το παρόν, μόνο η χρήση δικτύου είναι προσβάσιμη",
     "active_period_info": "Όρισε μια χρονική περίοδο κατά την οποία θα επιτρέπεται η πρόσβαση. Εκτός αυτού του χρονικού πλαισίου, η πρόσβαση θα περιοριστεί.",
-    "donation_card_title": "Υποστήριξέ μας",
-    "donation_card_info": "Το Mindful είναι ελεύθερο και ανοικτού κώδικα, που αναπτύχθηκε με μήνες αφοσίωσης. Αν σ' έχει βοηθήσει, η δωρεά σου θα σήμαινε τα πάντα σε εμάς. Κάθε συνεισφορά μάς βοηθά να συνεχίσουμε να την βελτιώνουμε και να την συντηρούμε για όλους.",
     "operation_failed_snack_alert": "Η λειτουργία απέτυχε, κάτι πήγε στραβά!",
-    "donation_card_button_donate": "Δωρεά",
     "app_restart_dialog_title": "Απαιτείται επανεκκίνηση",
     "app_restart_dialog_info": "Το Mindful θα επανεκκινήσει αυτόματα μόλις ολοκληρωθεί η αντίστροφη μέτρηση. Παρακαλώ να κάνεις υπομονή καθώς εφαρμόζονται αλλαγές.",
     "@----------------------------- TIPS -----------------------------": {},
@@ -145,16 +142,6 @@
     "shorts_blocking_tab_title": "Φραγή shorts",
     "shorts_blocking_tab_info": "Έλεγξε πόσο χρόνο ξοδεύεις σε σύντομο περιεχόμενο σε πλατφόρμες όπως το Instagram, το YouTube, το Snapchat, και το Facebook, συμπεριλαμβανομένων των ιστοσελίδων τους.",
     "short_content_heading": "Σύντομο περιεχόμενο",
-    "shorts_time_left_from": "Απομένουν από {timeShortString}",
-    "@shorts_time_left_from": {
-        "placeholders": {
-            "timeShortString": {
-                "type": "String",
-                "example": "1h 23m"
-            }
-        }
-    },
-    "short_content_timer_picker_dialog_info": "Όρισε ένα ημερήσιο χρονικό όριο για το σύντομο περιεχόμενο. Μόλις συμπληρωθεί το όριό σου, το σύντομο περιεχόμενο θα τεθεί σε παύση μέχρι τα μεσάνυχτα.",
     "instagram_features_tile_title": "Instagram",
     "instagram_features_tile_subtitle": "Περιορισμός χαρακτηριστικών στο instagram.",
     "instagram_features_block_reels": "Περιορισμός ενότητας reels.",

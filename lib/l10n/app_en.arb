@@ -96,10 +96,7 @@
     "imp_distracting_apps_snack_alert": "Adding important system apps to the list of distracting apps is not permitted.",
     "custom_apps_quick_actions_unavailable_warning": "Screen usage and restrictions are unavailable for this application. At present, only network usage is accessible",
     "active_period_info": "Set a time period during which access will be allowed. Outside of this time frame, access will be restricted.",
-    "donation_card_title": "Support us",
-    "donation_card_info": "Mindful is free and open-source, developed with months of dedication. If it has helped you, your donation would mean the world to us. Every contribution helps us continue improving and maintaining it for everyone.",
     "operation_failed_snack_alert": "Operation failed, something went wrong!",
-    "donation_card_button_donate": "Donate",
     "app_restart_dialog_title": "Need restart",
     "app_restart_dialog_info": "Mindful will automatically restart once the countdown finishes. Please be patient as changes are applied.",
     "@----------------------------- TIPS -----------------------------": {},
@@ -176,7 +173,6 @@
     "virtual_apps_tile_subtitle": "Blocks only this part of the app",
     "virtual_app_instagram_reels": "Instagram Reels",
     "virtual_app_youtube_shorts": "YouTube Shorts",
-    "in_app_blocking_card_subtitle": "Blocked inside the app",
     "new_session_save_button": "Save session",
     "new_session_no_apps_snack": "Select at least one app to block.",
     "new_session_no_days_snack": "Select at least one day for this session.",
@@ -253,47 +249,73 @@
     "shorts_blocking_tab_title": "In-App Blocking",
     "shorts_blocking_tab_info": "Block short content and distracting features on platforms like Instagram, YouTube, Snapchat, Facebook and Reddit, including their websites. Tap a platform to see its options.",
     "short_content_heading": "Short content",
-    "shorts_time_left_from": "Left from {timeShortString}",
-    "@shorts_time_left_from": {
-        "placeholders": {
-            "timeShortString": {
-                "type": "String",
-                "example": "1h 23m"
-            }
-        }
-    },
-    "short_content_timer_picker_dialog_info": "Set a daily time limit for short content. Once your limit is reached, the short content will be paused until midnight.",
     "instagram_features_tile_title": "Instagram",
     "instagram_features_tile_subtitle": "Restrict features on instagram.",
     "instagram_features_block_reels": "Restrict reels section.",
     "instagram_features_block_explore": "Restrict explore section.",
-    "instagram_usage_limit_tile_title": "Only after daily Instagram use",
-    "instagram_usage_limit_tile_subtitle_off": "Block reels only after using Instagram for a set time each day.",
-    "instagram_usage_limit_tile_subtitle_on": "Reels get blocked after {time} of Instagram today.",
-    "@instagram_usage_limit_tile_subtitle_on": {
-        "placeholders": {
-            "time": {
-                "type": "String",
-                "example": "30m"
-            }
-        }
-    },
-    "instagram_usage_limit_picker_title": "Daily Instagram time",
-    "instagram_usage_limit_picker_info": "Reels stay available until you have used Instagram for this long today. After that, reels are blocked until midnight.",
     "in_app_blocking_feature_reels": "Reels",
     "in_app_blocking_feature_explore": "Explore",
     "in_app_blocking_feature_spotlight": "Spotlight",
     "in_app_blocking_feature_discover": "Discover",
     "in_app_blocking_feature_shorts": "Shorts",
-    "in_app_blocking_reels_after_usage": "Reels after {time} of use",
-    "@in_app_blocking_reels_after_usage": {
+    "in_app_blocking_locked": "Locked",
+    "content_limit_tile_title": "Allow {content} daily",
+    "@content_limit_tile_title": {
         "placeholders": {
-            "time": {
-                "type": "String",
-                "example": "30m"
+            "content": {
+                "type": "String"
             }
         }
     },
+    "content_limit_tile_subtitle": "Block {content} only after watching them for a set time each day.",
+    "@content_limit_tile_subtitle": {
+        "placeholders": {
+            "content": {
+                "type": "String"
+            }
+        }
+    },
+    "content_limit_time_title": "Daily {content} time",
+    "@content_limit_time_title": {
+        "placeholders": {
+            "content": {
+                "type": "String"
+            }
+        }
+    },
+    "content_limit_time_subtitle": "{content} get blocked after {time} of watching today.",
+    "@content_limit_time_subtitle": {
+        "placeholders": {
+            "content": {
+                "type": "String"
+            },
+            "time": {
+                "type": "String"
+            }
+        }
+    },
+    "content_limit_picker_info": "{content} stay available until you've watched them for this long today. After that, they're blocked until midnight.",
+    "@content_limit_picker_info": {
+        "placeholders": {
+            "content": {
+                "type": "String"
+            }
+        }
+    },
+    "short_allowance_title": "Daily allowance",
+    "short_allowance_off": "Off · blocked content is blocked right away",
+    "short_allowance_used": "{used} of {total} used today",
+    "@short_allowance_used": {
+        "placeholders": {
+            "used": {
+                "type": "String"
+            },
+            "total": {
+                "type": "String"
+            }
+        }
+    },
+    "short_allowance_picker_info": "Shared time per day for blocked short content that has no limit of its own. Once it's used up, that content stays blocked until midnight.",
     "snapchat_features_tile_title": "Snapchat",
     "snapchat_features_tile_subtitle": "Restrict features on snapchat.",
     "snapchat_features_block_spotlight": "Restrict spotlight section.",
@@ -363,6 +385,10 @@
     "emergency_no_pass_left_snack_alert": "You have used all your emergency passes. The blocked apps will stay blocked until midnight, or the active focus session ends.",
     "app_limit_status_not_set": "Not set",
     "app_timer_tile_title": "App timer",
+    "app_timer_strict_tile_title": "Strict limit",
+    "app_timer_strict_tile_subtitle": "Once the limit is reached, it can't be changed until midnight.",
+    "app_timer_strict_locked_subtitle": "Limit reached · locked until midnight",
+    "app_timer_strict_locked_snack": "Strict limit reached. You can change it again after midnight.",
     "app_timer_picker_dialog_info": "Set a daily time limit for this app. Once your limit is reached, the app will be paused until midnight.",
     "usage_reminders_tile_title": "Usage reminders",
     "usage_reminders_tile_subtitle": "Gentle nudges when using timed apps.",

@@ -125,8 +125,20 @@ class FgMethodCallHandler(
                 )
             }
 
+            "getShortFormUsage" -> {
+                result.success(
+                    com.mindful.android.services.accessibility.ShortFormUsageTracker.usageForDays(
+                        context = context,
+                        startMs = call.argument<Long>("startMs") ?: System.currentTimeMillis(),
+                        endMs = call.argument<Long>("endMs") ?: System.currentTimeMillis(),
+                    )
+                )
+            }
+
             "getShortsScreenTimeMs" -> {
-                result.success(SharedPrefsHelper.getSetShortsScreenTimeMs(context, null))
+                result.success(
+                    com.mindful.android.services.accessibility.ShortFormUsageTracker.allowanceUsedMs(context)
+                )
             }
 
             "getNativeCrashLogs" -> {

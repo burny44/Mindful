@@ -94,10 +94,7 @@
     "imp_distracting_apps_snack_alert": "Dikkat dağıtıcı uygulamalar listesine önemli sistem uygulamalarının eklenmesine izin verilmez.",
     "custom_apps_quick_actions_unavailable_warning": "Ekran süresi ve kısıtlama bu uygulama için kullanılamıyor. Sadece internet kullanımı erişilebilir",
     "active_period_info": "Erişime izin verilecek bir zaman aralığı belirleyin. Bu zaman diliminin dışında erişim kısıtlanacaktır.",
-    "donation_card_title": "Bizi destekleyin",
-    "donation_card_info": "Mindful ücretsiz ve açık kaynak kodludur, aylar süren özverili çalışmalarla geliştirilmiştir. Eğer size yardımcı olduysa, bağışınız bizim için dünyalara bedeldir. Her katkı, onu herkes için geliştirmeye ve sürdürmeye devam etmemize yardımcı olur.",
     "operation_failed_snack_alert": "Operasyon başarısız oldu, bir şeyler ters gitti!",
-    "donation_card_button_donate": "Bağış",
     "app_restart_dialog_title": "Yeniden Başlatma Gerekli",
     "app_restart_dialog_info": "Geri sayım bittiğinde Mindful otomatik olarak yeniden başlayacaktır. Değişiklikler uygulanırken lütfen sabırlı olun.",
     "@----------------------------- TIPS -----------------------------": {},
@@ -147,16 +144,6 @@
     "shorts_blocking_tab_title": "Kısa video engelleyici",
     "shorts_blocking_tab_info": "Web siteleri de dahil olmak üzere Instagram, YouTube, Snapchat ve Facebook gibi platformlarda kısa içeriklere ne kadar zaman harcadığınızı kontrol edin.",
     "short_content_heading": "Kısa video içeriği",
-    "shorts_time_left_from": "{timeShortString} 'den kalan süre",
-    "@shorts_time_left_from": {
-        "placeholders": {
-            "timeShortString": {
-                "type": "String",
-                "example": "1h 23m"
-            }
-        }
-    },
-    "short_content_timer_picker_dialog_info": "Kısa içerik için günlük bir zaman sınırı belirleyin. Sınırınıza ulaşıldığında, kısa içerik gece yarısına kadar duraklatılacaktır.",
     "instagram_features_tile_title": "Instagram",
     "instagram_features_tile_subtitle": "Instagram'daki içeriği kısıtlayın.",
     "instagram_features_block_reels": "Reels bölümünü kısıtlayın.",

@@ -60,21 +60,6 @@
 
 
 
-# Donate 
-
-Mindful is a Free and Open Source Software (FOSS) that took months of dedicated, restless work to develop. If you find this app helpful, please consider making a donation to support our efforts and ensure continued development. Your generosity will help us keep improving and maintaining Mindful for everyone.
-
-_Note: Drop your socials along with your donation to get recognized as a supporter._
-
-<a href="https://buymeacoffee.com/akamrnagar"><img src="docs/assets/donation/bmc_qr.png" height="184" ></a>
-&emsp;
-<a href="https://github.com/akaMrNagar/Mindful?tab=readme-ov-file#donate"><img src="docs/assets/donation/upi_qr.png" height="184" ></a>
-
-[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-🖤-ffdd00)](https://www.buymeacoffee.com/akamrnagar)
-[![UPI](https://img.shields.io/badge/akamrnagar@upi-🖤-f47820)]()
-[![Sponsor Me on GitHub](https://img.shields.io/badge/Sponsor%20Me%20on%20GitHub-🖤-db61a2)](https://github.com/sponsors/akamrnagar)
-
-
 # Feedback and Support
 
 Your feedback is invaluable to us! If you have suggestions, encounter issues, or simply want to share your thoughts, please reach out to us through the following channels : 

@@ -19,7 +19,6 @@ import 'package:mindful/providers/apps/app_groups_provider.dart';
 import 'package:mindful/providers/apps/apps_info_provider.dart';
 import 'package:mindful/ui/common/application_icon.dart';
 import 'package:mindful/ui/common/styled_text.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 
 /// Localized name of a virtual app like Instagram Reels.
 String virtualAppName(BuildContext context, String target) => switch (target) {
@@ -112,36 +111,37 @@ class FocusTargetsStrip extends ConsumerWidget {
                 child: leading,
               ),
             Expanded(
-              child: Skeletonizer.zone(
-                enableSwitchAnimation: true,
-                enabled: appsInfo == null,
-                child: ListView.builder(
-                  padding: const EdgeInsets.symmetric(horizontal: 6),
-                  physics: const BouncingScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  itemCount: visible.length,
-                  itemBuilder: (context, index) {
-                    final target = visible[index];
-                    final groupId = FocusTargets.groupIdOf(target);
+              child: ListView.builder(
+                padding: const EdgeInsets.symmetric(horizontal: 6),
+                physics: const BouncingScrollPhysics(),
+                scrollDirection: Axis.horizontal,
+                itemCount: visible.length,
+                itemBuilder: (context, index) {
+                  final target = visible[index];
+                  final groupId = FocusTargets.groupIdOf(target);
 
-                    final Widget child;
-                    if (groupId != null) {
-                      child = _GroupChip(name: groups[groupId]?.name ?? "");
-                    } else if (FocusTargets.isVirtualApp(target)) {
-                      child = VirtualAppIcon(target: target, size: 14);
-                    } else {
-                      final appInfo = appsInfo?[target];
-                      child = appInfo == null
-                          ? const Bone.icon(size: 28)
-                          : ApplicationIcon(appInfo: appInfo, size: 14);
-                    }
+                  final Widget child;
+                  if (groupId != null) {
+                    child = _GroupChip(name: groups[groupId]?.name ?? "");
+                  } else if (FocusTargets.isVirtualApp(target)) {
+                    child = VirtualAppIcon(target: target, size: 14);
+                  } else {
+                    final appInfo = appsInfo?[target];
+                    child = appInfo == null
+                        ? CircleAvatar(
+                            radius: 14,
+                            backgroundColor: Theme.of(context)
+                                .colorScheme
+                                .surfaceContainerHighest,
+                          )
+                        : ApplicationIcon(appInfo: appInfo, size: 14);
+                  }
 
-                    return Padding(
-                      padding: const EdgeInsets.only(right: 4),
-                      child: Center(child: child),
-                    );
-                  },
-                ),
+                  return Padding(
+                    padding: const EdgeInsets.only(right: 4),
+                    child: Center(child: child),
+                  );
+                },
               ),
             ),
           ],

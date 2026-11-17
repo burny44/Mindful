@@ -259,12 +259,7 @@ class _ScaffoldShellState extends State<ScaffoldShell>
           return NavigationDestination(
             label: trimmedTitle,
             icon: Icon(e.icon),
-            selectedIcon: Icon(e.filledIcon).animate().scale(
-                  begin: const Offset(0.5, 0.5),
-                  end: const Offset(1.05, 1.05),
-                  curve: Curves.elasticOut,
-                  duration: 1.seconds,
-                ),
+            selectedIcon: Icon(e.filledIcon),
           );
         }).toList(),
       ),

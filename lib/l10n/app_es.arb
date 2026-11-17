@@ -94,10 +94,7 @@
     "imp_distracting_apps_snack_alert": "No está permitido añadir aplicaciones de sistema importantes a la lista de aplicaciones de distracción.",
     "custom_apps_quick_actions_unavailable_warning": "Las restricciones y el uso de pantalla no están disponibles para esta aplicación. Actualmente, solo el uso de la red es accesible",
     "active_period_info": "Establece un período de tiempo durante el cual se permitirá el acceso. Fuera de este marco de tiempo, el acceso estará restringido.",
-    "donation_card_title": "Ayúdanos",
-    "donation_card_info": "Mindful es gratuito y de código abierto, desarrollado con meses de dedicación. Si te ha sido útil, tu donación significaría muchísimo para nosotros. Cada contribución nos ayuda a seguir mejorando y manteniéndolo para todos.",
     "operation_failed_snack_alert": "Operación fallida, ¡algo salió mal!",
-    "donation_card_button_donate": "Donar",
     "app_restart_dialog_title": "Es necesario reiniciar",
     "app_restart_dialog_info": "Mindful se reiniciará automáticamente una vez que termine la cuenta regresiva. Por favor, ten paciencia mientras se aplican los cambios.",
     "@----------------------------- TIPS -----------------------------": {},
@@ -153,16 +150,6 @@
     "shorts_blocking_tab_title": "Bloqueo de vídeos cortos",
     "shorts_blocking_tab_info": "Controla cuánto tiempo pasas en contenido de vídeo corto en plataformas como Instagram, YouTube, Snapchat y Facebook, incluyendo sus sitios web.",
     "short_content_heading": "Contenido Corto",
-    "shorts_time_left_from": "Faltan {timeShortString}",
-    "@shorts_time_left_from": {
-        "placeholders": {
-            "timeShortString": {
-                "type": "String",
-                "example": "1h 23m"
-            }
-        }
-    },
-    "short_content_timer_picker_dialog_info": "Establece un límite de tiempo diario para el contenido corto. Una vez alcanzado tu límite, el contenido corto se pausará hasta la medianoche.",
     "instagram_features_tile_title": "Instagram",
     "instagram_features_tile_subtitle": "Restringir funciones en Instagram.",
     "instagram_features_block_reels": "Restringe la sección de Reels.",

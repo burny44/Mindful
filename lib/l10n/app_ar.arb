@@ -93,10 +93,7 @@
     "imp_distracting_apps_snack_alert": "لا يُسمح بإضافة تطبيقات النظام المهمة إلى قائمة التطبيقات المشتتة للانتباه.",
     "custom_apps_quick_actions_unavailable_warning": "لا يتوفر استخدام الشاشة والقيود لهذا التطبيق. في الوقت الحالي، يمكن الوصول إلى استخدام الشبكة فقط",
     "active_period_info": "حدد مدّة زمنية يُسمح خلالها بالوصول. وخارج هذه المدّة الزمنية، سيتم تقييد الوصول.",
-    "donation_card_title": "ادعمنا",
-    "donation_card_info": "Mindful هو تطبيق مجاني ومفتوح المصدر، تم تطويره بعد شهور من التفاني. إذا ساعدك التطبيق، فإن تبرعك يعني الكثير بالنسبة لنا. تساعدنا كل مساهمة في تحسينه وصيانته من أجل الجميع.",
     "operation_failed_snack_alert": "فشلت العملية، حدث خطأ ما!",
-    "donation_card_button_donate": "تبرع",
     "app_restart_dialog_title": "بحاجة لإعادة التشغيل",
     "app_restart_dialog_info": "سيتم إعادة تشغيل Mindful تلقائيًا بمجرد انتهاء العد التنازلي. يرجى التحلي بالصبر أثناء تطبيق التغييرات.",
     "@----------------------------- TIPS -----------------------------": {},
@@ -152,16 +149,6 @@
     "shorts_blocking_tab_title": "حجب الفيديوهات القصيرة",
     "shorts_blocking_tab_info": "تحكم في الوقت الذي تقضيه في مشاهدة المحتوى القصير عبر منصات مثل إنستجرام، يوتيوب، سناب شات، وفيسبوك، بما في ذلك مواقعهم الإلكترونية.",
     "short_content_heading": "المحتوى القصير",
-    "shorts_time_left_from": "المتبقي من {timeShortString}",
-    "@shorts_time_left_from": {
-        "placeholders": {
-            "timeShortString": {
-                "type": "String",
-                "example": "1h 23m"
-            }
-        }
-    },
-    "short_content_timer_picker_dialog_info": "حدد حدا زمنيا يوميا للمحتوى القصير. عند الوصول إلى الحد، سيتوقف عرض المحتوى القصير حتى منتصف الليل.",
     "instagram_features_tile_title": "إنستجرام",
     "instagram_features_tile_subtitle": "تقييد الميزات على إنستجرام.",
     "instagram_features_block_reels": "تقييد قسم الريلز.",

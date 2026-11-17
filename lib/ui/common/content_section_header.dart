@@ -16,7 +16,7 @@ class ContentSectionHeader extends StatelessWidget {
   const ContentSectionHeader({
     super.key,
     required this.title,
-    this.padding = const EdgeInsets.only(top: 18, bottom: 12),
+    this.padding = const EdgeInsets.only(top: 24, bottom: 8, left: 4),
     this.alignment = Alignment.centerLeft,
   });
 
@@ -31,8 +31,9 @@ class ContentSectionHeader extends StatelessWidget {
       alignment: alignment,
       child: StyledText(
         title,
-        color: Theme.of(context).colorScheme.primary,
-        fontWeight: FontWeight.bold,
+        fontSize: 14,
+        color: Theme.of(context).hintColor,
+        fontWeight: FontWeight.w600,
       ),
     );
   }

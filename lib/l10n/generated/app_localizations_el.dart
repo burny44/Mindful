@@ -254,18 +254,8 @@ class AppLocalizationsEl extends AppLocalizations {
       'Όρισε μια χρονική περίοδο κατά την οποία θα επιτρέπεται η πρόσβαση. Εκτός αυτού του χρονικού πλαισίου, η πρόσβαση θα περιοριστεί.';
 
   @override
-  String get donation_card_title => 'Υποστήριξέ μας';
-
-  @override
-  String get donation_card_info =>
-      'Το Mindful είναι ελεύθερο και ανοικτού κώδικα, που αναπτύχθηκε με μήνες αφοσίωσης. Αν σ\' έχει βοηθήσει, η δωρεά σου θα σήμαινε τα πάντα σε εμάς. Κάθε συνεισφορά μάς βοηθά να συνεχίσουμε να την βελτιώνουμε και να την συντηρούμε για όλους.';
-
-  @override
   String get operation_failed_snack_alert =>
       'Η λειτουργία απέτυχε, κάτι πήγε στραβά!';
-
-  @override
-  String get donation_card_button_donate => 'Δωρεά';
 
   @override
   String get app_restart_dialog_title => 'Απαιτείται επανεκκίνηση';
@@ -462,9 +452,6 @@ class AppLocalizationsEl extends AppLocalizations {
 
   @override
   String get virtual_app_youtube_shorts => 'YouTube Shorts';
-
-  @override
-  String get in_app_blocking_card_subtitle => 'Blocked inside the app';
 
   @override
   String get new_session_save_button => 'Save session';
@@ -677,15 +664,6 @@ class AppLocalizationsEl extends AppLocalizations {
   String get short_content_heading => 'Σύντομο περιεχόμενο';
 
   @override
-  String shorts_time_left_from(String timeShortString) {
-    return 'Απομένουν από $timeShortString';
-  }
-
-  @override
-  String get short_content_timer_picker_dialog_info =>
-      'Όρισε ένα ημερήσιο χρονικό όριο για το σύντομο περιεχόμενο. Μόλις συμπληρωθεί το όριό σου, το σύντομο περιεχόμενο θα τεθεί σε παύση μέχρι τα μεσάνυχτα.';
-
-  @override
   String get instagram_features_tile_title => 'Instagram';
 
   @override
@@ -698,26 +676,6 @@ class AppLocalizationsEl extends AppLocalizations {
   @override
   String get instagram_features_block_explore =>
       'Περιορισμός ενότητας εξερεύνησης.';
-
-  @override
-  String get instagram_usage_limit_tile_title =>
-      'Only after daily Instagram use';
-
-  @override
-  String get instagram_usage_limit_tile_subtitle_off =>
-      'Block reels only after using Instagram for a set time each day.';
-
-  @override
-  String instagram_usage_limit_tile_subtitle_on(String time) {
-    return 'Reels get blocked after $time of Instagram today.';
-  }
-
-  @override
-  String get instagram_usage_limit_picker_title => 'Daily Instagram time';
-
-  @override
-  String get instagram_usage_limit_picker_info =>
-      'Reels stay available until you have used Instagram for this long today. After that, reels are blocked until midnight.';
 
   @override
   String get in_app_blocking_feature_reels => 'Reels';
@@ -735,9 +693,48 @@ class AppLocalizationsEl extends AppLocalizations {
   String get in_app_blocking_feature_shorts => 'Shorts';
 
   @override
-  String in_app_blocking_reels_after_usage(String time) {
-    return 'Reels after $time of use';
+  String get in_app_blocking_locked => 'Locked';
+
+  @override
+  String content_limit_tile_title(String content) {
+    return 'Allow $content daily';
   }
+
+  @override
+  String content_limit_tile_subtitle(String content) {
+    return 'Block $content only after watching them for a set time each day.';
+  }
+
+  @override
+  String content_limit_time_title(String content) {
+    return 'Daily $content time';
+  }
+
+  @override
+  String content_limit_time_subtitle(String content, String time) {
+    return '$content get blocked after $time of watching today.';
+  }
+
+  @override
+  String content_limit_picker_info(String content) {
+    return '$content stay available until you\'ve watched them for this long today. After that, they\'re blocked until midnight.';
+  }
+
+  @override
+  String get short_allowance_title => 'Daily allowance';
+
+  @override
+  String get short_allowance_off =>
+      'Off · blocked content is blocked right away';
+
+  @override
+  String short_allowance_used(String used, String total) {
+    return '$used of $total used today';
+  }
+
+  @override
+  String get short_allowance_picker_info =>
+      'Shared time per day for blocked short content that has no limit of its own. Once it\'s used up, that content stays blocked until midnight.';
 
   @override
   String get snapchat_features_tile_title => 'Snapchat';
@@ -921,6 +918,21 @@ class AppLocalizationsEl extends AppLocalizations {
 
   @override
   String get app_timer_tile_title => 'Χρονόμετρο εφαρμογής';
+
+  @override
+  String get app_timer_strict_tile_title => 'Strict limit';
+
+  @override
+  String get app_timer_strict_tile_subtitle =>
+      'Once the limit is reached, it can\'t be changed until midnight.';
+
+  @override
+  String get app_timer_strict_locked_subtitle =>
+      'Limit reached · locked until midnight';
+
+  @override
+  String get app_timer_strict_locked_snack =>
+      'Strict limit reached. You can change it again after midnight.';
 
   @override
   String get app_timer_picker_dialog_info =>

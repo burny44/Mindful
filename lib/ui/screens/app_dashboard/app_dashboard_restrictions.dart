@@ -20,6 +20,7 @@ import 'package:mindful/core/utils/default_models_utils.dart';
 import 'package:mindful/config/hero_tags.dart';
 import 'package:mindful/models/app_info.dart';
 import 'package:mindful/providers/restrictions/apps_restrictions_provider.dart';
+import 'package:mindful/providers/restrictions/strict_app_timers_provider.dart';
 import 'package:mindful/providers/usage/apps_launch_count_provider.dart';
 import 'package:mindful/ui/common/active_period_tile_content.dart';
 import 'package:mindful/ui/common/default_dropdown_tile.dart';
@@ -82,6 +83,41 @@ class AppDashboardRestrictions extends ConsumerWidget {
           appTimer: appTimer,
           isPurged: isPurged,
         ).sliver,
+
+        /// Strict limit: can't be changed once used up for the day
+        SliverAnimatedPaintExtent(
+          duration: 500.ms,
+          child: SliverVisibility(
+            visible: restriction.timerSec > 0,
+            sliver: Builder(builder: (context) {
+              final isStrict = ref.watch(strictAppTimersProvider
+                  .select((v) => v.contains(appInfo.packageName)));
+              final isLocked = ref.watch(isAppTimerLockedProvider(
+                (package: appInfo.packageName, timerSec: restriction.timerSec),
+              ));
+
+              return DefaultListTile(
+                enabled: !appInfo.isImpSysApp,
+                position: ItemPosition.mid,
+                leadingIcon: FluentIcons.shield_lock_20_regular,
+                titleText: context.locale.app_timer_strict_tile_title,
+                subtitleText: isLocked
+                    ? context.locale.app_timer_strict_locked_subtitle
+                    : context.locale.app_timer_strict_tile_subtitle,
+                switchValue: isStrict,
+                onPressed: () async {
+                  final ok = await ref
+                      .read(strictAppTimersProvider.notifier)
+                      .setStrict(appInfo.packageName, !isStrict);
+                  if (!ok && context.mounted) {
+                    context.showSnackAlert(
+                        context.locale.app_timer_strict_locked_snack);
+                  }
+                },
+              );
+            }).sliver,
+          ),
+        ),
 
         /// Usage reminders
         SliverAnimatedPaintExtent(

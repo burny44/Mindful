@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:mindful/core/services/app_group_store.dart';
 import 'package:mindful/core/services/drift_db_service.dart';
 import 'package:mindful/core/services/focus_unlock_rule_store.dart';
 import 'package:mindful/core/services/method_channel_service.dart';
 import 'package:mindful/core/services/scheduled_focus_session_store.dart';
+import 'package:mindful/core/utils/focus_targets.dart';
 
 /// Initializer to initialize necessary things.
 class Initializer {
@@ -46,16 +48,38 @@ class Initializer {
     await MethodChannelService.instance
         .updateNotificationSettings(notificationSettings);
 
+    /// App groups, expanded into their member apps before anything is pushed to
+    /// the tracker service (it only knows package names).
+    final groups = await AppGroupStore.load();
+
     /// Fetch and update earn-unlock sessions
     final focusUnlockRules = await FocusUnlockRuleStore.load();
     await MethodChannelService.instance.updateFocusUnlockRules(
-      focusUnlockRules.where((e) => e.isValid).toList(),
+      focusUnlockRules
+          .map(
+            (e) => e.copyWith(
+              /// Virtual apps have no screen time of their own
+              sourceApps: FocusTargets.expand(e.sourceApps, groups)
+                  .where(FocusTargets.isApp)
+                  .toList(),
+              unlockApps: FocusTargets.expand(e.unlockApps, groups),
+            ),
+          )
+          .where((e) => e.isValid)
+          .toList(),
     );
 
     /// Fetch and update scheduled focus sessions
     final scheduledFocusSessions = await ScheduledFocusSessionStore.load();
     await MethodChannelService.instance.updateScheduledFocusSessions(
-      scheduledFocusSessions.where((e) => e.isValid).toList(),
+      scheduledFocusSessions
+          .map(
+            (e) => e.copyWith(
+              distractingApps: FocusTargets.expand(e.distractingApps, groups),
+            ),
+          )
+          .where((e) => e.isValid)
+          .toList(),
     );
 
     debugPrint(

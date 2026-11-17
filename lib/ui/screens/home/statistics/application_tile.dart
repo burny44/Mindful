@@ -19,6 +19,8 @@ import 'package:mindful/core/extensions/ext_int.dart';
 import 'package:mindful/core/extensions/ext_num.dart';
 import 'package:mindful/config/hero_tags.dart';
 import 'package:mindful/core/utils/date_time_utils.dart';
+import 'package:mindful/core/utils/focus_targets.dart';
+import 'package:mindful/ui/common/focus_target_icon.dart';
 import 'package:mindful/models/usage_model.dart';
 import 'package:mindful/providers/restrictions/apps_restrictions_provider.dart';
 import 'package:mindful/providers/apps/apps_info_provider.dart';
@@ -47,6 +49,10 @@ class ApplicationTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    if (FocusTargets.isVirtualApp(packageName)) {
+      return _buildVirtualApp(context, ref);
+    }
+
     /// Application info
     final appInfo =
         ref.watch(appsInfoProvider.select((v) => v.value?[packageName]));
@@ -117,5 +123,27 @@ class ApplicationTile extends ConsumerWidget {
                         ),
             ),
           );
+  }
+
+  /// Instagram Reels / YouTube Shorts: watch time measured by Mindful.
+  /// Opens the in-app blocking screen.
+  Widget _buildVirtualApp(BuildContext context, WidgetRef ref) {
+    final screenTime = ref.watch(appsUsageProvider(selectedDay)
+            .select((v) => v.value?[packageName]?.screenTime)) ??
+        0;
+
+    return DefaultListTile(
+      color: Theme.of(context).colorScheme.surfaceContainerLow,
+      position: position,
+      onPressed: () =>
+          Navigator.of(context).pushNamed(AppRoutes.shortsBlockingPath),
+      leading: VirtualAppIcon(target: packageName),
+      titleText: virtualAppName(context, packageName),
+      subtitle: StyledText(
+        screenTime.seconds.toTimeFull(context),
+        fontSize: 14,
+        color: Theme.of(context).hintColor,
+      ),
+    );
   }
 }

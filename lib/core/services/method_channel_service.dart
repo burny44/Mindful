@@ -135,6 +135,42 @@ class MethodChannelService {
     return [];
   }
 
+  /// Short content time (SECONDS) used today from the shared daily allowance.
+  Future<int> getShortsScreenTimeSec() async {
+    int time = await _methodChannel.invokeMethod('getShortsScreenTimeMs');
+    return time ~/ 1000;
+  }
+
+  /// Loads the Instagram Reels / YouTube Shorts watch time measured by the
+  /// accessibility service, per local day between [start] and [end].
+  ///
+  /// Returns `day (date only) -> (virtual app id -> seconds)`.
+  Future<Map<DateTime, Map<String, int>>> getShortFormUsage({
+    required DateTime start,
+    required DateTime end,
+  }) async {
+    final result = <DateTime, Map<String, int>>{};
+    try {
+      final raw = await _methodChannel.invokeMapMethod<String, dynamic>(
+            'getShortFormUsage',
+            {
+              "startMs": start.millisecondsSinceEpoch,
+              "endMs": end.millisecondsSinceEpoch,
+            },
+          ) ??
+          {};
+
+      raw.forEach((day, perApp) {
+        result[DateTime.parse(day)] = (perApp as Map).map(
+          (k, v) => MapEntry(k as String, (v as num).toInt()),
+        );
+      });
+    } catch (e) {
+      debugPrint("MethodChannelService.getShortFormUsage() Error: $e");
+    }
+    return result;
+  }
+
   /// Loads Map of [String] package name and the respective [UsageModel] for the given interval
   ///
   /// The result map contains one [UsageModel] per app
@@ -226,10 +262,9 @@ class MethodChannelService {
         'updateWellBeingSettings',
         jsonEncode(
           {
-            // No shared short content allowance: blocked features are blocked
-            // right away (Instagram reels can still use their own daily limit).
-            "allowedShortsTimeSec": -1,
+            "allowedShortsTimeSec": wellBeingSettings.allowedShortsTimeSec,
             "instagramUsageLimitSec": wellBeingSettings.instagramUsageLimitSec,
+            "youtubeShortsLimitSec": wellBeingSettings.youtubeShortsLimitSec,
             "blockNsfwSites": wellBeingSettings.blockNsfwSites,
             "blockedFeatures":
                 wellBeingSettings.blockedFeatures.map((e) => e.name).toList(),

@@ -241,17 +241,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get active_period_info => '设置允许访问的时间段。超出此时间范围，访问将受到限制。';
 
   @override
-  String get donation_card_title => '支持我们';
-
-  @override
-  String get donation_card_info =>
-      'Mindful 是免费且开源的，经过数月的奉献开发。如果它对您有帮助，您的捐款将对我们意义重大。每一份贡献都帮助我们继续改进和维护它，以造福所有人。';
-
-  @override
   String get operation_failed_snack_alert => '操作失败，出了问题！';
-
-  @override
-  String get donation_card_button_donate => '捐赠';
 
   @override
   String get app_restart_dialog_title => '需要重启';
@@ -447,9 +437,6 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get virtual_app_youtube_shorts => 'YouTube Shorts';
-
-  @override
-  String get in_app_blocking_card_subtitle => 'Blocked inside the app';
 
   @override
   String get new_session_save_button => 'Save session';
@@ -657,15 +644,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get short_content_heading => '短内容';
 
   @override
-  String shorts_time_left_from(String timeShortString) {
-    return '剩余 $timeShortString';
-  }
-
-  @override
-  String get short_content_timer_picker_dialog_info =>
-      '为短内容设置每日时间限制。一旦达到限制，短内容将在午夜前暂停。';
-
-  @override
   String get instagram_features_tile_title => 'Instagram';
 
   @override
@@ -676,26 +654,6 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get instagram_features_block_explore => '限制发现部分。';
-
-  @override
-  String get instagram_usage_limit_tile_title =>
-      'Only after daily Instagram use';
-
-  @override
-  String get instagram_usage_limit_tile_subtitle_off =>
-      'Block reels only after using Instagram for a set time each day.';
-
-  @override
-  String instagram_usage_limit_tile_subtitle_on(String time) {
-    return 'Reels get blocked after $time of Instagram today.';
-  }
-
-  @override
-  String get instagram_usage_limit_picker_title => 'Daily Instagram time';
-
-  @override
-  String get instagram_usage_limit_picker_info =>
-      'Reels stay available until you have used Instagram for this long today. After that, reels are blocked until midnight.';
 
   @override
   String get in_app_blocking_feature_reels => 'Reels';
@@ -713,9 +671,48 @@ class AppLocalizationsZh extends AppLocalizations {
   String get in_app_blocking_feature_shorts => 'Shorts';
 
   @override
-  String in_app_blocking_reels_after_usage(String time) {
-    return 'Reels after $time of use';
+  String get in_app_blocking_locked => 'Locked';
+
+  @override
+  String content_limit_tile_title(String content) {
+    return 'Allow $content daily';
   }
+
+  @override
+  String content_limit_tile_subtitle(String content) {
+    return 'Block $content only after watching them for a set time each day.';
+  }
+
+  @override
+  String content_limit_time_title(String content) {
+    return 'Daily $content time';
+  }
+
+  @override
+  String content_limit_time_subtitle(String content, String time) {
+    return '$content get blocked after $time of watching today.';
+  }
+
+  @override
+  String content_limit_picker_info(String content) {
+    return '$content stay available until you\'ve watched them for this long today. After that, they\'re blocked until midnight.';
+  }
+
+  @override
+  String get short_allowance_title => 'Daily allowance';
+
+  @override
+  String get short_allowance_off =>
+      'Off · blocked content is blocked right away';
+
+  @override
+  String short_allowance_used(String used, String total) {
+    return '$used of $total used today';
+  }
+
+  @override
+  String get short_allowance_picker_info =>
+      'Shared time per day for blocked short content that has no limit of its own. Once it\'s used up, that content stays blocked until midnight.';
 
   @override
   String get snapchat_features_tile_title => 'Snapchat';
@@ -883,6 +880,21 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get app_timer_tile_title => '应用程序定时器';
+
+  @override
+  String get app_timer_strict_tile_title => 'Strict limit';
+
+  @override
+  String get app_timer_strict_tile_subtitle =>
+      'Once the limit is reached, it can\'t be changed until midnight.';
+
+  @override
+  String get app_timer_strict_locked_subtitle =>
+      'Limit reached · locked until midnight';
+
+  @override
+  String get app_timer_strict_locked_snack =>
+      'Strict limit reached. You can change it again after midnight.';
 
   @override
   String get app_timer_picker_dialog_info =>

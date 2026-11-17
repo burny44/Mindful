@@ -72,7 +72,16 @@ class WellBeingNotifier extends StateNotifier<Wellbeing> {
   void insertNsfwSite(String websiteHost) async => state =
       state.copyWith(nsfwWebsites: [...state.nsfwWebsites, websiteHost]);
 
-  /// Sets the daily Instagram usage after which reels get blocked. 0 disables it.
+  /// Sets the daily Reels watch time after which reels get blocked. 0 disables it.
   void setInstagramUsageLimit(int timeSec) =>
       state = state.copyWith(instagramUsageLimitSec: timeSec > 0 ? timeSec : 0);
+
+  /// Sets the daily Shorts watch time after which shorts get blocked. 0 disables it.
+  void setYoutubeShortsLimit(int timeSec) =>
+      state = state.copyWith(youtubeShortsLimitSec: timeSec > 0 ? timeSec : 0);
+
+  /// Sets the shared daily allowance for blocked short content. 0 or less
+  /// turns it off (blocked content is blocked right away).
+  void setAllowedShortContentTime(int timeSec) =>
+      state = state.copyWith(allowedShortsTimeSec: timeSec > 0 ? timeSec : -1);
 }

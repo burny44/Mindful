@@ -94,10 +94,7 @@
     "imp_distracting_apps_snack_alert": "Додавання важливих системних застосунків до списку таких, що відволікають, не допускається.",
     "custom_apps_quick_actions_unavailable_warning": "Використання дисплея та обмеження недоступні для цього застосунку. На даний час, доступне лише використання мережі.",
     "active_period_info": "Встановіть часовий період, протягом якого буде дозволений доступ. Поза цим часом доступ буде обмежений.",
-    "donation_card_title": "Підтримайте нас",
-    "donation_card_info": "Mindful є безплатний та відкритий, розроблений з відданістю протягом місяців. Якщо застосунок вам допоміг, ваша пожертва буде безмежно цінною для нас. Кожен внесок нам допомагає вдосконалювати для підтримувати застосунок для кожного.",
     "operation_failed_snack_alert": "Помилка операції, щось пішло не так!",
-    "donation_card_button_donate": "Пожертвувати",
     "app_restart_dialog_title": "Потрібен перезапуск",
     "app_restart_dialog_info": "Mindful буде автоматично перезапущений після завершення зворотного відліку. Будь ласка, будьте терплячі, оскільки будуть застосовані зміни.",
     "@----------------------------- TIPS -----------------------------": {},
@@ -153,16 +150,6 @@
     "shorts_blocking_tab_title": "Блокування контенту короткого формату",
     "shorts_blocking_tab_info": "Контролюйте, скільки часу ви витрачаєте на перегляд короткого контенту на таких платформах, як Instagram, YouTube, Snapchat і Facebook, включно з їхніми вебсайтами.",
     "short_content_heading": "Короткий контент",
-    "shorts_time_left_from": "Залишилось з {timeShortString}",
-    "@shorts_time_left_from": {
-        "placeholders": {
-            "timeShortString": {
-                "type": "String",
-                "example": "1h 23m"
-            }
-        }
-    },
-    "short_content_timer_picker_dialog_info": "Встановіть денний ліміт часу для короткого контенту. Коли ліміт буде вичерпано, показ короткого контенту буде призупинено до опівночі.",
     "instagram_features_tile_title": "Instagram",
     "instagram_features_tile_subtitle": "Обмежити функції Instagram.",
     "instagram_features_block_reels": "Обмежити секцію Reels.",

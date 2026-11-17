@@ -10,6 +10,8 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mindful/core/enums/usage_type.dart';
+import 'package:mindful/core/utils/focus_targets.dart';
+import 'package:mindful/models/app_info.dart';
 import 'package:mindful/models/usage_filter_model.dart';
 import 'package:mindful/providers/apps/apps_info_provider.dart';
 import 'package:mindful/providers/usage/dated_apps_usage_provider.dart';
@@ -26,8 +28,16 @@ final filteredPackagesProvider =
         loading: () => const AsyncLoading(),
         error: (e, st) => AsyncError(e, st),
         data: (appsMap) {
-          /// Create list of apps from the map with searching
-          var apps = appsMap.values.toList();
+          /// Create list of apps from the map with searching.
+          /// Reels / Shorts are listed as their own apps (screen time only).
+          var apps = [
+            ...appsMap.values,
+            if (filter.usageType != UsageType.networkUsage)
+              for (final target in FocusTargets.virtualApps)
+                AppInfo.placeHolder(target).copyWithName(
+                  _virtualAppNames[target] ?? target,
+                ),
+          ];
 
           /// Filter by query
           if (filter.query.isNotEmpty) {
@@ -37,7 +47,9 @@ final filteredPackagesProvider =
           }
 
           /// Filter out apps with no usage for the selected day
-          if (!filter.includeAll) {
+          /// (searching always looks through every app)
+          final isSearching = filter.query.isNotEmpty;
+          if (!filter.includeAll && !isSearching) {
             switch (filter.usageType) {
               case UsageType.screenUsage:
                 apps.removeWhere(
@@ -54,7 +66,14 @@ final filteredPackagesProvider =
           }
 
           /// Repopulate list if empty after filtering (avoid empty result)
-          if (apps.isEmpty) apps = appsMap.values.toList();
+          if (apps.isEmpty && !isSearching) apps = appsMap.values.toList();
+
+          /// Never show Reels / Shorts without any watch time
+          apps.removeWhere(
+            (e) =>
+                FocusTargets.isVirtualApp(e.packageName) &&
+                (appsUsage[e.packageName]?.screenTime ?? 0) == 0,
+          );
 
           /// If alphabetically is true the sort alphabetically,
           /// otherwise Sort apps based on usage  (descending)
@@ -86,3 +105,10 @@ final filteredPackagesProvider =
         },
       );
 });
+
+/// Names used for searching and sorting Reels / Shorts in the list
+/// (the tiles show the localized names).
+const _virtualAppNames = {
+  FocusTargets.instagramReels: "Instagram Reels",
+  FocusTargets.youtubeShorts: "YouTube Shorts",
+};

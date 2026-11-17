@@ -35,7 +35,6 @@ import java.util.concurrent.ConcurrentLinkedDeque
 class OverlayManager(
     private val context: Context,
 ) {
-    private var overlays: ConcurrentLinkedDeque<View> = ConcurrentLinkedDeque()
     private val windowManager: WindowManager =
         context.getSystemService(WINDOW_SERVICE) as WindowManager
 
@@ -69,6 +68,7 @@ class OverlayManager(
         restrictionState: RestrictionState,
         addReminderWithDelay: ((futureMinutes: Int) -> Unit)? = null,
         onTakeBreak: ((sessionId: Long) -> Unit)? = null,
+        content: BlockedContent? = null,
     ) {
         // Return if overlay is not null
         if (overlays.isNotEmpty()) return
@@ -89,6 +89,7 @@ class OverlayManager(
                     dismissOverlay = ::dismissSheetOverlay,
                     addReminderDelay = addReminderWithDelay,
                     onTakeBreak = onTakeBreak,
+                    content = content,
                 ).apply {
                     // TODO: Fix the deprecated logic
                     // Full screen edge to edge view
@@ -128,6 +129,53 @@ class OverlayManager(
         }
     }
 
+
+    /**
+     * Lightweight block for an app which can't be used any more (no breaks left):
+     * sends the user to the home screen and shows a small pill for a moment instead
+     * of the full screen sheet. The pill can't be touched, so it never gets in the way.
+     */
+    fun showBlockedPill(packageName: String, message: String) {
+        ThreadUtils.runOnMainThread {
+            runCatching {
+                /// Showing the pill needs the overlay permission, without it the
+                /// permission check already sends the user home.
+                if (!haveOverlayPermission(context)) return@runOnMainThread
+
+                /// Go to home
+                context.startActivity(
+                    Intent(Intent.ACTION_MAIN)
+                        .addCategory(Intent.CATEGORY_HOME)
+                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                )
+
+                /// Only one pill at a time
+                blockedPill?.let { runCatching { windowManager.removeView(it) } }
+
+                val pill = OverlayBuilder.buildBlockedPillOverlay(context, packageName, message)
+                windowManager.addView(pill, pillLayoutParams)
+                blockedPill = pill
+                Log.d(TAG, "showBlockedPill: $packageName")
+
+                pill.animate().alpha(1f).setDuration(200).start()
+                pill.postDelayed({
+                    pill.animate()
+                        .alpha(0f)
+                        .setDuration(300)
+                        .withEndAction {
+                            runCatching { windowManager.removeView(pill) }
+                            if (blockedPill === pill) blockedPill = null
+                        }
+                        .start()
+                }, PILL_DURATION_MS)
+            }.getOrElse { e ->
+                Log.e(TAG, "showBlockedPill: Failed to show blocked pill", e)
+                SharedPrefsHelper.insertCrashLogToPrefs(context, e)
+            }
+        }
+    }
+
+    private var blockedPill: View? = null
 
     fun showToastOverlay(
         packageName: String,
@@ -213,6 +261,12 @@ class OverlayManager(
     }
 
     companion object {
+        /// Shared by every instance (tracker and accessibility service), so a sheet shown
+        /// by one is still dismissed by the other, e.g. when another app is opened.
+        private val overlays: ConcurrentLinkedDeque<View> = ConcurrentLinkedDeque()
+
+        /** True while a blocking sheet is on screen */
+        val isSheetShowing: Boolean get() = overlays.isNotEmpty()
         private const val TAG = "Mindful.OverlayManager"
 
         private const val SLIDE_UP_START_Y = 640f
@@ -233,6 +287,25 @@ class OverlayManager(
             android.graphics.PixelFormat.TRANSLUCENT
         ).apply {
             gravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL
+        }
+
+        private const val PILL_DURATION_MS = 2_500L
+
+        /// Like the toast, but touches pass through
+        private val pillLayoutParams = WindowManager.LayoutParams(
+            WindowManager.LayoutParams.WRAP_CONTENT,
+            WindowManager.LayoutParams.WRAP_CONTENT,
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
+            } else {
+                WindowManager.LayoutParams.TYPE_PHONE
+            },
+            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+            android.graphics.PixelFormat.TRANSLUCENT
+        ).apply {
+            gravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL
+            verticalMargin = 0.05f
         }
 
         private val toastLayoutParams = WindowManager.LayoutParams(

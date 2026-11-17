@@ -31,6 +31,7 @@ const defaultWellbeingModel = Wellbeing(
   id: 0,
   allowedShortsTimeSec: 30 * 60,
   instagramUsageLimitSec: 0,
+  youtubeShortsLimitSec: 0,
   blockedFeatures: [],
   blockNsfwSites: false,
   blockedWebsites: [],

@@ -94,10 +94,7 @@
     "imp_distracting_apps_snack_alert": "システムアプリは使用制限アプリに追加できません。",
     "custom_apps_quick_actions_unavailable_warning": "このアプリでは、ネットワークの使用状況のみ確認できます。画面の使用状況と制限機能は現在ご利用いただけません。",
     "active_period_info": "アクセスを許可する時間帯を設定してください。この時間帯以外では、アクセスが制限されます。",
-    "donation_card_title": "開発を支援する",
-    "donation_card_info": "Mindful は、数ヶ月の開発期間を経て、無料で公開しています。このアプリをより多くの人々に届け、改善し続けるために、皆様からの温かいご支援をお待ちしています。",
     "operation_failed_snack_alert": "エラーが発生し、操作を完了できませんでした。",
-    "donation_card_button_donate": "寄付する",
     "app_restart_dialog_title": "再起動してください",
     "app_restart_dialog_info": "カウントダウン終了後、Mindful は自動的に再起動します。変更の適用には少し時間がかかりますので、お待ちください。",
     "@----------------------------- TIPS -----------------------------": {},
@@ -145,16 +142,6 @@
     "shorts_blocking_tab_title": "ショート動画ブロック",
     "shorts_blocking_tab_info": "Instagram、YouTube、Snapchat、Facebookなどのプラットフォームやそのウェブサイトで、ショート動画に費やす時間をコントロールできます。",
     "short_content_heading": "ショート動画",
-    "shorts_time_left_from": "残りあと {timeShortString}",
-    "@shorts_time_left_from": {
-        "placeholders": {
-            "timeShortString": {
-                "type": "String",
-                "example": "1h 23m"
-            }
-        }
-    },
-    "short_content_timer_picker_dialog_info": "ショート動画の毎日の利用時間を制限できます。制限時間に達すると、深夜0時までショート動画は視聴できなくなります。",
     "instagram_features_tile_subtitle": "Instagramの機能を制限します。",
     "instagram_features_block_reels": "リールセクションを制限します。",
     "instagram_features_block_explore": "探索セクションを制限します。",

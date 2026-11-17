@@ -1538,6 +1538,14 @@ class $WellbeingTableTable extends WellbeingTable
       type: DriftSqlType.int,
       requiredDuringInsert: false,
       defaultValue: const Constant(0));
+  static const VerificationMeta _youtubeShortsLimitSecMeta =
+      const VerificationMeta('youtubeShortsLimitSec');
+  @override
+  late final GeneratedColumn<int> youtubeShortsLimitSec = GeneratedColumn<int>(
+      'youtube_shorts_limit_sec', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(0));
   @override
   late final GeneratedColumnWithTypeConverter<List<PlatformFeatures>, String>
       blockedFeatures = GeneratedColumn<String>(
@@ -1580,6 +1588,7 @@ class $WellbeingTableTable extends WellbeingTable
         id,
         allowedShortsTimeSec,
         instagramUsageLimitSec,
+        youtubeShortsLimitSec,
         blockedFeatures,
         blockNsfwSites,
         blockedWebsites,
@@ -1610,6 +1619,12 @@ class $WellbeingTableTable extends WellbeingTable
           instagramUsageLimitSec.isAcceptableOrUnknown(
               data['instagram_usage_limit_sec']!, _instagramUsageLimitSecMeta));
     }
+    if (data.containsKey('youtube_shorts_limit_sec')) {
+      context.handle(
+          _youtubeShortsLimitSecMeta,
+          youtubeShortsLimitSec.isAcceptableOrUnknown(
+              data['youtube_shorts_limit_sec']!, _youtubeShortsLimitSecMeta));
+    }
     if (data.containsKey('block_nsfw_sites')) {
       context.handle(
           _blockNsfwSitesMeta,
@@ -1632,6 +1647,8 @@ class $WellbeingTableTable extends WellbeingTable
       instagramUsageLimitSec: attachedDatabase.typeMapping.read(
           DriftSqlType.int,
           data['${effectivePrefix}instagram_usage_limit_sec'])!,
+      youtubeShortsLimitSec: attachedDatabase.typeMapping.read(DriftSqlType.int,
+          data['${effectivePrefix}youtube_shorts_limit_sec'])!,
       blockedFeatures: $WellbeingTableTable.$converterblockedFeatures.fromSql(
           attachedDatabase.typeMapping.read(DriftSqlType.string,
               data['${effectivePrefix}blocked_features'])!),
@@ -1667,9 +1684,14 @@ class Wellbeing extends DataClass implements Insertable<Wellbeing> {
   /// Allowed time for short content in SECONDS
   final int allowedShortsTimeSec;
 
-  /// Daily Instagram usage in SECONDS after which reels get blocked.
+  /// Daily Instagram Reels watch time in SECONDS after which reels get blocked.
   /// 0 means disabled, reels then follow [allowedShortsTimeSec].
+  /// (Named after its first meaning, total Instagram usage.)
   final int instagramUsageLimitSec;
+
+  /// Daily YouTube Shorts watch time in SECONDS after which shorts get blocked.
+  /// 0 means disabled, shorts then follow [allowedShortsTimeSec].
+  final int youtubeShortsLimitSec;
 
   /// List of feature which are blocked
   final List<PlatformFeatures> blockedFeatures;
@@ -1687,6 +1709,7 @@ class Wellbeing extends DataClass implements Insertable<Wellbeing> {
       {required this.id,
       required this.allowedShortsTimeSec,
       required this.instagramUsageLimitSec,
+      required this.youtubeShortsLimitSec,
       required this.blockedFeatures,
       required this.blockNsfwSites,
       required this.blockedWebsites,
@@ -1697,6 +1720,7 @@ class Wellbeing extends DataClass implements Insertable<Wellbeing> {
     map['id'] = Variable<int>(id);
     map['allowed_shorts_time_sec'] = Variable<int>(allowedShortsTimeSec);
     map['instagram_usage_limit_sec'] = Variable<int>(instagramUsageLimitSec);
+    map['youtube_shorts_limit_sec'] = Variable<int>(youtubeShortsLimitSec);
     {
       map['blocked_features'] = Variable<String>($WellbeingTableTable
           .$converterblockedFeatures
@@ -1720,6 +1744,7 @@ class Wellbeing extends DataClass implements Insertable<Wellbeing> {
       id: Value(id),
       allowedShortsTimeSec: Value(allowedShortsTimeSec),
       instagramUsageLimitSec: Value(instagramUsageLimitSec),
+      youtubeShortsLimitSec: Value(youtubeShortsLimitSec),
       blockedFeatures: Value(blockedFeatures),
       blockNsfwSites: Value(blockNsfwSites),
       blockedWebsites: Value(blockedWebsites),
@@ -1736,6 +1761,8 @@ class Wellbeing extends DataClass implements Insertable<Wellbeing> {
           serializer.fromJson<int>(json['allowedShortsTimeSec']),
       instagramUsageLimitSec:
           serializer.fromJson<int>(json['instagramUsageLimitSec']),
+      youtubeShortsLimitSec:
+          serializer.fromJson<int>(json['youtubeShortsLimitSec']),
       blockedFeatures:
           serializer.fromJson<List<PlatformFeatures>>(json['blockedFeatures']),
       blockNsfwSites: serializer.fromJson<bool>(json['blockNsfwSites']),
@@ -1751,6 +1778,7 @@ class Wellbeing extends DataClass implements Insertable<Wellbeing> {
       'id': serializer.toJson<int>(id),
       'allowedShortsTimeSec': serializer.toJson<int>(allowedShortsTimeSec),
       'instagramUsageLimitSec': serializer.toJson<int>(instagramUsageLimitSec),
+      'youtubeShortsLimitSec': serializer.toJson<int>(youtubeShortsLimitSec),
       'blockedFeatures':
           serializer.toJson<List<PlatformFeatures>>(blockedFeatures),
       'blockNsfwSites': serializer.toJson<bool>(blockNsfwSites),
@@ -1763,6 +1791,7 @@ class Wellbeing extends DataClass implements Insertable<Wellbeing> {
           {int? id,
           int? allowedShortsTimeSec,
           int? instagramUsageLimitSec,
+          int? youtubeShortsLimitSec,
           List<PlatformFeatures>? blockedFeatures,
           bool? blockNsfwSites,
           List<String>? blockedWebsites,
@@ -1772,6 +1801,8 @@ class Wellbeing extends DataClass implements Insertable<Wellbeing> {
         allowedShortsTimeSec: allowedShortsTimeSec ?? this.allowedShortsTimeSec,
         instagramUsageLimitSec:
             instagramUsageLimitSec ?? this.instagramUsageLimitSec,
+        youtubeShortsLimitSec:
+            youtubeShortsLimitSec ?? this.youtubeShortsLimitSec,
         blockedFeatures: blockedFeatures ?? this.blockedFeatures,
         blockNsfwSites: blockNsfwSites ?? this.blockNsfwSites,
         blockedWebsites: blockedWebsites ?? this.blockedWebsites,
@@ -1786,6 +1817,9 @@ class Wellbeing extends DataClass implements Insertable<Wellbeing> {
       instagramUsageLimitSec: data.instagramUsageLimitSec.present
           ? data.instagramUsageLimitSec.value
           : this.instagramUsageLimitSec,
+      youtubeShortsLimitSec: data.youtubeShortsLimitSec.present
+          ? data.youtubeShortsLimitSec.value
+          : this.youtubeShortsLimitSec,
       blockedFeatures: data.blockedFeatures.present
           ? data.blockedFeatures.value
           : this.blockedFeatures,
@@ -1807,6 +1841,7 @@ class Wellbeing extends DataClass implements Insertable<Wellbeing> {
           ..write('id: $id, ')
           ..write('allowedShortsTimeSec: $allowedShortsTimeSec, ')
           ..write('instagramUsageLimitSec: $instagramUsageLimitSec, ')
+          ..write('youtubeShortsLimitSec: $youtubeShortsLimitSec, ')
           ..write('blockedFeatures: $blockedFeatures, ')
           ..write('blockNsfwSites: $blockNsfwSites, ')
           ..write('blockedWebsites: $blockedWebsites, ')
@@ -1820,6 +1855,7 @@ class Wellbeing extends DataClass implements Insertable<Wellbeing> {
       id,
       allowedShortsTimeSec,
       instagramUsageLimitSec,
+      youtubeShortsLimitSec,
       blockedFeatures,
       blockNsfwSites,
       blockedWebsites,
@@ -1831,6 +1867,7 @@ class Wellbeing extends DataClass implements Insertable<Wellbeing> {
           other.id == this.id &&
           other.allowedShortsTimeSec == this.allowedShortsTimeSec &&
           other.instagramUsageLimitSec == this.instagramUsageLimitSec &&
+          other.youtubeShortsLimitSec == this.youtubeShortsLimitSec &&
           other.blockedFeatures == this.blockedFeatures &&
           other.blockNsfwSites == this.blockNsfwSites &&
           other.blockedWebsites == this.blockedWebsites &&
@@ -1841,6 +1878,7 @@ class WellbeingTableCompanion extends UpdateCompanion<Wellbeing> {
   final Value<int> id;
   final Value<int> allowedShortsTimeSec;
   final Value<int> instagramUsageLimitSec;
+  final Value<int> youtubeShortsLimitSec;
   final Value<List<PlatformFeatures>> blockedFeatures;
   final Value<bool> blockNsfwSites;
   final Value<List<String>> blockedWebsites;
@@ -1849,6 +1887,7 @@ class WellbeingTableCompanion extends UpdateCompanion<Wellbeing> {
     this.id = const Value.absent(),
     this.allowedShortsTimeSec = const Value.absent(),
     this.instagramUsageLimitSec = const Value.absent(),
+    this.youtubeShortsLimitSec = const Value.absent(),
     this.blockedFeatures = const Value.absent(),
     this.blockNsfwSites = const Value.absent(),
     this.blockedWebsites = const Value.absent(),
@@ -1858,6 +1897,7 @@ class WellbeingTableCompanion extends UpdateCompanion<Wellbeing> {
     this.id = const Value.absent(),
     this.allowedShortsTimeSec = const Value.absent(),
     this.instagramUsageLimitSec = const Value.absent(),
+    this.youtubeShortsLimitSec = const Value.absent(),
     this.blockedFeatures = const Value.absent(),
     this.blockNsfwSites = const Value.absent(),
     this.blockedWebsites = const Value.absent(),
@@ -1867,6 +1907,7 @@ class WellbeingTableCompanion extends UpdateCompanion<Wellbeing> {
     Expression<int>? id,
     Expression<int>? allowedShortsTimeSec,
     Expression<int>? instagramUsageLimitSec,
+    Expression<int>? youtubeShortsLimitSec,
     Expression<String>? blockedFeatures,
     Expression<bool>? blockNsfwSites,
     Expression<String>? blockedWebsites,
@@ -1878,6 +1919,8 @@ class WellbeingTableCompanion extends UpdateCompanion<Wellbeing> {
         'allowed_shorts_time_sec': allowedShortsTimeSec,
       if (instagramUsageLimitSec != null)
         'instagram_usage_limit_sec': instagramUsageLimitSec,
+      if (youtubeShortsLimitSec != null)
+        'youtube_shorts_limit_sec': youtubeShortsLimitSec,
       if (blockedFeatures != null) 'blocked_features': blockedFeatures,
       if (blockNsfwSites != null) 'block_nsfw_sites': blockNsfwSites,
       if (blockedWebsites != null) 'blocked_websites': blockedWebsites,
@@ -1889,6 +1932,7 @@ class WellbeingTableCompanion extends UpdateCompanion<Wellbeing> {
       {Value<int>? id,
       Value<int>? allowedShortsTimeSec,
       Value<int>? instagramUsageLimitSec,
+      Value<int>? youtubeShortsLimitSec,
       Value<List<PlatformFeatures>>? blockedFeatures,
       Value<bool>? blockNsfwSites,
       Value<List<String>>? blockedWebsites,
@@ -1898,6 +1942,8 @@ class WellbeingTableCompanion extends UpdateCompanion<Wellbeing> {
       allowedShortsTimeSec: allowedShortsTimeSec ?? this.allowedShortsTimeSec,
       instagramUsageLimitSec:
           instagramUsageLimitSec ?? this.instagramUsageLimitSec,
+      youtubeShortsLimitSec:
+          youtubeShortsLimitSec ?? this.youtubeShortsLimitSec,
       blockedFeatures: blockedFeatures ?? this.blockedFeatures,
       blockNsfwSites: blockNsfwSites ?? this.blockNsfwSites,
       blockedWebsites: blockedWebsites ?? this.blockedWebsites,
@@ -1918,6 +1964,10 @@ class WellbeingTableCompanion extends UpdateCompanion<Wellbeing> {
     if (instagramUsageLimitSec.present) {
       map['instagram_usage_limit_sec'] =
           Variable<int>(instagramUsageLimitSec.value);
+    }
+    if (youtubeShortsLimitSec.present) {
+      map['youtube_shorts_limit_sec'] =
+          Variable<int>(youtubeShortsLimitSec.value);
     }
     if (blockedFeatures.present) {
       map['blocked_features'] = Variable<String>($WellbeingTableTable
@@ -1946,6 +1996,7 @@ class WellbeingTableCompanion extends UpdateCompanion<Wellbeing> {
           ..write('id: $id, ')
           ..write('allowedShortsTimeSec: $allowedShortsTimeSec, ')
           ..write('instagramUsageLimitSec: $instagramUsageLimitSec, ')
+          ..write('youtubeShortsLimitSec: $youtubeShortsLimitSec, ')
           ..write('blockedFeatures: $blockedFeatures, ')
           ..write('blockNsfwSites: $blockNsfwSites, ')
           ..write('blockedWebsites: $blockedWebsites, ')
@@ -4052,6 +4103,7 @@ typedef $$WellbeingTableTableCreateCompanionBuilder = WellbeingTableCompanion
   Value<int> id,
   Value<int> allowedShortsTimeSec,
   Value<int> instagramUsageLimitSec,
+  Value<int> youtubeShortsLimitSec,
   Value<List<PlatformFeatures>> blockedFeatures,
   Value<bool> blockNsfwSites,
   Value<List<String>> blockedWebsites,
@@ -4062,6 +4114,7 @@ typedef $$WellbeingTableTableUpdateCompanionBuilder = WellbeingTableCompanion
   Value<int> id,
   Value<int> allowedShortsTimeSec,
   Value<int> instagramUsageLimitSec,
+  Value<int> youtubeShortsLimitSec,
   Value<List<PlatformFeatures>> blockedFeatures,
   Value<bool> blockNsfwSites,
   Value<List<String>> blockedWebsites,
@@ -4086,6 +4139,10 @@ class $$WellbeingTableTableFilterComposer
 
   ColumnFilters<int> get instagramUsageLimitSec => $composableBuilder(
       column: $table.instagramUsageLimitSec,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get youtubeShortsLimitSec => $composableBuilder(
+      column: $table.youtubeShortsLimitSec,
       builder: (column) => ColumnFilters(column));
 
   ColumnWithTypeConverterFilters<List<PlatformFeatures>, List<PlatformFeatures>,
@@ -4129,6 +4186,10 @@ class $$WellbeingTableTableOrderingComposer
       column: $table.instagramUsageLimitSec,
       builder: (column) => ColumnOrderings(column));
 
+  ColumnOrderings<int> get youtubeShortsLimitSec => $composableBuilder(
+      column: $table.youtubeShortsLimitSec,
+      builder: (column) => ColumnOrderings(column));
+
   ColumnOrderings<String> get blockedFeatures => $composableBuilder(
       column: $table.blockedFeatures,
       builder: (column) => ColumnOrderings(column));
@@ -4163,6 +4224,9 @@ class $$WellbeingTableTableAnnotationComposer
 
   GeneratedColumn<int> get instagramUsageLimitSec => $composableBuilder(
       column: $table.instagramUsageLimitSec, builder: (column) => column);
+
+  GeneratedColumn<int> get youtubeShortsLimitSec => $composableBuilder(
+      column: $table.youtubeShortsLimitSec, builder: (column) => column);
 
   GeneratedColumnWithTypeConverter<List<PlatformFeatures>, String>
       get blockedFeatures => $composableBuilder(
@@ -4207,6 +4271,7 @@ class $$WellbeingTableTableTableManager extends RootTableManager<
             Value<int> id = const Value.absent(),
             Value<int> allowedShortsTimeSec = const Value.absent(),
             Value<int> instagramUsageLimitSec = const Value.absent(),
+            Value<int> youtubeShortsLimitSec = const Value.absent(),
             Value<List<PlatformFeatures>> blockedFeatures =
                 const Value.absent(),
             Value<bool> blockNsfwSites = const Value.absent(),
@@ -4217,6 +4282,7 @@ class $$WellbeingTableTableTableManager extends RootTableManager<
             id: id,
             allowedShortsTimeSec: allowedShortsTimeSec,
             instagramUsageLimitSec: instagramUsageLimitSec,
+            youtubeShortsLimitSec: youtubeShortsLimitSec,
             blockedFeatures: blockedFeatures,
             blockNsfwSites: blockNsfwSites,
             blockedWebsites: blockedWebsites,
@@ -4226,6 +4292,7 @@ class $$WellbeingTableTableTableManager extends RootTableManager<
             Value<int> id = const Value.absent(),
             Value<int> allowedShortsTimeSec = const Value.absent(),
             Value<int> instagramUsageLimitSec = const Value.absent(),
+            Value<int> youtubeShortsLimitSec = const Value.absent(),
             Value<List<PlatformFeatures>> blockedFeatures =
                 const Value.absent(),
             Value<bool> blockNsfwSites = const Value.absent(),
@@ -4236,6 +4303,7 @@ class $$WellbeingTableTableTableManager extends RootTableManager<
             id: id,
             allowedShortsTimeSec: allowedShortsTimeSec,
             instagramUsageLimitSec: instagramUsageLimitSec,
+            youtubeShortsLimitSec: youtubeShortsLimitSec,
             blockedFeatures: blockedFeatures,
             blockNsfwSites: blockNsfwSites,
             blockedWebsites: blockedWebsites,

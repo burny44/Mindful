@@ -21,6 +21,25 @@ import com.mindful.android.utils.MindfulQuotes
 import com.mindful.android.utils.ThreadUtils
 
 object OverlayBuilder {
+    /**
+     * Small non-clickable pill for an app which can't be used any more right now:
+     * app icon, app name and a short [message].
+     */
+    @MainThread
+    fun buildBlockedPillOverlay(
+        context: Context,
+        packageName: String,
+        message: String,
+    ): View {
+        val pill = LayoutInflater.from(context).inflate(R.layout.overlay_toast_layout, null)
+        val (appName, appIcon) = getAppLabelAndIcon(context, packageName)
+        pill.findViewById<TextView>(R.id.overlay_toast_app_name).text = appName
+        pill.findViewById<ImageView>(R.id.overlay_toast_app_icon).setImageDrawable(appIcon)
+        pill.findViewById<TextView>(R.id.overlay_toast_screen_time).text = message
+        pill.alpha = 0f
+        return pill
+    }
+
     @MainThread
     fun buildToastOverlay(
         context: Context,
@@ -72,6 +91,7 @@ object OverlayBuilder {
         dismissOverlay: () -> Unit,
         addReminderDelay: ((futureMinutes: Int) -> Unit)? = null,
         onTakeBreak: ((sessionId: Long) -> Unit)? = null,
+        content: BlockedContent? = null,
     ): View {
         // Inflate the custom layout for the dialog
         val inflater = LayoutInflater.from(context)
@@ -93,6 +113,7 @@ object OverlayBuilder {
 
         // Resolve app icon and label
         val (appName, appIcon) = getAppLabelAndIcon(context, packageName)
+            .let { (name, icon) -> (content?.title ?: name) to icon }
 
         // App infos
         val appNameTxt = sheetView.findViewById<TextView>(R.id.overlay_sheet_app_name)
@@ -100,8 +121,8 @@ object OverlayBuilder {
         appNameTxt.text = appName
         appIconImg.setImageDrawable(appIcon)
 
-        // Emergency button (Visible only if limit is exhausted)
-        if (state.screenTimeUsed >= state.screenTimeLimit) {
+        // Emergency button (Visible only if limit is exhausted, not for in-app content)
+        if (content == null && state.screenTimeUsed >= state.screenTimeLimit) {
             val emergencyBtn = sheetView.findViewById<Button>(R.id.overlay_sheet_btn_emergency)
             emergencyBtn.visibility = View.VISIBLE
             emergencyBtn.setOnClickListener {
@@ -223,6 +244,9 @@ object OverlayBuilder {
                     /// Lift the overlay, then bring the blocked app back to the front.
                     dismissOverlay.invoke()
 
+                    /// Blocked in-app content was already left, the user opens it again
+                    if (content != null) return@runOnMainThread
+
                     context.packageManager.getLaunchIntentForPackage(packageName)?.let { intent ->
                         intent.addFlags(
                             Intent.FLAG_ACTIVITY_NEW_TASK or
@@ -237,9 +261,16 @@ object OverlayBuilder {
 
         // Close app button
         val closeAppBtn = sheetView.findViewById<Button>(R.id.overlay_sheet_btn_close_app)
-        closeAppBtn.text = context.getString(R.string.app_paused_overlay_button_close_app, appName)
+        closeAppBtn.text = content?.closeLabel
+            ?: context.getString(R.string.app_paused_overlay_button_close_app, appName)
         closeAppBtn.setOnClickListener {
             ThreadUtils.runOnMainThread {
+                /// In-app content: just stay in the app
+                if (content != null) {
+                    dismissOverlay.invoke()
+                    return@runOnMainThread
+                }
+
                 /// Go to home
                 val homeIntent = Intent(Intent.ACTION_MAIN)
                 homeIntent.addCategory(Intent.CATEGORY_HOME)
@@ -298,3 +329,13 @@ object OverlayBuilder {
         }
     }
 }
+
+/**
+ * Blocked content inside an app (e.g. YouTube Shorts) instead of the whole app. The sheet
+ * shows [title] instead of the app name and [closeLabel] (e.g. "Back to YouTube") just
+ * dismisses it, the content itself was already left.
+ */
+data class BlockedContent(
+    val title: String,
+    val closeLabel: String,
+)

@@ -91,23 +91,23 @@ class FocusUnlockRuleCard extends ConsumerWidget {
                 children: [
                   /// Earned time indicator
                   SizedBox(
-                    height: 36,
-                    width: 36,
+                    height: 26,
+                    width: 26,
                     child: Padding(
-                      padding: const EdgeInsets.all(4),
+                      padding: const EdgeInsets.all(2),
                       child: Stack(
                         alignment: Alignment.center,
                         children: [
                           CircularProgressIndicator(
                             value: 1,
-                            strokeWidth: 6,
+                            strokeWidth: 3,
                             strokeCap: StrokeCap.round,
                             color: Theme.of(context)
                                 .colorScheme
-                                .secondaryContainer,
+                                .surfaceContainerHighest,
                           ),
                           CircularProgressIndicator(
-                            strokeWidth: 6,
+                            strokeWidth: 3,
                             strokeCap: StrokeCap.round,
                             value: progress > 0 ? progress : 1,
                             color: isUnlocked
@@ -118,7 +118,7 @@ class FocusUnlockRuleCard extends ConsumerWidget {
                       ),
                     ),
                   ),
-                  12.hBox,
+                  14.hBox,
 
                   Expanded(
                     child: Column(
@@ -129,7 +129,7 @@ class FocusUnlockRuleCard extends ConsumerWidget {
                           rule.name.isEmpty
                               ? context.locale.focus_unlock_screen_title
                               : rule.name,
-                          fontSize: 18,
+                          fontSize: 16,
                           fontWeight: FontWeight.w600,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
@@ -143,6 +143,7 @@ class FocusUnlockRuleCard extends ConsumerWidget {
                                   rule.scheduleEndTime.format(context),
                                 )
                               : context.locale.focus_unlock_schedule_all_day,
+                          fontSize: 13,
                           color: Theme.of(context).hintColor,
                         ),
                       ],
@@ -152,15 +153,16 @@ class FocusUnlockRuleCard extends ConsumerWidget {
 
                   /// Earned time / required time
                   TimeTextShort(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
                     timeDuration: timeSpent.seconds,
                     secondaryFontWeight: FontWeight.w600,
                   ),
-                  const StyledText(" / ", fontSize: 14),
+                  StyledText(" / ",
+                      fontSize: 13, color: Theme.of(context).hintColor),
                   TimeTextShort(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
                     timeDuration: rule.requiredTimeSec.seconds,
                     secondaryFontWeight: FontWeight.w600,
                   ),

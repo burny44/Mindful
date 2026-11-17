@@ -20,12 +20,10 @@ import 'package:mindful/core/extensions/ext_num.dart';
 import 'package:mindful/core/extensions/ext_widget.dart';
 import 'package:mindful/core/services/method_channel_service.dart';
 import 'package:mindful/config/app_constants.dart';
-import 'package:mindful/core/utils/widget_utils.dart';
 import 'package:mindful/ui/common/breathing_widget.dart';
 import 'package:mindful/ui/common/default_list_tile.dart';
 import 'package:mindful/ui/common/rounded_container.dart';
 import 'package:mindful/ui/common/content_section_header.dart';
-import 'package:mindful/ui/common/sliver_primary_action_container.dart';
 import 'package:mindful/ui/common/sliver_app_version_info.dart';
 import 'package:mindful/ui/common/styled_text.dart';
 import 'package:mindful/ui/common/sliver_tabs_bottom_padding.dart';
@@ -67,24 +65,9 @@ class TabAbout extends ConsumerWidget {
 
         24.vSliverBox,
 
-        /// Donation box
-        SliverPrimaryActionContainer(
-          isVisible: true,
-          radius: getBorderRadiusFromPosition(ItemPosition.top),
-          icon: FluentIcons.handshake_20_regular,
-          title: context.locale.donation_card_title,
-          information: context.locale.donation_card_info,
-          positiveBtn: FilledButton.icon(
-            icon: const Icon(FluentIcons.heart_20_filled),
-            label: Text(context.locale.donation_card_button_donate),
-            onPressed: () => MethodChannelService.instance
-                .launchUrl(AppConstants.githubFeedbackSectionUrl),
-          ),
-        ),
-
         /// Change log
         DefaultListTile(
-          position: ItemPosition.bottom,
+          position: ItemPosition.none,
           leadingIcon: FluentIcons.slide_text_20_regular,
           titleText: context.locale.changelog_tile_title,
           subtitleText: context.locale.changelog_tile_subtitle,

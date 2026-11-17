@@ -94,10 +94,7 @@
     "imp_distracting_apps_snack_alert": "L'ajout d'applications système importantes à la liste des applications qui vous déconcentrent n'est pas autorisé.",
     "custom_apps_quick_actions_unavailable_warning": "Le temps d'écran et les restrictions ne sont pas disponibles pour cette application. Pour l'instant, seulement la consommation de données est disponible",
     "active_period_info": "Définissez une période pendant laquelle l'accès sera autorisé. En dehors de cette période, l'accès sera restreint.",
-    "donation_card_title": "Soutenez-nous",
-    "donation_card_info": "Mindful est une application gratuite et open-source, développée avec dévouement durant des mois. Si elle vous a aidé, votre don signifierait beaucoup pour nous. Chaque don nous permet de continuer à l'améliorer et la maintenir pour tous.",
     "operation_failed_snack_alert": "L'opération a échoué, une erreur s'est produite !",
-    "donation_card_button_donate": "Faire un don",
     "app_restart_dialog_title": "Redémarrage nécessaire",
     "app_restart_dialog_info": "Mindful redémarrera automatiquement à la fin du compte à rebours. Merci de patienter le temps que les modifications soient appliquées.",
     "@----------------------------- TIPS -----------------------------": {},
@@ -140,15 +137,6 @@
     "@----------------------------- PARENTAL CONTROLS SCREEN-----------------------------": {},
     "@----------------------------- SHORTS BLOCKING SCREEN-----------------------------": {},
     "short_content_heading": "Contenu court",
-    "shorts_time_left_from": "Temps restant sur {timeShortString}",
-    "@shorts_time_left_from": {
-        "placeholders": {
-            "timeShortString": {
-                "type": "String",
-                "example": "1h 23m"
-            }
-        }
-    },
     "@----------------------------- WEBSITES BLOCKING SCREEN-----------------------------": {},
     "adult_content_heading": "Contenu pour adultes",
     "block_nsfw_title": "Bloquer le NSFW",

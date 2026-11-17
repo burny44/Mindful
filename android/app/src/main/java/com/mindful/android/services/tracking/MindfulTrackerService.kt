@@ -7,6 +7,9 @@ import android.util.Log
 import androidx.annotation.WorkerThread
 import com.mindful.android.AppConstants
 import com.mindful.android.R
+import com.mindful.android.utils.DateTimeUtils
+import com.mindful.android.models.RestrictionState
+import com.mindful.android.enums.RestrictionType
 import com.mindful.android.generics.ServiceBinder
 import com.mindful.android.helpers.device.NotificationHelper
 import com.mindful.android.helpers.storage.SharedPrefsHelper
@@ -92,7 +95,14 @@ class MindfulTrackerService : Service() {
 
             currentOrFutureState?.let {
                 /// Already restricted
-                if (it.timeLeftMillis <= 0L) {
+                val pillMessage = if (it.timeLeftMillis <= 0L) lightBlockMessage(it) else null
+                if (pillMessage != null) {
+                    /// Nothing can be done right now, keep it light
+                    overlayManager.showBlockedPill(
+                        packageName = packageName,
+                        message = pillMessage,
+                    )
+                } else if (it.timeLeftMillis <= 0L) {
                     overlayManager.showSheetOverlay(
                         packageName = packageName,
                         restrictionState = it,
@@ -100,12 +110,17 @@ class MindfulTrackerService : Service() {
                             val breakMs =
                                 restrictionManager.takeScheduledFocusBreak(sessionId)
                             if (breakMs != null) {
-                                /// Re-check when the break ends so the overlay
-                                /// returns if they are still in the blocked app.
-                                reminderManager.scheduleReminders(
-                                    packageName = packageName,
-                                    state = it.copy(timeLeftMillis = breakMs),
-                                )
+                                /// The app is already open, so there won't be a new launch.
+                                /// Recheck it now: the app's own limits (e.g. its timer)
+                                /// still apply during the break, recheck at the nearest of
+                                /// the break end and those limits.
+                                val next = restrictionManager.isAppRestricted(
+                                    packageName,
+                                    countLaunch = false,
+                                ) ?: it.copy(timeLeftMillis = breakMs)
+
+                                if (next.timeLeftMillis <= 0L) onNewAppLaunch(packageName)
+                                else reminderManager.scheduleReminders(packageName, next)
                             }
                         },
                     )
@@ -122,6 +137,31 @@ class MindfulTrackerService : Service() {
             SharedPrefsHelper.insertCrashLogToPrefs(this, e)
             Log.e(TAG, "onNewAppLaunch: Failed to process new app launch event", e)
         }
+    }
+
+    /**
+     * Message for the small pill when the app is blocked and there is nothing to choose
+     * (a used up app timer, an earn-unlock session, or a focus session without breaks
+     * left), null if the full
+     * sheet should be shown instead.
+     */
+    private fun lightBlockMessage(state: RestrictionState): String? = when {
+        state.type == RestrictionType.SCHEDULED_FOCUS && !state.canTakeBreak ->
+            getString(R.string.app_paused_pill_scheduled_focus, state.groupName ?: "")
+
+        state.type == RestrictionType.APP_TIMER ->
+            getString(R.string.app_paused_pill_app_timer)
+
+        /// Earn-unlock has no breaks, the time has to be earned first
+        state.type == RestrictionType.FOCUS_UNLOCK ->
+            getString(
+                R.string.app_paused_pill_focus_unlock,
+                state.groupName ?: "",
+                DateTimeUtils.minutesToTimeStr((state.screenTimeUsed / 60).toInt()),
+                DateTimeUtils.minutesToTimeStr(((state.screenTimeLimit + 59) / 60).toInt()),
+            )
+
+        else -> null
     }
 
     private fun stopIfNoUsage() {

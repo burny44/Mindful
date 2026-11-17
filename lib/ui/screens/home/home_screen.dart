@@ -8,29 +8,20 @@
  *
  */
 
-import 'dart:math';
-
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mindful/config/navigation/app_routes.dart';
 import 'package:mindful/core/extensions/ext_build_context.dart';
-import 'package:mindful/core/services/method_channel_service.dart';
-import 'package:mindful/config/app_constants.dart';
-import 'package:mindful/config/hero_tags.dart';
 import 'package:mindful/providers/system/mindful_settings_provider.dart';
-import 'package:mindful/providers/system/permissions_provider.dart';
 import 'package:mindful/ui/common/scaffold_shell.dart';
-import 'package:mindful/ui/dialogs/confirmation_dialog.dart';
 import 'package:mindful/ui/screens/home/dashboard/focus_now_fab.dart';
 import 'package:mindful/ui/screens/home/dashboard/greetings_username.dart';
 import 'package:mindful/ui/screens/home/dashboard/tab_dashboard.dart';
 import 'package:mindful/ui/screens/home/notifications/new_notification_schedule_fab.dart';
 import 'package:mindful/ui/screens/home/statistics/tab_statistics.dart';
 import 'package:mindful/ui/screens/home/notifications/tab_notifications.dart';
-import 'package:mindful/ui/transitions/default_hero.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({
@@ -45,42 +36,6 @@ class HomeScreen extends ConsumerStatefulWidget {
 }
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance
-        .addPostFrameCallback((_) => _maybeShowDonationDialog());
-  }
-
-  void _maybeShowDonationDialog() async {
-    final perms =
-        await ref.read(permissionProvider.notifier).fetchPermissionsStatus();
-    if (!mounted || !perms.haveAllHomeRequiredPermissions) return;
-    _showDonationDialog();
-  }
-
-  void _showDonationDialog() async {
-    await Future.delayed(10.seconds);
-
-    /// Add randomness (1 out of 10) to skip showing sometimes whenever possible
-    final prob = Random().nextInt(10);
-    debugPrint("Show donation dialog? : ${prob == 1}");
-    if (!mounted || prob != 1) return;
-
-    final isConfirm = await showConfirmationDialog(
-      context: context,
-      heroTag: HeroTags.donationDialogTag,
-      title: context.locale.donation_card_title,
-      info: context.locale.donation_card_info,
-      icon: FluentIcons.handshake_20_regular,
-      positiveLabel: context.locale.donation_card_button_donate,
-    );
-
-    if (!isConfirm) return;
-    MethodChannelService.instance
-        .launchUrl(AppConstants.gitHubDonationSectionUrl);
-  }
-
   @override
   Widget build(BuildContext context) {
     final homeTab =
@@ -127,13 +82,9 @@ class _SettingsButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultHero(
-      tag: HeroTags.donationDialogTag,
-      child: IconButton(
-        icon: const Icon(FluentIcons.settings_20_filled),
-        onPressed: () =>
-            Navigator.of(context).pushNamed(AppRoutes.settingsPath),
-      ),
+    return IconButton(
+      icon: const Icon(FluentIcons.settings_20_filled),
+      onPressed: () => Navigator.of(context).pushNamed(AppRoutes.settingsPath),
     );
   }
 }

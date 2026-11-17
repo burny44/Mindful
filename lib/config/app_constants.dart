@@ -41,8 +41,6 @@ class AppConstants {
   static const githubSuggestionDirectUrl =
       "https://github.com/akaMrNagar/Mindful/issues/new?template=feature_request.md";
 
-  static const gitHubDonationSectionUrl =
-      "https://github.com/akaMrNagar/Mindful?tab=readme-ov-file#donate";
 
   static const githubFeedbackSectionUrl =
       "https://github.com/akaMrNagar/Mindful?tab=readme-ov-file#feedback-and-support";

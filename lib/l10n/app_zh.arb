@@ -94,10 +94,7 @@
     "imp_distracting_apps_snack_alert": "不允许将重要系统应用添加到分散注意力的应用列表中。",
     "custom_apps_quick_actions_unavailable_warning": "此应用的屏幕使用和限制不可用，目前仅可访问网络使用情况",
     "active_period_info": "设置允许访问的时间段。超出此时间范围，访问将受到限制。",
-    "donation_card_title": "支持我们",
-    "donation_card_info": "Mindful 是免费且开源的，经过数月的奉献开发。如果它对您有帮助，您的捐款将对我们意义重大。每一份贡献都帮助我们继续改进和维护它，以造福所有人。",
     "operation_failed_snack_alert": "操作失败，出了问题！",
-    "donation_card_button_donate": "捐赠",
     "app_restart_dialog_title": "需要重启",
     "app_restart_dialog_info": "Mindful 将在倒计时结束后自动重启。请耐心等待，应用正在应用更改。",
     "@----------------------------- TIPS -----------------------------": {},
@@ -153,16 +150,6 @@
     "shorts_blocking_tab_title": "短视频阻止",
     "shorts_blocking_tab_info": "控制您在Instagram、YouTube、Snapchat和Facebook等平台上花费在短内容上的时间，包括它们的网站。",
     "short_content_heading": "短内容",
-    "shorts_time_left_from": "剩余 {timeShortString}",
-    "@shorts_time_left_from": {
-        "placeholders": {
-            "timeShortString": {
-                "type": "String",
-                "example": "1h 23m"
-            }
-        }
-    },
-    "short_content_timer_picker_dialog_info": "为短内容设置每日时间限制。一旦达到限制，短内容将在午夜前暂停。",
     "instagram_features_tile_title": "Instagram",
     "instagram_features_tile_subtitle": "限制Instagram的功能。",
     "instagram_features_block_reels": "限制视频段部分。",

@@ -35,6 +35,9 @@
     <string name="app_paused_restriction_focus_unlock">Earn unlock</string>
     <string name="app_paused_reason_focus_unlock">This app stays paused until you spend the required time in the apps you picked for the \'%1$s\' session.</string>
     <string name="app_paused_restriction_scheduled_focus">Focus session</string>
+    <string name="app_paused_pill_focus_unlock" comment="Session name, time earned and time required. ex: 'Do Duolingo · 1m of 4m'" formatted="true">%1$s · %2$s of %3$s</string>
+    <string name="app_paused_pill_app_timer">Daily limit reached</string>
+    <string name="app_paused_pill_scheduled_focus" comment="Session name as placeholder">Paused by %1$s</string>
     <string name="app_paused_reason_scheduled_focus">This app is paused because the \'%1$s\' focus session is active.</string>
 
     <string name="app_paused_overlay_button_emergency">Emergency</string>
@@ -45,6 +48,9 @@
     <string name="app_paused_overlay_button_five_minutes">5 minutes</string>
     <string name="app_paused_overlay_button_ten_minutes">10 minutes</string>
     <string name="app_paused_overlay_button_twenty_minutes">20 minutes</string>
+    <string name="app_paused_overlay_button_back_to_app" comment="App name as placeholder. ex: 'Back to YouTube'" formatted="true">Back to %s</string>
+    <string name="blocked_content_youtube_shorts">YouTube Shorts</string>
+    <string name="blocked_content_instagram_reels">Instagram Reels</string>
     <string name="app_paused_overlay_button_close_app" comment="App name as placeholder. ex: 'Close Instagram'" formatted="true">Close %s</string>
     <string name="app_paused_overlay_button_take_break">Take a Break · %1$s  (%2$d/%3$d left)</string>
     <string name="app_paused_overlay_button_take_break_last">Take a Break · %1$s  (last break)</string>

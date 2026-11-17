@@ -19,6 +19,8 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Handler
 import android.os.Looper
+import android.os.PowerManager
+import android.provider.Settings
 import android.util.Log
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityEvent.TYPE_VIEW_SCROLLED
@@ -27,6 +29,7 @@ import android.view.accessibility.AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED
 import android.view.accessibility.AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED
 import android.view.accessibility.AccessibilityNodeInfo
 import com.mindful.android.AppConstants.FACEBOOK_PACKAGE
+import com.mindful.android.R
 import com.mindful.android.AppConstants.INSTAGRAM_PACKAGE
 import com.mindful.android.AppConstants.REDDIT_PACKAGE
 import com.mindful.android.AppConstants.SNAPCHAT_PACKAGE
@@ -37,6 +40,8 @@ import com.mindful.android.enums.PlatformFeatures
 import com.mindful.android.helpers.storage.SharedPrefsHelper
 import com.mindful.android.models.Wellbeing
 import com.mindful.android.receivers.DeviceAppsChangedReceiver
+import com.mindful.android.services.tracking.BlockedContent
+import com.mindful.android.services.tracking.OverlayManager
 import com.mindful.android.services.tracking.RestrictionManager
 import com.mindful.android.utils.ThreadUtils
 import com.mindful.android.utils.executors.Throttler
@@ -68,6 +73,12 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
         /// How long the focus-blocked reels/shorts state is reused before re-evaluating
         private const val FOCUS_CHECK_INTERVAL_MS = 3_000L
 
+        /// Ignore blocked reels/shorts for this long after leaving them (back animation)
+        private const val FOCUS_BACK_COOLDOWN_MS = 1_500L
+
+        /// Minimum time between two "take a break" sheets for blocked reels/shorts
+        private const val BREAK_OFFER_COOLDOWN_MS = 3_000L
+
         /// How long the fallback restriction manager (tracker not running) is reused
         private const val FALLBACK_MANAGER_TTL_MS = 30_000L
 
@@ -91,6 +102,12 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
     private val mainHandler = Handler(Looper.getMainLooper())
     private val isInstagramCheckScheduled = AtomicBoolean(false)
 
+    /// Reels/shorts watch time tracking
+    private val isShortFormHeartbeatScheduled = AtomicBoolean(false)
+    private var lastShortFormCheckAt = 0L
+    private var lastShortFormCheckPackage = ""
+    private val powerManager by lazy { getSystemService(POWER_SERVICE) as PowerManager }
+
     private var wellbeing = Wellbeing()
 
     /// Reels/shorts currently blocked by focus sessions or earn-unlock rules (cached)
@@ -99,12 +116,20 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
 
     @Volatile
     private var focusCheckedAt = 0L
+
+    @Volatile
+    private var lastBreakOfferAt = 0L
+
+    @Volatile
+    private var lastFocusBackAt = 0L
+    private lateinit var overlayManager: OverlayManager
     private var fallbackRestrictionManager: RestrictionManager? = null
     private var fallbackCreatedAt = 0L
 
     override fun onCreate() {
         super.onCreate()
         trackingManager = TrackingManager(context = this)
+        overlayManager = OverlayManager(this)
         instagramReelsLock = InstagramReelsLock(service = this)
         shortsPlatformManager = ShortsPlatformManager(
             context = this,
@@ -128,7 +153,7 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         when (intent?.action) {
             ACTION_MIDNIGHT_ACCESSIBILITY_RESET -> {
-                shortsPlatformManager.resetShortsScreenTime()
+                // Short content time is stored per day, nothing to reset
                 Log.d(TAG, "onStartCommand: Midnight reset completed")
             }
 
@@ -182,16 +207,16 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
                     // Broadcast event
                     trackingManager.onNewEvent("${it.packageName}")
 
+                    // Measure reels/shorts watch time
+                    observeShortForm(it)
+
                     // Reels/shorts blocked by a focus session leave immediately
                     val focusBlocked = refreshFocusBlockedFeatures()
 
                     // Show or hide the Instagram reels tab lock
                     updateInstagramReelsLock(it, focusBlocked)
 
-                    if (shortsPlatformManager.blockFocusedContent(
-                            eventPackageName, it, focusBlocked
-                        )
-                    ) return@submit
+                    if (leaveFocusedContent(eventPackageName, it, focusBlocked)) return@submit
 
                     // Only process if any of the content is blocked
                     if (shouldBlockContent()) {
@@ -221,13 +246,12 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
 
             executorService.submit {
                 val root = rootInActiveWindow ?: return@submit
+                observeShortForm(root, force = true)
                 val focusBlocked = refreshFocusBlockedFeatures()
                 updateInstagramReelsLock(root, focusBlocked)
 
                 if (root.packageName?.toString() == INSTAGRAM_PACKAGE
-                    && shortsPlatformManager.blockFocusedContent(
-                        INSTAGRAM_PACKAGE, root, focusBlocked
-                    )
+                    && leaveFocusedContent(INSTAGRAM_PACKAGE, root, focusBlocked)
                 ) return@submit
 
                 if (root.packageName?.toString() == INSTAGRAM_PACKAGE && shouldBlockContent()) {
@@ -235,6 +259,53 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
                 }
             }
         }, INSTAGRAM_CONTENT_CHECK_DELAY_MS)
+    }
+
+    /**
+     * Reports to [ShortFormUsageTracker] whether a reels/shorts viewer is open in [node]'s
+     * window. Tree lookups only run for Instagram/YouTube and at most once a second per app
+     * (unless [force]); the heartbeat covers the time in between.
+     */
+    private fun observeShortForm(node: AccessibilityNodeInfo, force: Boolean = false) {
+        try {
+            val pkg = node.packageName?.toString() ?: return
+            // Browsers are measured by the browser manager (it knows the url)
+            if (browserPackages.contains(pkg)) return
+            val now = System.currentTimeMillis()
+            if (!force && pkg == lastShortFormCheckPackage && now - lastShortFormCheckAt < 1_000L) return
+            lastShortFormCheckPackage = pkg
+            lastShortFormCheckAt = now
+
+            val target = if (powerManager.isInteractive)
+                shortsPlatformManager.detectShortContent(node, wellbeing) else null
+            ShortFormUsageTracker.observe(this, target, now)
+            if (target != null) scheduleShortFormHeartbeat()
+        } catch (e: Exception) {
+            Log.e(TAG, "observeShortForm: Failed to observe short form content", e)
+        }
+    }
+
+    /**
+     * While a reels/shorts viewer is open, re-checks the screen every
+     * [ShortFormUsageTracker.HEARTBEAT_MS] so watching without touching is counted and
+     * leaving (screen off, other app) is noticed.
+     */
+    private fun scheduleShortFormHeartbeat() {
+        if (!isShortFormHeartbeatScheduled.compareAndSet(false, true)) return
+
+        mainHandler.postDelayed({
+            isShortFormHeartbeatScheduled.set(false)
+            if (executorService.isShutdown) return@postDelayed
+
+            executorService.submit {
+                val root = rootInActiveWindow
+                if (root == null || !powerManager.isInteractive) {
+                    ShortFormUsageTracker.observe(this, null)
+                } else {
+                    observeShortForm(root, force = true)
+                }
+            }
+        }, ShortFormUsageTracker.HEARTBEAT_MS)
     }
 
     /**
@@ -269,6 +340,80 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
      * Uses the running tracker service's state (so manual breaks are respected) and falls back
      * to a short-lived manager built from the saved sessions when the tracker is not running.
      */
+    /**
+     * Leaves Reels/Shorts blocked by focus (one back press) and offers a break. Returns
+     * true if blocked content was handled.
+     *
+     * Only one back press per visit: right after it (and while the break sheet is shown)
+     * the app can still report the old viewer, a second back would close the app.
+     */
+    private fun leaveFocusedContent(
+        packageName: String,
+        node: AccessibilityNodeInfo,
+        focusBlocked: Set<PlatformFeatures>,
+    ): Boolean {
+        if (focusBlocked.isEmpty()) return false
+
+        synchronized(this) {
+            /// Right after leaving (or while the sheet is shown) swallow the event entirely,
+            /// so no other blocker (in-app limits, allowance) presses back a second time.
+            val now = System.currentTimeMillis()
+            if (OverlayManager.isSheetShowing || now - lastFocusBackAt < FOCUS_BACK_COOLDOWN_MS) {
+                return true
+            }
+
+            if (!shortsPlatformManager.blockFocusedContent(packageName, node, focusBlocked)) {
+                return false
+            }
+            lastFocusBackAt = now
+        }
+        offerFocusBreak(packageName)
+        return true
+    }
+
+    /**
+     * After Reels/Shorts blocked by a scheduled focus session were left, shows the blocking
+     * sheet with "Back to <app>" and "Take a Break" if the session still has breaks left.
+     * Without breaks the content is only left, as before.
+     */
+    private fun offerFocusBreak(packageName: String) {
+        try {
+            val manager = RestrictionManager.active ?: return
+            val isInstagram = packageName == INSTAGRAM_PACKAGE
+            val target = if (isInstagram) VIRTUAL_INSTAGRAM_REELS else VIRTUAL_YOUTUBE_SHORTS
+            val state = manager.scheduledFocusBlockOf(target) ?: return
+            if (!state.canTakeBreak || !Settings.canDrawOverlays(this)) return
+
+            /// One sheet per visit, the blocked content fires many events
+            val now = System.currentTimeMillis()
+            if (now - lastBreakOfferAt < BREAK_OFFER_COOLDOWN_MS) return
+            lastBreakOfferAt = now
+
+            val appName = packageManager.getApplicationLabel(
+                packageManager.getApplicationInfo(packageName, 0)
+            ).toString()
+
+            overlayManager.showSheetOverlay(
+                packageName = packageName,
+                restrictionState = state,
+                onTakeBreak = { sessionId ->
+                    manager.takeScheduledFocusBreak(sessionId)
+                    /// Re-evaluate right away so the content is free immediately
+                    focusCheckedAt = 0L
+                },
+                content = BlockedContent(
+                    title = getString(
+                        if (isInstagram) R.string.blocked_content_instagram_reels
+                        else R.string.blocked_content_youtube_shorts
+                    ),
+                    closeLabel = getString(R.string.app_paused_overlay_button_back_to_app, appName),
+                ),
+            )
+        } catch (e: Exception) {
+            Log.e(TAG, "offerFocusBreak: Failed to show the break sheet", e)
+        }
+    }
+
     @Synchronized
     private fun refreshFocusBlockedFeatures(): Set<PlatformFeatures> {
         val now = System.currentTimeMillis()
@@ -441,6 +586,7 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
     override fun onDestroy() {
         try {
             mainHandler.removeCallbacksAndMessages(null)
+            ShortFormUsageTracker.stop(this)
             instagramReelsLock.hide()
             executorService.shutdownNow()
             trackingManager.startManualTracking()

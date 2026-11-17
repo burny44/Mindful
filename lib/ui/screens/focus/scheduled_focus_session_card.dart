@@ -64,13 +64,12 @@ class ScheduledFocusSessionCard extends ConsumerWidget {
                 children: [
                   Icon(
                     session.isStrict
-                        ? FluentIcons.shield_lock_20_filled
-                        : FluentIcons.target_arrow_20_filled,
-                    color: session.isStrict
-                        ? Theme.of(context).colorScheme.error
-                        : Theme.of(context).colorScheme.primary,
+                        ? FluentIcons.shield_lock_20_regular
+                        : FluentIcons.target_arrow_20_regular,
+                    size: 22,
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
                   ),
-                  12.hBox,
+                  14.hBox,
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,7 +78,7 @@ class ScheduledFocusSessionCard extends ConsumerWidget {
                           session.name.isEmpty
                               ? context.locale.new_session_screen_title
                               : session.name,
-                          fontSize: 18,
+                          fontSize: 16,
                           fontWeight: FontWeight.w600,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
@@ -91,6 +90,7 @@ class ScheduledFocusSessionCard extends ConsumerWidget {
                                   session.scheduleEndTime.format(context),
                                 )
                               : context.locale.new_session_schedule_all_day,
+                          fontSize: 13,
                           color: Theme.of(context).hintColor,
                         ),
                       ],
@@ -103,14 +103,16 @@ class ScheduledFocusSessionCard extends ConsumerWidget {
                         vertical: 4,
                       ),
                       decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.errorContainer,
+                        border: Border.all(
+                          color: Theme.of(context).colorScheme.outlineVariant,
+                        ),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: StyledText(
                         context.locale.new_session_strict_badge,
-                        fontSize: 12,
+                        fontSize: 11,
                         fontWeight: FontWeight.w600,
-                        color: Theme.of(context).colorScheme.onErrorContainer,
+                        color: Theme.of(context).hintColor,
                       ),
                     ),
                 ],

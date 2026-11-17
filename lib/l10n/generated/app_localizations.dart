@@ -504,29 +504,11 @@ abstract class AppLocalizations {
   /// **'Set a time period during which access will be allowed. Outside of this time frame, access will be restricted.'**
   String get active_period_info;
 
-  /// No description provided for @donation_card_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Support us'**
-  String get donation_card_title;
-
-  /// No description provided for @donation_card_info.
-  ///
-  /// In en, this message translates to:
-  /// **'Mindful is free and open-source, developed with months of dedication. If it has helped you, your donation would mean the world to us. Every contribution helps us continue improving and maintaining it for everyone.'**
-  String get donation_card_info;
-
   /// No description provided for @operation_failed_snack_alert.
   ///
   /// In en, this message translates to:
   /// **'Operation failed, something went wrong!'**
   String get operation_failed_snack_alert;
-
-  /// No description provided for @donation_card_button_donate.
-  ///
-  /// In en, this message translates to:
-  /// **'Donate'**
-  String get donation_card_button_donate;
 
   /// No description provided for @app_restart_dialog_title.
   ///
@@ -863,12 +845,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'YouTube Shorts'**
   String get virtual_app_youtube_shorts;
-
-  /// No description provided for @in_app_blocking_card_subtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Blocked inside the app'**
-  String get in_app_blocking_card_subtitle;
 
   /// No description provided for @new_session_save_button.
   ///
@@ -1248,18 +1224,6 @@ abstract class AppLocalizations {
   /// **'Short content'**
   String get short_content_heading;
 
-  /// No description provided for @shorts_time_left_from.
-  ///
-  /// In en, this message translates to:
-  /// **'Left from {timeShortString}'**
-  String shorts_time_left_from(String timeShortString);
-
-  /// No description provided for @short_content_timer_picker_dialog_info.
-  ///
-  /// In en, this message translates to:
-  /// **'Set a daily time limit for short content. Once your limit is reached, the short content will be paused until midnight.'**
-  String get short_content_timer_picker_dialog_info;
-
   /// No description provided for @instagram_features_tile_title.
   ///
   /// In en, this message translates to:
@@ -1283,36 +1247,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Restrict explore section.'**
   String get instagram_features_block_explore;
-
-  /// No description provided for @instagram_usage_limit_tile_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Only after daily Instagram use'**
-  String get instagram_usage_limit_tile_title;
-
-  /// No description provided for @instagram_usage_limit_tile_subtitle_off.
-  ///
-  /// In en, this message translates to:
-  /// **'Block reels only after using Instagram for a set time each day.'**
-  String get instagram_usage_limit_tile_subtitle_off;
-
-  /// No description provided for @instagram_usage_limit_tile_subtitle_on.
-  ///
-  /// In en, this message translates to:
-  /// **'Reels get blocked after {time} of Instagram today.'**
-  String instagram_usage_limit_tile_subtitle_on(String time);
-
-  /// No description provided for @instagram_usage_limit_picker_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Daily Instagram time'**
-  String get instagram_usage_limit_picker_title;
-
-  /// No description provided for @instagram_usage_limit_picker_info.
-  ///
-  /// In en, this message translates to:
-  /// **'Reels stay available until you have used Instagram for this long today. After that, reels are blocked until midnight.'**
-  String get instagram_usage_limit_picker_info;
 
   /// No description provided for @in_app_blocking_feature_reels.
   ///
@@ -1344,11 +1278,65 @@ abstract class AppLocalizations {
   /// **'Shorts'**
   String get in_app_blocking_feature_shorts;
 
-  /// No description provided for @in_app_blocking_reels_after_usage.
+  /// No description provided for @in_app_blocking_locked.
   ///
   /// In en, this message translates to:
-  /// **'Reels after {time} of use'**
-  String in_app_blocking_reels_after_usage(String time);
+  /// **'Locked'**
+  String get in_app_blocking_locked;
+
+  /// No description provided for @content_limit_tile_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow {content} daily'**
+  String content_limit_tile_title(String content);
+
+  /// No description provided for @content_limit_tile_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Block {content} only after watching them for a set time each day.'**
+  String content_limit_tile_subtitle(String content);
+
+  /// No description provided for @content_limit_time_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily {content} time'**
+  String content_limit_time_title(String content);
+
+  /// No description provided for @content_limit_time_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{content} get blocked after {time} of watching today.'**
+  String content_limit_time_subtitle(String content, String time);
+
+  /// No description provided for @content_limit_picker_info.
+  ///
+  /// In en, this message translates to:
+  /// **'{content} stay available until you\'ve watched them for this long today. After that, they\'re blocked until midnight.'**
+  String content_limit_picker_info(String content);
+
+  /// No description provided for @short_allowance_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily allowance'**
+  String get short_allowance_title;
+
+  /// No description provided for @short_allowance_off.
+  ///
+  /// In en, this message translates to:
+  /// **'Off · blocked content is blocked right away'**
+  String get short_allowance_off;
+
+  /// No description provided for @short_allowance_used.
+  ///
+  /// In en, this message translates to:
+  /// **'{used} of {total} used today'**
+  String short_allowance_used(String used, String total);
+
+  /// No description provided for @short_allowance_picker_info.
+  ///
+  /// In en, this message translates to:
+  /// **'Shared time per day for blocked short content that has no limit of its own. Once it\'s used up, that content stays blocked until midnight.'**
+  String get short_allowance_picker_info;
 
   /// No description provided for @snapchat_features_tile_title.
   ///
@@ -1661,6 +1649,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'App timer'**
   String get app_timer_tile_title;
+
+  /// No description provided for @app_timer_strict_tile_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Strict limit'**
+  String get app_timer_strict_tile_title;
+
+  /// No description provided for @app_timer_strict_tile_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Once the limit is reached, it can\'t be changed until midnight.'**
+  String get app_timer_strict_tile_subtitle;
+
+  /// No description provided for @app_timer_strict_locked_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Limit reached · locked until midnight'**
+  String get app_timer_strict_locked_subtitle;
+
+  /// No description provided for @app_timer_strict_locked_snack.
+  ///
+  /// In en, this message translates to:
+  /// **'Strict limit reached. You can change it again after midnight.'**
+  String get app_timer_strict_locked_snack;
 
   /// No description provided for @app_timer_picker_dialog_info.
   ///

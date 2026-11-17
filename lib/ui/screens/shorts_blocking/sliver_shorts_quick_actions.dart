@@ -42,33 +42,6 @@ class SliverShortsQuickActions extends ConsumerWidget {
     ref.read(wellBeingProvider.notifier).insertRemoveBlockedFeature(feature);
   }
 
-  /// Default daily Instagram time used when the limit is switched on.
-  static const _defaultInstagramLimitSec = 30 * 60;
-
-  /// Switches the daily Instagram usage limit on (with a default time) or off.
-  void _toggleInstagramUsageLimit(WidgetRef ref, int currentLimitSec) =>
-      ref.read(wellBeingProvider.notifier).setInstagramUsageLimit(
-            currentLimitSec > 0 ? 0 : _defaultInstagramLimitSec,
-          );
-
-  /// Lets the user pick the daily Instagram time after which reels get blocked.
-  void _editInstagramUsageLimit(
-    BuildContext context,
-    WidgetRef ref,
-    int currentLimitSec,
-  ) async {
-    final limitSec = await showInstagramUsageLimitPicker(
-      context: context,
-      heroTag: HeroTags.instagramUsageLimitTileTag,
-      initialTime: currentLimitSec,
-    );
-
-    if (limitSec == null || limitSec <= 0 || limitSec == currentLimitSec) {
-      return;
-    }
-    ref.read(wellBeingProvider.notifier).setInstagramUsageLimit(limitSec);
-  }
-
   Widget _buildIcon(BuildContext context, String path) => Opacity(
         opacity: haveNecessaryPerms ? 1 : 0.5,
         child: SvgPicture.asset(
@@ -84,10 +57,11 @@ class SliverShortsQuickActions extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final blockedFeatures =
         ref.watch(wellBeingProvider.select((v) => v.blockedFeatures));
-    final instagramUsageLimitSec =
+    final reelsLimitSec =
         ref.watch(wellBeingProvider.select((v) => v.instagramUsageLimitSec));
-
-    final instagramLimitOn = instagramUsageLimitSec > 0;
+    final shortsLimitSec =
+        ref.watch(wellBeingProvider.select((v) => v.youtubeShortsLimitSec));
+    final notifier = ref.read(wellBeingProvider.notifier);
 
     bool isBlocked(PlatformFeatures f) => blockedFeatures.contains(f);
     int count(List<PlatformFeatures> fs) => fs.where(isBlocked).length;
@@ -127,55 +101,14 @@ class SliverShortsQuickActions extends ConsumerWidget {
               onPressed: () => toggle(PlatformFeatures.instagramReels),
             ),
 
-            /// Reels only after daily Instagram usage
-            DefaultListTile(
-              position: ItemPosition.bottom,
+            /// Reels only after watching them for a set time each day
+            _ContentLimitSection(
+              content: context.locale.in_app_blocking_feature_reels,
+              heroTag: HeroTags.instagramUsageLimitTileTag,
               enabled: haveNecessaryPerms &&
                   isBlocked(PlatformFeatures.instagramReels),
-              color: Theme.of(context).colorScheme.surfaceContainerHigh,
-              titleText: context.locale.instagram_usage_limit_tile_title,
-              subtitleText:
-                  context.locale.instagram_usage_limit_tile_subtitle_off,
-              switchValue: instagramLimitOn,
-              onPressed: () =>
-                  _toggleInstagramUsageLimit(ref, instagramUsageLimitSec),
-            ),
-
-            /// Separate time section, only shown while the toggle is on
-            AnimatedSize(
-              duration: const Duration(milliseconds: 250),
-              curve: Curves.easeOutCubic,
-              alignment: Alignment.topCenter,
-              child: instagramLimitOn
-                  ? Padding(
-                      padding: const EdgeInsets.only(top: 8),
-                      child: DefaultHero(
-                        tag: HeroTags.instagramUsageLimitTileTag,
-                        child: DefaultListTile(
-                          position: ItemPosition.none,
-                          enabled: haveNecessaryPerms &&
-                              isBlocked(PlatformFeatures.instagramReels),
-                          color:
-                              Theme.of(context).colorScheme.secondaryContainer,
-                          leadingIcon: FluentIcons.timer_20_regular,
-                          titleText:
-                              context.locale.instagram_usage_limit_picker_title,
-                          subtitleText: context.locale
-                              .instagram_usage_limit_tile_subtitle_on(
-                            Duration(seconds: instagramUsageLimitSec)
-                                .toTimeShort(context),
-                          ),
-                          trailing:
-                              const Icon(FluentIcons.edit_20_regular, size: 20),
-                          onPressed: () => _editInstagramUsageLimit(
-                            context,
-                            ref,
-                            instagramUsageLimitSec,
-                          ),
-                        ),
-                      ),
-                    )
-                  : const SizedBox(width: double.infinity),
+              limitSec: reelsLimitSec,
+              onChanged: notifier.setInstagramUsageLimit,
             ),
           ],
         ),
@@ -189,12 +122,22 @@ class SliverShortsQuickActions extends ConsumerWidget {
           subtitle: context.locale.youtube_features_tile_subtitle,
           children: [
             DefaultListTile(
-              position: ItemPosition.none,
+              position: ItemPosition.top,
               enabled: haveNecessaryPerms,
               color: Theme.of(context).colorScheme.surfaceContainerHigh,
               titleText: context.locale.in_app_blocking_feature_shorts,
               switchValue: isBlocked(PlatformFeatures.youtubeShorts),
               onPressed: () => toggle(PlatformFeatures.youtubeShorts),
+            ),
+
+            /// Shorts only after watching them for a set time each day
+            _ContentLimitSection(
+              content: context.locale.in_app_blocking_feature_shorts,
+              heroTag: HeroTags.youtubeShortsLimitTileTag,
+              enabled: haveNecessaryPerms &&
+                  isBlocked(PlatformFeatures.youtubeShorts),
+              limitSec: shortsLimitSec,
+              onChanged: notifier.setYoutubeShortsLimit,
             ),
           ],
         ),
@@ -395,6 +338,91 @@ class _PlatformCardState extends State<_PlatformCard> {
           ),
         ],
       ),
+    );
+  }
+}
+
+/// "Allow {content} daily" switch (bottom of a tile group) and, while it's on,
+/// a separate tile with the daily watch time that opens a picker.
+class _ContentLimitSection extends StatelessWidget {
+  const _ContentLimitSection({
+    required this.content,
+    required this.heroTag,
+    required this.enabled,
+    required this.limitSec,
+    required this.onChanged,
+  });
+
+  /// Display name of the content, e.g. "Reels"
+  final String content;
+  final Object heroTag;
+  final bool enabled;
+  final int limitSec;
+
+  /// Called with the new limit in seconds, 0 turns it off
+  final ValueChanged<int> onChanged;
+
+  static const _defaultLimitSec = 30 * 60;
+
+  void _editLimit(BuildContext context) async {
+    final newLimit = await showContentLimitPicker(
+      context: context,
+      heroTag: heroTag,
+      title: context.locale.content_limit_time_title(content),
+      info: context.locale.content_limit_picker_info(content),
+      initialTime: limitSec,
+    );
+    if (newLimit == null || newLimit <= 0 || newLimit == limitSec) return;
+    onChanged(newLimit);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final isOn = limitSec > 0;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        DefaultListTile(
+          position: ItemPosition.bottom,
+          enabled: enabled,
+          color: Theme.of(context).colorScheme.surfaceContainerHigh,
+          titleText: context.locale.content_limit_tile_title(content),
+          subtitleText: context.locale.content_limit_tile_subtitle(content),
+          switchValue: isOn,
+          onPressed: () => onChanged(isOn ? 0 : _defaultLimitSec),
+        ),
+
+        /// Separate time section, only shown while the switch is on
+        AnimatedSize(
+          duration: const Duration(milliseconds: 250),
+          curve: Curves.easeOutCubic,
+          alignment: Alignment.topCenter,
+          child: isOn
+              ? Padding(
+                  padding: const EdgeInsets.only(top: 8),
+                  child: DefaultHero(
+                    tag: heroTag,
+                    child: DefaultListTile(
+                      position: ItemPosition.none,
+                      enabled: enabled,
+                      color: Theme.of(context).colorScheme.secondaryContainer,
+                      leadingIcon: FluentIcons.timer_20_regular,
+                      titleText:
+                          context.locale.content_limit_time_title(content),
+                      subtitleText: context.locale.content_limit_time_subtitle(
+                        content,
+                        Duration(seconds: limitSec).toTimeShort(context),
+                      ),
+                      trailing:
+                          const Icon(FluentIcons.edit_20_regular, size: 20),
+                      onPressed: () => _editLimit(context),
+                    ),
+                  ),
+                )
+              : const SizedBox(width: double.infinity),
+        ),
+      ],
     );
   }
 }
