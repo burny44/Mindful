@@ -38,6 +38,7 @@ class RestrictionManager(
         SharedPrefsHelper.getSetScheduledFocusSessions(context, null).filter { it.isValid }
 
     /// Manual "Take a Break" state for scheduled focus sessions (resets at midnight).
+    /// Persisted, so restarting Mindful neither gives the breaks back nor ends a break.
     private val manualBreakUntilBySession = HashMap<Long, Long>()
     private val breaksUsedTodayBySession = HashMap<Long, Int>()
 
@@ -48,6 +49,7 @@ class RestrictionManager(
     private val alreadyRestrictedApps = HashMap<String, RestrictionState>(0)
 
     init {
+        loadBreaks()
         Log.d(
             TAG,
             "init: restored ${scheduledFocusSessions.size} scheduled focus / " +
@@ -80,7 +82,43 @@ class RestrictionManager(
         appsLaunchCount.clear()
         manualBreakUntilBySession.clear()
         breaksUsedTodayBySession.clear()
+        saveBreaks()
     }
+
+    /** Restores today's breaks (used count and running break) saved by [saveBreaks]. */
+    private fun loadBreaks() {
+        try {
+            val json = context.getSharedPreferences(BREAKS_PREFS, Context.MODE_PRIVATE)
+                .getString(BREAKS_KEY, null) ?: return
+            val root = org.json.JSONObject(json)
+            if (root.optString("day") != todayKey()) return
+
+            root.optJSONObject("used")?.let { used ->
+                used.keys().forEach { breaksUsedTodayBySession[it.toLong()] = used.getInt(it) }
+            }
+            root.optJSONObject("until")?.let { until ->
+                until.keys().forEach { manualBreakUntilBySession[it.toLong()] = until.getLong(it) }
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "loadBreaks: Failed to restore focus breaks", e)
+        }
+    }
+
+    private fun saveBreaks() {
+        try {
+            val root = org.json.JSONObject()
+                .put("day", todayKey())
+                .put("used", org.json.JSONObject(breaksUsedTodayBySession.mapKeys { "${it.key}" }))
+                .put("until", org.json.JSONObject(manualBreakUntilBySession.mapKeys { "${it.key}" }))
+            context.getSharedPreferences(BREAKS_PREFS, Context.MODE_PRIVATE)
+                .edit().putString(BREAKS_KEY, root.toString()).apply()
+        } catch (e: Exception) {
+            Log.e(TAG, "saveBreaks: Failed to save focus breaks", e)
+        }
+    }
+
+    private fun todayKey(): String =
+        java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.US).format(java.util.Date())
 
     fun updateRestrictions(appsRestrictionsMap: HashMap<String, AppRestriction>) {
         appsRestrictions = appsRestrictionsMap
@@ -131,6 +169,7 @@ class RestrictionManager(
         val breakMs = session.breakDurationSec * 1000L
         breaksUsedTodayBySession[sessionId] = used + 1
         manualBreakUntilBySession[sessionId] = System.currentTimeMillis() + breakMs
+        saveBreaks()
 
         Log.d(
             TAG,
@@ -162,8 +201,13 @@ class RestrictionManager(
         val scheduledFocus = evaluateScheduledFocus(packageName)
         val focusBlocksNow = scheduledFocus != null && scheduledFocus.timeLeftMillis <= 0L
 
+        /// A session (or earn-unlock rule) which starts later, so the app gets blocked at
+        /// that moment even if it stays open until then.
+        val upcomingStart = if (focusBlocksNow) null else nextSessionStart(packageName)
+
         // If no restrictions
-        val restriction = appsRestrictions[packageName] ?: return scheduledFocus
+        val restriction = appsRestrictions[packageName]
+            ?: return listOfNotNull(scheduledFocus, upcomingStart).minByOrNull { it.timeLeftMillis }
 
         // Increment and Check app launch count (launches blocked by focus don't count)
         if (countLaunch && !focusBlocksNow) {
@@ -185,6 +229,7 @@ class RestrictionManager(
 
         if (focusBlocksNow) return scheduledFocus
         scheduledFocus?.let { futureStates.add(it) }
+        upcomingStart?.let { futureStates.add(it) }
 
         /// Return the nearest expiration
         return futureStates.minByOrNull { it.timeLeftMillis }
@@ -244,6 +289,40 @@ class RestrictionManager(
                     groupName = rule.name,
                     screenTimeUsed = spentSec,
                     screenTimeLimit = rule.requiredTimeSec.toLong(),
+                )
+            }
+    }
+
+    /**
+     * Returns a future state for the nearest start of a scheduled focus session or
+     * earn-unlock rule which blocks [packageName] but isn't active right now, so the app
+     * is rechecked at that moment. Days aren't checked here: the recheck itself does that
+     * and schedules the next one.
+     */
+    private fun nextSessionStart(packageName: String): RestrictionState? {
+        val focusStarts = scheduledFocusSessions
+            .filter { it.distractingApps.contains(packageName) && !isScheduledFocusInWindow(it) }
+            .map { it.name to it.scheduleStartTime }
+
+        val unlockStarts = focusUnlockRules
+            .filter {
+                it.unlockApps.contains(packageName)
+                        && !it.sourceApps.contains(packageName)
+                        && !isFocusUnlockScheduledNow(it)
+            }
+            .map { it.name to it.scheduleStartTime }
+
+        return (focusStarts + unlockStarts)
+            .map { (name, startTod) ->
+                /// At least a second, the window starts at the beginning of that minute
+                name to DateTimeUtils.todDifferenceFromNow(startTod).coerceAtLeast(1_000L)
+            }
+            .minByOrNull { it.second }
+            ?.let { (name, ms) ->
+                RestrictionState(
+                    type = RestrictionType.SCHEDULED_FOCUS,
+                    groupName = name,
+                    timeLeftMillis = ms,
                 )
             }
     }
@@ -437,6 +516,9 @@ class RestrictionManager(
     }
 
     companion object {
+        private const val BREAKS_PREFS = "FocusBreaks"
+        private const val BREAKS_KEY = "breaks"
+
         /**
          * The manager of the running tracker service, so the accessibility service can share its
          * session state (including manual breaks). Null when the tracker is not running.
